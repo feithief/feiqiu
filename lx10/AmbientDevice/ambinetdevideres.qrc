@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/PICS">
+        <file>resources/CIE1391.bmp</file>
+        <file>resources/logoNeicon.jpg</file>
+    </qresource>
+</RCC>
