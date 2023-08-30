@@ -1,0 +1,111 @@
+LIN_description_file ;
+LIN_protocol_version = "2.1" ;
+LIN_language_version = "2.1" ;
+LIN_speed = 19.200 kbps ;
+Nodes {
+    Master:VCU,5.0000 ms,0.1000 ms ;
+    Slaves:E52139;
+}
+Signals {
+    OUT0:8,0x00,VCU,E52139;
+    OUT1:8,0x00,VCU,E52139;
+    OUT2:8,0x00,E52139,VCU;
+    READ_0:8,{0xFF},E52139,VCU;
+    LIN_ERROR_RES:1,0x0,E52139,VCU;
+}
+Diagnostic_signals {
+    MasterReqB0:8,0;
+    MasterReqB1:8,0;
+    MasterReqB2:8,0;
+    MasterReqB3:8,0;
+    MasterReqB4:8,0;
+    MasterReqB5:8,0;
+    MasterReqB6:8,0;
+    MasterReqB7:8,0;
+    SlaveRespB0:8,0;
+    SlaveRespB1:8,0;
+    SlaveRespB2:8,0;
+    SlaveRespB3:8,0;
+    SlaveRespB4:8,0;
+    SlaveRespB5:8,0;
+    SlaveRespB6:8,0;
+    SlaveRespB7:8,0;
+}
+Frames {
+    VCU_E52139:0x0A,VCU,8{
+        OUT0,0;
+        OUT1,8;
+        OUT2,16;
+    }
+    E52139_VCU:0x0B,E52139,8{
+        READ_0,8;
+        LIN_ERROR_RES,0;
+    }
+}
+Diagnostic_frames {
+    MasterReq : 60 {
+        MasterReqB0,0;
+        MasterReqB1,8;
+        MasterReqB2,16;
+        MasterReqB3,24;
+        MasterReqB4,32;
+        MasterReqB5,40;
+        MasterReqB6,48;
+        MasterReqB7,56;
+    }
+    SlaveResp : 61 {
+        SlaveRespB0,0;
+        SlaveRespB1,8;
+        SlaveRespB2,16;
+        SlaveRespB3,24;
+        SlaveRespB4,32;
+        SlaveRespB5,40;
+        SlaveRespB6,48;
+        SlaveRespB7,56;
+    }
+}
+Node_attributes {
+    E52139 {
+        LIN_protocol = 2.1 ;
+        configured_NAD = 0x46 ;
+        initial_NAD = 0x46 ;
+        product_id = 0x0152, 0x6001, 0 ;
+        P2_min = 50.0000 ms ;
+        N_As_timeout = 1000.0000 ms ;
+        N_Cr_timeout = 1000.0000 ms ;
+        configurable_frames {
+            VCU_E52139;
+            E52139_VCU;
+        }
+    }
+}
+Schedule_tables {
+    Normal {
+        VCU_E52139 delay 100.0000 ms ;
+        E52139_VCU delay 100.0000 ms ;
+    }
+}
+Signal_encoding_types {
+    OUT0 {
+        physical_value,0,100,1.0000,0.0000,"%" ;
+    }
+    OUT1 {
+        physical_value,0,100,1.0000,0.0000,"%" ;
+    }
+    OUT2 {
+        physical_value,0,100,1.0000,0.0000,"%" ;
+    }
+    LinErrorRes {
+        logical_value,0x00,"LIN OK" ;
+        logical_value,0x01,"LIN ERROR" ;
+    }
+    READ_0 {
+        physical_value,0,255,1.0000,0.0000 ;
+    }
+}
+Signal_representation {
+    OUT0:OUT1,OUT0;
+    OUT2:OUT2;
+    LinErrorRes:LIN_ERROR_RES;
+    READ_0:READ_0;
+}
