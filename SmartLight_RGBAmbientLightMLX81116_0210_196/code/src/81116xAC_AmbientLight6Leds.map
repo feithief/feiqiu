@@ -1,0 +1,1109 @@
+Archive member included because of file (symbol)
+
+../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+                              obj/ModuleFlash.o (_EEPROM_WriteWord64_blocking)
+../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+                              obj/ModuleComm.o (_MLX16_RESET_SIGNED)
+../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+                              obj/ModuleFlash.o (_crc_ccitt)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mulsi3.o)
+                              obj/Algorithm.o (___mulsi3)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_umuldi3.o)
+                              obj/FloatLib.o (___mlx_umuldi3)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_lshrdi3.o)
+                              obj/FloatLib.o (___mlx_lshrdi3)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(divmod.o)
+                              obj/Algorithm.o (___divsi3)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmod.o)
+                              obj/Algorithm.o (___udivsi3)
+/cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmodsi.o)
+                              /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(divmod.o) (___udivmodsi4)
+
+Allocating common symbols
+Common symbol       size              file
+
+_tempu              0x4               obj/Algorithm.o
+_tempv              0x4               obj/Algorithm.o
+_pwmParam           0x24              obj/ModulePwm.o
+_led_voltage        0x24              obj/ModuleAdc.o
+_currentLedVoltage  0x24              obj/SystemControl.o
+_ouputPwm           0x24              obj/SystemMain.o
+_flashFlag          0x2               obj/ModuleFlash.o
+_currentColorSets   0x3c              obj/SystemMain.o
+_tempDenominator    0x4               obj/Algorithm.o
+_savedConfig        0xd0              obj/ModuleFlash.o
+_templ              0x4               obj/Algorithm.o
+
+Discarded input sections
+
+ .text          0x00000000        0x0 obj/fw_vectors.o
+ .data          0x00000000        0x0 obj/fw_vectors.o
+ .bss           0x00000000        0x0 obj/fw_vectors.o
+ .text          0x00000000        0x0 obj/main.o
+ .data          0x00000000        0x0 obj/main.o
+ .bss           0x00000000        0x0 obj/main.o
+ .text          0x00000000        0x0 obj/Algorithm.o
+ .data          0x00000000        0x0 obj/Algorithm.o
+ .bss           0x00000000        0x0 obj/Algorithm.o
+ .text          0x00000000        0x0 obj/FloatLib.o
+ .data          0x00000000        0x0 obj/FloatLib.o
+ .bss           0x00000000        0x0 obj/FloatLib.o
+ .text          0x00000000        0x0 obj/ModuleAdc.o
+ .data          0x00000000        0x0 obj/ModuleAdc.o
+ .bss           0x00000000        0x0 obj/ModuleAdc.o
+ .text          0x00000000        0x0 obj/ModuleComm.o
+ .data          0x00000000        0x0 obj/ModuleComm.o
+ .bss           0x00000000        0x0 obj/ModuleComm.o
+ .bss.frameType
+                0x00000000        0x2 obj/ModuleComm.o
+ .text          0x00000000        0x0 obj/ModuleFlash.o
+ .data          0x00000000        0x0 obj/ModuleFlash.o
+ .bss           0x00000000        0x0 obj/ModuleFlash.o
+ .text          0x00000000        0x0 obj/ModulePwm.o
+ .data          0x00000000        0x0 obj/ModulePwm.o
+ .bss           0x00000000        0x0 obj/ModulePwm.o
+ .text          0x00000000        0x0 obj/ModulePower.o
+ .data          0x00000000        0x0 obj/ModulePower.o
+ .bss           0x00000000        0x0 obj/ModulePower.o
+ .text          0x00000000        0x0 obj/ModuleWatchdog.o
+ .data          0x00000000        0x0 obj/ModuleWatchdog.o
+ .bss           0x00000000        0x0 obj/ModuleWatchdog.o
+ .text          0x00000000        0x0 obj/ModuleTemprature.o
+ .data          0x00000000        0x0 obj/ModuleTemprature.o
+ .bss           0x00000000        0x0 obj/ModuleTemprature.o
+ .text          0x00000000        0x0 obj/ModuleBattery.o
+ .data          0x00000000        0x0 obj/ModuleBattery.o
+ .bss           0x00000000        0x0 obj/ModuleBattery.o
+ .text.moduleBatteryInit
+                0x00000000       0x1e obj/ModuleBattery.o
+ .text.moduleBatteryGet
+                0x00000000        0x6 obj/ModuleBattery.o
+ .text          0x00000000        0x0 obj/SystemMain.o
+ .data          0x00000000        0x0 obj/SystemMain.o
+ .bss           0x00000000        0x0 obj/SystemMain.o
+ .text          0x00000000        0x0 obj/SystemStatus.o
+ .data          0x00000000        0x0 obj/SystemStatus.o
+ .bss           0x00000000        0x0 obj/SystemStatus.o
+ .text          0x00000000        0x0 obj/SystemControl.o
+ .data          0x00000000        0x0 obj/SystemControl.o
+ .bss           0x00000000        0x0 obj/SystemControl.o
+ .text          0x00000000        0x0 obj/fw_premain.o
+ .data          0x00000000        0x0 obj/fw_premain.o
+ .bss           0x00000000        0x0 obj/fw_premain.o
+ .text          0x00000000        0x0 obj/fw_startup.o
+ .data          0x00000000        0x0 obj/fw_startup.o
+ .bss           0x00000000        0x0 obj/fw_startup.o
+ .text          0x00000000        0x0 obj/fw_ram_section_init.o
+ .data          0x00000000        0x0 obj/fw_ram_section_init.o
+ .bss           0x00000000        0x0 obj/fw_ram_section_init.o
+ .text          0x00000000        0x0 obj/fw_ints.o
+ .data          0x00000000        0x0 obj/fw_ints.o
+ .bss           0x00000000        0x0 obj/fw_ints.o
+ .text._PWM_MASTER1_CMP_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._ADC_SAR_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._MFT_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._MFR_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._MHR_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._MER_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text._TX_TIMEOUT_INT
+                0x00000000       0x18 obj/fw_ints.o
+ .text          0x00000000      0x21c ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .data          0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .bss           0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_abbrev  0x00000000      0x1ae ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_info    0x00000000      0x8f6 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_line    0x00000000      0x2ad ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_frame   0x00000000       0x8a ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_loc     0x00000000      0x1d2 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_pubnames
+                0x00000000       0x6a ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_pubtypes
+                0x00000000       0x58 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_aranges
+                0x00000000       0x14 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_ranges  0x00000000       0x18 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .debug_str     0x00000000      0xb2f ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .comment       0x00000000       0x27 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(eeprom_wr.o)
+ .text          0x00000000       0x7c ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .data          0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .bss           0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_abbrev  0x00000000      0x101 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_info    0x00000000      0x6ef ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_line    0x00000000      0x1ca ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_frame   0x00000000       0x6a ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_loc     0x00000000       0x62 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_pubnames
+                0x00000000       0x7b ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_pubtypes
+                0x00000000       0x2b ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_aranges
+                0x00000000       0x14 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .debug_str     0x00000000      0x953 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .comment       0x00000000       0x27 ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a(bl_tools.o)
+ .data          0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+ .bss           0x00000000        0x0 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mulsi3.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mulsi3.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_umuldi3.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_umuldi3.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_lshrdi3.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_lshrdi3.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(divmod.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(divmod.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmod.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmod.o)
+ .data          0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmodsi.o)
+ .bss           0x00000000        0x0 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmodsi.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+eeprom_patch     0x00000800         0x00000040         rw !x
+eeprom_custom    0x00000840         0x00000170         rw !x
+eeprom_mlx       0x000009b0         0x00000090         rw !x
+eeprom_reg       0x00000a40         0x00000006         rw !x
+ram              0x00001000         0x000007e0         xrw
+bl_ram           0x000017e0         0x00000018         rw
+bist_stat        0x000017f8         0x00000008         rw
+rom              0x00002000         0x00001ffc         xr
+rom_crc          0x00003ffc         0x00000004         xr
+flash_control    0x00005668         0x00000198         rw
+fw_vectors       0x00005800         0x000001b0         xr
+flash            0x000059b0         0x00007e34         xr
+fw_product_id    0x0000d7e4         0x00000008         r
+fw_app_version   0x0000d7ec         0x00000004         r
+fw_pltf_version  0x0000d7f0         0x00000004         r
+fw_prot_key      0x0000d7f4         0x00000008         r
+flash_crc        0x0000d7fc         0x00000004         r
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD obj/fw_vectors.o
+LOAD obj/main.o
+LOAD obj/Algorithm.o
+LOAD obj/FloatLib.o
+LOAD obj/ModuleAdc.o
+LOAD obj/ModuleComm.o
+LOAD obj/ModuleFlash.o
+LOAD obj/ModulePwm.o
+LOAD obj/ModulePower.o
+LOAD obj/ModuleWatchdog.o
+LOAD obj/ModuleTemprature.o
+LOAD obj/ModuleBattery.o
+LOAD obj/SystemMain.o
+LOAD obj/SystemStatus.o
+LOAD obj/SystemControl.o
+LOAD obj/fw_premain.o
+LOAD obj/fw_startup.o
+LOAD obj/fw_ram_section_init.o
+LOAD obj/fw_ints.o
+LOAD ../../code/camcu_platform/config/../lib/81116xAC/lib81116.a
+LOAD ../../code/camcu_platform/config/../lib/81116xAC/libamalthea_81116.a
+LOAD ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a
+LOAD ../../code/camcu_platform/config/../lib/81116xAC/libmath_81116.a
+                0x00ba0289                FL_SIGN = 0xba0289
+LOAD /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a
+LOAD /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/../../../../mlx16/lib/mlx16-fx/libc.a
+LOAD /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a
+START GROUP
+LOAD /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/../../../../mlx16/lib/mlx16-fx/libc.a
+LOAD /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a
+END GROUP
+                0x00001000                __dp__ = 0x1000
+                0x00000000                __io__ = 0x0
+                0x00000800                __ep__ = 0x800
+                0x00002000                __fp0__ = 0x2000
+                0x00002100                __fp1__ = 0x2100
+                0x00002200                __fp2__ = 0x2200
+                0x00002300                __fp3__ = 0x2300
+                0x00002400                __fp4__ = 0x2400
+                0x00002500                __fp5__ = 0x2500
+                0x00002600                __fp6__ = 0x2600
+                0x00000800                __fp7__ = 0x800
+
+.fw_vectors     0x00005800      0x1b0
+ *(.fw_vectors)
+ .fw_vectors    0x00005800      0x1b0 obj/fw_vectors.o
+                0x00005800                __fw_vectors
+
+.fw_sys_services
+ *(.fw_sys_services)
+
+.dp.data        0x00001000        0x0 load address 0x000059b0
+                0x00001000                . = ALIGN (0x2)
+                0x00001000                __ram_start = .
+                0x00001000                __data_dp_start = .
+ *(.dp.data)
+                0x00001000                . = ALIGN (0x2)
+                0x00001000                __data_dp_end = .
+                0x00000000                __data_dp_size = (__data_dp_end - __data_dp_start)
+                0x000059b0                __data_load_start = LOADADDR (.dp.data)
+
+.dp             0x00001000        0x0 load address 0x000059b0
+                0x00001000                . = ALIGN (0x2)
+                0x00001000                __bss_dp_start = .
+ *(.dp)
+                0x00001000                . = ALIGN (0x2)
+                0x00001000                __bss_dp_end = .
+                0x00000000                __bss_dp_size = (__bss_dp_end - __bss_dp_start)
+
+.data           0x00001000       0x5e load address 0x000059b0
+                0x00001000                . = ALIGN (0x2)
+                0x00001000                __data_start = .
+ *(.ramfunc)
+ *(.data)
+ *(.data.*)
+ .data.ledMeasEna
+                0x00001000       0x28 obj/ModuleAdc.o
+                0x00001000                _ledMeasEna
+ .data.adcData  0x00001028        0xa obj/ModuleAdc.o
+                0x00001028                _adcData
+ .data.meLiBuAATransmit
+                0x00001032        0x6 obj/ModuleComm.o
+                0x00001032                _meLiBuAATransmit
+ .data.meLiBuStateTransmit
+                0x00001038       0x12 obj/ModuleComm.o
+                0x00001038                _meLiBuStateTransmit
+ .data.flag_mcu_temperature_calculate_first_time
+                0x0000104a        0x1 obj/ModuleTemprature.o
+                0x0000104a                _flag_mcu_temperature_calculate_first_time
+ .data.flag_led_temperature_calculate_first_time
+                0x0000104b        0x1 obj/ModuleTemprature.o
+                0x0000104b                _flag_led_temperature_calculate_first_time
+ .data.lastcurrentLedTemp
+                0x0000104c        0xc obj/ModuleTemprature.o
+ .data.lastcurrentMcuTemp
+                0x00001058        0x2 obj/ModuleTemprature.o
+ .data.currentMcuTemp
+                0x0000105a        0x2 obj/ModuleTemprature.o
+ .data.currentVoltage
+                0x0000105c        0x2 obj/ModuleBattery.o
+                0x0000105e                . = ALIGN (0x2)
+                0x0000105e                __data_end = .
+                0x0000005e                __data_size = (__data_end - __data_start)
+
+.bss            0x0000105e      0x47e load address 0x00005a0e
+                0x0000105e                . = ALIGN (0x2)
+                0x0000105e                __bss_start = .
+ *(.bss)
+ *(.bss.*)
+ .bss.currentBlueCIE
+                0x0000105e       0x48 obj/Algorithm.o
+ .bss.currentGreenCIE
+                0x000010a6       0x48 obj/Algorithm.o
+ .bss.currentRedCIE
+                0x000010ee       0x48 obj/Algorithm.o
+ .bss.bluexyY   0x00001136       0x30 obj/Algorithm.o
+ .bss.greenxyY  0x00001166       0x30 obj/Algorithm.o
+ .bss.redxyY    0x00001196       0x30 obj/Algorithm.o
+ .bss.__currentADCchannel_3341
+                0x000011c6        0x2 obj/ModuleAdc.o
+ .bss.input_Voltage_Cache
+                0x000011c8        0x2 obj/ModuleAdc.o
+                0x000011c8                _input_Voltage_Cache
+ .bss.temperature_Cache
+                0x000011ca        0x2 obj/ModuleAdc.o
+                0x000011ca                _temperature_Cache
+ .bss.adcNewData
+                0x000011cc        0x2 obj/ModuleAdc.o
+                0x000011cc                _adcNewData
+ .bss.ledMeasValBuf
+                0x000011ce        0x2 obj/ModuleAdc.o
+                0x000011ce                _ledMeasValBuf
+ .bss.ledMeasChgReq
+                0x000011d0        0x2 obj/ModuleAdc.o
+                0x000011d0                _ledMeasChgReq
+ .bss.adcResults
+                0x000011d2        0x4 obj/ModuleAdc.o
+                0x000011d2                _adcResults
+ .bss.eeWriteIDFlag
+                0x000011d6        0x2 obj/ModuleComm.o
+                0x000011d6                _eeWriteIDFlag
+ .bss.aaoutflag
+                0x000011d8        0x1 obj/ModuleComm.o
+                0x000011d8                _aaoutflag
+ *fill*         0x000011d9        0x1 
+ .bss.melNewData
+                0x000011da        0x2 obj/ModuleComm.o
+                0x000011da                _melNewData
+ .bss.meLiBuLEDTransmitLock
+                0x000011dc        0x2 obj/ModuleComm.o
+                0x000011dc                _meLiBuLEDTransmitLock
+ .bss.meLiBuBufferB
+                0x000011de       0x28 obj/ModuleComm.o
+                0x000011de                _meLiBuBufferB
+ .bss.meLiBuBufferA
+                0x00001206       0x28 obj/ModuleComm.o
+                0x00001206                _meLiBuBufferA
+ .bss.lastAddr  0x0000122e        0x1 obj/ModuleFlash.o
+ .bss.ledMask   0x0000122f        0x1 obj/ModulePwm.o
+ .bss.pwmstat   0x00001230        0x2 obj/ModulePwm.o
+                0x00001230                _pwmstat
+ .bss.validPmwDuty
+                0x00001232        0x2 obj/ModulePwm.o
+                0x00001232                _validPmwDuty
+ .bss.pwmDuty   0x00001234       0x48 obj/ModulePwm.o
+                0x00001234                _pwmDuty
+ .bss.currentLedTemp
+                0x0000127c        0xc obj/ModuleTemprature.o
+ .bss.__Main_Loop_Cnt_1528
+                0x00001288        0x2 obj/SystemStatus.o
+ .bss.openState
+                0x0000128a        0x1 obj/SystemControl.o
+                0x0000128a                _openState
+ .bss.shortCutState
+                0x0000128b        0x1 obj/SystemControl.o
+                0x0000128b                _shortCutState
+ .bss.cntblueLedShortCut
+                0x0000128c        0xc obj/SystemControl.o
+                0x0000128c                _cntblueLedShortCut
+ .bss.cntblueLedOpen
+                0x00001298        0xc obj/SystemControl.o
+                0x00001298                _cntblueLedOpen
+ .bss.cntgreenLedShortCut
+                0x000012a4        0xc obj/SystemControl.o
+                0x000012a4                _cntgreenLedShortCut
+ .bss.cntgreenLedOpen
+                0x000012b0        0xc obj/SystemControl.o
+                0x000012b0                _cntgreenLedOpen
+ .bss.cntredLedShortCut
+                0x000012bc        0xc obj/SystemControl.o
+                0x000012bc                _cntredLedShortCut
+ .bss.cntredLedOpen
+                0x000012c8        0xc obj/SystemControl.o
+                0x000012c8                _cntredLedOpen
+ .bss.txData    0x000012d4       0x1e obj/SystemControl.o
+                0x000012d4                _txData
+ .bss.systemStatus
+                0x000012f2       0x1e obj/SystemControl.o
+                0x000012f2                _systemStatus
+ .bss.ledCalData
+                0x00001310       0x1e obj/SystemControl.o
+                0x00001310                _ledCalData
+ *(COMMON)
+ COMMON         0x0000132e       0x10 obj/Algorithm.o
+                0x0000132e                _tempu
+                0x00001332                _tempv
+                0x00001336                _tempDenominator
+                0x0000133a                _templ
+ COMMON         0x0000133e       0x24 obj/ModuleAdc.o
+                0x0000133e                _led_voltage
+ COMMON         0x00001362       0xd2 obj/ModuleFlash.o
+                0x00001362                _flashFlag
+                0x00001364                _savedConfig
+ COMMON         0x00001434       0x24 obj/ModulePwm.o
+                0x00001434                _pwmParam
+ COMMON         0x00001458       0x60 obj/SystemMain.o
+                0x00001458                _ouputPwm
+                0x0000147c                _currentColorSets
+ COMMON         0x000014b8       0x24 obj/SystemControl.o
+                0x000014b8                _currentLedVoltage
+                0x000014dc                . = ALIGN (0x2)
+                0x000014dc                __bss_end = .
+                0x0000047e                __bss_size = (__bss_end - __bss_start)
+
+.noinit         0x000014dc        0x0 load address 0x00005a0e
+                0x000014dc                . = ALIGN (0x2)
+                0x000014dc                __noinit_start = .
+ *(.noinit)
+                0x000014dc                . = ALIGN (0x2)
+                0x000014dc                __noinit_end = .
+                0x00000000                __noinit_size = (__noinit_end - __noinit_start)
+                0x000014dc                PROVIDE (_fw_stack, .)
+
+.bist_stat
+ *(.bist_stat)
+
+.flash_control
+ *(.flash_control)
+
+.eeprom_led_data
+                0x00000840        0x0 load address 0x00005a0e
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __ledsect_start = .
+ *(.led_data.CG_OFFSET)
+ *(.led_data.CG_SLOPE)
+ *(.led_data.B_OFFSET)
+ *(.led_data.M_SLOPE)
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __ledsect_end = .
+                0x00000000                __ledsect_size = (__ledsect_end - __ledsect_start)
+                0x00005a0e                __ledsect_load_start = LOADADDR (.eeprom_led_data)
+                0x00001800                PROVIDE (__ram_end, (__ram_start + 0x800))
+
+.flash_data     0x00005a0e     0x2eb2
+ *(.rodata)
+ .rodata        0x00005a0e        0x2 obj/ModuleAdc.o
+ .rodata        0x00005a10        0x8 obj/ModuleFlash.o
+ *(.rodata.*)
+ .rodata.TtoCIE
+                0x00005a18       0xa0 obj/Algorithm.o
+ .rodata.LEDADCINDEX
+                0x00005ab8       0x28 obj/ModuleAdc.o
+                0x00005ab8                _LEDADCINDEX
+ .rodata.ADCCHANNELLIST
+                0x00005ae0       0x50 obj/ModuleAdc.o
+                0x00005ae0                _ADCCHANNELLIST
+ .rodata.MelInterruptConfigurationDefault
+                0x00005b30        0x2 obj/ModuleComm.o
+                0x00005b30                _MelInterruptConfigurationDefault
+ .rodata.MelConfigurationDefault
+                0x00005b32        0xc obj/ModuleComm.o
+                0x00005b32                _MelConfigurationDefault
+ .rodata.LEDCHANNELMAP
+                0x00005b3e       0x24 obj/ModulePwm.o
+                0x00005b3e                _LEDCHANNELMAP
+ .rodata.systemProtocolControl
+                0x00005b62        0xa obj/SystemControl.o
+ *(.rodata._mlx_*)
+                0x00005b6c                . = ALIGN (0x2)
+ *(.led_data.WHITEPOINT)
+ *(.led_data.INVPOINT)
+ *(.led_data.BRIGHTNESSTAB)
+ *(.led_data.RGBTOXYZ)
+ *(.led_data.BLUETEMP)
+ *(.led_data.GREENTEMP)
+ *(.led_data.REDTEMP)
+ *(.led_data.XYZTORGB)
+ *(.led_data.MAXINTENSITY)
+ *(.led_data.SCALERGB)
+ *(.led_data.LIMITMAXOUTPUT)
+                0x00005b6c                . = ALIGN (0x2)
+ *(.text)
+ .text          0x00005b6c       0x3a ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+                0x00005b6c                _crc_ccitt
+ .text          0x00005ba6       0x2e /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mulsi3.o)
+                0x00005ba6                ___mulsi3
+                0x00005bb2                ___mulsi3_1
+                0x00005bc8                ___mulsi3_D
+ .text          0x00005bd4       0x70 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_umuldi3.o)
+                0x00005bd4                ___mlx_umuldi3
+ .text          0x00005c44       0x22 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(___mlx_lshrdi3.o)
+                0x00005c44                ___mlx_lshrdi3
+ .text          0x00005c66       0x6a /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(divmod.o)
+                0x00005c66                ___divsi3
+                0x00005c8e                ___modsi3
+                0x00005cb4                __divU32_U32byU16
+ .text          0x00005cd0        0x8 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmod.o)
+                0x00005cd0                ___udivsi3
+                0x00005cd4                ___umodsi3
+ .text          0x00005cd8       0x74 /cygdrive/c/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/bin/../lib/gcc/mlx16/7.1.0/mlx16-fx/libgcc.a(udivmodsi.o)
+                0x00005cd8                ___udivmodsi4
+ *(.text.*)
+ .text.startup.main
+                0x00005d4c        0xa obj/main.o
+                0x00005d4c                _main
+ .text.algoUpdateRedCIE
+                0x00005d56       0x2e obj/Algorithm.o
+                0x00005d56                _algoUpdateRedCIE
+ .text.algoUpdateGreenCIE
+                0x00005d84       0x2e obj/Algorithm.o
+                0x00005d84                _algoUpdateGreenCIE
+ .text.algoUpdateBlueCIE
+                0x00005db2       0x2e obj/Algorithm.o
+                0x00005db2                _algoUpdateBlueCIE
+ .text.algoGetPWMOutput
+                0x00005de0      0x88e obj/Algorithm.o
+                0x00005de0                _algoGetPWMOutput
+ .text.fix16_div
+                0x0000666e      0x230 obj/FloatLib.o
+                0x0000666e                _fix16_div
+ .text.fix16_mul
+                0x0000689e       0xda obj/FloatLib.o
+                0x0000689e                _fix16_mul
+ .text.moduleAdcInit
+                0x00006978       0x60 obj/ModuleAdc.o
+                0x00006978                _moduleAdcInit
+ .text.getLedAdcSampleState
+                0x000069d8       0x20 obj/ModuleAdc.o
+                0x000069d8                _getLedAdcSampleState
+ .text.moduleAdcLedEnable
+                0x000069f8       0x3a obj/ModuleAdc.o
+                0x000069f8                _moduleAdcLedEnable
+ .text.moduleAdcUpdate
+                0x00006a32       0x12 obj/ModuleAdc.o
+                0x00006a32                _moduleAdcUpdate
+ .text.moduleAdcDataReady
+                0x00006a44        0xe obj/ModuleAdc.o
+                0x00006a44                _moduleAdcDataReady
+ .text.moduleAdcDataClear
+                0x00006a52       0x12 obj/ModuleAdc.o
+                0x00006a52                _moduleAdcDataClear
+ .text.moduleAdcGetTemperature
+                0x00006a64        0x6 obj/ModuleAdc.o
+                0x00006a64                _moduleAdcGetTemperature
+ .text.moduleAdcGetVs
+                0x00006a6a        0x6 obj/ModuleAdc.o
+                0x00006a6a                _moduleAdcGetVs
+ .text.moduleAdcGetLedVoltage
+                0x00006a70       0x5c obj/ModuleAdc.o
+                0x00006a70                _moduleAdcGetLedVoltage
+ .text.moduleLedVoltageUpdate
+                0x00006acc        0x6 obj/ModuleAdc.o
+                0x00006acc                _moduleLedVoltageUpdate
+ .text._ADC_SAR_INT
+                0x00006ad2      0x106 obj/ModuleAdc.o
+                0x00006ad2                __ADC_SAR_INT
+ .text.moduleCommInit
+                0x00006bd8       0x6c obj/ModuleComm.o
+                0x00006bd8                _moduleCommInit
+ .text.moduleCommFlagUpdated
+                0x00006c44       0x10 obj/ModuleComm.o
+                0x00006c44                _moduleCommFlagUpdated
+ .text.moduleCommFlagClear
+                0x00006c54       0x12 obj/ModuleComm.o
+                0x00006c54                _moduleCommFlagClear
+ .text.moduleCommGetData
+                0x00006c66      0x1f2 obj/ModuleComm.o
+                0x00006c66                _moduleCommGetData
+ .text.Get_Transmit_Lock
+                0x00006e58        0x6 obj/ModuleComm.o
+                0x00006e58                _Get_Transmit_Lock
+ .text._MFT_INT
+                0x00006e5e       0x58 obj/ModuleComm.o
+                0x00006e5e                __MFT_INT
+ .text._MFR_INT
+                0x00006eb6        0xe obj/ModuleComm.o
+                0x00006eb6                __MFR_INT
+ .text._MHR_INT
+                0x00006ec4        0xe obj/ModuleComm.o
+                0x00006ec4                __MHR_INT
+ .text._MER_INT
+                0x00006ed2       0x14 obj/ModuleComm.o
+                0x00006ed2                __MER_INT
+ .text._TX_TIMEOUT_INT
+                0x00006ee6        0x4 obj/ModuleComm.o
+                0x00006ee6                __TX_TIMEOUT_INT
+ .text.__calcEEChecksum_constprop_1
+                0x00006eea       0x28 obj/ModuleFlash.o
+ .text.moduleFlashLoad
+                0x00006f12       0x22 obj/ModuleFlash.o
+                0x00006f12                _moduleFlashLoad
+ .text.moduleFlashSave
+                0x00006f34       0xbe obj/ModuleFlash.o
+                0x00006f34                _moduleFlashSave
+ .text.moduleFlashInit
+                0x00006ff2      0x14c obj/ModuleFlash.o
+                0x00006ff2                _moduleFlashInit
+ .text.Set_Last_Address
+                0x0000713e        0x6 obj/ModuleFlash.o
+                0x0000713e                _Set_Last_Address
+ .text.Auto_Addressing_Write_NAD_TO_EEPROM
+                0x00007144       0x38 obj/ModuleFlash.o
+                0x00007144                _Auto_Addressing_Write_NAD_TO_EEPROM
+ .text.modulePwmInit
+                0x0000717c      0x1e0 obj/ModulePwm.o
+                0x0000717c                _modulePwmInit
+ .text.modulePwmLedSpecialMask
+                0x0000735c        0x6 obj/ModulePwm.o
+                0x0000735c                _modulePwmLedSpecialMask
+ .text.modulePwmSet
+                0x00007362      0x276 obj/ModulePwm.o
+                0x00007362                _modulePwmSet
+ .text._PWM_MASTER1_CMP_INT
+                0x000075d8       0xa4 obj/ModulePwm.o
+                0x000075d8                __PWM_MASTER1_CMP_INT
+ .text.modulePowerEnterSleep
+                0x0000767c       0x5e obj/ModulePower.o
+                0x0000767c                _modulePowerEnterSleep
+ .text.moduleWDTInit
+                0x000076da        0x2 obj/ModuleWatchdog.o
+                0x000076da                _moduleWDTInit
+ .text.moduleWDTStart
+                0x000076dc        0x2 obj/ModuleWatchdog.o
+                0x000076dc                _moduleWDTStart
+ .text.moduleWDTFeed
+                0x000076de        0xe obj/ModuleWatchdog.o
+                0x000076de                _moduleWDTFeed
+ .text.moduleTempratureInit
+                0x000076ec       0x24 obj/ModuleTemprature.o
+                0x000076ec                _moduleTempratureInit
+ .text.moduleTempratureUpdate
+                0x00007710      0x24e obj/ModuleTemprature.o
+                0x00007710                _moduleTempratureUpdate
+ .text.moduleTempratureGetMcu
+                0x0000795e        0x6 obj/ModuleTemprature.o
+                0x0000795e                _moduleTempratureGetMcu
+ .text.moduleTempratureGetLed
+                0x00007964       0x12 obj/ModuleTemprature.o
+                0x00007964                _moduleTempratureGetLed
+ .text.moduleBatteryUpdate
+                0x00007976       0x20 obj/ModuleBattery.o
+                0x00007976                _moduleBatteryUpdate
+ .text.system_Init
+                0x00007996       0xe8 obj/SystemMain.o
+                0x00007996                _system_Init
+ .text.system_Main_Loop
+                0x00007a7e      0x120 obj/SystemMain.o
+                0x00007a7e                _system_Main_Loop
+ .text.systemStatusInit
+                0x00007b9e        0x6 obj/SystemStatus.o
+                0x00007b9e                _systemStatusInit
+ .text.systemStatusUpdate
+                0x00007ba4       0x36 obj/SystemStatus.o
+                0x00007ba4                _systemStatusUpdate
+ .text.systemControlInit
+                0x00007bda        0x2 obj/SystemControl.o
+                0x00007bda                _systemControlInit
+ .text.LedVoltageInit
+                0x00007bdc       0x1c obj/SystemControl.o
+                0x00007bdc                _LedVoltageInit
+ .text.ShortCutCntInit
+                0x00007bf8       0x22 obj/SystemControl.o
+                0x00007bf8                _ShortCutCntInit
+ .text.OpenCntInit
+                0x00007c1a       0x22 obj/SystemControl.o
+                0x00007c1a                _OpenCntInit
+ .text.slaveStatusBufferUpdate
+                0x00007c3c      0x296 obj/SystemControl.o
+                0x00007c3c                _slaveStatusBufferUpdate
+ .text.systemProtocolControl
+                0x00007ed2      0x518 obj/SystemControl.o
+                0x00007ed2                _systemProtocolControl
+ .text.fw_low_level_init
+                0x000083ea       0x86 obj/fw_premain.o
+                0x000083ea                _fw_low_level_init
+ .text.fw_premain
+                0x00008470       0x20 obj/fw_premain.o
+                0x00008470                _fw_premain
+ .text.fw_start
+                0x00008490       0x12 obj/fw_startup.o
+                0x00008490                _fw_start
+ .text.fw_ram_section_init
+                0x000084a2       0x96 obj/fw_ram_section_init.o
+                0x000084a2                _fw_ram_section_init
+ .text._MLX16_EXCHG_INT
+                0x00008538       0x18 obj/fw_ints.o
+                0x00008538                __MLX16_EXCHG_INT
+ .text._MLX16_DMAERR_INT
+                0x00008550       0x16 obj/fw_ints.o
+                0x00008550                __MLX16_DMAERR_INT
+ .text._AWD_ATT_INT
+                0x00008566       0x16 obj/fw_ints.o
+                0x00008566                __AWD_ATT_INT
+ .text._IWD_ATT_INT
+                0x0000857c       0x16 obj/fw_ints.o
+                0x0000857c                __IWD_ATT_INT
+ .text._EE_ECC_INT
+                0x00008592       0x16 obj/fw_ints.o
+                0x00008592                __EE_ECC_INT
+ .text._FL_ECC_INT
+                0x000085a8       0x16 obj/fw_ints.o
+                0x000085a8                __FL_ECC_INT
+ .text._UV_VDDA_INT
+                0x000085be       0x16 obj/fw_ints.o
+                0x000085be                __UV_VDDA_INT
+ .text._UV_VS_INT
+                0x000085d4       0x16 obj/fw_ints.o
+                0x000085d4                __UV_VS_INT
+ .text._OVT_INT
+                0x000085ea       0x16 obj/fw_ints.o
+                0x000085ea                __OVT_INT
+ .text._STIMER_INT
+                0x00008600       0x16 obj/fw_ints.o
+                0x00008600                __STIMER_INT
+ .text._CTIMER0_1_INT
+                0x00008616       0x16 obj/fw_ints.o
+                0x00008616                __CTIMER0_1_INT
+ .text._CTIMER0_2_INT
+                0x0000862c       0x16 obj/fw_ints.o
+                0x0000862c                __CTIMER0_2_INT
+ .text._CTIMER0_3_INT
+                0x00008642       0x16 obj/fw_ints.o
+                0x00008642                __CTIMER0_3_INT
+ .text._CTIMER1_1_INT
+                0x00008658       0x16 obj/fw_ints.o
+                0x00008658                __CTIMER1_1_INT
+ .text._CTIMER1_2_INT
+                0x0000866e       0x16 obj/fw_ints.o
+                0x0000866e                __CTIMER1_2_INT
+ .text._CTIMER1_3_INT
+                0x00008684       0x16 obj/fw_ints.o
+                0x00008684                __CTIMER1_3_INT
+ .text._PWM_MASTER1_END_INT
+                0x0000869a       0x16 obj/fw_ints.o
+                0x0000869a                __PWM_MASTER1_END_INT
+ .text._PWM_SLAVE1_CMP_INT
+                0x000086b0       0x16 obj/fw_ints.o
+                0x000086b0                __PWM_SLAVE1_CMP_INT
+ .text._PWM_SLAVE2_CMP_INT
+                0x000086c6       0x16 obj/fw_ints.o
+                0x000086c6                __PWM_SLAVE2_CMP_INT
+ .text._PWM_SLAVE3_CMP_INT
+                0x000086dc       0x16 obj/fw_ints.o
+                0x000086dc                __PWM_SLAVE3_CMP_INT
+ .text._PWM_SLAVE4_CMP_INT
+                0x000086f2       0x16 obj/fw_ints.o
+                0x000086f2                __PWM_SLAVE4_CMP_INT
+ .text._PWM_SLAVE5_CMP_INT
+                0x00008708       0x16 obj/fw_ints.o
+                0x00008708                __PWM_SLAVE5_CMP_INT
+ .text._PWM_SLAVE6_CMP_INT
+                0x0000871e       0x16 obj/fw_ints.o
+                0x0000871e                __PWM_SLAVE6_CMP_INT
+ .text._PWM_SLAVE7_CMP_INT
+                0x00008734       0x16 obj/fw_ints.o
+                0x00008734                __PWM_SLAVE7_CMP_INT
+ .text._PWM_SLAVE8_CMP_INT
+                0x0000874a       0x16 obj/fw_ints.o
+                0x0000874a                __PWM_SLAVE8_CMP_INT
+ .text._PWM_SLAVE9_CMP_INT
+                0x00008760       0x16 obj/fw_ints.o
+                0x00008760                __PWM_SLAVE9_CMP_INT
+ .text._PWM_SLAVE10_CMP_INT
+                0x00008776       0x16 obj/fw_ints.o
+                0x00008776                __PWM_SLAVE10_CMP_INT
+ .text._PWM_SLAVE11_CMP_INT
+                0x0000878c       0x16 obj/fw_ints.o
+                0x0000878c                __PWM_SLAVE11_CMP_INT
+ .text._EE_COMPLETE_INT
+                0x000087a2       0x16 obj/fw_ints.o
+                0x000087a2                __EE_COMPLETE_INT
+ .text._FL_COMPLETE_INT
+                0x000087b8       0x16 obj/fw_ints.o
+                0x000087b8                __FL_COMPLETE_INT
+ .text._OV_VS_INT
+                0x000087ce       0x16 obj/fw_ints.o
+                0x000087ce                __OV_VS_INT
+ .text._OVT_WARN_INT
+                0x000087e4       0x16 obj/fw_ints.o
+                0x000087e4                __OVT_WARN_INT
+ .text._UV_VDD5_INT
+                0x000087fa       0x16 obj/fw_ints.o
+                0x000087fa                __UV_VDD5_INT
+ .text._AA_IN_INT
+                0x00008810       0x16 obj/fw_ints.o
+                0x00008810                __AA_IN_INT
+ .text._UART_SB_INT
+                0x00008826       0x16 obj/fw_ints.o
+                0x00008826                __UART_SB_INT
+ .text._UART_RS_INT
+                0x0000883c       0x16 obj/fw_ints.o
+                0x0000883c                __UART_RS_INT
+ .text._UART_RR_INT
+                0x00008852       0x16 obj/fw_ints.o
+                0x00008852                __UART_RR_INT
+ .text._UART_TS_INT
+                0x00008868       0x16 obj/fw_ints.o
+                0x00008868                __UART_TS_INT
+ .text._UART_TR_INT
+                0x0000887e       0x16 obj/fw_ints.o
+                0x0000887e                __UART_TR_INT
+ .text._UART_TE_INT
+                0x00008894       0x16 obj/fw_ints.o
+                0x00008894                __UART_TE_INT
+ .text._MLX16_SOFT_INT
+                0x000088aa       0x16 obj/fw_ints.o
+                0x000088aa                __MLX16_SOFT_INT
+                0x000088c0                . = ALIGN (0x2)
+                0x000088c0                _etext = .
+
+.flash_fill     0x000088c0     0x4f24
+                0x000088c0                . = ALIGN (0x2)
+ FILL mask 0xff07
+                0x0000d7e2                . = ALIGN (((ABSOLUTE (ORIGIN (flash)) + 0x7e34) - 0x2))
+ *fill*         0x000088c0     0x4f22 ff07
+                0x0000d7e2        0x2 SHORT 0x7ff
+
+.fw_product_id  0x0000d7e4        0x0
+                0x0000d7e4                __fw_product_id_start = .
+ *(.fw_product_id)
+
+.fw_app_version
+                0x0000d7ec        0x0
+                0x0000d7ec                __fw_app_version_start = .
+ *(.fw_app_version)
+
+.fw_pltf_version
+                0x0000d7f0        0x0
+                0x0000d7f0                __fw_pltf_version_start = .
+ *(.fw_pltf_version)
+
+.fw_prot_key    0x0000d7f4        0x0
+                0x0000d7f4                __fw_prot_key_start = .
+ *(.fw_prot_key)
+
+.flash_crc      0x0000d7fc        0x4
+ *(.FL_SIGN)
+                0x0000d7fc        0x4 LONG 0xba0289 FL_SIGN
+
+.ep             0x00000840        0x0
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __bss_ep_start = .
+ *(.ep)
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __bss_ep_end = .
+
+.ep.data        0x00000840        0x0
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __data_ep_start = .
+ *(.ep.data)
+                0x00000840                . = ALIGN (0x2)
+                0x00000840                __data_ep_end = .
+
+.eeprom_patch
+ *(.eeprom_patch)
+
+.eeprom_mlx
+ *(.eeprom_cs)
+
+.eeprom_reg
+ *(.eeprom_reg)
+                0x00003454                _Mel_Start = 0x3454
+                0x0000347a                _Mel_Stop = 0x347a
+                0x0000349c                _Mel_Init = 0x349c
+                0x000034fe                _Mel_Restart = 0x34fe
+                0x00003510                _Mel_SetAAoutPin = 0x3510
+                0x00003522                _Mel_ClearAAoutPin = 0x3522
+                0x00003534                _Mel_GetAAinStatus = 0x3534
+                0x0000354c                _Mel_SetNewNAD = 0x354c
+                0x000035a2                _Mel_GetUartTxAndRxErrorStatus = 0x35a2
+                0x000032ba                _Mel_ConfigureInterrupts = 0x32ba
+                0x00003564                _Mel_CheckEpmCmd = 0x3564
+                0x00003942                _start = 0x3942
+                0x00003aca                _nvram_CalcCRC = 0x3aca
+                0x00002776                _FLASH_BistPrepare = 0x2776
+                0x000027a2                _FLASH_BistRun = 0x27a2
+                0x000039ce                _SetSystemSpeed = 0x39ce
+                0x0000285e                _ResetRstatFlag = 0x285e
+                0x00002826                _SetRstatFlag = 0x2826
+                0x00005036                OPCODE_CALL_FP_ENTER_SYSTEM_MODE_KEEP_PRIO = 0x5036
+                0x00005037                OPCODE_CALL_FP_ENTER_SYSTEM_MODE_PRIO_0 = 0x5037
+                0x000035c0                __fatal = 0x35c0
+                0x00002800                _dataCopy64 = 0x2800
+                0x00002816                _dataFill16 = 0x2816
+                0x00002838                _MLX16_RESET = 0x2838
+                0x00002852                _MLX16_RESET_SIGNED = 0x2852
+                0x00002228                _delay_cycles = 0x2228
+                0x000017e0                _bl_table = 0x17e0
+                0x00002776                _FLASH_BistPrepare = 0x2776
+                0x000027a2                _FLASH_BistRun = 0x27a2
+                0x000027ea                _FLASH_BistTest = 0x27ea
+                0x000022d4                _EEPROM_WriteWord64_blocking = 0x22d4
+                0x000023f8                _EEPROM_WriteWord64_nonblocking = 0x23f8
+                0x0000232a                _EEPROM_WriteData = 0x232a
+                0x000017f8                _bistHeader = 0x17f8
+                0x000017fa                _bistResetInfo = 0x17fa
+                0x000017fc                _bistError = 0x17fc
+                0x000017fe                _bistErrorInfo = 0x17fe
+OUTPUT(81116xAC_AmbientLight6Leds.elf elf32-mlx16-fx)
+
+.debug_frame    0x00000000     0x1c2a
+ .debug_frame   0x00000000       0x1e obj/main.o
+ .debug_frame   0x0000001e      0x3d4 obj/Algorithm.o
+ .debug_frame   0x000003f2      0x144 obj/FloatLib.o
+ .debug_frame   0x00000536       0xee obj/ModuleAdc.o
+ .debug_frame   0x00000624      0x114 obj/ModuleComm.o
+ .debug_frame   0x00000738       0xce obj/ModuleFlash.o
+ .debug_frame   0x00000806       0xa8 obj/ModulePwm.o
+ .debug_frame   0x000008ae       0x1e obj/ModulePower.o
+ .debug_frame   0x000008cc       0x36 obj/ModuleWatchdog.o
+ .debug_frame   0x00000902       0xf2 obj/ModuleTemprature.o
+ .debug_frame   0x000009f4       0x44 obj/ModuleBattery.o
+ .debug_frame   0x00000a38      0x10a obj/SystemMain.o
+ .debug_frame   0x00000b42       0x2a obj/SystemStatus.o
+ .debug_frame   0x00000b6c       0xfc obj/SystemControl.o
+ .debug_frame   0x00000c68       0x46 obj/fw_premain.o
+ .debug_frame   0x00000cae       0x1e obj/fw_startup.o
+ .debug_frame   0x00000ccc       0x26 obj/fw_ram_section_init.o
+ .debug_frame   0x00000cf2      0xf12 obj/fw_ints.o
+ .debug_frame   0x00001c04       0x26 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_info     0x00000000    0x1be70
+ .debug_info    0x00000000       0x78 obj/main.o
+ .debug_info    0x00000078      0xb1e obj/Algorithm.o
+ .debug_info    0x00000b96      0x2a5 obj/FloatLib.o
+ .debug_info    0x00000e3b     0x2bf5 obj/ModuleAdc.o
+ .debug_info    0x00003a30     0x350a obj/ModuleComm.o
+ .debug_info    0x00006f3a     0x27f0 obj/ModuleFlash.o
+ .debug_info    0x0000972a     0x35b5 obj/ModulePwm.o
+ .debug_info    0x0000ccdf     0x2699 obj/ModulePower.o
+ .debug_info    0x0000f378     0x23a5 obj/ModuleWatchdog.o
+ .debug_info    0x0001171d      0x489 obj/ModuleTemprature.o
+ .debug_info    0x00011ba6      0x358 obj/ModuleBattery.o
+ .debug_info    0x00011efe      0x59e obj/SystemMain.o
+ .debug_info    0x0001249c      0x13d obj/SystemStatus.o
+ .debug_info    0x000125d9     0x2a5f obj/SystemControl.o
+ .debug_info    0x00015038     0x243f obj/fw_premain.o
+ .debug_info    0x00017477     0x2357 obj/fw_startup.o
+ .debug_info    0x000197ce     0x23e4 obj/fw_ram_section_init.o
+ .debug_info    0x0001bbb2      0x20e obj/fw_ints.o
+ .debug_info    0x0001bdc0       0xb0 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_abbrev   0x00000000     0x1a74
+ .debug_abbrev  0x00000000       0x3d obj/main.o
+ .debug_abbrev  0x0000003d      0x20e obj/Algorithm.o
+ .debug_abbrev  0x0000024b      0x123 obj/FloatLib.o
+ .debug_abbrev  0x0000036e      0x2b0 obj/ModuleAdc.o
+ .debug_abbrev  0x0000061e      0x2e6 obj/ModuleComm.o
+ .debug_abbrev  0x00000904      0x20e obj/ModuleFlash.o
+ .debug_abbrev  0x00000b12      0x221 obj/ModulePwm.o
+ .debug_abbrev  0x00000d33      0x162 obj/ModulePower.o
+ .debug_abbrev  0x00000e95       0xf4 obj/ModuleWatchdog.o
+ .debug_abbrev  0x00000f89      0x1ae obj/ModuleTemprature.o
+ .debug_abbrev  0x00001137      0x165 obj/ModuleBattery.o
+ .debug_abbrev  0x0000129c      0x1c3 obj/SystemMain.o
+ .debug_abbrev  0x0000145f       0xa7 obj/SystemStatus.o
+ .debug_abbrev  0x00001506      0x22a obj/SystemControl.o
+ .debug_abbrev  0x00001730      0x154 obj/fw_premain.o
+ .debug_abbrev  0x00001884       0x9b obj/fw_startup.o
+ .debug_abbrev  0x0000191f       0xa6 obj/fw_ram_section_init.o
+ .debug_abbrev  0x000019c5       0x3f obj/fw_ints.o
+ .debug_abbrev  0x00001a04       0x70 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_aranges  0x00000000      0x230
+ .debug_aranges
+                0x00000000       0x14 obj/main.o
+ .debug_aranges
+                0x00000014       0x20 obj/Algorithm.o
+ .debug_aranges
+                0x00000034       0x18 obj/FloatLib.o
+ .debug_aranges
+                0x0000004c       0x3c obj/ModuleAdc.o
+ .debug_aranges
+                0x00000088       0x38 obj/ModuleComm.o
+ .debug_aranges
+                0x000000c0       0x28 obj/ModuleFlash.o
+ .debug_aranges
+                0x000000e8       0x20 obj/ModulePwm.o
+ .debug_aranges
+                0x00000108       0x14 obj/ModulePower.o
+ .debug_aranges
+                0x0000011c       0x18 obj/ModuleWatchdog.o
+ .debug_aranges
+                0x00000134       0x20 obj/ModuleTemprature.o
+ .debug_aranges
+                0x00000154       0x1c obj/ModuleBattery.o
+ .debug_aranges
+                0x00000170       0x18 obj/SystemMain.o
+ .debug_aranges
+                0x00000188       0x18 obj/SystemStatus.o
+ .debug_aranges
+                0x000001a0       0x28 obj/SystemControl.o
+ .debug_aranges
+                0x000001c8       0x18 obj/fw_premain.o
+ .debug_aranges
+                0x000001e0       0x14 obj/fw_startup.o
+ .debug_aranges
+                0x000001f4       0x14 obj/fw_ram_section_init.o
+ .debug_aranges
+                0x00000208       0x14 obj/fw_ints.o
+ .debug_aranges
+                0x0000021c       0x14 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_line     0x00000000     0x2d76
+ .debug_line    0x00000000       0x41 obj/main.o
+ .debug_line    0x00000041      0x57e obj/Algorithm.o
+ .debug_line    0x000005bf      0x205 obj/FloatLib.o
+ .debug_line    0x000007c4      0x3eb obj/ModuleAdc.o
+ .debug_line    0x00000baf      0x50a obj/ModuleComm.o
+ .debug_line    0x000010b9      0x334 obj/ModuleFlash.o
+ .debug_line    0x000013ed      0x4ab obj/ModulePwm.o
+ .debug_line    0x00001898      0x194 obj/ModulePower.o
+ .debug_line    0x00001a2c      0x11f obj/ModuleWatchdog.o
+ .debug_line    0x00001b4b      0x1f6 obj/ModuleTemprature.o
+ .debug_line    0x00001d41      0x13f obj/ModuleBattery.o
+ .debug_line    0x00001e80      0x26d obj/SystemMain.o
+ .debug_line    0x000020ed      0x13e obj/SystemStatus.o
+ .debug_line    0x0000222b      0x5c7 obj/SystemControl.o
+ .debug_line    0x000027f2      0x1b2 obj/fw_premain.o
+ .debug_line    0x000029a4      0x139 obj/fw_startup.o
+ .debug_line    0x00002add      0x163 obj/fw_ram_section_init.o
+ .debug_line    0x00002c40       0x7f obj/fw_ints.o
+ .debug_line    0x00002cbf       0xb7 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_str      0x00000000     0x7277
+ .debug_str     0x00000000      0x137 obj/main.o
+                                0x177 (size before relaxing)
+ .debug_str     0x00000137      0x38a obj/Algorithm.o
+                                0x54f (size before relaxing)
+ .debug_str     0x000004c1       0xa6 obj/FloatLib.o
+                                0x265 (size before relaxing)
+ .debug_str     0x00000567     0x42d3 obj/ModuleAdc.o
+                               0x449f (size before relaxing)
+ .debug_str     0x0000483a     0x1178 obj/ModuleComm.o
+                               0x511a (size before relaxing)
+ .debug_str     0x000059b2      0x130 obj/ModuleFlash.o
+                               0x40db (size before relaxing)
+ .debug_str     0x00005ae2      0xbd8 obj/ModulePwm.o
+                               0x4ba3 (size before relaxing)
+ .debug_str     0x000066ba      0x29f obj/ModulePower.o
+                               0x4128 (size before relaxing)
+ .debug_str     0x00006959       0x44 obj/ModuleWatchdog.o
+                               0x3e79 (size before relaxing)
+ .debug_str     0x0000699d      0x114 obj/ModuleTemprature.o
+                                0x4b0 (size before relaxing)
+ .debug_str     0x00006ab1       0x6a obj/ModuleBattery.o
+                                0x3b4 (size before relaxing)
+ .debug_str     0x00006b1b       0x4a obj/SystemMain.o
+                                0x5cd (size before relaxing)
+ .debug_str     0x00006b65       0x48 obj/SystemStatus.o
+                                0x227 (size before relaxing)
+ .debug_str     0x00006bad      0x165 obj/SystemControl.o
+                               0x4368 (size before relaxing)
+ .debug_str     0x00006d12       0xf7 obj/fw_premain.o
+                               0x3eec (size before relaxing)
+ .debug_str     0x00006e09       0x6d obj/fw_startup.o
+                               0x3e62 (size before relaxing)
+ .debug_str     0x00006e76       0xd6 obj/fw_ram_section_init.o
+                               0x3ef2 (size before relaxing)
+ .debug_str     0x00006f4c      0x2c5 obj/fw_ints.o
+                                0x479 (size before relaxing)
+ .debug_str     0x00007211       0x66 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+                                 0xee (size before relaxing)
+
+.comment        0x00000000       0x4d
+ .comment       0x00000000       0x27 obj/main.o
+                                 0x28 (size before relaxing)
+ .comment       0x00000000       0x28 obj/Algorithm.o
+ .comment       0x00000000       0x28 obj/FloatLib.o
+ .comment       0x00000000       0x28 obj/ModuleAdc.o
+ .comment       0x00000000       0x28 obj/ModuleComm.o
+ .comment       0x00000000       0x28 obj/ModuleFlash.o
+ .comment       0x00000000       0x28 obj/ModulePwm.o
+ .comment       0x00000000       0x28 obj/ModulePower.o
+ .comment       0x00000000       0x28 obj/ModuleWatchdog.o
+ .comment       0x00000000       0x28 obj/ModuleTemprature.o
+ .comment       0x00000000       0x28 obj/ModuleBattery.o
+ .comment       0x00000000       0x28 obj/SystemMain.o
+ .comment       0x00000000       0x28 obj/SystemStatus.o
+ .comment       0x00000000       0x28 obj/SystemControl.o
+ .comment       0x00000000       0x28 obj/fw_premain.o
+ .comment       0x00000000       0x28 obj/fw_startup.o
+ .comment       0x00000000       0x28 obj/fw_ram_section_init.o
+ .comment       0x00000000       0x28 obj/fw_ints.o
+ .comment       0x00000027       0x26 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+                                 0x27 (size before relaxing)
+
+.debug_loc      0x00000000     0x221e
+ .debug_loc     0x00000000      0xce3 obj/Algorithm.o
+ .debug_loc     0x00000ce3      0x845 obj/FloatLib.o
+ .debug_loc     0x00001528       0xf0 obj/ModuleAdc.o
+ .debug_loc     0x00001618      0x212 obj/ModuleComm.o
+ .debug_loc     0x0000182a      0x194 obj/ModuleFlash.o
+ .debug_loc     0x000019be      0x105 obj/ModulePwm.o
+ .debug_loc     0x00001ac3      0x208 obj/ModuleTemprature.o
+ .debug_loc     0x00001ccb       0x32 obj/ModuleBattery.o
+ .debug_loc     0x00001cfd      0x245 obj/SystemMain.o
+ .debug_loc     0x00001f42      0x1d1 obj/SystemControl.o
+ .debug_loc     0x00002113       0x38 obj/fw_premain.o
+ .debug_loc     0x0000214b       0x2d obj/fw_ram_section_init.o
+ .debug_loc     0x00002178       0x4c obj/fw_ints.o
+ .debug_loc     0x000021c4       0x5a ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_pubnames
+                0x00000000       0x20
+ .debug_pubnames
+                0x00000000       0x20 ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)
+
+.debug_pubtypes
+                0x00000000       0x2b
+ .debug_pubtypes
+                0x00000000       0x2b ../../code/camcu_platform/config/../lib/81116xAC/libcrc_81116.a(crc_ccitt.o)

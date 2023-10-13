@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/CYGWIN/delimiter=;
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/CYGWIN/operation=replace
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/CYGWIN/value=nodosfilewarning
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/PATH/delimiter=;
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/PATH/operation=replace
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/PATH/value=C\:\\Program Files (x86)\\Melexis\\mlx16-gcc_3_0_39\\bin;C\:\\Program Files (x86)\\Melexis\\mlx16-gcc_3_0_39\\cygwin\\bin;C\:/Program Files (x86)/Java/jre1.8.0_201/bin/client;C\:/Program Files (x86)/Java/jre1.8.0_201/bin;C\:/Program Files (x86)/Java/jre1.8.0_201/lib/i386;C\:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C\:\\Windows\\system32;C\:\\Windows;C\:\\Windows\\System32\\Wbem;C\:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Windows\\System32\\OpenSSH\\;C\:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C\:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C\:\\Program Files\\TortoiseSVN\\bin;C\:\\Program Files\\Git\\cmd;D\:\\Program Files (x86)\\Altium Designer S09 Viewer\\System;C\:\\Users\\sh1705016\\AppData\\Local\\Microsoft\\WindowsApps;;C\:\\Users\\sh1705016\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C\:\\Program Files (x86)\\Melexis\\MLXIDE;
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/append=true
+environment/project/org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482/appendContributed=true

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.melexis.mlxide.bfd.parser" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="RGBAmbientLightMLX81116" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482" name="Debug" parent="org.eclipse.cdt.cross.mlx.projectType.elf.debug">
+					<folderInfo id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.585244482." name="/" resourcePath="">
+						<toolChain id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.1346284348" name="MlxGCC" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc">
+							<option id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.option.objcopy.1265477108" name="Mlx object transformer" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.option.objcopy"/>
+							<option id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.option.objdump.491913096" name="Mlx object dumper" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.option.objdump"/>
+							<targetPlatform archList="all" binaryParser="com.melexis.mlxide.bfd.parser" id="org.eclipse.cdt.cross.mlx.tc.Platform.330775724" name="Elf platform" osList="all" superClass="org.eclipse.cdt.cross.mlx.tc.Platform"/>
+							<builder buildPath="${workspace_loc:${ProjName}/code\src\}" cleanBuildTarget="clean" command="gmake" enableAutoBuild="false" id="org.eclipse.cdt.cross.mlx.tc.builder.124916248" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Mlx Gnu Make Builder" superClass="org.eclipse.cdt.cross.mlx.tc.builder">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="code/src"/>
+								</outputEntries>
+							</builder>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.as.1880497536" name="Mlx assembler" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.as">
+								<option id="org.eclipse.cdt.cross.mlx.as.target.1927598480" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.as.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<option id="org.eclipse.cdt.cross.mlx.as.general.incpath.294486294" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.mlx.as.general.incpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/mlx16/include&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.cross.mlx.as.input.161136508" superClass="org.eclipse.cdt.cross.mlx.as.input"/>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.gcc.32678352" name="Mlx compiler" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.gcc">
+								<option id="org.eclipse.cdt.cross.mlx.gcc.mlx.target.253638285" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.gcc.mlx.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<option id="org.eclipse.cdt.cross.mlx.gcc.directories.select.317223792" name="Include path (-I)" superClass="org.eclipse.cdt.cross.mlx.gcc.directories.select" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/mlx16/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Program Files (x86)\Melexis\mlx16-gcc_3_0_39\mlx16\include&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.cross.mlx.gcc.input.201056859" superClass="org.eclipse.cdt.cross.mlx.gcc.input"/>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.ld.1170591268" name="Mlx linker" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.ld">
+								<option id="org.eclipse.cdt.cross.mlx.ld.target.282967141" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.ld.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<option id="org.eclipse.cdt.cross.mlx.ld.general.script.1690292474" name="Linker script (-T)" superClass="org.eclipse.cdt.cross.mlx.ld.general.script" value="" valueType="string"/>
+								<option id="org.eclipse.cdt.cross.mlx.ld.libraries.searchpath.297134094" name="Library search path (-L)" superClass="org.eclipse.cdt.cross.mlx.ld.libraries.searchpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:/Program Files (x86)/Melexis/mlx16-gcc_3_0_39/mlx16/include&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.cross.mlx.ld.input.779401602" superClass="org.eclipse.cdt.cross.mlx.ld.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.objcopy.2004008775" name="Mlx object transformer" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.objcopy"/>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.objdump.746884437" name="Mlx object dumper" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.debug.tc.objdump"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="system|Algorithm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="org.eclipse.cdt.cross.mlx.projectType.elf.release.1689680822">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.cdt.cross.mlx.projectType.elf.release.1689680822" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.melexis.mlxide.bfd.parser" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="RGBAmbientLightMLX81116" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" description="" id="org.eclipse.cdt.cross.mlx.projectType.elf.release.1689680822" name="Release" parent="org.eclipse.cdt.cross.mlx.projectType.elf.release">
+					<folderInfo id="org.eclipse.cdt.cross.mlx.projectType.elf.release.1689680822." name="/" resourcePath="">
+						<toolChain id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.874111406" name="MlxGCC" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc">
+							<option id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.option.objcopy.415304140" name="Mlx object transformer" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.option.objcopy"/>
+							<option id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.option.objdump.1811694612" name="Mlx object dumper" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.option.objdump"/>
+							<targetPlatform archList="all" binaryParser="com.melexis.mlxide.bfd.parser" id="org.eclipse.cdt.cross.mlx.tc.Platform.691928445" name="Elf platform" osList="all" superClass="org.eclipse.cdt.cross.mlx.tc.Platform"/>
+							<builder buildPath="${workspace_loc:${ProjName}/code\src\}" cleanBuildTarget="clean" command="gmake" enableAutoBuild="false" id="org.eclipse.cdt.cross.mlx.tc.builder.727539951" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Mlx Gnu Make Builder" superClass="org.eclipse.cdt.cross.mlx.tc.builder"/>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.as.596433635" name="Mlx assembler" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.as">
+								<option id="org.eclipse.cdt.cross.mlx.as.target.100090972" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.as.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<inputType id="org.eclipse.cdt.cross.mlx.as.input.991072724" superClass="org.eclipse.cdt.cross.mlx.as.input"/>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.gcc.270005942" name="Mlx compiler" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.gcc">
+								<option id="org.eclipse.cdt.cross.mlx.gcc.mlx.target.1342995780" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.gcc.mlx.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<inputType id="org.eclipse.cdt.cross.mlx.gcc.input.1844166841" superClass="org.eclipse.cdt.cross.mlx.gcc.input"/>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.ld.522524597" name="Mlx linker" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.ld">
+								<option id="org.eclipse.cdt.cross.mlx.ld.target.963488141" name="Mlx CPU family" superClass="org.eclipse.cdt.cross.mlx.ld.target" value="org.eclipse.cdt.cross.mlx.tool.target.mlx16" valueType="enumerated"/>
+								<option id="org.eclipse.cdt.cross.mlx.ld.general.script.1049363015" name="Linker script (-T)" superClass="org.eclipse.cdt.cross.mlx.ld.general.script" value="" valueType="string"/>
+								<inputType id="org.eclipse.cdt.cross.mlx.ld.input.1002355288" superClass="org.eclipse.cdt.cross.mlx.ld.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.objcopy.887921034" name="Mlx object transformer" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.objcopy"/>
+							<tool id="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.objdump.1809713854" name="Mlx object dumper" superClass="org.eclipse.cdt.cross.mlx.projectType.elf.release.tc.objdump"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="system|code/src/Algorithm|Algorithm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="code/src/Algorithm"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="RGBAmbientLightMLX81116.org.eclipse.cdt.cross.mlx.projectType.elf.309703178" name="Executable" projectType="org.eclipse.cdt.cross.mlx.projectType.elf"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="Build Project" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>gmake</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="Clean Project" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>gmake</buildCommand>
+				<buildArguments/>
+				<buildTarget>clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+</cproject>
