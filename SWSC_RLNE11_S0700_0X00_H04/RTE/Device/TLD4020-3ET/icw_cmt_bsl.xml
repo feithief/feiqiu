@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_bsl.xml                                                            -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2022-2023, Infineon Technologies AG                               -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   JO           Julia Ott                                                       -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!-- V1.0.2: 2023-10-06, SL:   [ATVCOMETLL-132] UBSL code section min set to 0 kB   -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>3b2028a26b40ae20be71c2433006c75d399b7213e0d6dd2139efa6d55bac042d</checksum>
+  <version label="V1.0.2"/>
+
+  <verticalcontainer label="BSL" desc="Bootstrap Loader and Startup Config Area">
+    <timer visible="false" define="BSL_INIT" svd="0" interval="1" singleShot="1" run="1">
+      <!-- init NACNAD edit -->
+      <action event="changed" cmd="setDef" data="BSL_FTO_NAD_NAC_REG_variable=BSL.FTO_NAD_NAC_to_be_written[31:0]"/>
+      <action event="changed" cmd="setDef" data="BSL_UCODE_UBSL_SIZE_REG_variable=BSL.UCODE_UBSL_SIZE_to_be_written[31:0]"/>
+    </timer>
+    <treecontainer headerlabels="Item;Value;" label="BSL" desc="" columnwidths="400;250">
+        <header file="bsl_defines.h">
+            <editbox label="Notes" define="BSL_NOTES" header="temp_defines.h" svd="0" size="400;100" default="Place your notes here!"/>
+
+            <combo label="Device" define="DEVICE" svd="0">
+                <item startcond="device==TLD4020-3ET" label="TLD4020-3ET" value="0" />
+            </combo>
+
+            
+            <checkbox label="NAC/NAD/FTO Configuration" define="BSL.FTO_NAD_NAC_EN" svd="0" uielement="branch" default="1">
+
+              <combo label="BSL Active Time (NAC)" define="BSL.FTO_NAD_NAC[7:0]" svd="0" default="label=40 ms">
+                <item label="BSL deactivated" value="0"/>
+                <item label="5 ms"/>
+                <item label="10 ms"/>
+                <item label="15 ms"/>
+                <item label="20 ms"/>
+                <item label="25 ms"/>
+                <item label="30 ms"/>
+                <item label="35 ms"/>
+                <item label="40 ms"/>
+                <item label="45 ms"/>
+                <item label="50 ms"/>
+                <item label="55 ms"/>
+                <item label="60 ms"/>
+                <item label="65 ms"/>
+                <item label="70 ms"/>
+                <item label="75 ms"/>
+                <item label="80 ms"/>
+                <item label="85 ms"/>
+                <item label="90 ms"/>
+                <item label="95 ms"/>
+                <item label="100 ms"/>
+                <item label="105 ms"/>
+                <item label="110 ms"/>
+                <item label="115 ms"/>
+                <item label="120 ms"/>
+                <item label="125 ms"/>
+                <item label="130 ms"/>
+                <item label="135 ms"/>
+                <item label="140 ms"/>
+                <item label="infinite" value="255"/>
+              </combo>
+
+              <spinbox label="LIN Node Address (NAD)" define="BSL.FTO_NAD_NAC[15:8]" svd="0" default="255"/>
+
+              <spinbox label="Frame TimeOut (FTO) [ms]" define="FTO_INTERFRAME" svd="0" range="0;1275" step="1" default="280" header="temp_defines.h"/>
+              <!-- <spinbox label="Effective Frame TimeOut (FTO) [ms]" define="FTO_INTERFRAME_EFFECTIVE" header="temp_defines.h" range="0;1275" step="5" svd="0" default="280"/> -->
+              <!-- HINT: Workaround to avoid user insert any values (not step of 5 starting from 0 to 1275) -->
+              <math label="Effective Frame TimeOut (FTO) [ms]" define="FTO_INTERFRAME_EFFECTIVE" formula="trunc(FTO_INTERFRAME/5)*5" header="temp_defines.h" svd="0"/>
+              
+              <math visible="true" define="BSL.FTO_NAD_NAC[23:16]" svd="0" formula="FTO_INTERFRAME_EFFECTIVE/5"/>
+
+              <math visible="false" define="BSL.FTO_NAD_NAC[31:24]" svd="0" formula="0xFF"/>
+
+              <math visible="false" label="FTO/NAC/NAD Value" define="BSL.FTO_NAD_NAC_to_be_written[31:0]" svd="0" header="temp_defines.h" format="%04X" formula="(BSL.FTO_NAD_NAC[7:0]) + (BSL.FTO_NAD_NAC[15:8]&lt;&lt;8) + (BSL.FTO_NAD_NAC[23:16]&lt;&lt;16) + (BSL.FTO_NAD_NAC[31:24]&lt;&lt;24)">
+                <action event="changed" cmd="setDef" data="BSL_FTO_NAD_NAC_REG_variable=BSL.FTO_NAD_NAC_to_be_written[31:0]"/>
+              </math>
+
+            </checkbox> 
+
+            <branch label="User BLS/CODE size (1 sector = 2kB)" expand="0">
+
+              <spinbox label="User BSL size [sectors]" define="BSL.UCODE_UBSL_SIZE[7:0]" svd="0" range="0;15"/>
+
+              <math visible="true" label="User CODE Size [sectors]" define="BSL.UCODE_UBSL_SIZE[15:8]" svd="0" formula="16 - BSL.UCODE_UBSL_SIZE[7:0] - 1"/>  
+
+              <math visible="false" define="BSL.UCODE_UBSL_SIZE[23:16]" svd="0" formula="0xFF"/>
+              <math visible="false" define="BSL.UCODE_UBSL_SIZE[31:24]" svd="0" formula="0xFF"/>
+
+              <math visible="false" label="UCODE_UBSL_SIZE Value" define="BSL.UCODE_UBSL_SIZE_to_be_written[31:0]" svd="0" header="temp_defines.h" format="%04X" formula="(BSL.UCODE_UBSL_SIZE[7:0]) + (BSL.UCODE_UBSL_SIZE[15:8]&lt;&lt;8) + (BSL.UCODE_UBSL_SIZE[23:16]&lt;&lt;16) + (BSL.UCODE_UBSL_SIZE[31:24]&lt;&lt;24)">
+                <action event="changed" cmd="setDef" data="BSL_UCODE_UBSL_SIZE_REG_variable=BSL.UCODE_UBSL_SIZE_to_be_written[31:0]"/>
+              </math>
+              
+            </branch>
+
+        </header>
+    </treecontainer>
+
+    <treecontainer headerlabels="Item;Value;" label="BSL" desc="Bootstrap Loader" columnwidths="400;250" visible="false">
+      <edit visible="false" define="BSL_FTO_NAD_NAC_REG_variable" svd="0" header=""/> 
+      <edit visible="false" define="BSL_UCODE_UBSL_SIZE_REG_variable" svd="0" header=""/> 
+    </treecontainer>
+
+  </verticalcontainer>
+
+</ifxmlcfg>
