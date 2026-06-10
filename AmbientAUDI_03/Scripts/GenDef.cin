@@ -1,0 +1,59 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  /*打印函数参数枚举型*/
+  enum EwriteLineEX
+  {
+    e_sink_TraeWindow = -3,
+    e_sink_LoggingFile = -2,
+    e_sink_SystemPage = 0,
+    e_sink_CAPLPage = 1,
+    e_sink_TestPage = 4,
+    
+    e_severity_Success = 0,
+    e_severity_Information,
+    e_severity_Warning,
+    e_severity_Error
+  };
+  
+  
+  /*文件路径字符串长度*/
+  const word MAXFilePathLength = 512; 
+ 
+  /*工程路径*/
+  char ProjectAbsolutePath[MAXFilePathLength];
+  
+  /*搭配WriteLineLJM使用的字符串*/ 
+  char OutString[MAXFilePathLength];
+
+  const word c_SupplierID_KBD = 0x0084;
+  const word c_FunctionID_KBD = 0x0003;
+}
+
+
+void WriteLineLJM(enum EwriteLineEX sink,enum EwriteLineEX severity,char content[])
+{
+  switch(severity)
+  {
+    case e_severity_Success:
+      writeTextColor(sink,55,200,50);
+      break;
+    case e_severity_Information:
+      writeTextColor(sink,70,35,220);
+      break;
+    case e_severity_Warning:
+      writeTextColor(sink,200,50,180);
+      break;
+    case e_severity_Error:
+      writeTextColor(sink,230,60,40);
+      break;
+  }
+  writeLineEx(sink,severity,"%s",content);
+  writeTextColor(sink,0,0,0);
+}
+

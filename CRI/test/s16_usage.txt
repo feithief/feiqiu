@@ -1,0 +1,40 @@
+S16 使用说明
+================
+
+功能：
+  基于 S15 输出的多温度 Exact BestWhiteRatio 数据，拟合温度修正公式。
+
+新版方案：
+  不新增高温 LUT 数组，只按 W25 分 3 段拟合小公式：
+    LOW : W25 < 0.25
+    MID : 0.25 <= W25 < 0.80
+    HIGH: W25 >= 0.80
+
+  每段公式：
+    DeltaW = t * F1(x,y,W25) + t^2 * F2(x,y,W25)
+
+  basis = [1, x, y, W25, x*y, x*W25, y*W25, W25^2]
+
+训练温度：
+  T60 和 T100
+
+真实 MCU 温度：
+  T25=21.4℃, T45=43℃, T60=60℃, T80=80℃, T100=100℃
+
+运行前提：
+  已经运行 s15，并生成：
+  triangle_grid_lut_output/s15_temperature_on_25grid/s15_fixed25grid_temperature_exact_and_delta_full.csv
+
+运行方式：
+  在 MATLAB 命令行输入：
+    s16
+
+输出：
+  triangle_grid_lut_output/s16_temperature_formula_fit/
+    s16_temperature_formula_coefficients.csv
+    s16_temperature_formula_coefficients.h
+    s16_temperature_formula_fit_samples.csv
+    s16_temperature_formula_fit_summary.csv
+
+C端影响：
+  不加高温数组；只增加 3 个 W25 分段、每段 F1/F2 系数，以及一个温度修正函数。

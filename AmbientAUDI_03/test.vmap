@@ -1,0 +1,2247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Version="4">
+  <RuntimeGroup Active="True" Name="Static Mapping">
+    <LogicalGroup Active="False" Name="Group 1">
+<MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave01.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave01.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave01.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Color_u_01</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Color_u_01</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_01</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave01.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave01.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave01.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Color_v_01</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Color_v_01</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_01</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave01.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave01.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave01.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Dimmrampe_01</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_01</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_01</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave01.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave01.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave01.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Intensitaet_01</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Intensitaet_01</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_01</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave01.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave01.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave01.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Sonderfunktion_01</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_01</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_01</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave02.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave02.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave02.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Color_u_02</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Color_u_02</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_02</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave02.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave02.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave02.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Color_v_02</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Color_v_02</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_02</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave02.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave02.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave02.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Dimmrampe_02</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_02</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_02</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave02.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave02.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave02.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Intensitaet_02</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Intensitaet_02</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_02</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave02.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave02.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave02.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_01_02::BCM_RGB_Sonderfunktion_02</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_01_02</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_02</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_02</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave03.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave03.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave03.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Color_u_03</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Color_u_03</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_03</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave03.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave03.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave03.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Color_v_03</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Color_v_03</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_03</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave03.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave03.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave03.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Dimmrampe_03</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_03</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_03</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave03.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave03.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave03.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Intensitaet_03</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Intensitaet_03</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_03</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave03.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave03.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave03.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Sonderfunktion_03</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_03</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_03</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave04.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave04.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave04.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Color_u_04</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Color_u_04</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_04</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave04.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave04.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave04.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Color_v_04</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Color_v_04</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_04</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave04.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave04.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave04.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Dimmrampe_04</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_04</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_04</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave04.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave04.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave04.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Intensitaet_04</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Intensitaet_04</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_04</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave04.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave04.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave04.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_03_04::BCM_RGB_Sonderfunktion_04</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_03_04</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_04</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_04</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave05.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave05.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave05.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Color_u_05</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Color_u_05</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_05</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave05.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave05.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave05.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Color_v_05</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Color_v_05</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_05</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave05.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave05.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave05.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Dimmrampe_05</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_05</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_05</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave05.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave05.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave05.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Intensitaet_05</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Intensitaet_05</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_05</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave05.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave05.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave05.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Sonderfunktion_05</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_05</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_05</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave06.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave06.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave06.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Color_u_06</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Color_u_06</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_06</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave06.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave06.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave06.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Color_v_06</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Color_v_06</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_06</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave06.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave06.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave06.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Dimmrampe_06</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_06</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_06</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave06.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave06.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave06.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Intensitaet_06</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Intensitaet_06</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_06</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave06.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave06.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave06.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_05_06::BCM_RGB_Sonderfunktion_06</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_05_06</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_06</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_06</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave07.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave07.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave07.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Color_u_07</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Color_u_07</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_07</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave07.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave07.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave07.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Color_v_07</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Color_v_07</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_07</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave07.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave07.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave07.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Dimmrampe_07</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_07</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_07</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave07.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave07.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave07.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Intensitaet_07</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Intensitaet_07</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_07</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave07.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave07.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave07.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Sonderfunktion_07</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_07</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_07</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave08.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave08.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave08.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Color_u_08</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Color_u_08</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_08</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave08.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave08.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave08.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Color_v_08</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Color_v_08</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_08</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave08.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave08.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave08.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Dimmrampe_08</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_08</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_08</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave08.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave08.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave08.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Intensitaet_08</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Intensitaet_08</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_08</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave08.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave08.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave08.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_07_08::BCM_RGB_Sonderfunktion_08</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_07_08</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_08</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_08</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave09.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave09.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave09.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Color_u_09</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Color_u_09</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_09</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave09.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave09.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave09.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Color_v_09</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Color_v_09</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_09</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave09.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave09.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave09.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Dimmrampe_09</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_09</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_09</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave09.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave09.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave09.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Intensitaet_09</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Intensitaet_09</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_09</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave09.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave09.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave09.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Sonderfunktion_09</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_09</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_09</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave10.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave10.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave10.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Color_u_10</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Color_u_10</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_10</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave10.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave10.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave10.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Color_v_10</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Color_v_10</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_10</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave10.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave10.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave10.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Dimmrampe_10</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_10</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_10</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave10.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave10.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave10.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Intensitaet_10</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Intensitaet_10</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_10</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave10.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave10.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave10.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_09_10::BCM_RGB_Sonderfunktion_10</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_09_10</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_10</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_10</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave11.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave11.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave11.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Color_u_11</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Color_u_11</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_11</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave11.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave11.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave11.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Color_v_11</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Color_v_11</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_11</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave11.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave11.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave11.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Dimmrampe_11</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_11</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_11</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave11.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave11.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave11.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Intensitaet_11</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Intensitaet_11</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_11</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave11.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave11.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave11.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Sonderfunktion_11</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_11</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_11</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave12.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave12.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave12.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Color_u_12</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Color_u_12</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_12</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave12.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave12.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave12.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Color_v_12</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Color_v_12</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_12</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave12.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave12.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave12.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Dimmrampe_12</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_12</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_12</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave12.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave12.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave12.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Intensitaet_12</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Intensitaet_12</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_12</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave12.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave12.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave12.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_11_12::BCM_RGB_Sonderfunktion_12</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_11_12</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_12</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_12</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+        <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave13.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave13.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave13.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Color_u_13</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Color_u_13</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_13</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave13.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave13.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave13.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Color_v_13</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Color_v_13</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_13</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave13.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave13.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave13.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Dimmrampe_13</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_13</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_13</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave13.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave13.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave13.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Intensitaet_13</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Intensitaet_13</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_13</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave13.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave13.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave13.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Sonderfunktion_13</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_13</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_13</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave14.BCM_RGB_Color_u</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave14.BCM_RGB_Color_u</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave14.BCM_RGB_Color_u</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Color_u_14</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Color_u_14</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_u_14</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave14.BCM_RGB_Color_v</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave14.BCM_RGB_Color_v</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave14.BCM_RGB_Color_v</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Color_v_14</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Color_v_14</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Color_v_14</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave14.BCM_RGB_Dimmrampe</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave14.BCM_RGB_Dimmrampe</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave14.BCM_RGB_Dimmrampe</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Dimmrampe_14</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Dimmrampe_14</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Dimmrampe_14</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave14.BCM_RGB_Intensitaet</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave14.BCM_RGB_Intensitaet</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave14.BCM_RGB_Intensitaet</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Intensitaet_14</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Intensitaet_14</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Intensitaet_14</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+              <MappingRelation Active="True" DirectionVar1ToVar2="True" Offset="0" Factor="1" Assignment="OnChange">
+                <ValueObject1 ItemType="symSystemVariable">
+                  <BusType>-1</BusType>
+                  <DatabaseName>BCM2Slave14.BCM_RGB_Sonderfunktion</DatabaseName>
+                  <Description />
+                  <EnvVarName />
+                  <FullName>BCM2Slave14.BCM_RGB_Sonderfunktion</FullName>
+                  <ID>99</ID>
+                  <MessageName />
+                  <Name>BCM2Slave14.BCM_RGB_Sonderfunktion</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName />
+                  <NodeName />
+                  <SignalName />
+                  <VariableType>8</VariableType>
+                </ValueObject1>
+                <ValueObject2 ItemType="symSignal">
+                  <BusType>5</BusType>
+                  <DatabaseName>E3_1_2_Premium_HCP4_LIN24_KMatri</DatabaseName>
+                  <Description />
+                  <EnvVarName>LIN</EnvVarName>
+                  <FullName>E3_1_2_Premium_HCP4_LIN24_KMatri::HCP4_uC1_1::RGBe_Slave_a_13_14::BCM_RGB_Sonderfunktion_14</FullName>
+                  <ID>0</ID>
+                  <MessageName>RGBe_Slave_a_13_14</MessageName>
+                  <Name>BCM_RGB_Sonderfunktion_14</Name>
+                  <NeedsMessage>False</NeedsMessage>
+                  <NetworkName>LIN</NetworkName>
+                  <NodeName>HCP4_uC1_1</NodeName>
+                  <SignalName>BCM_RGB_Sonderfunktion_14</SignalName>
+                  <VariableType>0</VariableType>
+                </ValueObject2>
+              </MappingRelation>
+    </LogicalGroup>
+  </RuntimeGroup>
+</Mapping>

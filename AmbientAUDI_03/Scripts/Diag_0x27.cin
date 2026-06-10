@@ -1,0 +1,96 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "Diag.cin"
+}
+
+variables
+{
+  word Diag0x27_gWORD = 0;
+  dword Diag0x27_Seed;
+  dword Diag0x27_Key;
+}
+
+
+void Diag_0x27ReqSeed(byte NAD)
+{
+  BCMreq.MasterReqB0= NAD;
+  BCMreq.MasterReqB1= 2;
+  BCMreq.MasterReqB2 = 0x27;
+  BCMreq.MasterReqB3 = 3;
+  BCMreq.MasterReqB4 = 0xff;
+  BCMreq.MasterReqB5 = 0xff;
+  BCMreq.MasterReqB6 = 0xff;
+  BCMreq.MasterReqB7 = 0xff;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+void Diag_0x27ReqByKey(byte NAD)
+{
+  BCMreq.MasterReqB0= NAD;
+  BCMreq.MasterReqB1= 6;
+  BCMreq.MasterReqB2 = 0x27;
+  BCMreq.MasterReqB3 = 4;
+  BCMreq.MasterReqB4 = (byte)(Diag0x27_Key&0x000000FF);
+  BCMreq.MasterReqB5 = (byte)((Diag0x27_Key&0x0000FF00)>>8);
+  BCMreq.MasterReqB6 = (byte)((Diag0x27_Key&0x00FF0000)>>16);
+  BCMreq.MasterReqB7 = (byte)((Diag0x27_Key&0xFF000000)>>24);
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+void Public_Diag0x27_ReqSeed(byte NAD)
+{
+  Diag_CtrlInit();
+  DiagCtrl.Step = DiagStep_ChangeNAD;
+  DiagCtrl.SID = 0x27;
+  DiagCtrl.SSID = SSID_03_ReqSeed;
+  DiagCtrl.ReqNAD = 0xa0; //如果不转a0就在这里写NAD
+  DiagCtrl.DataLen = 4;
+  DiagCtrl.FrameCNT = 1;
+  setTimer(DiagTimer,1);
+  //write("27 03     1");
+}
+
+void Public_Diag0x27_ReqByKey(byte NAD)
+{
+  Diag_CtrlInit();
+  DiagCtrl.Step = DiagStep_0x27ReqByKey;
+  DiagCtrl.SID = 0x27;
+  DiagCtrl.SSID = SSID_04_ReqKey;
+  DiagCtrl.ReqNAD = 0xa0; //如果不转a0就在这里写NAD
+  DiagCtrl.DataLen = 0;
+  DiagCtrl.FrameCNT = 1;
+  
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x27_Key & 0x000000FF);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x27_Key & 0x0000FF00)>>8);
+  DiagCtrl.ReqBuf[2] = (byte)((Diag0x27_Key & 0x00FF0000)>>16);
+  DiagCtrl.ReqBuf[3] = (byte)((Diag0x27_Key & 0xFF000000)>>24);
+  setTimer(DiagTimer,1);
+}
+
+
+void Public_Diag0x27_Unlock(byte NAD)
+{
+  Diag0x27_Seed = 0;
+  Diag0x27_Key = 0;
+  Public_Diag0x27_ReqSeed(NAD);
+  testWaitForTimeout(1000);
+  
+  Public_Diag0x27_ReqByKey(NAD);
+  testWaitForTimeout(Waittime_Long);
+}
+
+void Public_Diag0x27_TransferSeed(byte in_Seed[])
+{
+  //write("<Public_Diag0x27_TransferSeed>%x %x %x %x", frame.byte(0), frame.byte(1), frame.byte(2), frame.byte(3));
+  
+  Diag0x27_Seed = (dword)((dword)in_Seed[3]<<24 | (dword)in_Seed[2]<<16 | (dword)in_Seed[1]<<8 | (dword)in_Seed[0]);
+  write("<Public_Diag0x27_TransferSeed>%x", Diag0x27_Seed);
+  
+  Diag0x27_Key = (dword)((dword)Diag0x27_Seed + (dword)0x0926);
+}
+

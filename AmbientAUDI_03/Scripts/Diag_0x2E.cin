@@ -1,0 +1,467 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "Diag.cin"
+}
+
+variables
+{
+  word Diag0x2E_gWORD = 0;
+  char Diag0x2E_gSTRING[MAXFilePathLength/2];
+  word Diag0x2E_gCNT = 0;
+}
+
+
+void local_Diag0x2E_Prepare(byte NAD, enum ESSID SSID)
+{
+  Diag_CtrlInit();
+  DiagCtrl.CurrentNAD = NAD;
+  DiagCtrl.Step = DiagStep_ChangeNAD;
+  DiagCtrl.SID = 0x2E;
+  DiagCtrl.SSID = SSID;
+  DiagCtrl.ReqNAD = 0xa0; //如果不转a0就在这里写NAD
+  DiagCtrl.DataLen = SID2E_SSID[(enum ESSID)(DiagCtrl.SSID)];
+  DiagCtrl.FrameCNT = Tool_GetFrameNum(DiagCtrl.DataLen);
+  setTimer(DiagTimer, SchTableTimeSlot*3);
+}
+
+
+/* HW Version */
+void Public_Send0x2E_6869(byte NAD, sysvarString* SysHWVersion)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_6869_HWVersion);  
+  Diag0x2E_gWORD = SID2E_SSID[SSID_6869_HWVersion] + 1;
+  //sysGetVariableString(sysvarMember::NodeInfo::Node.HWVersion, Diag0x2E_gSTRING, Diag0x2E_gWORD);
+  sysGetVariableString(SysHWVersion, Diag0x2E_gSTRING, Diag0x2E_gWORD);
+  for(Diag0x2E_gCNT=0; Diag0x2E_gCNT<Diag0x2E_gWORD; Diag0x2E_gCNT++)
+  {
+    if((Diag0x2E_gSTRING[Diag0x2E_gCNT]>='a') &&(Diag0x2E_gSTRING[Diag0x2E_gCNT]<='z') )
+    {
+      Diag0x2E_gSTRING[Diag0x2E_gCNT] = Diag0x2E_gSTRING[Diag0x2E_gCNT]-32;
+    }
+    DiagCtrl.ReqBuf[Diag0x2E_gCNT] = (byte)Diag0x2E_gSTRING[Diag0x2E_gCNT];
+  }  
+}
+
+
+
+/* 不直接使用local_Diag0x2EPrepare()的原因是 有些旧产品会不转A0 */
+/* Supplier ID */
+void Public_Send0x2E_0002(byte NAD)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0002_LEDSupplier);
+  
+  Diag0x2E_gWORD = 2;
+  DiagCtrl.ReqBuf[0]=0;
+  DiagCtrl.ReqBuf[1]=0;
+}
+
+
+/* NAD */
+void Public_Send0x2E_0003(byte NAD, sysvarInt* SysNAD)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0003_SingleAddress);
+  Diag0x2E_gWORD = SID2E_SSID[SSID_0003_SingleAddress];
+  
+  Diag0x2E_gCNT = @SysNAD;
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gCNT & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gCNT&0xff00)>>8);   
+}
+
+/* GroupAddr */
+void Public_Send0x2E_0004(byte NAD, sysvarInt* SysGaddr)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0004_GroupAddress);
+  Diag0x2E_gWORD = SID2E_SSID[SSID_0004_GroupAddress];
+  
+  Diag0x2E_gCNT = @SysGaddr;
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gCNT & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gCNT&0xff00)>>8);    
+}
+
+
+/* LFactor */
+void Public_Send0x2E_0006(byte NAD, sysvarInt* SysLFactor)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0006_Factor);
+  Diag0x2E_gWORD = SID2E_SSID[SSID_0006_Factor];
+  Diag0x2E_gCNT = (word)@SysLFactor;
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gCNT & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gCNT&0xff00)>>8); 
+}
+
+/* Redx */
+void Public_Send0x2E_0007(byte NAD)
+{  
+  local_Diag0x2E_Prepare(NAD, SSID_0007_Redx);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx, LEDParaStringLength);
+  //write("LEDPara_string.Redx = %s",LEDPara_string.Redx);
+  strtod(LEDPara_string.Redx,LEDPara_double.Redx);
+  //write("LEDPara_double.Redx=%f",LEDPara_double.Redx);
+  LEDPara_word.Redx = (word)(_round(LEDPara_double.Redx * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[0] = (byte)(LEDPara_word.Redx & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((LEDPara_word.Redx&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redy, LEDPara_string.Redy, LEDParaStringLength);
+  strtod(LEDPara_string.Redy,LEDPara_double.Redy);
+  //write("LEDPara_double.Redy=%f",LEDPara_double.Redy);
+  LEDPara_word.Redy = (word)(_round(LEDPara_double.Redy * 10000));
+  //write("LEDPara_word.Redy=%d",LEDPara_word.Redy);
+  DiagCtrl.ReqBuf[2] = (byte)(LEDPara_word.Redy & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((LEDPara_word.Redy&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.RedL,LEDPara_string.RedL,LEDParaStringLength); 
+  strtod(LEDPara_string.RedL,LEDPara_double.RedL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.RedL = (dword)(_round(LEDPara_double.RedL * 10000));
+  //write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[4] = (byte)(LEDPara_word.RedL & 0x000000ff);
+  DiagCtrl.ReqBuf[5] = (byte)((LEDPara_word.RedL&0x0000ff00)>>8);
+  DiagCtrl.ReqBuf[6] = (byte)((LEDPara_word.RedL&0x00ff0000)>>16);
+  DiagCtrl.ReqBuf[7] = (byte)((LEDPara_word.RedL&0xff000000)>>24); 
+}
+
+/* Greenx */
+void Public_Send0x2E_0008(byte NAD)
+{  
+  local_Diag0x2E_Prepare(NAD, SSID_0008_Greenx);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx,LEDPara_string.Greenx,LEDParaStringLength);
+  //write("LEDPara_string.Greenx = %s",LEDPara_string.Greenx);
+  strtod(LEDPara_string.Greenx, LEDPara_double.Greenx);
+  //write("LEDPara_double.Redx=%f",LEDPara_double.Redx);
+  LEDPara_word.Greenx = (word)(_round(LEDPara_double.Greenx * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[0] = (byte)(LEDPara_word.Greenx & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((LEDPara_word.Greenx&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny, LEDParaStringLength);
+  //write("LEDPara_string.Greeny=%s",LEDPara_string.Greeny);
+  strtod(LEDPara_string.Greeny, LEDPara_double.Greeny);
+  //write("w::LEDPara_double.Greeny=%f",LEDPara_double.Greeny);
+  LEDPara_word.Greeny = (word)(_round(LEDPara_double.Greeny * 10000));
+  //write("w::LEDPara_word.Greeny=%d",LEDPara_word.Greeny);
+  DiagCtrl.ReqBuf[2] = (byte)(LEDPara_word.Greeny & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((LEDPara_word.Greeny&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL, LEDPara_string.GreenL, LEDParaStringLength); 
+  strtod(LEDPara_string.GreenL, LEDPara_double.GreenL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.GreenL = (dword)(_round(LEDPara_double.GreenL * 10000));
+ // write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[4] = (byte)(LEDPara_word.GreenL & 0x000000ff);
+  DiagCtrl.ReqBuf[5] = (byte)((LEDPara_word.GreenL&0x0000ff00)>>8);
+  DiagCtrl.ReqBuf[6] = (byte)((LEDPara_word.GreenL&0x00ff0000)>>16);
+  DiagCtrl.ReqBuf[7] = (byte)((LEDPara_word.GreenL&0xff000000)>>24);
+}
+
+/* Bluex */
+void Public_Send0x2E_0009(byte NAD)
+{  
+  local_Diag0x2E_Prepare(NAD, SSID_0009_Bluex);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex, LEDParaStringLength);
+  //write("LEDPara_string.Redx = %s",LEDPara_string.Redx);
+  strtod(LEDPara_string.Bluex, LEDPara_double.Bluex);
+  //write("LEDPara_double.Bluex=%f",LEDPara_double.Bluex);
+  LEDPara_word.Bluex = (word)(_round(LEDPara_double.Bluex * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[0] = (byte)(LEDPara_word.Bluex & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((LEDPara_word.Bluex&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey, LEDParaStringLength);
+  //write("w::LEDPara_string.Bluey=%s",LEDPara_string.Bluey);
+  strtod(LEDPara_string.Bluey, LEDPara_double.Bluey);
+  //write("w::LEDPara_double.Bluey=%f",LEDPara_double.Bluey);
+  LEDPara_word.Bluey = (word)(_round(LEDPara_double.Bluey * 10000));
+  //write("w::LEDPara_word.Bluey=%d",LEDPara_word.Bluey);
+  DiagCtrl.ReqBuf[2] = (byte)(LEDPara_word.Bluey & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((LEDPara_word.Bluey&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL, LEDPara_string.BlueL, LEDParaStringLength); 
+  strtod(LEDPara_string.BlueL,LEDPara_double.BlueL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.BlueL = (dword)(_round(LEDPara_double.BlueL * 10000));
+ // write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[4] = (byte)(LEDPara_word.BlueL & 0x000000ff);
+  DiagCtrl.ReqBuf[5] = (byte)((LEDPara_word.BlueL&0x0000ff00)>>8);
+  DiagCtrl.ReqBuf[6] = (byte)((LEDPara_word.BlueL&0x00ff0000)>>16);
+  DiagCtrl.ReqBuf[7] = (byte)((LEDPara_word.BlueL&0xff000000)>>24);
+}
+
+
+/* LED 24 bytes */
+void Public_Send0x2E_0017(byte NAD)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0017_LED);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx, LEDParaStringLength);
+  //write("LEDPara_string.Redx = %s",LEDPara_string.Redx);
+  strtod(LEDPara_string.Redx,LEDPara_double.Redx);
+  //write("LEDPara_double.Redx=%f",LEDPara_double.Redx);
+  LEDPara_word.Redx = (word)(_round(LEDPara_double.Redx * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[0] = (byte)(LEDPara_word.Redx & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((LEDPara_word.Redx&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redy, LEDPara_string.Redy, LEDParaStringLength);
+  strtod(LEDPara_string.Redy,LEDPara_double.Redy);
+  //write("LEDPara_double.Redy=%f",LEDPara_double.Redy);
+  LEDPara_word.Redy = (word)(_round(LEDPara_double.Redy * 10000));
+  //write("LEDPara_word.Redy=%d",LEDPara_word.Redy);
+  DiagCtrl.ReqBuf[2] = (byte)(LEDPara_word.Redy & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((LEDPara_word.Redy&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.RedL,LEDPara_string.RedL,LEDParaStringLength); 
+  strtod(LEDPara_string.RedL,LEDPara_double.RedL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.RedL = (dword)(_round(LEDPara_double.RedL * 10000));
+  //write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[4] = (byte)(LEDPara_word.RedL & 0x000000ff);
+  DiagCtrl.ReqBuf[5] = (byte)((LEDPara_word.RedL&0x0000ff00)>>8);
+  DiagCtrl.ReqBuf[6] = (byte)((LEDPara_word.RedL&0x00ff0000)>>16);
+  DiagCtrl.ReqBuf[7] = (byte)((LEDPara_word.RedL&0xff000000)>>24);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx,LEDPara_string.Greenx,LEDParaStringLength);
+  //write("LEDPara_string.Greenx = %s",LEDPara_string.Greenx);
+  strtod(LEDPara_string.Greenx, LEDPara_double.Greenx);
+  //write("LEDPara_double.Redx=%f",LEDPara_double.Redx);
+  LEDPara_word.Greenx = (word)(_round(LEDPara_double.Greenx * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[8] = (byte)(LEDPara_word.Greenx & 0x00ff);
+  DiagCtrl.ReqBuf[9] = (byte)((LEDPara_word.Greenx&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny, LEDParaStringLength);
+  //write("LEDPara_string.Greeny=%s",LEDPara_string.Greeny);
+  strtod(LEDPara_string.Greeny, LEDPara_double.Greeny);
+  //write("w::LEDPara_double.Greeny=%f",LEDPara_double.Greeny);
+  LEDPara_word.Greeny = (word)(_round(LEDPara_double.Greeny * 10000));
+  //write("w::LEDPara_word.Greeny=%d",LEDPara_word.Greeny);
+  DiagCtrl.ReqBuf[10] = (byte)(LEDPara_word.Greeny & 0x00ff);
+  DiagCtrl.ReqBuf[11] = (byte)((LEDPara_word.Greeny&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL, LEDPara_string.GreenL, LEDParaStringLength); 
+  strtod(LEDPara_string.GreenL, LEDPara_double.GreenL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.GreenL = (dword)(_round(LEDPara_double.GreenL * 10000));
+ // write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[12] = (byte)(LEDPara_word.GreenL & 0x000000ff);
+  DiagCtrl.ReqBuf[13] = (byte)((LEDPara_word.GreenL&0x0000ff00)>>8);
+  DiagCtrl.ReqBuf[14] = (byte)((LEDPara_word.GreenL&0x00ff0000)>>16);
+  DiagCtrl.ReqBuf[15] = (byte)((LEDPara_word.GreenL&0xff000000)>>24);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex, LEDParaStringLength);
+  //write("LEDPara_string.Redx = %s",LEDPara_string.Redx);
+  strtod(LEDPara_string.Bluex, LEDPara_double.Bluex);
+  //write("LEDPara_double.Bluex=%f",LEDPara_double.Bluex);
+  LEDPara_word.Bluex = (word)(_round(LEDPara_double.Bluex * 10000));
+  //write("LEDPara_word.Redx=%d",LEDPara_word.Redx);
+  DiagCtrl.ReqBuf[16] = (byte)(LEDPara_word.Bluex & 0x00ff);
+  DiagCtrl.ReqBuf[17] = (byte)((LEDPara_word.Bluex&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey, LEDParaStringLength);
+  //write("w::LEDPara_string.Bluey=%s",LEDPara_string.Bluey);
+  strtod(LEDPara_string.Bluey, LEDPara_double.Bluey);
+  //write("w::LEDPara_double.Bluey=%f",LEDPara_double.Bluey);
+  LEDPara_word.Bluey = (word)(_round(LEDPara_double.Bluey * 10000));
+  //write("w::LEDPara_word.Bluey=%d",LEDPara_word.Bluey);
+  DiagCtrl.ReqBuf[18] = (byte)(LEDPara_word.Bluey & 0x00ff);
+  DiagCtrl.ReqBuf[19] = (byte)((LEDPara_word.Bluey&0xff00)>>8);  
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL, LEDPara_string.BlueL, LEDParaStringLength); 
+  strtod(LEDPara_string.BlueL,LEDPara_double.BlueL);
+  //write("LEDPara_double.RedL=%f",LEDPara_double.RedL);
+  LEDPara_word.BlueL = (dword)(_round(LEDPara_double.BlueL * 10000));
+ // write("LEDPara_word.RedL=%d",LEDPara_word.RedL);
+  DiagCtrl.ReqBuf[20] = (byte)(LEDPara_word.BlueL & 0x000000ff);
+  DiagCtrl.ReqBuf[21] = (byte)((LEDPara_word.BlueL&0x0000ff00)>>8); 
+  DiagCtrl.ReqBuf[22] = (byte)((LEDPara_word.BlueL&0x0000ff00)>>16); 
+  DiagCtrl.ReqBuf[23] = (byte)((LEDPara_word.BlueL&0x0000ff00)>>24); 
+  
+//  Diag0x2E_gWORD = SID2E_SSID[SSID_0006_Factor];
+//  Diag0x2E_gCNT = @NodeInfo::Node.LFactor;
+//  DiagCtrl.ReqBuf[18] = (byte)(Diag0x2E_gCNT & 0x00ff);
+//  DiagCtrl.ReqBuf[19] = (byte)((Diag0x2E_gCNT&0xff00)>>8);
+}
+
+/* White mix parameters, DID 0x000B, 12 bytes, all values scaled by 10000.
+ * Existing LED string sysvars are reused as the input fields:
+ * Redx/Redy -> white point x/y, Greenx/Greeny -> RGB point x/y,
+ * Bluex/Bluey -> white/RGB ratio.
+ */
+void Public_Send0x2E_000B_WhiteMix(byte NAD)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_000B_Meas);
+  DiagCtrl.DataLen = 12;
+  DiagCtrl.FrameCNT = Tool_GetFrameNum(DiagCtrl.DataLen);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx, LEDParaStringLength);
+  strtod(LEDPara_string.Redx, LEDPara_double.Redx);
+  LEDPara_word.Redx = (word)(_round(LEDPara_double.Redx * 10000));
+  DiagCtrl.ReqBuf[0] = (byte)(LEDPara_word.Redx & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((LEDPara_word.Redx & 0xff00)>>8);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Redy, LEDPara_string.Redy, LEDParaStringLength);
+  strtod(LEDPara_string.Redy, LEDPara_double.Redy);
+  LEDPara_word.Redy = (word)(_round(LEDPara_double.Redy * 10000));
+  DiagCtrl.ReqBuf[2] = (byte)(LEDPara_word.Redy & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((LEDPara_word.Redy & 0xff00)>>8);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx, LEDPara_string.Greenx, LEDParaStringLength);
+  strtod(LEDPara_string.Greenx, LEDPara_double.Greenx);
+  LEDPara_word.Greenx = (word)(_round(LEDPara_double.Greenx * 10000));
+  DiagCtrl.ReqBuf[4] = (byte)(LEDPara_word.Greenx & 0x00ff);
+  DiagCtrl.ReqBuf[5] = (byte)((LEDPara_word.Greenx & 0xff00)>>8);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny, LEDParaStringLength);
+  strtod(LEDPara_string.Greeny, LEDPara_double.Greeny);
+  LEDPara_word.Greeny = (word)(_round(LEDPara_double.Greeny * 10000));
+  DiagCtrl.ReqBuf[6] = (byte)(LEDPara_word.Greeny & 0x00ff);
+  DiagCtrl.ReqBuf[7] = (byte)((LEDPara_word.Greeny & 0xff00)>>8);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex, LEDParaStringLength);
+  strtod(LEDPara_string.Bluex, LEDPara_double.Bluex);
+  LEDPara_word.Bluex = (word)(_round(LEDPara_double.Bluex * 10000));
+  DiagCtrl.ReqBuf[8] = (byte)(LEDPara_word.Bluex & 0x00ff);
+  DiagCtrl.ReqBuf[9] = (byte)((LEDPara_word.Bluex & 0xff00)>>8);
+
+  sysGetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey, LEDParaStringLength);
+  strtod(LEDPara_string.Bluey, LEDPara_double.Bluey);
+  LEDPara_word.Bluey = (word)(_round(LEDPara_double.Bluey * 10000));
+  DiagCtrl.ReqBuf[10] = (byte)(LEDPara_word.Bluey & 0x00ff);
+  DiagCtrl.ReqBuf[11] = (byte)((LEDPara_word.Bluey & 0xff00)>>8);
+}
+
+/* PartNo */
+void Public_Send0x2E_6269(byte NAD, sysvarString* SysPartNo)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_6269_Partnumber);
+  
+  Diag0x2E_gWORD = SID2E_SSID[SSID_6269_Partnumber] + 1;
+  sysGetVariableString(SysPartNo, Diag0x2E_gSTRING, Diag0x2E_gWORD);
+  for(Diag0x2E_gCNT = 0; Diag0x2E_gCNT < Diag0x2E_gWORD; Diag0x2E_gCNT++)
+  {
+    if((Diag0x2E_gSTRING[Diag0x2E_gCNT]>='a') &&(Diag0x2E_gSTRING[Diag0x2E_gCNT]<='z') )
+    {
+      Diag0x2E_gSTRING[Diag0x2E_gCNT] = Diag0x2E_gSTRING[Diag0x2E_gCNT] - 32;
+    }
+    DiagCtrl.ReqBuf[Diag0x2E_gCNT] = (byte)Diag0x2E_gSTRING[Diag0x2E_gCNT];
+  }    
+  DiagCtrl.ReqBuf[Diag0x2E_gCNT] = '\0';
+}
+
+/* SerialNo */
+void Public_Send0x2E_6A69(byte NAD, sysvarString* SysSerialNo)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_6A69_SerialNum);
+  
+  Diag0x2E_gWORD = SID2E_SSID[SSID_6A69_SerialNum] + 1;
+  sysGetVariableString(SysSerialNo, Diag0x2E_gSTRING, Diag0x2E_gWORD);
+  for(Diag0x2E_gCNT = 0; Diag0x2E_gCNT < Diag0x2E_gWORD; Diag0x2E_gCNT++)
+  {
+    if((Diag0x2E_gSTRING[Diag0x2E_gCNT]>='a') &&(Diag0x2E_gSTRING[Diag0x2E_gCNT]<='z') )
+    {
+      Diag0x2E_gSTRING[Diag0x2E_gCNT] = Diag0x2E_gSTRING[Diag0x2E_gCNT] - 32;
+    }
+    DiagCtrl.ReqBuf[Diag0x2E_gCNT] = (byte)Diag0x2E_gSTRING[Diag0x2E_gCNT];
+  }    
+  DiagCtrl.ReqBuf[Diag0x2E_gCNT] = '\0';
+}
+
+
+/* Cali Red */
+void Public_Send0x2E_CaliRed(void)
+{
+  local_Diag0x2E_Prepare(0xa0, SSID_000A_Cali);
+  DiagCtrl.ReqBuf[0] = 1;
+}
+
+/* Cali Green */
+void Public_Send0x2E_CaliGreen(void)
+{
+  local_Diag0x2E_Prepare(0xa0, SSID_000A_Cali);
+  DiagCtrl.ReqBuf[0] = 2;
+}
+
+/* Cali Blue */
+void Public_Send0x2E_CaliBlue(void)
+{
+  local_Diag0x2E_Prepare(0xa0, SSID_000A_Cali);
+  DiagCtrl.ReqBuf[0] = 3;
+}
+
+/* Cali OFF */
+void Public_Send0x2E_CaliOFF(void)
+{
+  local_Diag0x2E_Prepare(0xa0, SSID_000A_Cali);
+  DiagCtrl.ReqBuf[0] = 0;
+}
+
+/* Platform */
+void Public_Send0x2E_0005(byte NAD, sysvarInt* SysPlatform)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0005_Platform);
+  Diag0x2E_gWORD = SID2E_SSID[SSID_0005_Platform];
+  Diag0x2E_gCNT = @SysPlatform;
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gCNT & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gCNT&0xff00)>>8); 
+}
+
+
+void Public_Set3PWMs(word NAD, word PWMR, word PWMG, word PWMB)
+{  
+  local_Diag0x2E_Prepare(NAD, SSID_000B_Meas);
+  DiagCtrl.ReqBuf[0] = 1;
+  DiagCtrl.ReqBuf[1] = (byte)(PWMR & 0x00ff);
+  DiagCtrl.ReqBuf[2] = (byte)((PWMR & 0xff00)>>8); 
+  DiagCtrl.ReqBuf[3] = (byte)(PWMG & 0x00ff);
+  DiagCtrl.ReqBuf[4] = (byte)((PWMG & 0xff00)>>8); 
+  DiagCtrl.ReqBuf[5] = (byte)(PWMB & 0x00ff);
+  DiagCtrl.ReqBuf[6] = (byte)((PWMB & 0xff00)>>8); 
+}
+
+
+void Public_Send0x2E_LeaveSetPWM(void)
+{
+  local_Diag0x2E_Prepare(0xa0, SSID_000B_Meas);
+  DiagCtrl.ReqBuf[0] = 0;
+  DiagCtrl.ReqBuf[1] = 0;
+  DiagCtrl.ReqBuf[2] = 0;
+  DiagCtrl.ReqBuf[3] = 0;
+  DiagCtrl.ReqBuf[4] = 0;
+  DiagCtrl.ReqBuf[5] = 0;
+  DiagCtrl.ReqBuf[6] = 0;
+}
+
+/* Lock */
+void Public_Send0x2E_000C(byte NAD)
+{
+  /* 1. read Flag */
+  Public_Send0x22_000C(NAD);
+  Diag0x2E_gWORD = @NodeInfo::Node.CtrlFlag;
+ // write("Flag = %x, %d", Diag0x2E_gWORD, Diag0x2E_gWORD);
+  testWaitForTimeout(500);
+  /* 2. Lock */
+  Diag0x2E_gWORD = Diag0x2E_gWORD | 0x0080;
+  @NodeInfo::Node.CtrlFlag = Diag0x2E_gWORD;
+  local_Diag0x2E_Prepare(NAD, SSID_000C_Flag);  
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+}
+
+
+void Public_Send0x2E_0101(byte NAD)
+{
+  local_Diag0x2E_Prepare(NAD, SSID_0101_Threshold);
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.RedOpen;
+  DiagCtrl.ReqBuf[0] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[1] = (byte)((Diag0x2E_gWORD & 0xff00)>>8);  
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.RedShort;
+  DiagCtrl.ReqBuf[2] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[3] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.GreenOpen;
+  DiagCtrl.ReqBuf[4] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[5] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.GreenShort;
+  DiagCtrl.ReqBuf[6] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[7] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.BlueOpen;
+  DiagCtrl.ReqBuf[8] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[9] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+  
+  Diag0x2E_gWORD = @sysvarMember::NodeInfo::Threshold.BlueShort;
+  DiagCtrl.ReqBuf[10] = (byte)(Diag0x2E_gWORD & 0x00ff);
+  DiagCtrl.ReqBuf[11] = (byte)((Diag0x2E_gWORD & 0xff00)>>8); 
+}
+

@@ -1,0 +1,117 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  
+  const byte MaxNodeNum = 20;
+  const byte MAXdisppeartimes=16;  /* 节点消失的计数最大值 */   
+  const byte tempStringLength = 12;
+  const byte NodesScanInterval = 400;
+  word NodeDetect_gcnt = 0;              /* 用于循环的公共计数器 */
+  msTimer NodesScan;
+   
+  struct SNodeDetectCtrl
+  {
+    dword NodesBitRefresh;        /* 按位表示的节点,不断刷新，有几个节点，就有几位置1 */
+    dword Old_NodesBitRefresh;    /* 用于和NodesBitRefresh比较，寻找哪个节点消失 */
+    byte NodeOffCnt[MaxNodeNum];  /* 记录每个node是否off的计数器 */    
+  }NodeDetectCtrl;
+  
+}
+
+
+void NodeDetect_CtrlInit()
+{
+  setTimer(NodesScan,80);
+  NodeDetectCtrl.NodesBitRefresh = 0;
+  NodeDetectCtrl.Old_NodesBitRefresh = 0;
+  for(NodeDetect_gcnt = 0; NodeDetect_gcnt < MaxNodeNum; NodeDetect_gcnt++)
+  {
+    NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt] = MAXdisppeartimes;
+  } 
+}
+
+
+void Public_GetSelectedNAD(dword bitAddr)
+{
+  dword tmpAddr;
+  byte cnt = 0;
+  cnt = 0;
+  tmpAddr = bitAddr;
+  if(tmpAddr != 0)
+  {
+    while(tmpAddr != 1)
+    {
+      tmpAddr = tmpAddr>>1;
+      cnt++;
+    }    
+    @sysvarMember::NodeInfo::Node.NAD = cnt+1;
+    setControlVisibility("Main Panel","GB_NodeDetails",1); /* Group Box*/
+    @sysvar::NodeCtrl::Execute = 501;
+  }
+  else
+  {
+    //no use
+  }
+}
+
+
+void local_UpdateNodeOnOffLine()
+{
+  char slave_on[tempStringLength],slave_off[tempStringLength];
+  dword tempNode;
+  
+  for(NodeDetect_gcnt=0; NodeDetect_gcnt < MaxNodeNum; NodeDetect_gcnt++)
+  {
+    tempNode = NodeDetectCtrl.NodesBitRefresh & (dword)((dword)1<<NodeDetect_gcnt);
+    snprintf(slave_on,tempStringLength,"Slave%d_on",NodeDetect_gcnt+1);
+    snprintf(slave_off,tempStringLength,"Slave%d_off",NodeDetect_gcnt+1);
+    if(tempNode >0)
+    {  /* 本次发现，立即显示 */
+      NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt]=MAXdisppeartimes;
+      setControlVisibility("Main Panel",slave_off,0);
+      setControlVisibility("Main Panel",slave_on,1);
+      //write("本次发现，立即显示  node=%d,  error cnt=%d", NodeDetect_gcnt, NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt]);
+    }
+    else
+    {
+      if((NodeDetectCtrl.Old_NodesBitRefresh&(dword)((dword)1<<NodeDetect_gcnt)) >0)
+      { /* 上次有本次未发现 */
+        NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt] -=1;
+        //write("上次有本次未发现  node=%d,  error cnt=%d", NodeDetect_gcnt, NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt]);
+        continue;
+      }
+      if(NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt] == MAXdisppeartimes)
+      { /* 一直没检测到过。直接跳过 */
+        continue;
+      }
+      else if(NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt]==0)
+      { 
+        NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt] = MAXdisppeartimes;
+        setControlVisibility("Main Panel",slave_off,1);
+        setControlVisibility("Main Panel",slave_on,0);
+        setControlVisibility("Main Panel","GB_NodeDetails",0);
+        
+        System_Refresh();
+        continue;
+      }
+      else //0< NodeDisappear_cnt[cnt] <5
+      {
+        //write("有检测到过但本次未发现，未超时  node=%d,  error cnt=%d", NodeDetect_gcnt, NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt]);
+        NodeDetectCtrl.NodeOffCnt[NodeDetect_gcnt] -=1;
+      }
+    }    
+  }
+  NodeDetectCtrl.Old_NodesBitRefresh = NodeDetectCtrl.NodesBitRefresh;
+}
+
+on timer NodesScan
+{
+  local_UpdateNodeOnOffLine();
+  setTimer(NodesScan,NodesScanInterval);
+  NodeDetectCtrl.NodesBitRefresh = 0;
+}

@@ -1,0 +1,20 @@
+S18 使用说明
+================
+
+【步骤概要】
+1. 解压本包，保证 s18.m 是本包里的最新版。
+2. 在 MATLAB 中 cd 到 s18.m 所在目录。
+3. 运行 which s18 -all，确认第一条路径就是当前目录的 s18.m。
+4. 执行 clear s18; clear functions; rehash。
+5. 准备样件1的 guangpu_temperature_input/T25/T45/T60/T80/T100 光谱文件。
+6. 确认 s18.m 开头的 channel_xyY_Txx 是样件1对应温度的 R/G/B/W xyY。
+7. 先运行 s15，生成 s15_fixed25grid_temperature_exact_and_delta_full.csv。
+8. 确认已经运行 s16_all 或 s16，生成温度公式系数。
+9. 在 s18.m 开头填写任意目标颜色 targetInputMode 和对应输入值。
+10. 设置 targetTemperatureLabel，例如 T80，用于选择已实测的高温光谱和 xyY。
+11. MATLAB 命令行运行 s18。
+
+【重要说明】
+本版 s18.m 已经内置 load_standard_data、read_spd、scale_to_photopic_Y、spectrum_metrics 等本地函数。
+如果仍然报 load_standard_data 无法识别，说明 MATLAB 实际运行的不是本包里的 s18.m，而是旧路径里的同名文件。
+请使用 which s18 -all 检查路径。

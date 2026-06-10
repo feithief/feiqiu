@@ -1,0 +1,151 @@
+/*@!Encoding:936*/
+includes
+{
+  
+  
+}
+
+variables
+{
+  //DWORD Meas_Handle = 0;
+  
+  //const int MeasMaxBufLen = 255;
+  //const int MeasMaxCmdLen = 64;
+  //const int MeasIntMax = 100;   //intensity Max
+  //const int MeasIntDecrease = 15;
+  //const int MeasTempStart = 10;
+  //const int MeasWaitTime_PerColor = 15*1000;
+ // const word PWMFULL = 65500;
+ // const word MinPWM = 500;
+}
+
+//long local_GetPWM(long _in_PWM, long &_out_PWM)
+//{
+//  long DPWM;
+//  if (_in_PWM >= 600 && _in_PWM < 2000)
+//  {
+//    DPWM = 100;
+//  }
+//  else if (_in_PWM >= 2000 && _in_PWM < 4000)
+//  {
+//    DPWM = 200;
+//  }
+//  else if (_in_PWM >= 4000 && _in_PWM < 8000)
+//  {
+//    DPWM = 400;
+//  }
+//  else if (_in_PWM >= 8000 && _in_PWM < 14000)
+//  {
+//    DPWM = 600;
+//  }
+//  else if (_in_PWM >= 14000 && _in_PWM < 28000)
+//  {
+//    DPWM = 1000;
+//  }
+//  else if (_in_PWM >= 28000 && _in_PWM < 40000)
+//  {
+//    DPWM = 1800;
+//  }
+//  else if (_in_PWM >= 40000 && _in_PWM < 65500)
+//  {
+//    DPWM = 2500;
+//  }
+//  else if(_in_PWM >= 65500)
+//  {
+//    DPWM = 2500;    
+//  }
+//  _out_PWM = _in_PWM - DPWM;
+//  return DPWM;
+//}
+//
+///* 不要去掉 */
+//void GetMeasureTime_Max65500(void)
+//{
+//  long PWM = 0, NewPWM;
+//  long DPWM = 0;
+//  word cnt = 0;
+//  float MeaasureTime = 0;
+//  
+//  NewPWM = PWMFULL;
+//  PWM = PWMFULL;
+//  cnt = 0;
+//  
+//  while (1)
+//  {
+//    if (NewPWM <= MinPWM)
+//    {
+//      break;
+//    }
+//    DPWM = local_GetPWM(PWM, NewPWM);
+//    write("cnt = %d, PWM = %ld, dPWM = %ld, newPWM = %ld ", cnt, PWM, DPWM, NewPWM);
+//    cnt = cnt + 1;
+//    testWaitForTimeout(100);
+//
+//    PWM = NewPWM;
+//  }
+//  MeaasureTime= (float)(cnt * 26 * 11) / 3600;  // cnt次， 一次20s，10个温度区间， 3通道
+//  // 20s最好设置成15s等待5次平均
+//  write("Total measure time = %.3f hours", MeaasureTime);
+//}
+//
+
+
+
+///* 不要去掉 */
+//void GetMeasureTime_Max65500(void)
+//{
+//  dword PWM = 0;
+//  dword DPWM = 0;
+//  word cnt = 0;
+//  float MeaasureTime = 0;
+//  
+//  
+//  DPWM = 50;
+//  PWM = 100;
+//  cnt = 0;
+//  
+//  while (1)
+//  {
+//    if (PWM >= 600 && PWM < 2000)
+//    {
+//      DPWM = 100;
+//    }
+//    else if (PWM >= 2000 && PWM < 4000)
+//    {
+//      DPWM = 200;
+//    }
+//    else if (PWM >= 4000 && PWM < 8000)
+//    {
+//      DPWM = 400;
+//    }
+//    else if (PWM >= 8000 && PWM < 14000)
+//    {
+//      DPWM = 600;
+//    }
+//    else if (PWM >= 14000 && PWM < 28000)
+//    {
+//      DPWM = 1000;
+//    }
+//    else if (PWM >= 28000 && PWM < 40000)
+//    {
+//      DPWM = 1800;
+//    }
+//    else if (PWM >= 40000 && PWM < 65500)
+//    {
+//      DPWM = 2500;
+//    }
+//    else if(PWM >= 65500)
+//    {
+//      break;      
+//    }
+//    
+//    write("cnt = %d, PWM = %ld, dPWM = %ld. ", cnt, PWM, DPWM);
+//    cnt = cnt + 1;
+//    PWM = PWM + DPWM;
+//    testWaitForTimeout(100);
+//  }
+//  MeaasureTime= (float)(cnt * 20 * 10 * 3) / 3600;  // cnt次， 一次20s，10个温度区间， 3通道
+//  // 20s最好设置成15s等待5次平均
+//  write("Total measure time = %.3f hours", MeaasureTime);
+//}
+

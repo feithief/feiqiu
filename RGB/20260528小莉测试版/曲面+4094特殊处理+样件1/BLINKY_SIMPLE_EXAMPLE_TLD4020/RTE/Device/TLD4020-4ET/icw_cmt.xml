@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt.xml                                                                -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2025, Infineon Technologies AG                                    -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   JO           Julia Ott                                                       -->
+<!--   VO           Vanessa Ongaro                                                  -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.1.0: 2023-04-21, SL:   Added ISR support for LIN auto-addressing            -->
+<!-- V1.1.1: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!-- V1.1.2: 2024-07-23, VO:   [ATVCOMETLL-118]: Added element unsignedsuffix to    -->
+<!--                           have all  defines as unsigned values (U suffix)      -->
+<!-- V1.1.3: 2024-10-28, VO:   [ATVCOMETLL-114] Removed OSC xml                     -->
+<!-- V1.1.4: 2024-11-27, VO:   [ATVCOMETLL-167] Add device support for TLD4020_4ET  -->
+<!-- V1.1.5: 2025-02-17, VO:   [ATVCOMETLL-181] Removed generation of .inc files    -->
+<!-- V1.1.6: 2025-09-02, VO:   [ATVCOMETLL-205] Added UART2 feature                 -->
+<!-- V1.1.7: 2025-09-04, VO:   [ATVCOMETLL-222] Added GPIO output buffer feature    -->
+<!-- V1.2.0: 2025-09-10, VO:   [ATVCOMETLL-217] Add device support for TLD4030_12ES -->
+<!--                                            Clean up conditions                 -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+  <checksum>1e92d59c1f475f8e016e1ddd8b6d5b7315cfd46fd138646a2eae1fa4230c0f3d</checksum>
+  <version label="V1.2.0"/>
+  <unsignedsuffix value="1"/>
+  
+  <!-- UC_FEATURE_* defines for usage in startcond -->
+  <!-- by default everything set to 0, set to 1 on demand -->
+  <setdefine value="0" define="UC_FEATURE_4CHANNEL"/>
+  <setdefine value="0" define="UC_FEATURE_12CHANNEL"/>
+  <setdefine value="0" define="UC_FEATURE_GPIOOUTBUF"/>
+  <setdefine value="0" define="UC_FEATURE_5GPIO"/>
+  <setdefine value="0" define="UC_FEATURE_UART2"/>
+  
+  <!-- TLD4020_3ET -->
+  <!-- No specific features for device==TLD4020-3ET -->
+  <!-- TLD4020_4ET -->
+  <setdefine value="1" startcond="device==TLD4020-4ET" define="UC_FEATURE_4CHANNEL"/>
+  <setdefine value="1" startcond="device==TLD4020-4ET" define="UC_FEATURE_GPIOOUTBUF"/>
+  <setdefine value="1" startcond="device==TLD4020-4ET" define="UC_FEATURE_UART2"/>
+  <!-- TLD4030_12ES -->
+  <setdefine value="1" startcond="device==TLD4030-12ES" define="UC_FEATURE_4CHANNEL"/>
+  <setdefine value="1" startcond="device==TLD4030-12ES" define="UC_FEATURE_12CHANNEL"/>
+  <setdefine value="1" startcond="device==TLD4030-12ES" define="UC_FEATURE_GPIOOUTBUF"/>
+  <setdefine value="1" startcond="device==TLD4030-12ES" define="UC_FEATURE_5GPIO"/>
+  <setdefine value="1" startcond="device==TLD4030-12ES" define="UC_FEATURE_UART2"/>
+  
+  <!-- svd file based on device -->
+  <svd startcond="device==TLD4020-3ET" file="tld40xx.svd"/>
+  <svd startcond="device==TLD4020-4ET" file="tld40xx_4et.svd"/>
+  <svd startcond="device==TLD4030-12ES" file="tld40xx_12es.svd"/>
+
+  <usesPython/>
+  <pythonstartup file="ldrv.py" afterinit="1"/>
+
+  <tabcontainer label="Peripherals">
+
+    <!-- setdefine can be used in startcond, but not in cond -->
+    <!-- To use them in cond, e.g. for an action, a math with exactly the same name and value is created -->
+    <math visible="false" label="math for UC_FEATURE_4CHANNEL" define="UC_FEATURE_4CHANNEL" svd="0" formula="0" startcond="UC_FEATURE_4CHANNEL==0"/>
+    <math visible="false" label="math for UC_FEATURE_4CHANNEL" define="UC_FEATURE_4CHANNEL" svd="0" formula="1" startcond="UC_FEATURE_4CHANNEL==1"/>
+    <math visible="false" label="math for UC_FEATURE_12CHANNEL" define="UC_FEATURE_12CHANNEL" svd="0" formula="0" startcond="UC_FEATURE_12CHANNEL==0"/>
+    <math visible="false" label="math for UC_FEATURE_12CHANNEL" define="UC_FEATURE_12CHANNEL" svd="0" formula="1" startcond="UC_FEATURE_12CHANNEL==1"/>
+    <math visible="false" label="math for UC_FEATURE_GPIOOUTBUF" define="UC_FEATURE_GPIOOUTBUF" svd="0" formula="0" startcond="UC_FEATURE_GPIOOUTBUF==0"/>
+    <math visible="false" label="math for UC_FEATURE_GPIOOUTBUF" define="UC_FEATURE_GPIOOUTBUF" svd="0" formula="1" startcond="UC_FEATURE_GPIOOUTBUF==1"/>
+    <math visible="false" label="math for UC_FEATURE_5GPIO" define="UC_FEATURE_5GPIO" svd="0" formula="0" startcond="UC_FEATURE_5GPIO==0"/>
+    <math visible="false" label="math for UC_FEATURE_5GPIO" define="UC_FEATURE_5GPIO" svd="0" formula="1" startcond="UC_FEATURE_5GPIO==1"/>
+    <math visible="false" label="math for UC_FEATURE_UART2" define="UC_FEATURE_UART2" svd="0" formula="0" startcond="UC_FEATURE_UART2==0"/>
+    <math visible="false" label="math for UC_FEATURE_UART2" define="UC_FEATURE_UART2" svd="0" formula="1" startcond="UC_FEATURE_UART2==1"/>
+	
+	  <!-- Add defines in case features are not available, but module xml is included -->
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.PWM_PHASE_CFG3.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.PWM_DC_CFG3.PWM_DC"/>
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.PWM_ISET_CFG3.PWM_ISET"/>
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.PWM_ISET_CFG3.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN3"/>
+    <var startcond="UC_FEATURE_4CHANNEL==0" define="LDRV.DIAG_PHASE_CFG3.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG4.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG4.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG4.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG4.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN4"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG4.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG5.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG5.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG5.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG5.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN5"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG5.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG6.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG6.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG6.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG6.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN6"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG6.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG7.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG7.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG7.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG7.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN7"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG7.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG8.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG8.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG8.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG8.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN8"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG8.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG9.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG9.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG9.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG9.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN9"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG9.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG10.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG10.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG10.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG10.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN10"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG10.DIAG_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_PHASE_CFG11.PWM_PHASE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_DC_CFG11.PWM_DC"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG11.PWM_ISET"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.PWM_ISET_CFG11.RAMP_MODE"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_CFG.PU_EN11"/>
+    <var startcond="UC_FEATURE_12CHANNEL==0" define="LDRV.DIAG_PHASE_CFG11.DIAG_PHASE"/>
+
+    <include>icw_cmt_bsl.xml</include>
+    <include>icw_cmt_adc11.xml</include>
+    <include>icw_cmt_cpu.xml</include>
+    <include>icw_cmt_gpio.xml</include>
+    <include>icw_cmt_ldrv.xml</include>
+    <include>icw_cmt_lin.xml</include>
+    <include startcond="UC_FEATURE_UART2==1">icw_cmt_uart2.xml</include>
+    <include>icw_cmt_mem.xml</include>
+    <include>icw_cmt_pmu.xml</include>
+    <include>icw_cmt_scu.xml</include>
+
+  </tabcontainer>
+</ifxmlcfg>

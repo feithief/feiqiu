@@ -1,0 +1,52 @@
+Set
+Auto IntTime2  :4000
+AddTime        :30
+OverK          :0.92
+WLK            :0.10
+WL             :350-1000
+CalFe          :0
+BaudRate       :4800
+DoAD(STC4)     :1
+TN(STC4)       :2
+Detector(STC4) :1
+GetDarkDelay   :500
+Do(VIR)        :1000.0 1.000
+CCD Mode(Haas) :1
+UsePlusMode    :1 1
+CalFlux        :0
+LineCorrectType:1
+MultiModelTest :0
+HaasColorVIR_UV:3
+DoProAvgNum    :0
+TMP_Baudrate   :4800 bps
+OpenPluse-IV   :0
+OpenTMP_3D     :1
+HAAS1200_WL_P  :600 nm
+Input          :2012 1015
+DoU(UVIR)      :250 nm[K=1e-005]
+
+
+//Auto IntTime2  :自动积分时间调节上限
+//AddTime        :快速测试时的附加开灯时间(ms)
+//OverK          :溢出判定(满AD的比例)
+//WLK            :波长校正时用
+//WL             :波长范围
+//CalFe          :是否开放辐射通量定标功能(1或0)
+//BaudRate       :波特率
+//DoAD(STC4)     :对于STC4的是否(65535-AD)处理,新的一般为不处理，即0
+//TN(STC4)       :对于STC4与HAAS的几倍的积分时间=开灯时间,一般为2
+//Detector(STC4) :是否使用STC4000与HAAS自行的光度探头测试光通量(1或0)
+//GetDarkDelay   :读取关灯后延时时间后读取暗电流(ms)
+//Do(VIR)        :红外处理用(波长与系数)
+//CCD Mode(Haas) :Haas光谱仪CCD类型 0:64线 1:表示128线
+//UsePlusMode    :是否开放新的脉冲测量功能(现只对HAAS有效)[1或0],是否使用硬件触发[1或0]
+//CalFlux        :是否开放光通量多组定标功能(1或0)
+//LineCorrectType:Haas光谱仪线性校正方法,0为以前的校最终结果的，1为最新校AD
+//MultiModelTest :是否开放典型测试
+//HaasColorVIR_UV:**** (红外(第5块)或紫外(第1块)HAAS光谱仪色片设置，红外一般安装在3即(A2)),紫外为1, OFF=0,ON=1,A1=2,A2=3,B=4,G=5,O=6,R=7
+//DoProAvgNum    :对于STC4的滑动平均像素，0或1表示不用(对于红外STC4可以加几个7或11等)
+//TMP_Baudrate   :LED恒温装置波特率,4800或9600
+//OpenPluse-IV   :开放脉冲IV吗
+//OpenTMP_3D     :开放温度变化分析3D曲线
+//HAAS1200_WL_P  :一般为700nm
+//DoU(UVIR)      :200-1200等仪器，紫外的处理

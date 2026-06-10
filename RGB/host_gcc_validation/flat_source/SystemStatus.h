@@ -1,0 +1,3 @@
+#ifndef _HOST_SYSTEMSTATUS_H_
+#define _HOST_SYSTEMSTATUS_H_
+#endif

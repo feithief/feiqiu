@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_ldrv.xml                                                           -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2025, Infineon Technologies AG                                    -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   VO           Vanessa Ongaro                                                  -->
+<!--   JO           Julia Ott                                                       -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-08-07, VO:   [ATVCOMETLL-119] Added Duty-Cycle settings for GPIO0 -->
+<!--                           Synchronization                                      -->
+<!--                           Added Interrupt Req Handling for PWM_SYNCH and OVLF  -->
+<!--                           Fixed indentation                                    -->
+<!-- V1.0.2: 2023-08-08, VO:   [ATVCOMETLL-49] Linked Current set-point to svd      -->
+<!-- V1.0.3: 2023-08-29, SL:   [ATVCOMETLL-121] f_PWM indication added on the GUI   -->
+<!-- V1.0.4: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!-- V1.0.5: 2024-03-11, SL:   [ATVCOMETLL-155] Added per channel ISR for EOC, S2G, -->
+<!--                           and TH_OVLD                                          -->
+<!-- V1.0.6: 2024-07-19, VO:   [ATVCOMETLL-138] Added lock on NVICs                 -->
+<!-- V1.0.7: 2024-11-27, VO:   [ATVCOMETLL-167] Add device support for TLD4020_4ET  -->
+<!-- V1.0.8: 2025-05-05, VO:   [ATVCOMETLL-190] Added pull up enable                -->
+<!-- V1.0.9: 2025-08-18, VO:   [ATVCOMETLL-221] Enable consistency timer for ch3    -->
+<!-- V1.1.0: 2025-09-11, VO:   [ATVCOMETLL-99] Rework alternating configurations    -->
+<!-- V1.2.0: 2025-10-10, VO:   [ATVCOMETLL-217] Add device support for TLD4030_12ES -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>d5a05a2534620830585b6636b5470d23f6a15312752775827855f1fe25a5937d</checksum>
+  <version label="V1.2.0"/>
+
+
+  <verticalcontainer label="LDRV" desc="Led driver">
+    <!-- Defines needed for python -->
+    <!-- Phase Shift -->
+    <var define="LDRV_PWM_PHASE_CFG0_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG0_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG1_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG1_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG2_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG2_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG3_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG3_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG4_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG4_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG5_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG5_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG6_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG6_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG7_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG7_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG8_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG8_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG9_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG9_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG10_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG10_TICKS"/>
+    <var define="LDRV_PWM_PHASE_CFG11_REGVAL"/>
+    <var define="LDRV_PWM_PHASE_CFG11_TICKS"/>
+    <!-- Duty Cycle -->
+    <var define="LDRV_PWM_DC_CFG0_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG1_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG2_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG3_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG4_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG5_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG6_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG7_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG8_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG9_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG10_REGVAL"/>
+    <var define="LDRV_PWM_DC_CFG11_REGVAL"/>
+    <var define="LDRV_PWM_DC_SYNCH_REGVAL"/>
+    <!-- Diagnostic Phase Shift -->
+    <var define="LDRV_PWM_DIAG_PHASE_CFG0_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG1_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG2_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG3_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG4_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG5_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG6_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG7_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG8_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG9_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG10_REGVAL"/>
+    <var define="LDRV_PWM_DIAG_PHASE_CFG11_REGVAL"/>
+
+    <treecontainer headerlabels="Item;Value;" label="PWM Setting" desc="PWM Setting" columnwidths="400;250">
+        <header file="ldrv_defines.h">
+                
+            <checkbox label="LED driver enable" define="LDRV.MOD_CFG.LD_ENABLE" lockon="ADC11.CFG_1.ADC_ENABLE=1" uielement="branch" expand="0" default="0">
+                    
+                <branch label="PWM setting" expand="0">
+
+                    <math visible="true" label="f_PWM" define="LDRV_F_PWM" header="temp_defines.h" svd="0" formula="SCU_F_SYS0 * 1000000 / ( (LDRV.PWM_FREQ.PWM_PS + 1) * (LDRV.PWM_FREQ.PWM_MAX + 1) )" unit="Hz"/>
+
+                    <spinbox label="Frequency divider" define="LDRV.PWM_FREQ.PWM_PS" default="0" step="1" range="0;511"/>
+
+                    <spinbox label="Max counter value" define="LDRV_MAX_COUNT" default="65535" step="1" range="0;65535" header="temp_defines.h" svd="0"/>
+                    <math visible="false" label="PWM_MAX" define="LDRV.PWM_FREQ.PWM_MAX" default="65535" formula="LDRV_MAX_COUNT"/>
+
+                    <branch label="Phase shift" expand="0">
+                        <!-- Channel 0 -->
+                        <horizontalcontainer label="Channel 0">
+                            <spinbox define="LDRV_CH0_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH0_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_PHASE 0 ticks" define="PHASESHIFT_TICKS_0" svd="0" formula="LDRV_PWM_PHASE_CFG0_TICKS" header="temp_defines.h"/>
+                        <math visible="true" label="PWM_PHASE 0 bitfield value" define="LDRV.PWM_PHASE_CFG0.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG0_REGVAL" format="%02X"/>
+                        <!-- Channel 1 -->
+                        <horizontalcontainer label="Channel 1">
+                            <spinbox define="LDRV_CH1_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH1_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_PHASE 1 ticks" define="PHASESHIFT_TICKS_1" svd="0" formula="LDRV_PWM_PHASE_CFG1_TICKS" header="temp_defines.h"/>
+                        <math visible="true" label="PWM_PHASE 1 bitfield value" define="LDRV.PWM_PHASE_CFG1.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG1_REGVAL" format="%02X"/>
+                        <!-- Channel 2 -->
+                        <horizontalcontainer label="Channel 2">
+                            <spinbox define="LDRV_CH2_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH2_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_PHASE 2 ticks" define="PHASESHIFT_TICKS_2" svd="0" formula="LDRV_PWM_PHASE_CFG2_TICKS" header="temp_defines.h"/>
+                        <math visible="true" label="PWM_PHASE 2 bitfield value" define="LDRV.PWM_PHASE_CFG2.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG2_REGVAL" format="%02X"/>
+                        <!-- Channel 3 -->
+                        <horizontalcontainer startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3">
+                            <spinbox define="LDRV_CH3_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH3_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_4CHANNEL==1" visible="true" label="PWM_PHASE 3 ticks" define="PHASESHIFT_TICKS_3" svd="0" formula="LDRV_PWM_PHASE_CFG3_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_4CHANNEL==1" visible="true" label="PWM_PHASE 3 bitfield value" define="LDRV.PWM_PHASE_CFG3.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG3_REGVAL" format="%02X"/>
+                        <!-- Channel 4 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4">
+                            <spinbox define="LDRV_CH4_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH4_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 4 ticks" define="PHASESHIFT_TICKS_4" svd="0" formula="LDRV_PWM_PHASE_CFG4_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 4 bitfield value" define="LDRV.PWM_PHASE_CFG4.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG4_REGVAL" format="%02X"/>
+                        <!-- Channel 5 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5">
+                            <spinbox define="LDRV_CH5_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH5_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 5 ticks" define="PHASESHIFT_TICKS_5" svd="0" formula="LDRV_PWM_PHASE_CFG5_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 5 bitfield value" define="LDRV.PWM_PHASE_CFG5.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG5_REGVAL" format="%02X"/>
+                        <!-- Channel 6 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6">
+                            <spinbox define="LDRV_CH6_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH6_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 6 ticks" define="PHASESHIFT_TICKS_6" svd="0" formula="LDRV_PWM_PHASE_CFG6_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 6 bitfield value" define="LDRV.PWM_PHASE_CFG6.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG6_REGVAL" format="%02X"/>
+                        <!-- Channel 7 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7">
+                            <spinbox define="LDRV_CH7_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH7_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 7 ticks" define="PHASESHIFT_TICKS_7" svd="0" formula="LDRV_PWM_PHASE_CFG7_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 7 bitfield value" define="LDRV.PWM_PHASE_CFG7.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG7_REGVAL" format="%02X"/>
+                        <!-- Channel 8 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8">
+                            <spinbox define="LDRV_CH8_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH8_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 8 ticks" define="PHASESHIFT_TICKS_8" svd="0" formula="LDRV_PWM_PHASE_CFG8_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 8 bitfield value" define="LDRV.PWM_PHASE_CFG8.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG8_REGVAL" format="%02X"/>
+                        <!-- Channel 9 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9">
+                            <spinbox define="LDRV_CH9_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH9_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 9 ticks" define="PHASESHIFT_TICKS_9" svd="0" formula="LDRV_PWM_PHASE_CFG9_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 9 bitfield value" define="LDRV.PWM_PHASE_CFG9.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG9_REGVAL" format="%02X"/>
+                        <!-- Channel 10 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10">
+                            <spinbox define="LDRV_CH10_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH10_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 10 ticks" define="PHASESHIFT_TICKS_10" svd="0" formula="LDRV_PWM_PHASE_CFG10_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 10 bitfield value" define="LDRV.PWM_PHASE_CFG10.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG10_REGVAL" format="%02X"/>
+                        <!-- Channel 11 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11">
+                            <spinbox define="LDRV_CH11_PHASESHIFT" svd="0" default="0" range="0;99" header="temp_defines.h"/>
+                            <combo define="LDRV_CH11_PHASESHIFT_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_PHASESHIFT.max=255"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_PHASESHIFT.max=99"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 11 ticks" define="PHASESHIFT_TICKS_11" svd="0" formula="LDRV_PWM_PHASE_CFG11_TICKS" header="temp_defines.h"/>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_PHASE 11 bitfield value" define="LDRV.PWM_PHASE_CFG11.PWM_PHASE" default="0" formula="LDRV_PWM_PHASE_CFG11_REGVAL" format="%02X"/>
+                    </branch>
+                    
+                    <branch label="Duty-cycle" expand="0">
+                        <!-- Channel 0 -->
+                        <horizontalcontainer label="Channel 0">
+                            <spinbox define="LDRV_CH0_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH0_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DC 0 bitfield value = ticks" define="LDRV.PWM_DC_CFG0.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG0_REGVAL"/>
+                        <!-- Channel 1 -->
+                        <horizontalcontainer label="Channel 1">
+                            <spinbox define="LDRV_CH1_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH1_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DC 1 bitfield value = ticks" define="LDRV.PWM_DC_CFG1.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG1_REGVAL"/>
+                        <!-- Channel 2 -->
+                        <horizontalcontainer label="Channel 2">
+                            <spinbox define="LDRV_CH2_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH2_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DC 2 bitfield value = ticks" define="LDRV.PWM_DC_CFG2.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG2_REGVAL"/>
+                        <!-- Channel 3 -->
+                        <horizontalcontainer startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3">
+                            <spinbox define="LDRV_CH3_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH3_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_4CHANNEL==1" visible="true" label="PWM_DC 3 bitfield value = ticks" define="LDRV.PWM_DC_CFG3.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG3_REGVAL"/>
+                        <!-- Channel 4 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4">
+                            <spinbox define="LDRV_CH4_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH4_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 4 bitfield value = ticks" define="LDRV.PWM_DC_CFG4.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG4_REGVAL"/>
+                        <!-- Channel 5 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5">
+                            <spinbox define="LDRV_CH5_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH5_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 5 bitfield value = ticks" define="LDRV.PWM_DC_CFG5.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG5_REGVAL"/>
+                        <!-- Channel 6 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6">
+                            <spinbox define="LDRV_CH6_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH6_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 6 bitfield value = ticks" define="LDRV.PWM_DC_CFG6.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG6_REGVAL"/>
+                        <!-- Channel 7 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7">
+                            <spinbox define="LDRV_CH7_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH7_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 7 bitfield value = ticks" define="LDRV.PWM_DC_CFG7.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG7_REGVAL"/>
+                        <!-- Channel 8 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8">
+                            <spinbox define="LDRV_CH8_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH8_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 8 bitfield value = ticks" define="LDRV.PWM_DC_CFG8.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG8_REGVAL"/>
+                        <!-- Channel 9 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9">
+                            <spinbox define="LDRV_CH9_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH9_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 9 bitfield value = ticks" define="LDRV.PWM_DC_CFG9.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG9_REGVAL"/>
+                        <!-- Channel 10 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10">
+                            <spinbox define="LDRV_CH10_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH10_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 10 bitfield value = ticks" define="LDRV.PWM_DC_CFG10.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG10_REGVAL"/>
+                        <!-- Channel 11 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11">
+                            <spinbox define="LDRV_CH11_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH11_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DC 11 bitfield value = ticks" define="LDRV.PWM_DC_CFG11.PWM_DC" default="0" formula="LDRV_PWM_DC_CFG11_REGVAL"/>
+                        <!-- GPIO 0 pwm synch -->
+                        <horizontalcontainer label="GPIO 0 Synchronization">
+                            <spinbox define="LDRV_SYNCH_DC" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_SYNCH_DC_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_SYNCH_DC.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_SYNCH_DC.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="GPIO 0 bitfield value = ticks" define="LDRV.PWM_SYNCH.PWM_SYNCH" default="0" formula="LDRV_PWM_DC_SYNCH_REGVAL"/>
+                    </branch>
+                    
+                    <branch label="Current set-point" expand="0">
+					    <combo label="Channel 0 ISET" define="LDRV.PWM_ISET_CFG0.PWM_ISET" default="label=5000 uA current"/>
+						<combo label="Channel 1 ISET" define="LDRV.PWM_ISET_CFG1.PWM_ISET" default="label=5000 uA current"/>
+						<combo label="Channel 2 ISET" define="LDRV.PWM_ISET_CFG2.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3 ISET" define="LDRV.PWM_ISET_CFG3.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4 ISET" define="LDRV.PWM_ISET_CFG4.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5 ISET" define="LDRV.PWM_ISET_CFG5.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6 ISET" define="LDRV.PWM_ISET_CFG6.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7 ISET" define="LDRV.PWM_ISET_CFG7.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8 ISET" define="LDRV.PWM_ISET_CFG8.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9 ISET" define="LDRV.PWM_ISET_CFG9.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10 ISET" define="LDRV.PWM_ISET_CFG10.PWM_ISET" default="label=5000 uA current"/>
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11 ISET" define="LDRV.PWM_ISET_CFG11.PWM_ISET" default="label=5000 uA current"/>
+                    </branch>
+                    
+                    <branch label="Current ramp mode" expand="0">
+
+                        <combo label="Channel 0" define="LDRV.PWM_ISET_CFG0.RAMP_MODE" default="label=Normal mode selected"/>
+
+                        <combo label="Channel 1" define="LDRV.PWM_ISET_CFG1.RAMP_MODE" default="label=Normal mode selected"/>
+
+                        <combo label="Channel 2" define="LDRV.PWM_ISET_CFG2.RAMP_MODE" default="label=Normal mode selected"/>
+						
+						<combo startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3" define="LDRV.PWM_ISET_CFG3.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4" define="LDRV.PWM_ISET_CFG4.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5" define="LDRV.PWM_ISET_CFG5.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6" define="LDRV.PWM_ISET_CFG6.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7" define="LDRV.PWM_ISET_CFG7.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8" define="LDRV.PWM_ISET_CFG8.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9" define="LDRV.PWM_ISET_CFG9.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10" define="LDRV.PWM_ISET_CFG10.RAMP_MODE" default="label=Normal mode selected"/>
+
+						<combo startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11" define="LDRV.PWM_ISET_CFG11.RAMP_MODE" default="label=Normal mode selected"/>
+
+                    </branch>
+
+                </branch>
+
+                <branch label="Output stage protection" expand="0">
+                    
+                    <branch label="Thermal overload" expand="0">
+                        <combo label="Synchronization strategy" define="LDRV.OSP_CFG.TH_OVLD_SYNCH" size="250;-1"/>
+                        <!-- If want to select another default value different from the first, insert attribute default="label=131.5 123.5 8 C" with whatever label we want to select -->
+                        <combo label="Threshold" define="LDRV.OSP_CFG.OVLD_TH_CFG" size="250;-1" default="label=174.5:164.5 10C"/>
+
+                    </branch>
+
+                    <checkbox label="Short to ground protection enable" define="LDRV.OSP_CFG.DIAG_S2G_EN" default="0"/>
+                
+                </branch>
+
+                <branch label="Diagnostics" expand="0">
+                    
+                    <checkbox startcond="UC_FEATURE_12CHANNEL==0" label="Supply voltage VS vs. threshold fast conversion enable" define="LDRV.DIAG_CFG.DIAG_VS_TH_EN" default="0"/>
+                    <checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Supply voltage VSL vs. threshold fast conversion enable" define="LDRV.DIAG_CFG.DIAG_VSL_TH_EN" default="0"/>
+
+                    <checkbox label="VGPIO0 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO0_EN" default="0"/>
+
+                    <checkbox label="VGPIO1 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO1_EN" default="0"/>
+                    
+                    <checkbox startcond="UC_FEATURE_12CHANNEL==1" label="VGPIO3 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO3_EN" default="0"/>
+
+                    <checkbox startcond="UC_FEATURE_12CHANNEL==1" label="VGPIO4 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO4_EN" default="0"/>
+
+                    <checkbox label="End Of Channel Conversion interrupt flag generation enable" define="LDRV.DIAG_CFG.DIAG_EOC_EN" default="0"/>
+					
+					<checkbox label="Enable Pull Up 0" define="LDRV.DIAG_CFG.PU_EN0" default="0"/>
+					<checkbox label="Enable Pull Up 1" define="LDRV.DIAG_CFG.PU_EN1" default="0"/>
+					<checkbox label="Enable Pull Up 2" define="LDRV.DIAG_CFG.PU_EN2" default="0"/>
+					<checkbox startcond="UC_FEATURE_4CHANNEL==1" label="Enable Pull Up 3" define="LDRV.DIAG_CFG.PU_EN3" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 4" define="LDRV.DIAG_CFG.PU_EN4" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 5" define="LDRV.DIAG_CFG.PU_EN5" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 6" define="LDRV.DIAG_CFG.PU_EN6" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 7" define="LDRV.DIAG_CFG.PU_EN7" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 8" define="LDRV.DIAG_CFG.PU_EN8" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 9" define="LDRV.DIAG_CFG.PU_EN9" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 10" define="LDRV.DIAG_CFG.PU_EN10" default="0"/>
+					<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Enable Pull Up 11" define="LDRV.DIAG_CFG.PU_EN11" default="0"/>
+
+                    <branch label="Diagnostic start phase shift" expand="0">
+                        <!-- Channel 0 -->
+                        <horizontalcontainer label="Channel 0">
+                            <spinbox define="LDRV_CH0_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH0_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH0_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DIAG_PHASE 0 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG0_REGVAL"/>
+                        <!-- Channel 1 -->
+                        <horizontalcontainer label="Channel 1">
+                            <spinbox define="LDRV_CH1_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH1_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH1_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DIAG_PHASE 1 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG1.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG1_REGVAL"/>
+                        <!-- Channel 2 -->
+                        <horizontalcontainer label="Channel 2">
+                            <spinbox define="LDRV_CH2_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH2_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH2_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math visible="true" label="PWM_DIAG_PHASE 2 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG2.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG2_REGVAL"/>
+                        <!-- Channel 3 -->
+                        <horizontalcontainer startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3">
+                            <spinbox define="LDRV_CH3_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH3_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH3_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_4CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 3 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG3.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG3_REGVAL"/>
+                        <!-- Channel 4 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4">
+                            <spinbox define="LDRV_CH4_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH4_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH4_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 4 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG4.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG4_REGVAL"/>
+                        <!-- Channel 5 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5">
+                            <spinbox define="LDRV_CH5_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH5_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH5_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 5 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG5.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG5_REGVAL"/>
+                        <!-- Channel 6 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6">
+                            <spinbox define="LDRV_CH6_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH6_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH6_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 6 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG6.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG6_REGVAL"/>
+                        <!-- Channel 7 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7">
+                            <spinbox define="LDRV_CH7_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH7_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH7_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 7 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG7.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG7_REGVAL"/>
+                        <!-- Channel 8 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8">
+                            <spinbox define="LDRV_CH8_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH8_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH8_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 8 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG8.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG8_REGVAL"/>
+                        <!-- Channel 9 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9">
+                            <spinbox define="LDRV_CH9_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH9_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH9_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 9 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG9.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG9_REGVAL"/>
+                        <!-- Channel 10 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10">
+                            <spinbox define="LDRV_CH10_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH10_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH10_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 10 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG10.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG10_REGVAL"/>
+                        <!-- Channel 11 -->
+                        <horizontalcontainer startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11">
+                            <spinbox define="LDRV_CH11_DIAG_PHASE" svd="0" default="0" range="0;100" header="temp_defines.h"/>
+                            <combo define="LDRV_CH11_DIAG_PHASE_UNIT" svd="0" default="1" header="temp_defines.h">
+                                <item value="0" label="bitfield value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_DIAG_PHASE.max=65535"/>
+                                </item>
+                                <item value="1" label="% of max counter value">
+                                  <action event="selected" cmd="setDef" data="LDRV_CH11_DIAG_PHASE.max=100"/>
+                                </item>
+                            </combo>
+                        </horizontalcontainer>
+                        <math startcond="UC_FEATURE_12CHANNEL==1" visible="true" label="PWM_DIAG_PHASE 11 bitfield value = ticks" define="LDRV.DIAG_PHASE_CFG11.DIAG_PHASE" default="0" formula="LDRV_PWM_DIAG_PHASE_CFG11_REGVAL"/>
+                    </branch>
+                
+                </branch>
+
+                <branch label="Interrupt Request Handling" expand="0">
+                    
+                    <checkbox label="End Of Diagnostic" define="LDRV_EOD_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+
+                        <checkbox label="Enable interrupt" define="LDRV.IEN0.EOD" default="0"/>
+                        <edit label="Callback" define="LDRV_EOD_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+
+                    <branch label="End Of Conversion" expand="0">
+
+                        <checkbox label="Channel 0" define="LDRV_EOC_CH0_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[16]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+                        <checkbox label="Channel 1" define="LDRV_EOC_CH1_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[17]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>    
+
+                        <checkbox label="Channel 2" define="LDRV_EOC_CH2_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[18]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+						
+						<checkbox startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3" define="LDRV_EOC_CH3_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[19]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH3_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4" define="LDRV_EOC_CH4_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[20]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH4_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5" define="LDRV_EOC_CH5_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[21]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH5_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6" define="LDRV_EOC_CH6_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[22]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH6_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7" define="LDRV_EOC_CH7_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[23]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH7_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8" define="LDRV_EOC_CH8_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[24]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH8_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9" define="LDRV_EOC_CH9_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[25]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH9_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10" define="LDRV_EOC_CH10_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[26]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH10_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11" define="LDRV_EOC_CH11_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+                            <checkbox label="Enable" define="LDRV.IEN0[27]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_EOC_CH11_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                    </branch>
+					
+					<checkbox label="PWM Synchronization" define="LDRV_PWM_SYNCH_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+
+                        <checkbox label="Enable PWM SYNCH interrupt" define="LDRV.IEN0.PWM_SYNCH" default="0"/>
+                        <edit label="Callback" define="LDRV_PWM_SYNCH_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+					
+					<checkbox label="PWM Overflow" define="LDRV_OVLF_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[5]=1">
+
+                        <checkbox label="Enable PWM Overflow interrupt" define="LDRV.IEN0.OVLF" default="0"/>
+                        <edit label="Callback" define="LDRV_OVLF_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+
+                    <branch label="Thermal overload" expand="0">
+
+                        <checkbox label="Channel 0" define="LDRV_TH_OVLD_CH0_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[0]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                        <checkbox label="Channel 1" define="LDRV_TH_OVLD_CH1_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[1]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                        <checkbox label="Channel 2" define="LDRV_TH_OVLD_CH2_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[2]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+						
+						<checkbox startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3" define="LDRV_TH_OVLD_CH3_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[3]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH3_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4" define="LDRV_TH_OVLD_CH4_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[4]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH4_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5" define="LDRV_TH_OVLD_CH5_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[5]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH5_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6" define="LDRV_TH_OVLD_CH6_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[6]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH6_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7" define="LDRV_TH_OVLD_CH7_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[7]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH7_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8" define="LDRV_TH_OVLD_CH8_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[8]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH8_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9" define="LDRV_TH_OVLD_CH9_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[9]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH9_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10" define="LDRV_TH_OVLD_CH10_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[10]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH10_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11" define="LDRV_TH_OVLD_CH11_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[11]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_TH_OVLD_CH11_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                    </branch>
+
+                    <branch label="Short to ground" expand="0">
+
+                        <checkbox label="Channel 0" define="LDRV_S2G_CH0_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[16]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                        <checkbox label="Channel 1" define="LDRV_S2G_CH1_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">    
+                            <checkbox label="Enable" define="LDRV.IEN1[17]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                        <checkbox label="Channel 2" define="LDRV_S2G_CH2_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[18]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+						
+						<checkbox startcond="UC_FEATURE_4CHANNEL==1" label="Channel 3" define="LDRV_S2G_CH3_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[19]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH3_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 4" define="LDRV_S2G_CH4_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[20]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH4_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 5" define="LDRV_S2G_CH5_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[21]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH5_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 6" define="LDRV_S2G_CH6_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[22]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH6_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 7" define="LDRV_S2G_CH7_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[23]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH7_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 8" define="LDRV_S2G_CH8_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[24]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH8_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 9" define="LDRV_S2G_CH9_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[25]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH9_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 10" define="LDRV_S2G_CH10_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[26]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH10_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+                        
+						<checkbox startcond="UC_FEATURE_12CHANNEL==1" label="Channel 11" define="LDRV_S2G_CH11_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[6]=1">
+                            <checkbox label="Enable" define="LDRV.IEN1[27]" svd="0" default="0"/>
+                            <edit label="Callback" define="LDRV_S2G_CH11_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        </checkbox>
+
+                    </branch>
+                    
+                </branch>
+        
+            </checkbox>
+
+        </header>
+    </treecontainer>
+
+  </verticalcontainer>
+
+</ifxmlcfg>

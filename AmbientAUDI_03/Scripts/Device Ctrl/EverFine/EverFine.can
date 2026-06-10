@@ -1,0 +1,516 @@
+/*@!Encoding:936*/
+includes
+{
+
+}
+
+variables
+{
+  const int SMDataLength = 256;
+  word SMgcnt=0;
+  const word SMCOMPort = 2;
+  const byte TimeStampLength = 32;
+  const byte DataLength = 16;
+  const byte EverFineMeasTimeout = 6;
+  const long MAXIP = 50000;//58900;
+  const long MINIP = (MAXIP/2-2000);
+  
+  
+  struct SxyL
+  {
+    word x;
+    word y;
+    dword L;
+    dword IP;
+  };
+  struct SEverFine
+  {
+    byte Cmd;byte Resp;
+    byte CmdData[DataLength];
+    byte RespData[DataLength];
+    struct SxyL CIExyL;
+    char TimeStamp[TimeStampLength];
+  }EverFineData;
+  enum ECmd
+  {
+    NoCmd_0 = 0,
+    GetInitInfo_1,
+    ReInit_2,
+    GetCIExyL_3,
+    TempCtrlOn_4,
+    TempCtrlOFF_5,
+    GetCurrentTemp_6,
+    SetCurrentTemp_7,
+    GetCIExyLwithIdealIP_8,
+    GetAverageCIExyL_9,
+    ///////////////////////////////////////
+    Delima_1,
+    TextOutput_OFF,
+    TextOutput_ON,
+    CloseEverFine_20
+  };
+  
+  struct SEverFineCtrl
+  {
+    char ScriptPath[SMDataLength];
+    char ExePath[SMDataLength];
+    byte SMData[SMDataLength];
+    int64 TimeStart;
+    int64 TimeElapsed;
+  }EverFineCtrl;
+  
+  enum EReturnType
+  {
+    GetDataWithGoodInteralTime = 0,
+    UndefinedResult,
+    Timeout_AllZeros,
+    Timeout_InteralTimeUnavailable
+  };
+}
+
+void HAAS1200_CtrlInit(void)
+{
+  char exePath[SMDataLength];
+  long ret = 0;
+  getAbsFilePath("Scripts", EverFineCtrl.ScriptPath,SMDataLength);
+  snprintf(EverFineCtrl.ExePath, SMDataLength, "%s\\Device Ctrl\\EverFine\\", EverFineCtrl.ScriptPath);
+  snprintf(exePath, SMDataLength, "%s\\HAASDriver_ShareMemo.exe", EverFineCtrl.ExePath);
+  ret = sysExec(exePath,"", EverFineCtrl.ExePath);
+  @sysvar::DeviceCtrl::EverFine::AverageTime = 4;
+}
+
+void HAAS1200_Execute(word mode)
+{
+  local_ClearBuffer();
+  switch(mode)
+  {
+    case GetInitInfo_1:  // Init success judgement
+      EverFineData.Cmd = GetInitInfo_1;
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);  
+      local_JudgeTimeout("<HAAS1200Ctrl()> GetInitInfo_1", 5);
+      if(EverFineData.RespData[0] == 2)
+      {
+        //write(" HAAS1200 Init success.");
+        WriteLineLJM(e_sink_SystemPage,e_severity_Success, "HAAS1200 Init success.");
+      }
+      else
+      {
+        //write(" HAAS1200 Init failure.");
+        WriteLineLJM(e_sink_SystemPage,e_severity_Error, "HAAS1200 Init failure.");
+      }
+      break;     
+    case ReInit_2:
+      EverFineData.Cmd = ReInit_2;
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData); 
+      break;
+    case GetCIExyL_3:
+      EverFineCtrl.TimeStart = timeNowInt64();
+      Public_GetxyL(TextOutput_OFF);
+      EverFineCtrl.TimeElapsed = timeNowInt64()-EverFineCtrl.TimeStart;
+      snprintf(OutString, MAXFilePathLength, "<HAAS1200_Execute(GetCIExyL_3)> %.2fs is required to get Opt Value.", 
+        (float)(EverFineCtrl.TimeElapsed)/1000000000);
+      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+      break;     
+    case TempCtrlOn_4: // Start Temperature ctrl
+      EverFineData.Cmd = TempCtrlOn_4;
+      EverFineData.CmdData[0] = SMCOMPort; /* [0] represents COM port. it is 2 in E301, shanghai keboda */
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);
+      break;
+    case TempCtrlOFF_5: // Stop Temperature ctrl
+      EverFineData.Cmd = TempCtrlOFF_5;
+      EverFineData.CmdData[0] = SMCOMPort; /* [0] represents COM port. it is 2 in E301, shanghai keboda */
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);
+      break;
+    case GetCurrentTemp_6:  // Get temperature   
+      EverFineData.Cmd = GetCurrentTemp_6;
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);     
+      local_JudgeTimeout("<HAAS1200Ctrl()> GetCurrentTemp_6", 5);
+      SMgcnt = (word)((word)EverFineData.RespData[0] | ((word)EverFineData.RespData[1]<<8));
+      @DeviceCtrl::EverFine::GetTemperature_env = (int)(SMgcnt/100);
+      SMgcnt = (word)((word)EverFineData.RespData[2] | ((word)EverFineData.RespData[3]<<8));
+      @DeviceCtrl::EverFine::GetTemperature_cur = (int)(SMgcnt/100); 
+      break;
+    case SetCurrentTemp_7:  // set temperature
+      EverFineData.Cmd = SetCurrentTemp_7;
+      SMgcnt = (word)((int)(@sysvar::DeviceCtrl::EverFine::SetTemperature) * (int)100);
+      EverFineData.CmdData[0] = (byte)(SMgcnt&0x00ff);
+      EverFineData.CmdData[1] = (byte)((SMgcnt&0xff00)>>8);
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);
+      break; 
+    case GetCIExyLwithIdealIP_8:
+      Public_GetIdealCIEData("");
+      break;
+    case GetAverageCIExyL_9:
+      //deleted
+      break;
+    case CloseEverFine_20: // delete shared memory
+      EverFineData.Cmd = CloseEverFine_20;
+      memcpy(EverFineCtrl.SMData, EverFineData);
+      HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);
+      break;
+  }
+}
+
+void local_ClearBuffer(void)
+{ 
+  for(SMgcnt = 0; SMgcnt<SMDataLength; SMgcnt++)
+  {
+    EverFineCtrl.SMData[SMgcnt]=0;
+  }
+  memcpy(EverFineData, EverFineCtrl.SMData); 
+}
+
+
+void local_GetSharedMemory(void)
+{
+  HAAS1200_GetSharedMemory_LJM(EverFineCtrl.SMData);
+/*
+  write("EverFineCtrl.SMData  byte[]");
+  for(SMgcnt = 0; SMgcnt<60; SMgcnt += 6)
+  {
+    write("%x,  %x,  %x,  %x,  %x,  %x,", EverFineCtrl.SMData[SMgcnt], EverFineCtrl.SMData[SMgcnt+1], EverFineCtrl.SMData[SMgcnt+2], 
+      EverFineCtrl.SMData[SMgcnt+3], EverFineCtrl.SMData[SMgcnt+4], EverFineCtrl.SMData[SMgcnt+5]);
+  }
+*/ 
+  memcpy(EverFineData, EverFineCtrl.SMData);
+  /*
+  write("Cmd = %d, Resp = %d",EverFineData.Cmd, EverFineData.Resp);
+  write("x=%d, y=%d, L=%d, IP = %d", EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP);
+  write("log time = %s", EverFineData.TimeStamp);
+  */
+}
+
+void local_JudgeTimeout(char funName[], word Timeout_s)
+{
+  word TimeoutCNT = 0;
+  TimeoutCNT = 0;
+  while(1)
+  {
+    testWaitForTimeout(1000);
+    local_GetSharedMemory();
+    if(EverFineData.Resp != 0)
+    {
+      break;
+    }
+    else
+    {
+      if(TimeoutCNT++>Timeout_s)
+      {
+        //write("<%s> Time out(%ds has elapsed)!", funName, Timeout_s);
+        snprintf(OutString, MAXFilePathLength, "<local_JudgeTimeout::%s> Time out(%ds has elapsed)!", funName, Timeout_s);
+        WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+        break;
+      }
+    }
+  }
+}
+
+
+void Public_GetxyL(word TextOutputEnable)
+{
+  local_ClearBuffer();
+  EverFineData.Cmd = GetCIExyL_3;
+  SMgcnt = @DeviceCtrl::EverFine::IntegralTime;
+  EverFineData.CmdData[0] = (byte)(SMgcnt & 0x00ff);
+  EverFineData.CmdData[1] = (byte)((SMgcnt & 0xff00)>>8);
+  SMgcnt = @DeviceCtrl::EverFine::AverageTime;
+  EverFineData.CmdData[2] = (byte)(SMgcnt & 0x00ff);
+  EverFineData.CmdData[3] = (byte)((SMgcnt & 0xff00)>>8);     
+  memcpy(EverFineCtrl.SMData, EverFineData);
+  HAAS1200_SetGeneralCmd_LJM(EverFineCtrl.SMData);   
+  local_JudgeTimeout("<Public_GetxyL()> timeout set = 300s.", 300); 
+  if (TextOutputEnable == TextOutput_ON)
+  {
+    snprintf(OutString, MAXFilePathLength, "Cmd R,G,B,L = [%d, %d, %d, %d], Opt measure values x,y,L,IP = [%d, %d, %d, %d]", (word)getSignal(BCM_RGBa_Rot), 
+      (word)getSignal(BCM_RGBa_Gruen), (word)getSignal(BCM_RGBa_Blau), (word)getSignal(BCM_RGBa_Intensitaet),
+      EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP);
+    WriteLineLJM(e_sink_CAPLPage,e_severity_Information, OutString);
+  }
+  //WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+  @sysvar::DeviceCtrl::EverFine::CIEx = EverFineData.CIExyL.x;
+  @sysvar::DeviceCtrl::EverFine::CIEy = EverFineData.CIExyL.y;
+  @sysvar::DeviceCtrl::EverFine::CIEL = EverFineData.CIExyL.L;
+  @sysvar::DeviceCtrl::EverFine::IP = EverFineData.CIExyL.IP;
+}
+
+/* 注意这里的MAXTimeout是调用次数 */
+//void Public_GetIdealCIEData(word MAXTimeout, word OutputMode)
+//{
+//  word TimeoutCNT = 0;
+//  TimeoutCNT = 0;
+//  EverFineCtrl.TimeStart = timeNowInt64();
+//  do
+//  {    
+//    Public_GetxyL(TextOutput_OFF);  //普通采集函数不输出
+//    if((EverFineData.CIExyL.x == 0) || (EverFineData.CIExyL.y == 0) || (EverFineData.CIExyL.L == 0))
+//    {
+//      write("<Public_GetIdealCIEData()> [x,y,L] = 0", EverFineData.CIExyL.x, 
+//        EverFineData.CIExyL.y, EverFineData.CIExyL.L);
+//      TimeoutCNT++;
+//      if(TimeoutCNT++>MAXTimeout)
+//      {
+//        snprintf(OutString, MAXFilePathLength, "<Public_GetIdealCIEData()1> Time out(have tried %d times)!", TimeoutCNT);
+//        WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+//        return;
+//      }
+//      testWaitForTimeout(500);
+//      continue;
+//    }  // 异常值判断
+//    //write("TimeoutCNT=%d, IP=%d, (%d,%d)", TimeoutCNT, @DeviceCtrl::EverFine::IP, MINIP, MAXIP);
+//    if( (EverFineData.CIExyL.IP >= MINIP) && (EverFineData.CIExyL.IP <= MAXIP))
+//    {  //合适的IP
+//      break;
+//    }
+//    else if (EverFineData.CIExyL.IP > MAXIP)  
+//    {
+//      @DeviceCtrl::EverFine::IntegralTime = @DeviceCtrl::EverFine::IntegralTime>>3;
+//      @DeviceCtrl::EverFine::IntegralTime = @DeviceCtrl::EverFine::IntegralTime*4;
+//      continue;
+//    }
+//    else  //IP值过小
+//    {
+//      if(TimeoutCNT++>MAXTimeout)
+//      {
+//        snprintf(OutString, MAXFilePathLength, "<Public_GetIdealCIEData()2> Time out(have tried %d times)! suitable integral time can not be found!", TimeoutCNT);
+//        WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+//        //break;
+//        return;
+//      }
+//      else  // 未超时
+//      {
+//        if(EverFineData.CIExyL.IP == 0)
+//        {
+//          continue;
+//        }
+//        if ((EverFineData.CIExyL.L <= 2000) && (EverFineData.CIExyL.IP > 8000))
+//        {  //亮度过小 且Ip不算太小就让它去吧
+//          break;
+//        }
+//        if ((EverFineData.CIExyL.L < 4000)    //这是亮度非常低(0.4lm)的情况，API会显示正确的值但是IP永远不会再高了
+//            && (EverFineData.CIExyL.x != 0)
+//            && (EverFineData.CIExyL.y != 0)
+//            &&  TimeoutCNT >= 3)
+//        {
+//          @DeviceCtrl::EverFine::IntegralTime = 2000;
+//          break;
+//        }
+//        
+//        // 计算 积分时间
+//        @DeviceCtrl::EverFine::IntegralTime = EverFineLocal_GetIntegrate(
+//          (dword)@DeviceCtrl::EverFine::IntegralTime, (dword)@DeviceCtrl::EverFine::IP, (dword)MAXIP);
+//        snprintf(OutString, MAXFilePathLength, "<Public_GetIdealCIEData()> New Integrated time = %ld, timeout cnt = %d", 
+//          (dword)@DeviceCtrl::EverFine::IntegralTime, TimeoutCNT);
+//        WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+//        //write("<Public_GetIdealCIEData()> New Integrated time = %ld, timeout cnt = %d", (dword)@DeviceCtrl::EverFine::IntegralTime, TimeoutCNT);
+//        testWaitForTimeout(1000);
+//      }  // 计算IP的时间未超时
+//    }  // IP值过小
+//  }while(TimeoutCNT < MAXTimeout); 
+//
+//  EverFineCtrl.TimeElapsed = timeNowInt64()-EverFineCtrl.TimeStart;
+//  
+//  switch(OutputMode)
+//  {
+//    case 1:  // App测试
+//      snprintf(OutString, MAXFilePathLength, 
+//        "Cmd R,G,B,L = [%d, %d, %d, %d], Opt values x,y,L,IP = [%d, %d, %d, %d], %d times measured to get the suitable IntegralTime(%d), total time = %.2fs.", 
+//        (word)getSignal(BCM_RGBa_Rot), (word)getSignal(BCM_RGBa_Gruen), (word)getSignal(BCM_RGBa_Blau), (word)getSignal(BCM_RGBa_Intensitaet),
+//        EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP, TimeoutCNT, @DeviceCtrl::EverFine::IntegralTime,
+//        (float)(EverFineCtrl.TimeElapsed)/1000000000);
+//      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+//      break;
+//    case 2:  // LED测试
+//      snprintf(OutString, MAXFilePathLength,
+//        "<LED Measure> Opt values x,y,L,IP = [%d, %d, %d, %d], %d times measured to get the suitable IntegralTime(%d), total time = %.4fs.",         
+//        EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP, TimeoutCNT, @DeviceCtrl::EverFine::IntegralTime,
+//        (float)(EverFineCtrl.TimeElapsed)/1000000000);
+//      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+//      break;
+//  }
+//}
+
+
+/* 无所谓输出的in_CmdText填"" */
+word Public_GetIdealCIEData(char in_CmdText[])
+{
+  word TimeoutCNT = 0, ret_GetRealData;
+  
+  TimeoutCNT = 0;  
+  ret_GetRealData = UndefinedResult;
+  EverFineCtrl.TimeStart = timeNowInt64();
+  testWaitForTimeout(200);
+  do
+  {        
+    Public_GetxyL(TextOutput_OFF);  //普通采集函数不输出
+    if((EverFineData.CIExyL.x == 0) || (EverFineData.CIExyL.y == 0) || (EverFineData.CIExyL.L == 0))
+    {
+      write("<EverFine.can::Public_GetIdealCIEData()> [x,y,L] = 0", EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L);
+      TimeoutCNT++;
+      if(TimeoutCNT > EverFineMeasTimeout)
+      {
+        ret_GetRealData = Timeout_AllZeros;
+        break;  //在原来的函数中，这里是return
+      }
+      testWaitForTimeout(2000);
+      continue;
+    }  // 异常值判断
+    //write("TimeoutCNT=%d, IP=%d, (%d,%d)", TimeoutCNT, @DeviceCtrl::EverFine::IP, MINIP, MAXIP);
+    if( (EverFineData.CIExyL.IP >= MINIP) && (EverFineData.CIExyL.IP <= MAXIP))
+    {  //合适的IP
+      ret_GetRealData = GetDataWithGoodInteralTime;
+      break;
+    }
+    else if (EverFineData.CIExyL.IP > MAXIP)  
+    {
+      @DeviceCtrl::EverFine::IntegralTime = @DeviceCtrl::EverFine::IntegralTime>>3;
+      @DeviceCtrl::EverFine::IntegralTime = @DeviceCtrl::EverFine::IntegralTime*4;
+      testWaitForTimeout(1000);
+      continue;
+    }
+    else  //IP值过小
+    {
+      if(TimeoutCNT++> EverFineMeasTimeout)
+      {
+        ret_GetRealData = Timeout_InteralTimeUnavailable;
+        break;  //在原来的函数中，这里是return
+      }
+      else  // 未超时
+      {
+        if(EverFineData.CIExyL.IP == 0)
+        {
+          testWaitForTimeout(1000);
+          continue;
+        }
+        if ((EverFineData.CIExyL.L <= 2000) && (EverFineData.CIExyL.IP > 8000))
+        {  //亮度过小 且Ip不算太小就让它去吧
+          ret_GetRealData = GetDataWithGoodInteralTime;
+          break;
+        }
+        if ((EverFineData.CIExyL.L < 4000)    //这是亮度非常低(0.4lm)的情况，API会显示正确的值但是IP永远不会再高了
+            && (EverFineData.CIExyL.x != 0)
+            && (EverFineData.CIExyL.y != 0)
+            &&  TimeoutCNT >= 3)
+        {
+          @DeviceCtrl::EverFine::IntegralTime = 2000;
+          ret_GetRealData = GetDataWithGoodInteralTime;
+          break;
+        }
+        
+        // 计算 积分时间, break的不会到这里
+        @DeviceCtrl::EverFine::IntegralTime = EverFineLocal_GetIntegrate(
+          (dword)@DeviceCtrl::EverFine::IntegralTime, (dword)EverFineData.CIExyL.IP, (dword)MAXIP);
+        snprintf(OutString, MAXFilePathLength, "<Public_GetIdealCIEData()> New Integrated time = %ld. Have retried %d times.", 
+          (dword)@DeviceCtrl::EverFine::IntegralTime, TimeoutCNT);
+        WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+        testWaitForTimeout(1000);
+      }  // 计算IP的时间未超时
+    }  // IP值过小
+  }while(TimeoutCNT < EverFineMeasTimeout); 
+
+  EverFineCtrl.TimeElapsed = timeNowInt64()-EverFineCtrl.TimeStart;
+  testWaitForTimeout(200);
+  switch(ret_GetRealData)
+  {
+    case GetDataWithGoodInteralTime:
+      /* 在此处，in_CmdText[]应该包含 Cmd R,G,B,L = [%d, %d, %d, %d] 或 PWM R\G\B = %d. 注意in_CmdText[]要包含逗号 */
+      snprintf(OutString, MAXFilePathLength,
+        "%sOpt values x,y,L,IP = [%d, %d, %d, %d], %d times tried to get the suitable IntegralTime(%d), total time = %.2fs.",
+        in_CmdText, EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP, TimeoutCNT, 
+        @DeviceCtrl::EverFine::IntegralTime,(float)(EverFineCtrl.TimeElapsed)/1000000000);
+      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+      break;
+    case UndefinedResult:
+    default:
+      snprintf(OutString, MAXFilePathLength, 
+        "<Public_GetIdealCIEData()> Comes to undefined action at %.2f, Cmd info is: %s", (float)timeNowInt64()/1000000000, in_CmdText);
+      WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+      break;
+    case Timeout_AllZeros:
+      snprintf(OutString, MAXFilePathLength, "<EverFine.can::Public_GetIdealCIEData():> All zero data. Have retried %d times!", TimeoutCNT);
+      WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+      break;
+    case Timeout_InteralTimeUnavailable:
+      snprintf(OutString, MAXFilePathLength, "<Public_GetIdealCIEData()>Failed to find suitable integral time! Have retried %d times", TimeoutCNT);
+      WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+      break;
+  }
+  
+//  switch(OutputMode)
+//  {
+//    case 1:  // App测试
+//      snprintf(OutString, MAXFilePathLength, 
+//        "Cmd R,G,B,L = [%d, %d, %d, %d], Opt values x,y,L,IP = [%d, %d, %d, %d], %d times measured to get the suitable IntegralTime(%d), total time = %.2fs.", 
+//        (word)getSignal(BCM_RGBa_Rot), (word)getSignal(BCM_RGBa_Gruen), (word)getSignal(BCM_RGBa_Blau), (word)getSignal(BCM_RGBa_Intensitaet),
+//        EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP, TimeoutCNT, @DeviceCtrl::EverFine::IntegralTime,
+//        (float)(EverFineCtrl.TimeElapsed)/1000000000);
+//      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+//      break;
+//    case 2:  // LED测试
+//      snprintf(OutString, MAXFilePathLength,
+//        "<LED Measure> Opt values x,y,L,IP = [%d, %d, %d, %d], %d times measured to get the suitable IntegralTime(%d), total time = %.2fs.",         
+//        EverFineData.CIExyL.x, EverFineData.CIExyL.y, EverFineData.CIExyL.L, EverFineData.CIExyL.IP, TimeoutCNT, @DeviceCtrl::EverFine::IntegralTime,
+//        (float)(EverFineCtrl.TimeElapsed)/1000000000);
+//      WriteLineLJM(e_sink_SystemPage,e_severity_Information, OutString);
+//      break;
+//  }
+  testWaitForTimeout(200);
+  return ret_GetRealData;
+}
+
+
+
+/* if int%4!=0, output=0 */
+long EverFineLocal_GetIntegrate(dword NowInt, dword NowIP, dword MAXIP) 
+{
+  float tmpInt = 0;
+  long tmp;
+  tmpInt = (float)NowInt * MAXIP / (float)NowIP;
+  tmp = (long)(tmpInt/4);
+  if(tmpInt<=5)
+  {
+    tmpInt = 200;
+  }
+  else if (tmpInt > 30000)
+  {
+    tmpInt = 10000;
+  }
+  return (tmp*4); 
+}
+
+
+
+void HAAS1200_StopAutoMeasure(void)
+{
+  word TimeoutCNT = 0;
+  int val = 0;
+  
+  TimeoutCNT = 0;
+  @sysvar::DeviceCtrl::EverFine::SetTemperature = @sysvar::DeviceCtrl::EverFine::GetTemperature_env;
+  HAAS1200_Execute(SetCurrentTemp_7);
+  
+  do
+  {
+    TimeoutCNT +=1;
+    testWaitForTimeout(3000);
+    HAAS1200_Execute(GetCurrentTemp_6);
+    testWaitForTimeout(2000);
+    val = abs(@sysvar::DeviceCtrl::EverFine::GetTemperature_env - @sysvar::DeviceCtrl::EverFine::SetTemperature);
+    if(val <= 2)
+    {
+      break;
+    }
+    if(TimeoutCNT > 100)
+    {
+      break;
+    }
+  }while(1);
+  
+  // TURN OFF temp ctrl
+  HAAS1200_Execute(5);
+}

@@ -1,0 +1,301 @@
+/*@!Encoding:936*/
+includes
+{  
+  #include "Diag_0x22.cin"
+  #include "Diag_0x2E.cin"
+  #include "Diag_0x27.cin"
+  #include "Diag_LINStd.cin"
+}
+
+variables
+{
+  const byte Waittime_Short = 250;
+  const byte Waittime_Long = 450;
+  
+}
+
+
+
+on linframe *
+{
+  dword SelectedBitNAD;
+  
+  /* Node detection */
+  if((this.id >=1) && (this.id <= MaxNodeNum) && (this.simulated == 0))
+  {
+    NodeDetectCtrl.NodesBitRefresh |= 1<<(this.id - 1); 
+    SelectedBitNAD = @sysvar::NodeDetect::SelectedNAD_bit;
+    
+    if(this.id == @NodeInfo::Node.NAD)
+    {
+      @sysvarMember::NodeDetect::State.RespError = this.byte(0) & 0x80;
+      @sysvarMember::NodeDetect::State.RedOpen = (this.byte(1) & 0xc0)>>6;
+      @sysvarMember::NodeDetect::State.RedShort = this.byte(1) & 0x03;
+      @sysvarMember::NodeDetect::State.GreenOpen = this.byte(2) & 0x03;
+      @sysvarMember::NodeDetect::State.GreenShort = (this.byte(1) & 0x0c)>>2;
+      @sysvarMember::NodeDetect::State.BlueOpen = (this.byte(2) & 0x0c)>>2;
+      @sysvarMember::NodeDetect::State.BlueShort = (this.byte(1) & 0x30)>>4;
+      @sysvarMember::NodeDetect::State.TempState = (this.byte(2)>>4)&0x07;
+      @sysvarMember::NodeDetect::State.RAM = this.byte(3)&0x03;
+      @sysvarMember::NodeDetect::State.ROM = (this.byte(3) & 0x0c)>>2;
+      @sysvarMember::NodeDetect::State.NVRAM = (this.byte(3) & 0x30)>>4;
+    }
+  }
+  
+  
+  /* Diag */
+  if(this.dir == rx && this.id == 0x3D)
+  {
+    if(DiagCtrl.Step == DiagStep_0x22Send3D)  //read
+    {
+      if(this.byte(1) == 0x10) //ecu responses with serial frames 
+      {
+        DiagCtrl.RespBuf[0] = this.byte(6);
+        DiagCtrl.RespBuf[1] = this.byte(7);
+        DiagCtrl.BufPtr = 2;
+      }
+      else if ((this.byte(1) & 0xf0) == 0x20)
+      {
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(2);
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(3);
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(4);
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(5);
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(6);
+        DiagCtrl.RespBuf[DiagCtrl.BufPtr++] = this.byte(7);
+      }
+      else if (this.byte(2) == 0x62) //ecu responses with single frames
+      {
+        switch(this.byte(1))
+        {
+          case 0x04:
+            DiagCtrl.RespBuf[0] = this.byte(5);
+            break;     
+          case 0x05:
+            DiagCtrl.RespBuf[0] = this.byte(5);
+            DiagCtrl.RespBuf[1] = this.byte(6);
+            break;
+          case 0x06:
+            DiagCtrl.RespBuf[0] = this.byte(5);
+            DiagCtrl.RespBuf[1] = this.byte(6);
+            DiagCtrl.RespBuf[2] = this.byte(7);
+            break;
+        }
+      }
+      else if (this.byte(2) == 0x7f)
+      {
+        DiagCtrl.Step = DiagStep_DiagEnd; //22 end
+        //write("the service is not supported by the ECU");
+        snprintf(OutString, MAXFilePathLength, "<Diagnostic.can::on linframe>\nThe service (SID=0x%x, SSID=0x%x) is not supported by the ECU(%d). DiagStep = %s",
+          DiagCtrl.SID, DiagCtrl.SSID, @sysvarMember::NodeInfo::Node.NAD, DiagCtrl.Step.name());
+        WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+      }      
+    } //if(DiagCtrl.Step == DiagStep_0x22Send3D)  //read
+    
+    else if (DiagCtrl.Step == DiagStep_StdLINSend3D)
+    {
+      DiagCtrl.RespBuf[0] = this.byte(3);
+      DiagCtrl.RespBuf[1] = this.byte(4);
+      DiagCtrl.RespBuf[2] = this.byte(5);
+      DiagCtrl.RespBuf[3] = this.byte(6);
+      DiagCtrl.RespBuf[4] = this.byte(7);
+    }
+    
+    else if (DiagCtrl.Step == DiagStep_0x27RecvSeed)  /* 在 DiagTimer中断中赋值成这个 */
+    {
+      //write("on frame   67 03 received ");
+      DiagCtrl.RespBuf[0] = this.byte(4);
+      DiagCtrl.RespBuf[1] = this.byte(5);
+      DiagCtrl.RespBuf[2] = this.byte(6);
+      DiagCtrl.RespBuf[3] = this.byte(7);
+      Public_Diag0x27_TransferSeed(DiagCtrl.RespBuf);
+      DiagCtrl.Step = DiagStep_0x27RecvWait;
+    }
+    else if (DiagCtrl.Step == DiagStep_0x27RecvOutcome)
+    {
+      //write("on frame   67 04 received ");
+      DiagCtrl.Step = DiagStep_0x27RecvWait;
+    }
+  } //if(this.dir == rx)
+}
+
+
+
+on timer DiagTimer
+{
+  setTimer(DiagTimer, SchTableTimeSlot);
+  switch(DiagCtrl.Step)
+  {
+    case DiagStep_ChangeNAD:
+      local_DiagStep_ChangeNAD();
+      break; 
+    case DiagStep_0x22Req:
+      Diag_0x22Req_Single(DiagCtrl.ReqNAD);
+      DiagCtrl.Step = DiagStep_0x22Send3D;
+      break;
+    case DiagStep_0x22Send3D:
+      local_DiagStep_0x22Send3D();
+      break;
+    case DiagStep_ReadProcess:
+      DiagCtrl.Step = DiagStep_ReadOver;
+      Diag_0x22Process();
+      break;
+    case DiagStep_ReadOver:
+      DiagCtrl.Step = DiagStep_DiagEnd;
+      break;
+    case DiagStep_0x2EReqFirst:
+      if (DiagCtrl.FrameCNT > 1) //serial
+      {
+        Diag_0x2EReq_First(DiagCtrl.ReqNAD, DiagCtrl.DataLen);
+        DiagCtrl.Step = DiagStep_0x2EReqSerial;
+      }
+      else   //single
+      {
+        Diag_0x2EReq_Single(DiagCtrl.ReqNAD, DiagCtrl.DataLen);
+        DiagCtrl.Step = DiagStep_WriteOver;
+        //TODO send 3D
+      }
+      DiagCtrl.FrameCNT -=1;
+      break;
+    case DiagStep_StdLINDiag:     
+      local_DiagStep_StdJudge();
+      DiagCtrl.Step = DiagStep_StdLINSend3D;
+      break;
+    case DiagStep_StdLINSend3D:
+      local_DiagStep_StdSend3D();
+      break;
+    case DiagStep_ReadStdLINProcess:  
+      StdDiag_ReadProcess();
+      DiagCtrl.Step = DiagStep_DiagEnd;
+      break;
+      
+            
+    case DiagStep_0x2EReqSerial:
+      if(DiagCtrl.FrameCNT>0) //the first frame can not be counted in
+      {
+        Diag_0x2EReq_Serial(DiagCtrl.ReqNAD); 
+        DiagCtrl.FrameCNT -=1;
+      }
+      else
+      {
+        DiagCtrl.Step = DiagStep_WriteOver;//2e servic end 
+      }
+      break;
+    case DiagStep_WriteOver:
+      //if(@sysvar::NodeCtrl::DiagVersion == 3)
+     // {
+        Diag_Resp();
+     // }
+      DiagCtrl.Step = DiagStep_DiagEnd;
+      break;
+      
+    case DiagStep_0x27ReqSeed:
+      DiagCtrl.Step = DiagStep_0x27RecvSeed;
+      Diag_0x27ReqSeed(DiagCtrl.ReqNAD);   
+      //write("27 03   3");
+      break;
+    case DiagStep_0x27RecvSeed:
+      Diag_Resp();  // DiagStep will be revised in on lin frame
+      break;
+    case DiagStep_0x27ReqByKey:  
+      DiagCtrl.Step = DiagStep_0x27RecvOutcome;
+      Diag_0x27ReqByKey(DiagCtrl.ReqNAD);      
+      break;      
+    case DiagStep_0x27RecvWait:
+      DiagCtrl.Step = DiagStep_DiagEnd; //不可以立刻结束，标志会被复位  
+      break;     
+    case DiagStep_0x27RecvOutcome:
+      Diag_Resp(); 
+      break;
+    case DiagStep_DiagEnd:
+      cancelTimer(DiagTimer);
+      Diag_CtrlInit();
+      //TODO 一些初始化操作
+      break;
+    default:
+      cancelTimer(DiagTimer);
+      snprintf(OutString, MAXFilePathLength, "Diag Process comes to Default Part! SID=0x%x, SSID=0x%x, DiagStep=%s",
+        DiagCtrl.SID,DiagCtrl.SSID,DiagCtrl.Step.name());
+      WriteLineLJM(e_sink_SystemPage,e_severity_Error, OutString);
+      break;
+  }
+  
+}
+
+
+void local_DiagStep_ChangeNAD(void)
+{
+  if(DiagCtrl.SSID != SSID_Init)
+  {
+    Diag_ChangeNAD(DiagCtrl.CurrentNAD, DiagCtrl.ReqNAD, 0);
+    //StdLIN_AssignNADCxA0();
+    switch(DiagCtrl.SID)
+    {
+      case 0x22:
+        DiagCtrl.Step = DiagStep_0x22Req;
+        break;
+      case 0x2E:
+        DiagCtrl.Step = DiagStep_0x2EReqFirst;  //多帧的首帧和单帧都在这里
+        break;
+      case 0x27:
+        DiagCtrl.Step = DiagStep_0x27ReqSeed;
+        //write("27 03  04   2");
+        break;
+      case 0xFF: //StdLIN
+        DiagCtrl.Step = DiagStep_StdLINDiag; 
+        break;
+    }
+  }
+  else
+  {
+    DiagCtrl.Step = DiagStep_Error;
+  }
+}
+
+
+void local_DiagStep_0x22Send3D(void)
+{
+  if(DiagCtrl.FrameCNT > 0)
+  {
+    DiagCtrl.FrameCNT -= 1;
+    Diag_Resp();
+  }
+  else
+  {
+    DiagCtrl.Step = DiagStep_ReadProcess;
+  }
+}
+
+
+void local_DiagStep_StdSend3D(void)
+{
+  if(DiagCtrl.FrameCNT > 0)
+  {
+    DiagCtrl.FrameCNT -= 1;
+    Diag_Resp();
+    //write("%x  send 3D", DiagCtrl.SSID);
+  }
+  else
+  {
+    DiagCtrl.Step = DiagStep_ReadStdLINProcess;
+  }
+}
+
+void local_DiagStep_StdJudge(void)
+{
+  switch(DiagCtrl.SSID)
+  {
+    case 0xB0:
+      //StdLIN_B0_AssignNAD(DiagCtrl.ReqNAD);
+      Diag_B0_AssignNAD_wrongData(DiagCtrl.ReqNAD);
+      break;
+    case 0xB1:
+      Diag_B1_AssignFrameID(DiagCtrl.ReqNAD, @sysvar::NodeCtrl::OldFrameID,@sysvar::NodeCtrl::NewFrameID);
+      break;
+    case 0xB2:
+      Diag_B2_ReadByID(DiagCtrl.ReqNAD);
+      
+      break;
+    
+  }
+  
+}

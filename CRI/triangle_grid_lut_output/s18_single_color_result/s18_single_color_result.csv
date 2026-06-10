@@ -1,0 +1,2 @@
+TargetInputMode,TemperatureLabel,Temperature_C,Target_x,Target_y,Target_Y_lm,Target_u1976,Target_v1976,W25,DeltaW,Wfinal,ExactW,ExactRa,W25Ra,FormulaRa,W25RaDiff,FormulaRaDiff,CoefficientFile
+uv_div5,T100,100,0.316901408450704,0.330985915492958,4,0.2,0.47,0.91137652904003,-0.0316925373015331,0.879683991738497,0.92,96.91053751901,96.8110526392415,95.2575476782515,-0.0994848797685819,-1.65298984075855,E:\AUDI_COLOR\CRI\triangle_grid_lut_output\s16_all_temperature_formula_fit\s16_all_temperature_formula_coefficients.csv

@@ -1,0 +1,2028 @@
+﻿/*********************************************************************************
+ * FileName:    AlgoRatioK_localfit.c
+ * Description: Auto-generated runtime localfit white-ratio lookup module.
+ *              The LUT stores only Best_SingleWhiteRatio in Q10000 uint16 form.
+ *              Target-point coordinates are regenerated online from the same
+ *              triangle-grid logic as s01_make_lut_xy_grid_final.m.
+ *
+ * Data layout:
+ *   g_algoRatioKRatioQ10000Lut[idx] = round(Best_SingleWhiteRatio * 10000)
+ *
+ * Runtime flow:
+ *   1. Generate nearest ALGO_RATIO_K_AMOUNT grid points online.
+ *   2. Each point carries its LUT index among ALGO_RATIO_K_LUT_COUNT.
+ *   3. Use lutIndex to read ratioQ10000 from the 16-bit ratio table.
+ *   4. Fit ratio = a * (U - targetU) + b * (V - targetV) + c.
+ *   5. Return c, or fall back to inverse-distance weighted average.
+ **********************************************************************************/
+
+#include "AlgoRatioK_localfit.h"
+#include "FloatLib.h"
+
+#define ALGO_RATIO_K_LUT_COUNT           (990u)
+#define ALGO_RATIO_K_GRID_ORDER          (43u)
+#define ALGO_RATIO_K_NEIGHBOR_RING       (4u)
+
+#define ALGO_RATIO_K_VERTEX_K_U_Q1000    (200u)
+#define ALGO_RATIO_K_VERTEX_K_V_Q1000    (85u)
+#define ALGO_RATIO_K_VERTEX_I_U_Q1000    (547u)
+#define ALGO_RATIO_K_VERTEX_I_V_Q1000    (518u)
+#define ALGO_RATIO_K_VERTEX_J_U_Q1000    (49u)
+#define ALGO_RATIO_K_VERTEX_J_V_Q1000    (568u)
+
+#define ALGO_RATIO_K_VERTEX_K_U_FLOAT    (0.19972226f)
+#define ALGO_RATIO_K_VERTEX_K_V_FLOAT    (0.08507725f)
+#define ALGO_RATIO_K_VERTEX_I_U_FLOAT    (0.547029138f)
+#define ALGO_RATIO_K_VERTEX_I_V_FLOAT    (0.517643452f)
+#define ALGO_RATIO_K_VERTEX_J_U_FLOAT    (0.04930155f)
+#define ALGO_RATIO_K_VERTEX_J_V_FLOAT    (0.567755f)
+
+#define ALGO_RATIO_K_RATIO_Q10000_MAX    (10000u)
+#define ALGO_RATIO_K_DISTANCE_MAX        (0xFFFFFFFFu)
+
+#ifndef ALGO_RATIO_K_LOCAL_FIT_EPS_FIX16
+#define ALGO_RATIO_K_LOCAL_FIT_EPS_FIX16 (4)
+#endif
+
+#define ALGO_RATIO_K_WEIGHT_Q_SHIFT      (28u)
+#define ALGO_RATIO_K_RATIO_NORMALIZER    (10000u)
+
+#if (ALGO_RATIO_K_AMOUNT == 0u)
+#error "ALGO_RATIO_K_AMOUNT must be greater than 0."
+#endif
+
+#if (ALGO_RATIO_K_LUT_COUNT != (((ALGO_RATIO_K_GRID_ORDER + 1u) * (ALGO_RATIO_K_GRID_ORDER + 2u)) / 2u))
+#error "ALGO_RATIO_K_LUT_COUNT does not match triangular grid count."
+#endif
+
+static const uint16_t g_algoRatioKRatioQ10000Lut[ALGO_RATIO_K_LUT_COUNT] =
+{
+        0u,  /* idx=  0, ratio=0.000000 */
+        0u,  /* idx=  1, ratio=0.000000 */
+        0u,  /* idx=  2, ratio=0.000000 */
+        0u,  /* idx=  3, ratio=0.000000 */
+        0u,  /* idx=  4, ratio=0.000000 */
+        0u,  /* idx=  5, ratio=0.000000 */
+        0u,  /* idx=  6, ratio=0.000000 */
+        0u,  /* idx=  7, ratio=0.000000 */
+        0u,  /* idx=  8, ratio=0.000000 */
+        0u,  /* idx=  9, ratio=0.000000 */
+        0u,  /* idx= 10, ratio=0.000000 */
+        0u,  /* idx= 11, ratio=0.000000 */
+        0u,  /* idx= 12, ratio=0.000000 */
+        0u,  /* idx= 13, ratio=0.000000 */
+        0u,  /* idx= 14, ratio=0.000000 */
+        0u,  /* idx= 15, ratio=0.000000 */
+        0u,  /* idx= 16, ratio=0.000000 */
+        0u,  /* idx= 17, ratio=0.000000 */
+        0u,  /* idx= 18, ratio=0.000000 */
+        0u,  /* idx= 19, ratio=0.000000 */
+        0u,  /* idx= 20, ratio=0.000000 */
+        0u,  /* idx= 21, ratio=0.000000 */
+        0u,  /* idx= 22, ratio=0.000000 */
+        0u,  /* idx= 23, ratio=0.000000 */
+        0u,  /* idx= 24, ratio=0.000000 */
+        0u,  /* idx= 25, ratio=0.000000 */
+        0u,  /* idx= 26, ratio=0.000000 */
+        0u,  /* idx= 27, ratio=0.000000 */
+        0u,  /* idx= 28, ratio=0.000000 */
+        0u,  /* idx= 29, ratio=0.000000 */
+        0u,  /* idx= 30, ratio=0.000000 */
+        0u,  /* idx= 31, ratio=0.000000 */
+        0u,  /* idx= 32, ratio=0.000000 */
+        0u,  /* idx= 33, ratio=0.000000 */
+        0u,  /* idx= 34, ratio=0.000000 */
+        0u,  /* idx= 35, ratio=0.000000 */
+        0u,  /* idx= 36, ratio=0.000000 */
+        0u,  /* idx= 37, ratio=0.000000 */
+        0u,  /* idx= 38, ratio=0.000000 */
+        0u,  /* idx= 39, ratio=0.000000 */
+        0u,  /* idx= 40, ratio=0.000000 */
+        0u,  /* idx= 41, ratio=0.000000 */
+        0u,  /* idx= 42, ratio=0.000000 */
+        0u,  /* idx= 43, ratio=0.000000 */
+        0u,  /* idx= 44, ratio=0.000000 */
+        0u,  /* idx= 45, ratio=0.000000 */
+        0u,  /* idx= 46, ratio=0.000000 */
+        0u,  /* idx= 47, ratio=0.000000 */
+        0u,  /* idx= 48, ratio=0.000000 */
+        0u,  /* idx= 49, ratio=0.000000 */
+        0u,  /* idx= 50, ratio=0.000000 */
+        0u,  /* idx= 51, ratio=0.000000 */
+        0u,  /* idx= 52, ratio=0.000000 */
+        0u,  /* idx= 53, ratio=0.000000 */
+        0u,  /* idx= 54, ratio=0.000000 */
+        0u,  /* idx= 55, ratio=0.000000 */
+        0u,  /* idx= 56, ratio=0.000000 */
+        0u,  /* idx= 57, ratio=0.000000 */
+        0u,  /* idx= 58, ratio=0.000000 */
+        0u,  /* idx= 59, ratio=0.000000 */
+        0u,  /* idx= 60, ratio=0.000000 */
+        0u,  /* idx= 61, ratio=0.000000 */
+        0u,  /* idx= 62, ratio=0.000000 */
+        0u,  /* idx= 63, ratio=0.000000 */
+        0u,  /* idx= 64, ratio=0.000000 */
+        0u,  /* idx= 65, ratio=0.000000 */
+        0u,  /* idx= 66, ratio=0.000000 */
+        0u,  /* idx= 67, ratio=0.000000 */
+        0u,  /* idx= 68, ratio=0.000000 */
+        0u,  /* idx= 69, ratio=0.000000 */
+        0u,  /* idx= 70, ratio=0.000000 */
+        0u,  /* idx= 71, ratio=0.000000 */
+        0u,  /* idx= 72, ratio=0.000000 */
+        0u,  /* idx= 73, ratio=0.000000 */
+        0u,  /* idx= 74, ratio=0.000000 */
+        0u,  /* idx= 75, ratio=0.000000 */
+        0u,  /* idx= 76, ratio=0.000000 */
+        0u,  /* idx= 77, ratio=0.000000 */
+        0u,  /* idx= 78, ratio=0.000000 */
+        0u,  /* idx= 79, ratio=0.000000 */
+        0u,  /* idx= 80, ratio=0.000000 */
+        0u,  /* idx= 81, ratio=0.000000 */
+        0u,  /* idx= 82, ratio=0.000000 */
+        0u,  /* idx= 83, ratio=0.000000 */
+        0u,  /* idx= 84, ratio=0.000000 */
+        0u,  /* idx= 85, ratio=0.000000 */
+        0u,  /* idx= 86, ratio=0.000000 */
+        0u,  /* idx= 87, ratio=0.000000 */
+     1098u,  /* idx= 88, ratio=0.109829 */
+      622u,  /* idx= 89, ratio=0.062179 */
+      238u,  /* idx= 90, ratio=0.023770 */
+        0u,  /* idx= 91, ratio=0.000000 */
+        0u,  /* idx= 92, ratio=0.000000 */
+        0u,  /* idx= 93, ratio=0.000000 */
+        0u,  /* idx= 94, ratio=0.000000 */
+        0u,  /* idx= 95, ratio=0.000000 */
+        0u,  /* idx= 96, ratio=0.000000 */
+        0u,  /* idx= 97, ratio=0.000000 */
+        0u,  /* idx= 98, ratio=0.000000 */
+        0u,  /* idx= 99, ratio=0.000000 */
+        0u,  /* idx=100, ratio=0.000000 */
+        0u,  /* idx=101, ratio=0.000000 */
+        0u,  /* idx=102, ratio=0.000000 */
+        0u,  /* idx=103, ratio=0.000000 */
+        0u,  /* idx=104, ratio=0.000000 */
+        0u,  /* idx=105, ratio=0.000000 */
+        0u,  /* idx=106, ratio=0.000000 */
+        0u,  /* idx=107, ratio=0.000000 */
+        0u,  /* idx=108, ratio=0.000000 */
+        0u,  /* idx=109, ratio=0.000000 */
+        0u,  /* idx=110, ratio=0.000000 */
+        0u,  /* idx=111, ratio=0.000000 */
+        0u,  /* idx=112, ratio=0.000000 */
+        0u,  /* idx=113, ratio=0.000000 */
+        0u,  /* idx=114, ratio=0.000000 */
+        0u,  /* idx=115, ratio=0.000000 */
+        0u,  /* idx=116, ratio=0.000000 */
+        0u,  /* idx=117, ratio=0.000000 */
+        0u,  /* idx=118, ratio=0.000000 */
+        0u,  /* idx=119, ratio=0.000000 */
+        0u,  /* idx=120, ratio=0.000000 */
+        0u,  /* idx=121, ratio=0.000000 */
+        0u,  /* idx=122, ratio=0.000000 */
+        0u,  /* idx=123, ratio=0.000000 */
+        0u,  /* idx=124, ratio=0.000000 */
+        0u,  /* idx=125, ratio=0.000000 */
+        0u,  /* idx=126, ratio=0.000000 */
+        0u,  /* idx=127, ratio=0.000000 */
+        0u,  /* idx=128, ratio=0.000000 */
+        0u,  /* idx=129, ratio=0.000000 */
+     1519u,  /* idx=130, ratio=0.151937 */
+     2791u,  /* idx=131, ratio=0.279105 */
+     3659u,  /* idx=132, ratio=0.365940 */
+     3301u,  /* idx=133, ratio=0.330112 */
+     2998u,  /* idx=134, ratio=0.299792 */
+     2724u,  /* idx=135, ratio=0.272401 */
+     2466u,  /* idx=136, ratio=0.246621 */
+     2214u,  /* idx=137, ratio=0.221355 */
+     1968u,  /* idx=138, ratio=0.196783 */
+     1727u,  /* idx=139, ratio=0.172749 */
+     1503u,  /* idx=140, ratio=0.150262 */
+     1296u,  /* idx=141, ratio=0.129634 */
+     1122u,  /* idx=142, ratio=0.112218 */
+      977u,  /* idx=143, ratio=0.097653 */
+      856u,  /* idx=144, ratio=0.085635 */
+      769u,  /* idx=145, ratio=0.076881 */
+      706u,  /* idx=146, ratio=0.070613 */
+      661u,  /* idx=147, ratio=0.066142 */
+      633u,  /* idx=148, ratio=0.063308 */
+      624u,  /* idx=149, ratio=0.062399 */
+      628u,  /* idx=150, ratio=0.062831 */
+      645u,  /* idx=151, ratio=0.064490 */
+      614u,  /* idx=152, ratio=0.061353 */
+      561u,  /* idx=153, ratio=0.056081 */
+      530u,  /* idx=154, ratio=0.052979 */
+      508u,  /* idx=155, ratio=0.050798 */
+      484u,  /* idx=156, ratio=0.048383 */
+      450u,  /* idx=157, ratio=0.045023 */
+      379u,  /* idx=158, ratio=0.037887 */
+      164u,  /* idx=159, ratio=0.016444 */
+        0u,  /* idx=160, ratio=0.000000 */
+        0u,  /* idx=161, ratio=0.000000 */
+        0u,  /* idx=162, ratio=0.000000 */
+        0u,  /* idx=163, ratio=0.000000 */
+        0u,  /* idx=164, ratio=0.000000 */
+        0u,  /* idx=165, ratio=0.000000 */
+        0u,  /* idx=166, ratio=0.000000 */
+        0u,  /* idx=167, ratio=0.000000 */
+        0u,  /* idx=168, ratio=0.000000 */
+        0u,  /* idx=169, ratio=0.000000 */
+        0u,  /* idx=170, ratio=0.000000 */
+     1407u,  /* idx=171, ratio=0.140743 */
+     2601u,  /* idx=172, ratio=0.260104 */
+     3626u,  /* idx=173, ratio=0.362610 */
+     4516u,  /* idx=174, ratio=0.451596 */
+     5296u,  /* idx=175, ratio=0.529572 */
+     5500u,  /* idx=176, ratio=0.549984 */
+     5178u,  /* idx=177, ratio=0.517756 */
+     4892u,  /* idx=178, ratio=0.489177 */
+     4626u,  /* idx=179, ratio=0.462643 */
+     4383u,  /* idx=180, ratio=0.438292 */
+     4136u,  /* idx=181, ratio=0.413582 */
+     3898u,  /* idx=182, ratio=0.389791 */
+     3650u,  /* idx=183, ratio=0.364985 */
+     3416u,  /* idx=184, ratio=0.341564 */
+     3194u,  /* idx=185, ratio=0.319354 */
+     2999u,  /* idx=186, ratio=0.299855 */
+     2833u,  /* idx=187, ratio=0.283336 */
+     2695u,  /* idx=188, ratio=0.269521 */
+     2582u,  /* idx=189, ratio=0.258168 */
+     2495u,  /* idx=190, ratio=0.249549 */
+     2434u,  /* idx=191, ratio=0.243422 */
+     2396u,  /* idx=192, ratio=0.239564 */
+     2316u,  /* idx=193, ratio=0.231589 */
+     2237u,  /* idx=194, ratio=0.223719 */
+     2181u,  /* idx=195, ratio=0.218056 */
+     2120u,  /* idx=196, ratio=0.211985 */
+     2047u,  /* idx=197, ratio=0.204740 */
+     1856u,  /* idx=198, ratio=0.185620 */
+     1597u,  /* idx=199, ratio=0.159671 */
+     1347u,  /* idx=200, ratio=0.134676 */
+     1109u,  /* idx=201, ratio=0.110883 */
+      872u,  /* idx=202, ratio=0.087207 */
+      638u,  /* idx=203, ratio=0.063819 */
+      394u,  /* idx=204, ratio=0.039359 */
+      126u,  /* idx=205, ratio=0.012599 */
+        0u,  /* idx=206, ratio=0.000000 */
+        0u,  /* idx=207, ratio=0.000000 */
+        0u,  /* idx=208, ratio=0.000000 */
+        0u,  /* idx=209, ratio=0.000000 */
+        0u,  /* idx=210, ratio=0.000000 */
+     1311u,  /* idx=211, ratio=0.131086 */
+     2435u,  /* idx=212, ratio=0.243525 */
+     3410u,  /* idx=213, ratio=0.341032 */
+     4264u,  /* idx=214, ratio=0.426397 */
+     5018u,  /* idx=215, ratio=0.501754 */
+     5688u,  /* idx=216, ratio=0.568765 */
+     6287u,  /* idx=217, ratio=0.628746 */
+     6827u,  /* idx=218, ratio=0.682746 */
+     6894u,  /* idx=219, ratio=0.689353 */
+     6584u,  /* idx=220, ratio=0.658396 */
+     6309u,  /* idx=221, ratio=0.630913 */
+     6051u,  /* idx=222, ratio=0.605139 */
+     5815u,  /* idx=223, ratio=0.581481 */
+     5585u,  /* idx=224, ratio=0.558482 */
+     5355u,  /* idx=225, ratio=0.535500 */
+     5108u,  /* idx=226, ratio=0.510849 */
+     4869u,  /* idx=227, ratio=0.486887 */
+     4641u,  /* idx=228, ratio=0.464075 */
+     4449u,  /* idx=229, ratio=0.444894 */
+     4285u,  /* idx=230, ratio=0.428524 */
+     4152u,  /* idx=231, ratio=0.415206 */
+     4061u,  /* idx=232, ratio=0.406059 */
+     3939u,  /* idx=233, ratio=0.393929 */
+     3852u,  /* idx=234, ratio=0.385227 */
+     3746u,  /* idx=235, ratio=0.374604 */
+     3619u,  /* idx=236, ratio=0.361855 */
+     3316u,  /* idx=237, ratio=0.331596 */
+     3017u,  /* idx=238, ratio=0.301714 */
+     2728u,  /* idx=239, ratio=0.272826 */
+     2447u,  /* idx=240, ratio=0.244709 */
+     2176u,  /* idx=241, ratio=0.217590 */
+     1907u,  /* idx=242, ratio=0.190729 */
+     1626u,  /* idx=243, ratio=0.162646 */
+     1325u,  /* idx=244, ratio=0.132503 */
+      996u,  /* idx=245, ratio=0.099635 */
+      660u,  /* idx=246, ratio=0.065989 */
+      350u,  /* idx=247, ratio=0.034989 */
+        0u,  /* idx=248, ratio=0.000000 */
+        0u,  /* idx=249, ratio=0.000000 */
+     1227u,  /* idx=250, ratio=0.122668 */
+     2289u,  /* idx=251, ratio=0.228933 */
+     3219u,  /* idx=252, ratio=0.321878 */
+     4039u,  /* idx=253, ratio=0.403861 */
+     4767u,  /* idx=254, ratio=0.476712 */
+     5419u,  /* idx=255, ratio=0.541876 */
+     6005u,  /* idx=256, ratio=0.600510 */
+     6535u,  /* idx=257, ratio=0.653549 */
+     7018u,  /* idx=258, ratio=0.701756 */
+     7458u,  /* idx=259, ratio=0.745763 */
+     7861u,  /* idx=260, ratio=0.786096 */
+     7911u,  /* idx=261, ratio=0.791083 */
+     7624u,  /* idx=262, ratio=0.762365 */
+     7352u,  /* idx=263, ratio=0.735244 */
+     7112u,  /* idx=264, ratio=0.711221 */
+     6889u,  /* idx=265, ratio=0.688888 */
+     6686u,  /* idx=266, ratio=0.668613 */
+     6481u,  /* idx=267, ratio=0.648139 */
+     6231u,  /* idx=268, ratio=0.623135 */
+     5989u,  /* idx=269, ratio=0.598867 */
+     5790u,  /* idx=270, ratio=0.578979 */
+     5630u,  /* idx=271, ratio=0.563047 */
+     5494u,  /* idx=272, ratio=0.549388 */
+     5338u,  /* idx=273, ratio=0.533752 */
+     5090u,  /* idx=274, ratio=0.508961 */
+     4749u,  /* idx=275, ratio=0.474948 */
+     4414u,  /* idx=276, ratio=0.441413 */
+     4089u,  /* idx=277, ratio=0.408939 */
+     3768u,  /* idx=278, ratio=0.376838 */
+     3462u,  /* idx=279, ratio=0.346174 */
+     3152u,  /* idx=280, ratio=0.315244 */
+     2840u,  /* idx=281, ratio=0.283998 */
+     2505u,  /* idx=282, ratio=0.250468 */
+     2151u,  /* idx=283, ratio=0.215136 */
+     1787u,  /* idx=284, ratio=0.178743 */
+     1343u,  /* idx=285, ratio=0.134325 */
+        0u,  /* idx=286, ratio=0.000000 */
+        0u,  /* idx=287, ratio=0.000000 */
+     1153u,  /* idx=288, ratio=0.115267 */
+     2160u,  /* idx=289, ratio=0.215991 */
+     3048u,  /* idx=290, ratio=0.304761 */
+     3836u,  /* idx=291, ratio=0.383587 */
+     4541u,  /* idx=292, ratio=0.454050 */
+     5174u,  /* idx=293, ratio=0.517415 */
+     5747u,  /* idx=294, ratio=0.574702 */
+     6267u,  /* idx=295, ratio=0.626746 */
+     6742u,  /* idx=296, ratio=0.674236 */
+     7177u,  /* idx=297, ratio=0.717743 */
+     7577u,  /* idx=298, ratio=0.757749 */
+     7947u,  /* idx=299, ratio=0.794660 */
+     8288u,  /* idx=300, ratio=0.828822 */
+     8605u,  /* idx=301, ratio=0.860531 */
+     8682u,  /* idx=302, ratio=0.868207 */
+     8407u,  /* idx=303, ratio=0.840689 */
+     8152u,  /* idx=304, ratio=0.815158 */
+     7912u,  /* idx=305, ratio=0.791227 */
+     7697u,  /* idx=306, ratio=0.769657 */
+     7493u,  /* idx=307, ratio=0.749314 */
+     7289u,  /* idx=308, ratio=0.728875 */
+     7065u,  /* idx=309, ratio=0.706527 */
+     6870u,  /* idx=310, ratio=0.687034 */
+     6528u,  /* idx=311, ratio=0.652793 */
+     6148u,  /* idx=312, ratio=0.614775 */
+     5778u,  /* idx=313, ratio=0.577839 */
+     5414u,  /* idx=314, ratio=0.541368 */
+     5063u,  /* idx=315, ratio=0.506260 */
+     4714u,  /* idx=316, ratio=0.471418 */
+     4373u,  /* idx=317, ratio=0.437303 */
+     4029u,  /* idx=318, ratio=0.402947 */
+     3662u,  /* idx=319, ratio=0.366230 */
+     3280u,  /* idx=320, ratio=0.327955 */
+     2748u,  /* idx=321, ratio=0.274848 */
+     1346u,  /* idx=322, ratio=0.134611 */
+        0u,  /* idx=323, ratio=0.000000 */
+        0u,  /* idx=324, ratio=0.000000 */
+     1087u,  /* idx=325, ratio=0.108707 */
+     2044u,  /* idx=326, ratio=0.204434 */
+     2894u,  /* idx=327, ratio=0.289373 */
+     3653u,  /* idx=328, ratio=0.365252 */
+     4334u,  /* idx=329, ratio=0.433446 */
+     4951u,  /* idx=330, ratio=0.495067 */
+     5510u,  /* idx=331, ratio=0.551021 */
+     6021u,  /* idx=332, ratio=0.602056 */
+     6488u,  /* idx=333, ratio=0.648793 */
+     6918u,  /* idx=334, ratio=0.691753 */
+     7314u,  /* idx=335, ratio=0.731376 */
+     7680u,  /* idx=336, ratio=0.768036 */
+     8021u,  /* idx=337, ratio=0.802054 */
+     8337u,  /* idx=338, ratio=0.833706 */
+     8632u,  /* idx=339, ratio=0.863230 */
+     8908u,  /* idx=340, ratio=0.890833 */
+     9167u,  /* idx=341, ratio=0.916698 */
+     9156u,  /* idx=342, ratio=0.915613 */
+     8885u,  /* idx=343, ratio=0.888483 */
+     8629u,  /* idx=344, ratio=0.862914 */
+     8388u,  /* idx=345, ratio=0.838775 */
+     8160u,  /* idx=346, ratio=0.815951 */
+     7943u,  /* idx=347, ratio=0.794335 */
+     7488u,  /* idx=348, ratio=0.748848 */
+     7092u,  /* idx=349, ratio=0.709191 */
+     6695u,  /* idx=350, ratio=0.669509 */
+     6308u,  /* idx=351, ratio=0.630842 */
+     5933u,  /* idx=352, ratio=0.593274 */
+     5556u,  /* idx=353, ratio=0.555650 */
+     5181u,  /* idx=354, ratio=0.518082 */
+     4790u,  /* idx=355, ratio=0.478978 */
+     4220u,  /* idx=356, ratio=0.422006 */
+     2754u,  /* idx=357, ratio=0.275445 */
+     1349u,  /* idx=358, ratio=0.134897 */
+        0u,  /* idx=359, ratio=0.000000 */
+        0u,  /* idx=360, ratio=0.000000 */
+     1029u,  /* idx=361, ratio=0.102854 */
+     1941u,  /* idx=362, ratio=0.194051 */
+     2755u,  /* idx=363, ratio=0.275464 */
+     3486u,  /* idx=364, ratio=0.348589 */
+     4146u,  /* idx=365, ratio=0.414630 */
+     4746u,  /* idx=366, ratio=0.474569 */
+     5292u,  /* idx=367, ratio=0.529214 */
+     5792u,  /* idx=368, ratio=0.579237 */
+     6252u,  /* idx=369, ratio=0.625200 */
+     6676u,  /* idx=370, ratio=0.667579 */
+     7068u,  /* idx=371, ratio=0.706776 */
+     7431u,  /* idx=372, ratio=0.743138 */
+     7770u,  /* idx=373, ratio=0.776961 */
+     8085u,  /* idx=374, ratio=0.808503 */
+     8380u,  /* idx=375, ratio=0.837985 */
+     8656u,  /* idx=376, ratio=0.865605 */
+     8915u,  /* idx=377, ratio=0.891532 */
+     9159u,  /* idx=378, ratio=0.915918 */
+     9389u,  /* idx=379, ratio=0.938896 */
+     9464u,  /* idx=380, ratio=0.946371 */
+     9205u,  /* idx=381, ratio=0.920545 */
+     8961u,  /* idx=382, ratio=0.896092 */
+     8729u,  /* idx=383, ratio=0.872904 */
+     8382u,  /* idx=384, ratio=0.838176 */
+     7907u,  /* idx=385, ratio=0.790663 */
+     7493u,  /* idx=386, ratio=0.749317 */
+     7088u,  /* idx=387, ratio=0.708762 */
+     6690u,  /* idx=388, ratio=0.668969 */
+     6286u,  /* idx=389, ratio=0.628566 */
+     5763u,  /* idx=390, ratio=0.576282 */
+     4229u,  /* idx=391, ratio=0.422945 */
+     2760u,  /* idx=392, ratio=0.276045 */
+     1352u,  /* idx=393, ratio=0.135185 */
+        0u,  /* idx=394, ratio=0.000000 */
+        0u,  /* idx=395, ratio=0.000000 */
+      976u,  /* idx=396, ratio=0.097600 */
+     1847u,  /* idx=397, ratio=0.184671 */
+     2628u,  /* idx=398, ratio=0.262831 */
+     3334u,  /* idx=399, ratio=0.333381 */
+     3974u,  /* idx=400, ratio=0.397380 */
+     4557u,  /* idx=401, ratio=0.455701 */
+     5091u,  /* idx=402, ratio=0.509067 */
+     5581u,  /* idx=403, ratio=0.558084 */
+     6033u,  /* idx=404, ratio=0.603263 */
+     6450u,  /* idx=405, ratio=0.645037 */
+     6838u,  /* idx=406, ratio=0.683778 */
+     7198u,  /* idx=407, ratio=0.719804 */
+     7534u,  /* idx=408, ratio=0.753391 */
+     7848u,  /* idx=409, ratio=0.784778 */
+     8142u,  /* idx=410, ratio=0.814176 */
+     8418u,  /* idx=411, ratio=0.841766 */
+     8677u,  /* idx=412, ratio=0.867711 */
+     8922u,  /* idx=413, ratio=0.892154 */
+     9152u,  /* idx=414, ratio=0.915222 */
+     9370u,  /* idx=415, ratio=0.937026 */
+     9577u,  /* idx=416, ratio=0.957670 */
+     9725u,  /* idx=417, ratio=0.972506 */
+     9479u,  /* idx=418, ratio=0.947911 */
+     9114u,  /* idx=419, ratio=0.911368 */
+     8575u,  /* idx=420, ratio=0.857465 */
+     8161u,  /* idx=421, ratio=0.816093 */
+     7745u,  /* idx=422, ratio=0.774457 */
+     7324u,  /* idx=423, ratio=0.732402 */
+     5776u,  /* idx=424, ratio=0.577595 */
+     4239u,  /* idx=425, ratio=0.423889 */
+     2766u,  /* idx=426, ratio=0.276648 */
+     1355u,  /* idx=427, ratio=0.135475 */
+        0u,  /* idx=428, ratio=0.000000 */
+        0u,  /* idx=429, ratio=0.000000 */
+      929u,  /* idx=430, ratio=0.092855 */
+     1762u,  /* idx=431, ratio=0.176157 */
+     2513u,  /* idx=432, ratio=0.251306 */
+     3194u,  /* idx=433, ratio=0.319444 */
+     3815u,  /* idx=434, ratio=0.381508 */
+     4383u,  /* idx=435, ratio=0.438276 */
+     4904u,  /* idx=436, ratio=0.490398 */
+     5384u,  /* idx=437, ratio=0.538423 */
+     5828u,  /* idx=438, ratio=0.582813 */
+     6240u,  /* idx=439, ratio=0.623969 */
+     6622u,  /* idx=440, ratio=0.662229 */
+     6979u,  /* idx=441, ratio=0.697890 */
+     7312u,  /* idx=442, ratio=0.731208 */
+     7624u,  /* idx=443, ratio=0.762407 */
+     7917u,  /* idx=444, ratio=0.791681 */
+     8192u,  /* idx=445, ratio=0.819205 */
+     8451u,  /* idx=446, ratio=0.845130 */
+     8696u,  /* idx=447, ratio=0.869592 */
+     8927u,  /* idx=448, ratio=0.892712 */
+     9146u,  /* idx=449, ratio=0.914596 */
+     9353u,  /* idx=450, ratio=0.935341 */
+     9550u,  /* idx=451, ratio=0.955035 */
+     9738u,  /* idx=452, ratio=0.973754 */
+     9641u,  /* idx=453, ratio=0.964148 */
+     9108u,  /* idx=454, ratio=0.910830 */
+     8689u,  /* idx=455, ratio=0.868907 */
+     7399u,  /* idx=456, ratio=0.739929 */
+     5789u,  /* idx=457, ratio=0.578915 */
+     4248u,  /* idx=458, ratio=0.424836 */
+     2773u,  /* idx=459, ratio=0.277254 */
+     1358u,  /* idx=460, ratio=0.135765 */
+        0u,  /* idx=461, ratio=0.000000 */
+        0u,  /* idx=462, ratio=0.000000 */
+      886u,  /* idx=463, ratio=0.088551 */
+     1684u,  /* idx=464, ratio=0.168393 */
+     2407u,  /* idx=465, ratio=0.240749 */
+     3066u,  /* idx=466, ratio=0.306625 */
+     3669u,  /* idx=467, ratio=0.366855 */
+     4221u,  /* idx=468, ratio=0.422135 */
+     4731u,  /* idx=469, ratio=0.473050 */
+     5201u,  /* idx=470, ratio=0.520099 */
+     5637u,  /* idx=471, ratio=0.563705 */
+     6042u,  /* idx=472, ratio=0.604233 */
+     6420u,  /* idx=473, ratio=0.641997 */
+     6773u,  /* idx=474, ratio=0.677272 */
+     7103u,  /* idx=475, ratio=0.710295 */
+     7413u,  /* idx=476, ratio=0.741275 */
+     7704u,  /* idx=477, ratio=0.770397 */
+     7978u,  /* idx=478, ratio=0.797822 */
+     8237u,  /* idx=479, ratio=0.823695 */
+     8481u,  /* idx=480, ratio=0.848143 */
+     8713u,  /* idx=481, ratio=0.871282 */
+     8932u,  /* idx=482, ratio=0.893214 */
+     9140u,  /* idx=483, ratio=0.914030 */
+     9338u,  /* idx=484, ratio=0.933814 */
+     9526u,  /* idx=485, ratio=0.952641 */
+     9706u,  /* idx=486, ratio=0.970579 */
+     9105u,  /* idx=487, ratio=0.910532 */
+     7417u,  /* idx=488, ratio=0.741661 */
+     5802u,  /* idx=489, ratio=0.580241 */
+     4258u,  /* idx=490, ratio=0.425788 */
+     2779u,  /* idx=491, ratio=0.277862 */
+     1361u,  /* idx=492, ratio=0.136057 */
+        0u,  /* idx=493, ratio=0.000000 */
+        0u,  /* idx=494, ratio=0.000000 */
+      846u,  /* idx=495, ratio=0.084628 */
+     1613u,  /* idx=496, ratio=0.161284 */
+     2310u,  /* idx=497, ratio=0.231043 */
+     2948u,  /* idx=498, ratio=0.294796 */
+     3533u,  /* idx=499, ratio=0.353286 */
+     4071u,  /* idx=500, ratio=0.407140 */
+     4569u,  /* idx=501, ratio=0.456888 */
+     5030u,  /* idx=502, ratio=0.502981 */
+     5458u,  /* idx=503, ratio=0.545809 */
+     5857u,  /* idx=504, ratio=0.585707 */
+     6230u,  /* idx=505, ratio=0.622965 */
+     6578u,  /* idx=506, ratio=0.657836 */
+     6905u,  /* idx=507, ratio=0.690544 */
+     7213u,  /* idx=508, ratio=0.721283 */
+     7502u,  /* idx=509, ratio=0.750227 */
+     7775u,  /* idx=510, ratio=0.777527 */
+     8033u,  /* idx=511, ratio=0.803320 */
+     8277u,  /* idx=512, ratio=0.827727 */
+     8509u,  /* idx=513, ratio=0.850858 */
+     8728u,  /* idx=514, ratio=0.872809 */
+     8937u,  /* idx=515, ratio=0.893669 */
+     9135u,  /* idx=516, ratio=0.913517 */
+     9324u,  /* idx=517, ratio=0.932425 */
+     9127u,  /* idx=518, ratio=0.912719 */
+     7434u,  /* idx=519, ratio=0.743402 */
+     5816u,  /* idx=520, ratio=0.581573 */
+     4267u,  /* idx=521, ratio=0.426745 */
+     2785u,  /* idx=522, ratio=0.278473 */
+     1363u,  /* idx=523, ratio=0.136349 */
+        0u,  /* idx=524, ratio=0.000000 */
+        0u,  /* idx=525, ratio=0.000000 */
+      810u,  /* idx=526, ratio=0.081038 */
+     1548u,  /* idx=527, ratio=0.154751 */
+     2221u,  /* idx=528, ratio=0.222090 */
+     2838u,  /* idx=529, ratio=0.283845 */
+     3407u,  /* idx=530, ratio=0.340686 */
+     3932u,  /* idx=531, ratio=0.393174 */
+     4418u,  /* idx=532, ratio=0.441793 */
+     4870u,  /* idx=533, ratio=0.486955 */
+     5290u,  /* idx=534, ratio=0.529015 */
+     5683u,  /* idx=535, ratio=0.568283 */
+     6050u,  /* idx=536, ratio=0.605028 */
+     6395u,  /* idx=537, ratio=0.639485 */
+     6719u,  /* idx=538, ratio=0.671862 */
+     7023u,  /* idx=539, ratio=0.702342 */
+     7311u,  /* idx=540, ratio=0.731086 */
+     7582u,  /* idx=541, ratio=0.758238 */
+     7839u,  /* idx=542, ratio=0.783928 */
+     8083u,  /* idx=543, ratio=0.808271 */
+     8314u,  /* idx=544, ratio=0.831369 */
+     8533u,  /* idx=545, ratio=0.853315 */
+     8742u,  /* idx=546, ratio=0.874195 */
+     8941u,  /* idx=547, ratio=0.894083 */
+     9130u,  /* idx=548, ratio=0.913048 */
+     7452u,  /* idx=549, ratio=0.745151 */
+     5829u,  /* idx=550, ratio=0.582911 */
+     4277u,  /* idx=551, ratio=0.427705 */
+     2791u,  /* idx=552, ratio=0.279086 */
+     1366u,  /* idx=553, ratio=0.136644 */
+        0u,  /* idx=554, ratio=0.000000 */
+        0u,  /* idx=555, ratio=0.000000 */
+      777u,  /* idx=556, ratio=0.077740 */
+     1487u,  /* idx=557, ratio=0.148727 */
+     2138u,  /* idx=558, ratio=0.213804 */
+     2737u,  /* idx=559, ratio=0.273679 */
+     3290u,  /* idx=560, ratio=0.328952 */
+     3801u,  /* idx=561, ratio=0.380135 */
+     4277u,  /* idx=562, ratio=0.427664 */
+     4719u,  /* idx=563, ratio=0.471918 */
+     5132u,  /* idx=564, ratio=0.513224 */
+     5519u,  /* idx=565, ratio=0.551866 */
+     5881u,  /* idx=566, ratio=0.588095 */
+     6221u,  /* idx=567, ratio=0.622130 */
+     6542u,  /* idx=568, ratio=0.654165 */
+     6844u,  /* idx=569, ratio=0.684369 */
+     7129u,  /* idx=570, ratio=0.712897 */
+     7399u,  /* idx=571, ratio=0.739884 */
+     7655u,  /* idx=572, ratio=0.765451 */
+     7897u,  /* idx=573, ratio=0.789708 */
+     8128u,  /* idx=574, ratio=0.812752 */
+     8347u,  /* idx=575, ratio=0.834673 */
+     8556u,  /* idx=576, ratio=0.855551 */
+     8755u,  /* idx=577, ratio=0.875458 */
+     7469u,  /* idx=578, ratio=0.746909 */
+     5843u,  /* idx=579, ratio=0.584255 */
+     4287u,  /* idx=580, ratio=0.428670 */
+     2797u,  /* idx=581, ratio=0.279702 */
+     1369u,  /* idx=582, ratio=0.136939 */
+        0u,  /* idx=583, ratio=0.000000 */
+        0u,  /* idx=584, ratio=0.000000 */
+      747u,  /* idx=585, ratio=0.074701 */
+     1432u,  /* idx=586, ratio=0.143155 */
+     2061u,  /* idx=587, ratio=0.206115 */
+     2642u,  /* idx=588, ratio=0.264216 */
+     3180u,  /* idx=589, ratio=0.318001 */
+     3679u,  /* idx=590, ratio=0.367932 */
+     4144u,  /* idx=591, ratio=0.414411 */
+     4578u,  /* idx=592, ratio=0.457782 */
+     4983u,  /* idx=593, ratio=0.498347 */
+     5364u,  /* idx=594, ratio=0.536371 */
+     5721u,  /* idx=595, ratio=0.572085 */
+     6057u,  /* idx=596, ratio=0.605693 */
+     6374u,  /* idx=597, ratio=0.637375 */
+     6673u,  /* idx=598, ratio=0.667294 */
+     6956u,  /* idx=599, ratio=0.695592 */
+     7224u,  /* idx=600, ratio=0.722397 */
+     7478u,  /* idx=601, ratio=0.747825 */
+     7720u,  /* idx=602, ratio=0.771978 */
+     7950u,  /* idx=603, ratio=0.794952 */
+     8168u,  /* idx=604, ratio=0.816829 */
+     8377u,  /* idx=605, ratio=0.837686 */
+     7487u,  /* idx=606, ratio=0.748674 */
+     5856u,  /* idx=607, ratio=0.585606 */
+     4296u,  /* idx=608, ratio=0.429639 */
+     2803u,  /* idx=609, ratio=0.280321 */
+     1372u,  /* idx=610, ratio=0.137236 */
+        0u,  /* idx=611, ratio=0.000000 */
+        0u,  /* idx=612, ratio=0.000000 */
+      719u,  /* idx=613, ratio=0.071889 */
+     1380u,  /* idx=614, ratio=0.137985 */
+     1990u,  /* idx=615, ratio=0.198959 */
+     2554u,  /* idx=616, ratio=0.255386 */
+     3078u,  /* idx=617, ratio=0.307755 */
+     3565u,  /* idx=618, ratio=0.356489 */
+     4020u,  /* idx=619, ratio=0.401954 */
+     4445u,  /* idx=620, ratio=0.444468 */
+     4843u,  /* idx=621, ratio=0.484309 */
+     5217u,  /* idx=622, ratio=0.521723 */
+     5569u,  /* idx=623, ratio=0.556923 */
+     5901u,  /* idx=624, ratio=0.590101 */
+     6214u,  /* idx=625, ratio=0.621426 */
+     6510u,  /* idx=626, ratio=0.651050 */
+     6791u,  /* idx=627, ratio=0.679107 */
+     7057u,  /* idx=628, ratio=0.705718 */
+     7310u,  /* idx=629, ratio=0.730992 */
+     7550u,  /* idx=630, ratio=0.755028 */
+     7779u,  /* idx=631, ratio=0.777914 */
+     7997u,  /* idx=632, ratio=0.799731 */
+     7504u,  /* idx=633, ratio=0.750448 */
+     5870u,  /* idx=634, ratio=0.586962 */
+     4306u,  /* idx=635, ratio=0.430613 */
+     2809u,  /* idx=636, ratio=0.280943 */
+     1375u,  /* idx=637, ratio=0.137534 */
+        0u,  /* idx=638, ratio=0.000000 */
+        0u,  /* idx=639, ratio=0.000000 */
+      693u,  /* idx=640, ratio=0.069282 */
+     1332u,  /* idx=641, ratio=0.133175 */
+     1923u,  /* idx=642, ratio=0.192284 */
+     2471u,  /* idx=643, ratio=0.247126 */
+     2981u,  /* idx=644, ratio=0.298148 */
+     3457u,  /* idx=645, ratio=0.345736 */
+     3902u,  /* idx=646, ratio=0.390224 */
+     4319u,  /* idx=647, ratio=0.431907 */
+     4710u,  /* idx=648, ratio=0.471041 */
+     5079u,  /* idx=649, ratio=0.507853 */
+     5425u,  /* idx=650, ratio=0.542544 */
+     5753u,  /* idx=651, ratio=0.575292 */
+     6063u,  /* idx=652, ratio=0.606256 */
+     6356u,  /* idx=653, ratio=0.635578 */
+     6634u,  /* idx=654, ratio=0.663385 */
+     6898u,  /* idx=655, ratio=0.689791 */
+     7149u,  /* idx=656, ratio=0.714900 */
+     7388u,  /* idx=657, ratio=0.738805 */
+     7616u,  /* idx=658, ratio=0.761591 */
+     7522u,  /* idx=659, ratio=0.752231 */
+     5883u,  /* idx=660, ratio=0.588325 */
+     4316u,  /* idx=661, ratio=0.431591 */
+     2816u,  /* idx=662, ratio=0.281567 */
+     1378u,  /* idx=663, ratio=0.137833 */
+        0u,  /* idx=664, ratio=0.000000 */
+        0u,  /* idx=665, ratio=0.000000 */
+      669u,  /* idx=666, ratio=0.066857 */
+     1287u,  /* idx=667, ratio=0.128689 */
+     1860u,  /* idx=668, ratio=0.186042 */
+     2394u,  /* idx=669, ratio=0.239384 */
+     2891u,  /* idx=670, ratio=0.289124 */
+     3356u,  /* idx=671, ratio=0.335612 */
+     3792u,  /* idx=672, ratio=0.379160 */
+     4200u,  /* idx=673, ratio=0.420036 */
+     4585u,  /* idx=674, ratio=0.458480 */
+     4947u,  /* idx=675, ratio=0.494701 */
+     5289u,  /* idx=676, ratio=0.528889 */
+     5612u,  /* idx=677, ratio=0.561208 */
+     5918u,  /* idx=678, ratio=0.591809 */
+     6208u,  /* idx=679, ratio=0.620824 */
+     6484u,  /* idx=680, ratio=0.648374 */
+     6746u,  /* idx=681, ratio=0.674568 */
+     6995u,  /* idx=682, ratio=0.699502 */
+     7233u,  /* idx=683, ratio=0.723265 */
+     7459u,  /* idx=684, ratio=0.745939 */
+     5897u,  /* idx=685, ratio=0.589694 */
+     4326u,  /* idx=686, ratio=0.432573 */
+     2822u,  /* idx=687, ratio=0.282195 */
+     1381u,  /* idx=688, ratio=0.138133 */
+        0u,  /* idx=689, ratio=0.000000 */
+        0u,  /* idx=690, ratio=0.000000 */
+      646u,  /* idx=691, ratio=0.064597 */
+     1245u,  /* idx=692, ratio=0.124496 */
+     1802u,  /* idx=693, ratio=0.180192 */
+     2321u,  /* idx=694, ratio=0.232113 */
+     2806u,  /* idx=695, ratio=0.280629 */
+     3261u,  /* idx=696, ratio=0.326065 */
+     3687u,  /* idx=697, ratio=0.368705 */
+     4088u,  /* idx=698, ratio=0.408800 */
+     4466u,  /* idx=699, ratio=0.446571 */
+     4822u,  /* idx=700, ratio=0.482214 */
+     5159u,  /* idx=701, ratio=0.515904 */
+     5478u,  /* idx=702, ratio=0.547797 */
+     5780u,  /* idx=703, ratio=0.578034 */
+     6067u,  /* idx=704, ratio=0.606740 */
+     6340u,  /* idx=705, ratio=0.634028 */
+     6600u,  /* idx=706, ratio=0.660001 */
+     6848u,  /* idx=707, ratio=0.684753 */
+     7084u,  /* idx=708, ratio=0.708366 */
+     5911u,  /* idx=709, ratio=0.591070 */
+     4336u,  /* idx=710, ratio=0.433560 */
+     2828u,  /* idx=711, ratio=0.282825 */
+     1384u,  /* idx=712, ratio=0.138435 */
+        0u,  /* idx=713, ratio=0.000000 */
+        0u,  /* idx=714, ratio=0.000000 */
+      625u,  /* idx=715, ratio=0.062484 */
+     1206u,  /* idx=716, ratio=0.120567 */
+     1747u,  /* idx=717, ratio=0.174699 */
+     2253u,  /* idx=718, ratio=0.225270 */
+     2726u,  /* idx=719, ratio=0.272619 */
+     3170u,  /* idx=720, ratio=0.317046 */
+     3588u,  /* idx=721, ratio=0.358812 */
+     3981u,  /* idx=722, ratio=0.398150 */
+     4353u,  /* idx=723, ratio=0.435265 */
+     4703u,  /* idx=724, ratio=0.470341 */
+     5035u,  /* idx=725, ratio=0.503541 */
+     5350u,  /* idx=726, ratio=0.535012 */
+     5649u,  /* idx=727, ratio=0.564886 */
+     5933u,  /* idx=728, ratio=0.593280 */
+     6203u,  /* idx=729, ratio=0.620303 */
+     6461u,  /* idx=730, ratio=0.646051 */
+     6706u,  /* idx=731, ratio=0.670613 */
+     5925u,  /* idx=732, ratio=0.592452 */
+     4346u,  /* idx=733, ratio=0.434552 */
+     2835u,  /* idx=734, ratio=0.283457 */
+     1387u,  /* idx=735, ratio=0.138739 */
+        0u,  /* idx=736, ratio=0.000000 */
+        0u,  /* idx=737, ratio=0.000000 */
+      605u,  /* idx=738, ratio=0.060505 */
+     1169u,  /* idx=739, ratio=0.116879 */
+     1695u,  /* idx=740, ratio=0.169531 */
+     2188u,  /* idx=741, ratio=0.218819 */
+     2651u,  /* idx=742, ratio=0.265054 */
+     3085u,  /* idx=743, ratio=0.308512 */
+     3494u,  /* idx=744, ratio=0.349436 */
+     3880u,  /* idx=745, ratio=0.388041 */
+     4245u,  /* idx=746, ratio=0.424518 */
+     4590u,  /* idx=747, ratio=0.459039 */
+     4918u,  /* idx=748, ratio=0.491758 */
+     5228u,  /* idx=749, ratio=0.522811 */
+     5523u,  /* idx=750, ratio=0.552323 */
+     5804u,  /* idx=751, ratio=0.580405 */
+     6072u,  /* idx=752, ratio=0.607160 */
+     6327u,  /* idx=753, ratio=0.632678 */
+     5938u,  /* idx=754, ratio=0.593841 */
+     4355u,  /* idx=755, ratio=0.435548 */
+     2841u,  /* idx=756, ratio=0.284093 */
+     1390u,  /* idx=757, ratio=0.139043 */
+        0u,  /* idx=758, ratio=0.000000 */
+        0u,  /* idx=759, ratio=0.000000 */
+      586u,  /* idx=760, ratio=0.058647 */
+     1134u,  /* idx=761, ratio=0.113410 */
+     1647u,  /* idx=762, ratio=0.164661 */
+     2127u,  /* idx=763, ratio=0.212727 */
+     2579u,  /* idx=764, ratio=0.257898 */
+     3004u,  /* idx=765, ratio=0.300426 */
+     3405u,  /* idx=766, ratio=0.340537 */
+     3784u,  /* idx=767, ratio=0.378432 */
+     4143u,  /* idx=768, ratio=0.414289 */
+     4483u,  /* idx=769, ratio=0.448268 */
+     4805u,  /* idx=770, ratio=0.480513 */
+     5112u,  /* idx=771, ratio=0.511153 */
+     5403u,  /* idx=772, ratio=0.540306 */
+     5681u,  /* idx=773, ratio=0.568077 */
+     5946u,  /* idx=774, ratio=0.594562 */
+     5952u,  /* idx=775, ratio=0.595236 */
+     4365u,  /* idx=776, ratio=0.436548 */
+     2847u,  /* idx=777, ratio=0.284732 */
+     1393u,  /* idx=778, ratio=0.139349 */
+        0u,  /* idx=779, ratio=0.000000 */
+        0u,  /* idx=780, ratio=0.000000 */
+      569u,  /* idx=781, ratio=0.056900 */
+     1101u,  /* idx=782, ratio=0.110140 */
+     1601u,  /* idx=783, ratio=0.160062 */
+     2070u,  /* idx=784, ratio=0.206966 */
+     2511u,  /* idx=785, ratio=0.251117 */
+     2928u,  /* idx=786, ratio=0.292753 */
+     3321u,  /* idx=787, ratio=0.332080 */
+     3693u,  /* idx=788, ratio=0.369287 */
+     4045u,  /* idx=789, ratio=0.404541 */
+     4380u,  /* idx=790, ratio=0.437990 */
+     4698u,  /* idx=791, ratio=0.469771 */
+     5000u,  /* idx=792, ratio=0.500004 */
+     5288u,  /* idx=793, ratio=0.528801 */
+     5563u,  /* idx=794, ratio=0.556261 */
+     5825u,  /* idx=795, ratio=0.582476 */
+     4376u,  /* idx=796, ratio=0.437554 */
+     2854u,  /* idx=797, ratio=0.285373 */
+     1397u,  /* idx=798, ratio=0.139656 */
+        0u,  /* idx=799, ratio=0.000000 */
+        0u,  /* idx=800, ratio=0.000000 */
+      553u,  /* idx=801, ratio=0.055255 */
+     1071u,  /* idx=802, ratio=0.107054 */
+     1557u,  /* idx=803, ratio=0.155713 */
+     2015u,  /* idx=804, ratio=0.201508 */
+     2447u,  /* idx=805, ratio=0.244685 */
+     2855u,  /* idx=806, ratio=0.285462 */
+     3240u,  /* idx=807, ratio=0.324034 */
+     3606u,  /* idx=808, ratio=0.360574 */
+     3952u,  /* idx=809, ratio=0.395241 */
+     4282u,  /* idx=810, ratio=0.428173 */
+     4595u,  /* idx=811, ratio=0.459498 */
+     4893u,  /* idx=812, ratio=0.489331 */
+     5178u,  /* idx=813, ratio=0.517776 */
+     5449u,  /* idx=814, ratio=0.544927 */
+     4386u,  /* idx=815, ratio=0.438563 */
+     2860u,  /* idx=816, ratio=0.286017 */
+     1400u,  /* idx=817, ratio=0.139965 */
+        0u,  /* idx=818, ratio=0.000000 */
+        0u,  /* idx=819, ratio=0.000000 */
+      537u,  /* idx=820, ratio=0.053701 */
+     1041u,  /* idx=821, ratio=0.104136 */
+     1516u,  /* idx=822, ratio=0.151594 */
+     1963u,  /* idx=823, ratio=0.196330 */
+     2386u,  /* idx=824, ratio=0.238573 */
+     2785u,  /* idx=825, ratio=0.278525 */
+     3164u,  /* idx=826, ratio=0.316367 */
+     3523u,  /* idx=827, ratio=0.352263 */
+     3864u,  /* idx=828, ratio=0.386359 */
+     4188u,  /* idx=829, ratio=0.418787 */
+     4497u,  /* idx=830, ratio=0.449665 */
+     4791u,  /* idx=831, ratio=0.479104 */
+     5072u,  /* idx=832, ratio=0.507201 */
+     4396u,  /* idx=833, ratio=0.439578 */
+     2867u,  /* idx=834, ratio=0.286665 */
+     1403u,  /* idx=835, ratio=0.140275 */
+        0u,  /* idx=836, ratio=0.000000 */
+        0u,  /* idx=837, ratio=0.000000 */
+      522u,  /* idx=838, ratio=0.052233 */
+     1014u,  /* idx=839, ratio=0.101373 */
+     1477u,  /* idx=840, ratio=0.147687 */
+     1914u,  /* idx=841, ratio=0.191412 */
+     2328u,  /* idx=842, ratio=0.232759 */
+     2719u,  /* idx=843, ratio=0.271917 */
+     3091u,  /* idx=844, ratio=0.309056 */
+     3443u,  /* idx=845, ratio=0.344327 */
+     3779u,  /* idx=846, ratio=0.377868 */
+     4098u,  /* idx=847, ratio=0.409803 */
+     4402u,  /* idx=848, ratio=0.440245 */
+     4693u,  /* idx=849, ratio=0.469296 */
+     4406u,  /* idx=850, ratio=0.440597 */
+     2873u,  /* idx=851, ratio=0.287315 */
+     1406u,  /* idx=852, ratio=0.140586 */
+        0u,  /* idx=853, ratio=0.000000 */
+        0u,  /* idx=854, ratio=0.000000 */
+      508u,  /* idx=855, ratio=0.050843 */
+      988u,  /* idx=856, ratio=0.098753 */
+     1440u,  /* idx=857, ratio=0.143977 */
+     1867u,  /* idx=858, ratio=0.186735 */
+     2272u,  /* idx=859, ratio=0.227222 */
+     2656u,  /* idx=860, ratio=0.265616 */
+     3021u,  /* idx=861, ratio=0.302074 */
+     3367u,  /* idx=862, ratio=0.336740 */
+     3697u,  /* idx=863, ratio=0.369741 */
+     4012u,  /* idx=864, ratio=0.401196 */
+     4312u,  /* idx=865, ratio=0.431211 */
+     4416u,  /* idx=866, ratio=0.441621 */
+     2880u,  /* idx=867, ratio=0.287968 */
+     1409u,  /* idx=868, ratio=0.140899 */
+        0u,  /* idx=869, ratio=0.000000 */
+        0u,  /* idx=870, ratio=0.000000 */
+      495u,  /* idx=871, ratio=0.049525 */
+      963u,  /* idx=872, ratio=0.096265 */
+     1404u,  /* idx=873, ratio=0.140449 */
+     1823u,  /* idx=874, ratio=0.182280 */
+     2219u,  /* idx=875, ratio=0.221942 */
+     2596u,  /* idx=876, ratio=0.259600 */
+     2954u,  /* idx=877, ratio=0.295401 */
+     3295u,  /* idx=878, ratio=0.329480 */
+     3620u,  /* idx=879, ratio=0.361957 */
+     3929u,  /* idx=880, ratio=0.392944 */
+     4225u,  /* idx=881, ratio=0.422540 */
+     2886u,  /* idx=882, ratio=0.288624 */
+     1412u,  /* idx=883, ratio=0.141213 */
+        0u,  /* idx=884, ratio=0.000000 */
+        0u,  /* idx=885, ratio=0.000000 */
+      483u,  /* idx=886, ratio=0.048273 */
+      939u,  /* idx=887, ratio=0.093899 */
+     1371u,  /* idx=888, ratio=0.137089 */
+     1780u,  /* idx=889, ratio=0.178033 */
+     2169u,  /* idx=890, ratio=0.216903 */
+     2539u,  /* idx=891, ratio=0.253851 */
+     2890u,  /* idx=892, ratio=0.289017 */
+     3225u,  /* idx=893, ratio=0.322526 */
+     3545u,  /* idx=894, ratio=0.354494 */
+     3850u,  /* idx=895, ratio=0.385024 */
+     2893u,  /* idx=896, ratio=0.289283 */
+     1415u,  /* idx=897, ratio=0.141529 */
+        0u,  /* idx=898, ratio=0.000000 */
+        0u,  /* idx=899, ratio=0.000000 */
+      471u,  /* idx=900, ratio=0.047084 */
+      916u,  /* idx=901, ratio=0.091647 */
+     1339u,  /* idx=902, ratio=0.133886 */
+     1740u,  /* idx=903, ratio=0.173980 */
+     2121u,  /* idx=904, ratio=0.212086 */
+     2484u,  /* idx=905, ratio=0.248350 */
+     2829u,  /* idx=906, ratio=0.282902 */
+     3159u,  /* idx=907, ratio=0.315860 */
+     3473u,  /* idx=908, ratio=0.347333 */
+     2899u,  /* idx=909, ratio=0.289945 */
+     1418u,  /* idx=910, ratio=0.141846 */
+        0u,  /* idx=911, ratio=0.000000 */
+        0u,  /* idx=912, ratio=0.000000 */
+      460u,  /* idx=913, ratio=0.045951 */
+      895u,  /* idx=914, ratio=0.089500 */
+     1308u,  /* idx=915, ratio=0.130830 */
+     1701u,  /* idx=916, ratio=0.170107 */
+     2075u,  /* idx=917, ratio=0.207479 */
+     2431u,  /* idx=918, ratio=0.243083 */
+     2770u,  /* idx=919, ratio=0.277041 */
+     3095u,  /* idx=920, ratio=0.309464 */
+     2906u,  /* idx=921, ratio=0.290610 */
+     1422u,  /* idx=922, ratio=0.142164 */
+        0u,  /* idx=923, ratio=0.000000 */
+        0u,  /* idx=924, ratio=0.000000 */
+      449u,  /* idx=925, ratio=0.044872 */
+      875u,  /* idx=926, ratio=0.087451 */
+     1279u,  /* idx=927, ratio=0.127910 */
+     1664u,  /* idx=928, ratio=0.166402 */
+     2031u,  /* idx=929, ratio=0.203068 */
+     2380u,  /* idx=930, ratio=0.238035 */
+     2714u,  /* idx=931, ratio=0.271418 */
+     2913u,  /* idx=932, ratio=0.291278 */
+     1425u,  /* idx=933, ratio=0.142484 */
+        0u,  /* idx=934, ratio=0.000000 */
+        0u,  /* idx=935, ratio=0.000000 */
+      438u,  /* idx=936, ratio=0.043842 */
+      855u,  /* idx=937, ratio=0.085494 */
+     1251u,  /* idx=938, ratio=0.125117 */
+     1629u,  /* idx=939, ratio=0.162856 */
+     1988u,  /* idx=940, ratio=0.198841 */
+     2332u,  /* idx=941, ratio=0.233192 */
+     2660u,  /* idx=942, ratio=0.266019 */
+     1428u,  /* idx=943, ratio=0.142805 */
+        0u,  /* idx=944, ratio=0.000000 */
+        0u,  /* idx=945, ratio=0.000000 */
+      429u,  /* idx=946, ratio=0.042858 */
+      836u,  /* idx=947, ratio=0.083623 */
+     1224u,  /* idx=948, ratio=0.122444 */
+     1595u,  /* idx=949, ratio=0.159457 */
+     1948u,  /* idx=950, ratio=0.194786 */
+     2285u,  /* idx=951, ratio=0.228543 */
+     1431u,  /* idx=952, ratio=0.143128 */
+        0u,  /* idx=953, ratio=0.000000 */
+        0u,  /* idx=954, ratio=0.000000 */
+      419u,  /* idx=955, ratio=0.041918 */
+      818u,  /* idx=956, ratio=0.081832 */
+     1199u,  /* idx=957, ratio=0.119883 */
+     1562u,  /* idx=958, ratio=0.156198 */
+     1909u,  /* idx=959, ratio=0.190893 */
+     1435u,  /* idx=960, ratio=0.143452 */
+        0u,  /* idx=961, ratio=0.000000 */
+        0u,  /* idx=962, ratio=0.000000 */
+      410u,  /* idx=963, ratio=0.041018 */
+      801u,  /* idx=964, ratio=0.080116 */
+     1174u,  /* idx=965, ratio=0.117426 */
+     1531u,  /* idx=966, ratio=0.153069 */
+     1438u,  /* idx=967, ratio=0.143777 */
+        0u,  /* idx=968, ratio=0.000000 */
+        0u,  /* idx=969, ratio=0.000000 */
+      339u,  /* idx=970, ratio=0.033893 */
+      785u,  /* idx=971, ratio=0.078471 */
+     1151u,  /* idx=972, ratio=0.115069 */
+     1441u,  /* idx=973, ratio=0.144104 */
+        0u,  /* idx=974, ratio=0.000000 */
+        0u,  /* idx=975, ratio=0.000000 */
+        0u,  /* idx=976, ratio=0.000000 */
+      769u,  /* idx=977, ratio=0.076891 */
+     1128u,  /* idx=978, ratio=0.112804 */
+        0u,  /* idx=979, ratio=0.000000 */
+        0u,  /* idx=980, ratio=0.000000 */
+        0u,  /* idx=981, ratio=0.000000 */
+      598u,  /* idx=982, ratio=0.059772 */
+        0u,  /* idx=983, ratio=0.000000 */
+        0u,  /* idx=984, ratio=0.000000 */
+        0u,  /* idx=985, ratio=0.000000 */
+        0u,  /* idx=986, ratio=0.000000 */
+        0u,  /* idx=987, ratio=0.000000 */
+        0u,  /* idx=988, ratio=0.000000 */
+        0u,  /* idx=989, ratio=0.000000 */
+};
+
+typedef struct
+{
+    uint16_t lutIndex;
+    uint16_t u;
+    uint16_t v;
+    uint32_t distance2;
+} AlgoRatioK_NearestPointType;
+
+static uint16_t AlgoRatioK_GetRatioQ10000ByIndex(uint16_t lutIndex)
+{
+    if (lutIndex >= ALGO_RATIO_K_LUT_COUNT)
+    {
+        return 0u;
+    }
+
+    return g_algoRatioKRatioQ10000Lut[lutIndex];
+}
+static uint32_t AlgoRatioK_CalcDistance2(uint16_t u1,
+                                         uint16_t v1,
+                                         uint16_t u2,
+                                         uint16_t v2)
+{
+    int32_t du;
+    int32_t dv;
+
+    du = (int32_t)u1 - (int32_t)u2;
+    dv = (int32_t)v1 - (int32_t)v2;
+
+    return (uint32_t)((du * du) + (dv * dv));
+}
+
+static int32_t AlgoRatioK_AbsS32(int32_t value)
+{
+    if (value < 0)
+    {
+        return -value;
+    }
+
+    return value;
+}
+
+static int64_t AlgoRatioK_AbsS64(int64_t value)
+{
+    if (value < 0)
+    {
+        return -value;
+    }
+
+    return value;
+}
+
+static int64_t AlgoRatioK_Cross2DS64(int32_t ax,
+                                     int32_t ay,
+                                     int32_t bx,
+                                     int32_t by)
+{
+    return ((int64_t)ax * (int64_t)by) - ((int64_t)ay * (int64_t)bx);
+}
+
+static fix16_t AlgoRatioK_AbsFix16(fix16_t value)
+{
+    if (value < 0)
+    {
+        return -value;
+    }
+
+    return value;
+}
+
+static uint32_t AlgoRatioK_ReciprocalWeightQ(uint32_t distance2)
+{
+    uint64_t numerator;
+
+    if (distance2 == 0u)
+    {
+        return 0u;
+    }
+
+    numerator = (uint64_t)1u << ALGO_RATIO_K_WEIGHT_Q_SHIFT;
+    return (uint32_t)((numerator + (uint64_t)(distance2 / 2u)) / (uint64_t)distance2);
+}
+
+static fix16_t AlgoRatioK_DivS64ToFix16(int64_t numerator,
+                                        int64_t denominator)
+{
+    uint64_t absNumerator;
+    uint64_t absDenominator;
+    uint64_t quotient;
+    uint8_t negative;
+
+    if (denominator == 0)
+    {
+        return 0;
+    }
+
+    negative = 0u;
+    if ((numerator < 0) != (denominator < 0))
+    {
+        negative = 1u;
+    }
+
+    absNumerator = (uint64_t)AlgoRatioK_AbsS64(numerator);
+    absDenominator = (uint64_t)AlgoRatioK_AbsS64(denominator);
+    quotient = ((absNumerator << 16) + (absDenominator / 2u)) / absDenominator;
+
+    if (quotient > 0x7FFFFFFFu)
+    {
+        quotient = 0x7FFFFFFFu;
+    }
+
+    if (negative != 0u)
+    {
+        return (fix16_t)(-(int32_t)quotient);
+    }
+
+    return (fix16_t)quotient;
+}
+
+static fix16_t AlgoRatioK_ScaledIntToFix16(int32_t value,
+                                           int32_t scale)
+{
+    return AlgoRatioK_DivS64ToFix16((int64_t)value, (int64_t)scale);
+}
+
+static uint16_t AlgoRatioK_ClampRatioQ10000FromFix16(fix16_t value)
+{
+    fix16_t ratioFix16;
+    int32_t ratio;
+
+    if (value <= 0)
+    {
+        return 0u;
+    }
+
+    if (value >= fix16_one)
+    {
+        return ALGO_RATIO_K_RATIO_Q10000_MAX;
+    }
+
+    ratioFix16 = fix16_mul(value, fix16_from_int(ALGO_RATIO_K_RATIO_Q10000_MAX));
+    ratio = fix16_to_int(ratioFix16);
+    if (ratio < 0)
+    {
+        return 0u;
+    }
+    if (ratio > (int32_t)ALGO_RATIO_K_RATIO_Q10000_MAX)
+    {
+        return ALGO_RATIO_K_RATIO_Q10000_MAX;
+    }
+
+    return (uint16_t)ratio;
+}
+
+static int32_t AlgoRatioK_ClampS32(int32_t value,
+                                   int32_t minValue,
+                                   int32_t maxValue)
+{
+    if (value < minValue)
+    {
+        return minValue;
+    }
+    if (value > maxValue)
+    {
+        return maxValue;
+    }
+    return value;
+}
+
+static int32_t AlgoRatioK_RoundShiftRightS64(int64_t value,
+                                             uint8_t shift)
+{
+    int64_t offset;
+
+    if (shift == 0u)
+    {
+        return (int32_t)value;
+    }
+
+    offset = (int64_t)1 << (shift - 1u);
+    if (value >= 0)
+    {
+        value += offset;
+    }
+    else
+    {
+        value -= offset;
+    }
+
+    return (int32_t)(value >> shift);
+}
+
+static void AlgoRatioK_ProjectToSegmentQ1000(int32_t pointU,
+                                             int32_t pointV,
+                                             int32_t startU,
+                                             int32_t startV,
+                                             int32_t endU,
+                                             int32_t endV,
+                                             int32_t *projectedU,
+                                             int32_t *projectedV)
+{
+    int32_t edgeU;
+    int32_t edgeV;
+    int64_t edgeLen2;
+    int64_t dot;
+    int64_t tQ16;
+
+    if ((projectedU == (void *)0) || (projectedV == (void *)0))
+    {
+        return;
+    }
+
+    edgeU = endU - startU;
+    edgeV = endV - startV;
+    edgeLen2 = ((int64_t)edgeU * (int64_t)edgeU) + ((int64_t)edgeV * (int64_t)edgeV);
+
+    if (edgeLen2 <= 0)
+    {
+        *projectedU = startU;
+        *projectedV = startV;
+        return;
+    }
+
+    dot = ((int64_t)(pointU - startU) * (int64_t)edgeU) +
+          ((int64_t)(pointV - startV) * (int64_t)edgeV);
+    tQ16 = ((dot << 16) + (edgeLen2 / 2)) / edgeLen2;
+
+    if (tQ16 < 0)
+    {
+        tQ16 = 0;
+    }
+    else if (tQ16 > 65536)
+    {
+        tQ16 = 65536;
+    }
+
+    *projectedU = startU + AlgoRatioK_RoundShiftRightS64((int64_t)edgeU * tQ16, 16u);
+    *projectedV = startV + AlgoRatioK_RoundShiftRightS64((int64_t)edgeV * tQ16, 16u);
+}
+
+static void AlgoRatioK_ProjectToNearestBoundaryQ1000(uint16_t targetU,
+                                                     uint16_t targetV,
+                                                     uint16_t *projectedU,
+                                                     uint16_t *projectedV)
+{
+    const int32_t vertexU[3] = {
+        (int32_t)ALGO_RATIO_K_VERTEX_K_U_Q1000,
+        (int32_t)ALGO_RATIO_K_VERTEX_I_U_Q1000,
+        (int32_t)ALGO_RATIO_K_VERTEX_J_U_Q1000
+    };
+    const int32_t vertexV[3] = {
+        (int32_t)ALGO_RATIO_K_VERTEX_K_V_Q1000,
+        (int32_t)ALGO_RATIO_K_VERTEX_I_V_Q1000,
+        (int32_t)ALGO_RATIO_K_VERTEX_J_V_Q1000
+    };
+    int32_t pointU;
+    int32_t pointV;
+    int32_t candidateU;
+    int32_t candidateV;
+    int32_t bestU;
+    int32_t bestV;
+    uint32_t bestDistance2;
+    uint8_t edgeIndex;
+
+    if ((projectedU == (void *)0) || (projectedV == (void *)0))
+    {
+        return;
+    }
+
+    pointU = (int32_t)targetU;
+    pointV = (int32_t)targetV;
+    bestU = vertexU[0];
+    bestV = vertexV[0];
+    bestDistance2 = ALGO_RATIO_K_DISTANCE_MAX;
+
+    for (edgeIndex = 0u; edgeIndex < 3u; edgeIndex++)
+    {
+        uint8_t nextIndex;
+        uint32_t distance2;
+
+        nextIndex = (uint8_t)((edgeIndex + 1u) % 3u);
+        AlgoRatioK_ProjectToSegmentQ1000(pointU,
+                                         pointV,
+                                         vertexU[edgeIndex],
+                                         vertexV[edgeIndex],
+                                         vertexU[nextIndex],
+                                         vertexV[nextIndex],
+                                         &candidateU,
+                                         &candidateV);
+        distance2 = AlgoRatioK_CalcDistance2(targetU,
+                                             targetV,
+                                             (uint16_t)AlgoRatioK_ClampS32(candidateU, 0, 1023),
+                                             (uint16_t)AlgoRatioK_ClampS32(candidateV, 0, 1023));
+        if (distance2 < bestDistance2)
+        {
+            bestDistance2 = distance2;
+            bestU = candidateU;
+            bestV = candidateV;
+        }
+    }
+
+    *projectedU = (uint16_t)AlgoRatioK_ClampS32(bestU, 0, 1023);
+    *projectedV = (uint16_t)AlgoRatioK_ClampS32(bestV, 0, 1023);
+}
+static void AlgoRatioK_InsertNearestPoint(AlgoRatioK_NearestPointType *nearest,
+                                          uint8_t nearestCount,
+                                          AlgoRatioK_NearestPointType newPoint)
+{
+    uint8_t insertIndex;
+    uint8_t shiftIndex;
+
+    insertIndex = 0u;
+    while ((insertIndex < nearestCount) && (insertIndex < ALGO_RATIO_K_AMOUNT))
+    {
+        if (newPoint.distance2 < nearest[insertIndex].distance2)
+        {
+            break;
+        }
+        insertIndex++;
+    }
+
+    if (insertIndex >= ALGO_RATIO_K_AMOUNT)
+    {
+        return;
+    }
+
+    if (nearestCount < ALGO_RATIO_K_AMOUNT)
+    {
+        shiftIndex = nearestCount;
+    }
+    else
+    {
+        shiftIndex = (uint8_t)(ALGO_RATIO_K_AMOUNT - 1u);
+    }
+
+    while (shiftIndex > insertIndex)
+    {
+        nearest[shiftIndex] = nearest[shiftIndex - 1u];
+        shiftIndex--;
+    }
+
+    nearest[insertIndex] = newPoint;
+}
+
+static uint8_t AlgoRatioK_Solve3x3Fix16(fix16_t A[3][3],
+                                        fix16_t B[3],
+                                        fix16_t X[3])
+{
+    uint8_t pivotIndex;
+    uint8_t rowIndex;
+    uint8_t colIndex;
+    uint8_t bestRow;
+    fix16_t bestAbs;
+    fix16_t pivot;
+    fix16_t factor;
+    fix16_t temp;
+
+    if ((A == (void *)0) || (B == (void *)0) || (X == (void *)0))
+    {
+        return 0u;
+    }
+
+    for (pivotIndex = 0u; pivotIndex < 3u; pivotIndex++)
+    {
+        bestRow = pivotIndex;
+        bestAbs = AlgoRatioK_AbsFix16(A[pivotIndex][pivotIndex]);
+
+        for (rowIndex = (uint8_t)(pivotIndex + 1u); rowIndex < 3u; rowIndex++)
+        {
+            temp = AlgoRatioK_AbsFix16(A[rowIndex][pivotIndex]);
+            if (temp > bestAbs)
+            {
+                bestAbs = temp;
+                bestRow = rowIndex;
+            }
+        }
+
+        if (bestAbs <= ALGO_RATIO_K_LOCAL_FIT_EPS_FIX16)
+        {
+            return 0u;
+        }
+
+        if (bestRow != pivotIndex)
+        {
+            for (colIndex = pivotIndex; colIndex < 3u; colIndex++)
+            {
+                temp = A[pivotIndex][colIndex];
+                A[pivotIndex][colIndex] = A[bestRow][colIndex];
+                A[bestRow][colIndex] = temp;
+            }
+
+            temp = B[pivotIndex];
+            B[pivotIndex] = B[bestRow];
+            B[bestRow] = temp;
+        }
+
+        pivot = A[pivotIndex][pivotIndex];
+
+        for (rowIndex = (uint8_t)(pivotIndex + 1u); rowIndex < 3u; rowIndex++)
+        {
+            if (AlgoRatioK_AbsFix16(A[rowIndex][pivotIndex]) <= ALGO_RATIO_K_LOCAL_FIT_EPS_FIX16)
+            {
+                continue;
+            }
+
+            factor = fix16_div(A[rowIndex][pivotIndex], pivot);
+            for (colIndex = pivotIndex; colIndex < 3u; colIndex++)
+            {
+                A[rowIndex][colIndex] = fix16_sub(A[rowIndex][colIndex],
+                                                  fix16_mul(factor, A[pivotIndex][colIndex]));
+            }
+            B[rowIndex] = fix16_sub(B[rowIndex], fix16_mul(factor, B[pivotIndex]));
+        }
+    }
+
+    for (rowIndex = 3u; rowIndex > 0u; rowIndex--)
+    {
+        pivotIndex = (uint8_t)(rowIndex - 1u);
+        temp = B[pivotIndex];
+        for (colIndex = (uint8_t)(pivotIndex + 1u); colIndex < 3u; colIndex++)
+        {
+            temp = fix16_sub(temp, fix16_mul(A[pivotIndex][colIndex], X[colIndex]));
+        }
+
+        pivot = A[pivotIndex][pivotIndex];
+        if (AlgoRatioK_AbsFix16(pivot) <= ALGO_RATIO_K_LOCAL_FIT_EPS_FIX16)
+        {
+            return 0u;
+        }
+
+        X[pivotIndex] = fix16_div(temp, pivot);
+    }
+
+    return 1u;
+}
+static uint8_t AlgoRatioK_LocalPlaneFitQ10000(const AlgoRatioK_NearestPointType *nearest,
+                                              uint8_t count,
+                                              uint16_t targetU,
+                                              uint16_t targetV,
+                                              uint16_t *whiteRatioQ10000)
+{
+    uint32_t maxWeightQ;
+    int32_t coordNormalizer;
+    int32_t pointX;
+    int32_t pointY;
+    uint32_t weightQ;
+    uint16_t ratioQ10000;
+    fix16_t weightFix16;
+    fix16_t xFix16;
+    fix16_t yFix16;
+    fix16_t zFix16;
+    fix16_t sxx;
+    fix16_t sxy;
+    fix16_t sx;
+    fix16_t syy;
+    fix16_t sy;
+    fix16_t s;
+    fix16_t sxz;
+    fix16_t syz;
+    fix16_t sz;
+    fix16_t matrixA[3][3];
+    fix16_t vectorB[3];
+    fix16_t coef[3];
+    uint8_t i;
+
+    if ((nearest == (void *)0) || (whiteRatioQ10000 == (void *)0) || (count < 3u))
+    {
+        return 0u;
+    }
+
+    maxWeightQ = 0u;
+    coordNormalizer = 0;
+
+    for (i = 0u; i < count; i++)
+    {
+        ratioQ10000 = AlgoRatioK_GetRatioQ10000ByIndex(nearest[i].lutIndex);
+        if (nearest[i].distance2 == 0u)
+        {
+            *whiteRatioQ10000 = ratioQ10000;
+            return 1u;
+        }
+
+        pointX = (int32_t)nearest[i].u - (int32_t)targetU;
+        pointY = (int32_t)nearest[i].v - (int32_t)targetV;
+        weightQ = AlgoRatioK_ReciprocalWeightQ(nearest[i].distance2);
+
+        if (coordNormalizer < (int32_t)AlgoRatioK_AbsS64(pointX))
+        {
+            coordNormalizer = (int32_t)AlgoRatioK_AbsS64(pointX);
+        }
+        if (coordNormalizer < (int32_t)AlgoRatioK_AbsS64(pointY))
+        {
+            coordNormalizer = (int32_t)AlgoRatioK_AbsS64(pointY);
+        }
+        if (maxWeightQ < weightQ)
+        {
+            maxWeightQ = weightQ;
+        }
+    }
+
+    if ((coordNormalizer <= 0) || (maxWeightQ == 0u))
+    {
+        return 0u;
+    }
+
+    sxx = 0;
+    sxy = 0;
+    sx = 0;
+    syy = 0;
+    sy = 0;
+    s = 0;
+    sxz = 0;
+    syz = 0;
+    sz = 0;
+
+    for (i = 0u; i < count; i++)
+    {
+        ratioQ10000 = AlgoRatioK_GetRatioQ10000ByIndex(nearest[i].lutIndex);
+        pointX = (int32_t)nearest[i].u - (int32_t)targetU;
+        pointY = (int32_t)nearest[i].v - (int32_t)targetV;
+        weightQ = AlgoRatioK_ReciprocalWeightQ(nearest[i].distance2);
+
+        weightFix16 = AlgoRatioK_DivS64ToFix16((int64_t)weightQ, (int64_t)maxWeightQ);
+        xFix16 = AlgoRatioK_ScaledIntToFix16(pointX, coordNormalizer);
+        yFix16 = AlgoRatioK_ScaledIntToFix16(pointY, coordNormalizer);
+        zFix16 = AlgoRatioK_ScaledIntToFix16((int32_t)ratioQ10000, ALGO_RATIO_K_RATIO_NORMALIZER);
+
+        sxx = fix16_add(sxx, fix16_mul(weightFix16, fix16_mul(xFix16, xFix16)));
+        sxy = fix16_add(sxy, fix16_mul(weightFix16, fix16_mul(xFix16, yFix16)));
+        sx = fix16_add(sx, fix16_mul(weightFix16, xFix16));
+        syy = fix16_add(syy, fix16_mul(weightFix16, fix16_mul(yFix16, yFix16)));
+        sy = fix16_add(sy, fix16_mul(weightFix16, yFix16));
+        s = fix16_add(s, weightFix16);
+        sxz = fix16_add(sxz, fix16_mul(weightFix16, fix16_mul(xFix16, zFix16)));
+        syz = fix16_add(syz, fix16_mul(weightFix16, fix16_mul(yFix16, zFix16)));
+        sz = fix16_add(sz, fix16_mul(weightFix16, zFix16));
+    }
+
+    matrixA[0][0] = sxx;
+    matrixA[0][1] = sxy;
+    matrixA[0][2] = sx;
+    matrixA[1][0] = sxy;
+    matrixA[1][1] = syy;
+    matrixA[1][2] = sy;
+    matrixA[2][0] = sx;
+    matrixA[2][1] = sy;
+    matrixA[2][2] = s;
+
+    vectorB[0] = sxz;
+    vectorB[1] = syz;
+    vectorB[2] = sz;
+
+    coef[0] = 0;
+    coef[1] = 0;
+    coef[2] = 0;
+
+    if (AlgoRatioK_Solve3x3Fix16(matrixA, vectorB, coef) == 0u)
+    {
+        return 0u;
+    }
+
+    *whiteRatioQ10000 = AlgoRatioK_ClampRatioQ10000FromFix16(coef[2]);
+    return 1u;
+}
+
+static uint8_t AlgoRatioK_WeightedAverageQ10000(const AlgoRatioK_NearestPointType *nearest,
+                                                uint8_t count,
+                                                uint16_t *whiteRatioQ10000)
+{
+    int64_t weightedRatioSum;
+    int64_t weightSum;
+    uint32_t weightQ;
+    uint16_t ratioQ10000;
+    uint8_t i;
+
+    if ((nearest == (void *)0) || (whiteRatioQ10000 == (void *)0) || (count == 0u))
+    {
+        return 0u;
+    }
+
+    weightedRatioSum = 0;
+    weightSum = 0;
+
+    for (i = 0u; i < count; i++)
+    {
+        ratioQ10000 = AlgoRatioK_GetRatioQ10000ByIndex(nearest[i].lutIndex);
+        if (nearest[i].distance2 == 0u)
+        {
+            *whiteRatioQ10000 = ratioQ10000;
+            return 1u;
+        }
+
+        weightQ = AlgoRatioK_ReciprocalWeightQ(nearest[i].distance2);
+        weightedRatioSum += (int64_t)weightQ * (int64_t)ratioQ10000;
+        weightSum += (int64_t)weightQ;
+    }
+
+    if (weightSum <= 0)
+    {
+        return 0u;
+    }
+
+    *whiteRatioQ10000 = AlgoRatioK_ClampRatioQ10000FromFix16(
+        AlgoRatioK_DivS64ToFix16(weightedRatioSum, weightSum * (int64_t)ALGO_RATIO_K_RATIO_NORMALIZER));
+    return 1u;
+}
+
+static uint16_t AlgoRatioK_GridIndexFromIJ(uint16_t gridI,
+                                           uint16_t gridJ)
+{
+    uint32_t rowStart;
+
+    rowStart = (uint32_t)gridI * (((uint32_t)2u * ALGO_RATIO_K_GRID_ORDER) - (uint32_t)gridI + 3u);
+    rowStart /= 2u;
+    return (uint16_t)(rowStart + (uint32_t)gridJ);
+}
+
+static uint16_t AlgoRatioK_RoundFloatToU16(float value)
+{
+    if (value <= 0.0f)
+    {
+        return 0u;
+    }
+
+    if (value >= 1023.0f)
+    {
+        return 1023u;
+    }
+
+    return (uint16_t)(value + 0.5f);
+}
+
+static void AlgoRatioK_GetPointQ1000ByGridIJ(uint16_t gridI,
+                                             uint16_t gridJ,
+                                             uint16_t *pointU,
+                                             uint16_t *pointV)
+{
+    uint16_t gridK;
+    float pointUFloat;
+    float pointVFloat;
+
+    if ((pointU == (void *)0) || (pointV == (void *)0))
+    {
+        return;
+    }
+
+    gridK = (uint16_t)(ALGO_RATIO_K_GRID_ORDER - gridI - gridJ);
+    pointUFloat = ((((float)gridK * ALGO_RATIO_K_VERTEX_K_U_FLOAT) +
+                    ((float)gridI * ALGO_RATIO_K_VERTEX_I_U_FLOAT) +
+                    ((float)gridJ * ALGO_RATIO_K_VERTEX_J_U_FLOAT)) * 1000.0f) /
+                  (float)ALGO_RATIO_K_GRID_ORDER;
+    pointVFloat = ((((float)gridK * ALGO_RATIO_K_VERTEX_K_V_FLOAT) +
+                    ((float)gridI * ALGO_RATIO_K_VERTEX_I_V_FLOAT) +
+                    ((float)gridJ * ALGO_RATIO_K_VERTEX_J_V_FLOAT)) * 1000.0f) /
+                  (float)ALGO_RATIO_K_GRID_ORDER;
+
+    *pointU = AlgoRatioK_RoundFloatToU16(pointUFloat);
+    *pointV = AlgoRatioK_RoundFloatToU16(pointVFloat);
+}
+
+static void AlgoRatioK_ResetNearestPoints(AlgoRatioK_NearestPointType *nearest)
+{
+    uint8_t i;
+
+    for (i = 0u; i < ALGO_RATIO_K_AMOUNT; i++)
+    {
+        nearest[i].lutIndex = 0u;
+        nearest[i].u = 0u;
+        nearest[i].v = 0u;
+        nearest[i].distance2 = ALGO_RATIO_K_DISTANCE_MAX;
+    }
+}
+
+static uint8_t AlgoRatioK_TryInsertPointByGridIJ(uint16_t gridI,
+                                                 uint16_t gridJ,
+                                                 uint16_t targetU,
+                                                 uint16_t targetV,
+                                                 AlgoRatioK_NearestPointType *nearest,
+                                                 uint8_t *nearestCount,
+                                                 uint16_t *directRatioQ10000)
+{
+    AlgoRatioK_NearestPointType point;
+
+    if ((nearest == (void *)0) || (nearestCount == (void *)0))
+    {
+        return 0u;
+    }
+
+    point.lutIndex = AlgoRatioK_GridIndexFromIJ(gridI, gridJ);
+    AlgoRatioK_GetPointQ1000ByGridIJ(gridI, gridJ, &point.u, &point.v);
+    point.distance2 = AlgoRatioK_CalcDistance2(targetU, targetV, point.u, point.v);
+
+    if (point.distance2 == 0u)
+    {
+        if (directRatioQ10000 != (void *)0)
+        {
+            *directRatioQ10000 = AlgoRatioK_GetRatioQ10000ByIndex(point.lutIndex);
+        }
+        return 2u;
+    }
+
+    if (*nearestCount < ALGO_RATIO_K_AMOUNT)
+    {
+        AlgoRatioK_InsertNearestPoint(nearest, *nearestCount, point);
+        (*nearestCount)++;
+    }
+    else if (point.distance2 < nearest[ALGO_RATIO_K_AMOUNT - 1u].distance2)
+    {
+        AlgoRatioK_InsertNearestPoint(nearest, *nearestCount, point);
+    }
+
+    return 1u;
+}
+
+static uint8_t AlgoRatioK_FindNearestPointsFast(uint16_t targetU,
+                                                uint16_t targetV,
+                                                AlgoRatioK_NearestPointType *nearest,
+                                                uint8_t *nearestCount,
+                                                uint16_t *directRatioQ10000)
+{
+    const int32_t gridOrder = (int32_t)ALGO_RATIO_K_GRID_ORDER;
+    const int32_t vertexKU = (int32_t)ALGO_RATIO_K_VERTEX_K_U_Q1000;
+    const int32_t vertexKV = (int32_t)ALGO_RATIO_K_VERTEX_K_V_Q1000;
+    const int32_t vertexIU = (int32_t)ALGO_RATIO_K_VERTEX_I_U_Q1000;
+    const int32_t vertexIV = (int32_t)ALGO_RATIO_K_VERTEX_I_V_Q1000;
+    const int32_t vertexJU = (int32_t)ALGO_RATIO_K_VERTEX_J_U_Q1000;
+    const int32_t vertexJV = (int32_t)ALGO_RATIO_K_VERTEX_J_V_Q1000;
+    int32_t axisIU;
+    int32_t axisIV;
+    int32_t axisJU;
+    int32_t axisJV;
+    int32_t relU;
+    int32_t relV;
+    int64_t denominator;
+    int64_t numeratorI;
+    int64_t numeratorJ;
+    fix16_t gridIFix16;
+    fix16_t gridJFix16;
+    fix16_t gridKFix16;
+    int32_t centerI;
+    int32_t centerJ;
+    int32_t centerK;
+    fix16_t errorI;
+    fix16_t errorJ;
+    fix16_t errorK;
+    int32_t roundedSum;
+    int32_t deltaI;
+    int32_t deltaJ;
+    int32_t deltaK;
+    int32_t candidateI;
+    int32_t candidateJ;
+    int32_t candidateK;
+    uint8_t status;
+
+    if ((nearest == (void *)0) || (nearestCount == (void *)0))
+    {
+        return 0u;
+    }
+
+    axisIU = vertexIU - vertexKU;
+    axisIV = vertexIV - vertexKV;
+    axisJU = vertexJU - vertexKU;
+    axisJV = vertexJV - vertexKV;
+    relU = (int32_t)targetU - (int32_t)vertexKU;
+    relV = (int32_t)targetV - (int32_t)vertexKV;
+
+    denominator = AlgoRatioK_Cross2DS64(axisIU, axisIV, axisJU, axisJV);
+    if (denominator == 0)
+    {
+        return 0u;
+    }
+
+    numeratorI = AlgoRatioK_Cross2DS64(relU, relV, axisJU, axisJV);
+    numeratorJ = AlgoRatioK_Cross2DS64(axisIU, axisIV, relU, relV);
+
+    gridIFix16 = AlgoRatioK_DivS64ToFix16(numeratorI * (int64_t)gridOrder, denominator);
+    gridJFix16 = AlgoRatioK_DivS64ToFix16(numeratorJ * (int64_t)gridOrder, denominator);
+    gridKFix16 = fix16_sub(fix16_from_int(gridOrder), fix16_add(gridIFix16, gridJFix16));
+
+    centerI = fix16_to_int(gridIFix16);
+    centerJ = fix16_to_int(gridJFix16);
+    centerK = fix16_to_int(gridKFix16);
+
+    errorI = AlgoRatioK_AbsFix16(fix16_sub(gridIFix16, fix16_from_int(centerI)));
+    errorJ = AlgoRatioK_AbsFix16(fix16_sub(gridJFix16, fix16_from_int(centerJ)));
+    errorK = AlgoRatioK_AbsFix16(fix16_sub(gridKFix16, fix16_from_int(centerK)));
+
+    roundedSum = centerI + centerJ + centerK;
+    if (roundedSum != gridOrder)
+    {
+        if ((errorI >= errorJ) && (errorI >= errorK))
+        {
+            centerI = gridOrder - centerJ - centerK;
+        }
+        else if (errorJ >= errorK)
+        {
+            centerJ = gridOrder - centerI - centerK;
+        }
+        else
+        {
+            centerK = gridOrder - centerI - centerJ;
+        }
+    }
+
+    if ((centerI < 0) || (centerJ < 0) || (centerK < 0) ||
+        (centerI > gridOrder) || (centerJ > gridOrder) || (centerK > gridOrder))
+    {
+        return 0u;
+    }
+
+    *nearestCount = 0u;
+
+    for (deltaI = -(int32_t)ALGO_RATIO_K_NEIGHBOR_RING;
+         deltaI <= (int32_t)ALGO_RATIO_K_NEIGHBOR_RING;
+         deltaI++)
+    {
+        for (deltaJ = -(int32_t)ALGO_RATIO_K_NEIGHBOR_RING;
+             deltaJ <= (int32_t)ALGO_RATIO_K_NEIGHBOR_RING;
+             deltaJ++)
+        {
+            int32_t maxAbsDelta;
+
+            deltaK = -deltaI - deltaJ;
+            maxAbsDelta = AlgoRatioK_AbsS32(deltaI);
+            if (maxAbsDelta < AlgoRatioK_AbsS32(deltaJ))
+            {
+                maxAbsDelta = AlgoRatioK_AbsS32(deltaJ);
+            }
+            if (maxAbsDelta < AlgoRatioK_AbsS32(deltaK))
+            {
+                maxAbsDelta = AlgoRatioK_AbsS32(deltaK);
+            }
+            if (maxAbsDelta > (int32_t)ALGO_RATIO_K_NEIGHBOR_RING)
+            {
+                continue;
+            }
+
+            candidateI = centerI + deltaI;
+            candidateJ = centerJ + deltaJ;
+            candidateK = gridOrder - candidateI - candidateJ;
+
+            if ((candidateI < 0) || (candidateJ < 0) || (candidateK < 0) ||
+                (candidateI > gridOrder) || (candidateJ > gridOrder) || (candidateK > gridOrder))
+            {
+                continue;
+            }
+
+            status = AlgoRatioK_TryInsertPointByGridIJ((uint16_t)candidateI,
+                                                       (uint16_t)candidateJ,
+                                                       targetU,
+                                                       targetV,
+                                                       nearest,
+                                                       nearestCount,
+                                                       directRatioQ10000);
+            if (status == 2u)
+            {
+                return 2u;
+            }
+        }
+    }
+
+    if (*nearestCount < ALGO_RATIO_K_AMOUNT)
+    {
+        return 0u;
+    }
+
+    return 1u;
+}
+
+static uint8_t AlgoRatioK_FindNearestPointsFullScan(uint16_t targetU,
+                                                    uint16_t targetV,
+                                                    AlgoRatioK_NearestPointType *nearest,
+                                                    uint8_t *nearestCount,
+                                                    uint16_t *directRatioQ10000)
+{
+    uint16_t gridI;
+    uint16_t gridJ;
+    uint16_t gridJMax;
+    uint8_t status;
+
+    if ((nearest == (void *)0) || (nearestCount == (void *)0))
+    {
+        return 0u;
+    }
+
+    *nearestCount = 0u;
+
+    for (gridI = 0u; gridI <= ALGO_RATIO_K_GRID_ORDER; gridI++)
+    {
+        gridJMax = (uint16_t)(ALGO_RATIO_K_GRID_ORDER - gridI);
+        for (gridJ = 0u; gridJ <= gridJMax; gridJ++)
+        {
+            status = AlgoRatioK_TryInsertPointByGridIJ(gridI,
+                                                       gridJ,
+                                                       targetU,
+                                                       targetV,
+                                                       nearest,
+                                                       nearestCount,
+                                                       directRatioQ10000);
+            if (status == 2u)
+            {
+                return 2u;
+            }
+        }
+    }
+
+    if (*nearestCount < ALGO_RATIO_K_AMOUNT)
+    {
+        return 0u;
+    }
+
+    return 1u;
+}
+
+uint8_t AlgoRatioK_GetWhiteRatioQ10000(uint16_t targetU,
+                                       uint16_t targetV,
+                                       uint16_t *whiteRatioQ10000)
+{
+    AlgoRatioK_NearestPointType nearest[ALGO_RATIO_K_AMOUNT];
+    uint8_t nearestCount;
+    uint8_t status;
+    uint16_t lookupTargetU;
+    uint16_t lookupTargetV;
+
+    if (whiteRatioQ10000 == (void *)0)
+    {
+        return 0u;
+    }
+
+    lookupTargetU = targetU;
+    lookupTargetV = targetV;
+    AlgoRatioK_ResetNearestPoints(nearest);
+
+    status = AlgoRatioK_FindNearestPointsFast(lookupTargetU,
+                                              lookupTargetV,
+                                              nearest,
+                                              &nearestCount,
+                                              whiteRatioQ10000);
+    if (status == 2u)
+    {
+        return 1u;
+    }
+
+    if (status == 0u)
+    {
+        AlgoRatioK_ProjectToNearestBoundaryQ1000(targetU,
+                                                 targetV,
+                                                 &lookupTargetU,
+                                                 &lookupTargetV);
+        AlgoRatioK_ResetNearestPoints(nearest);
+        status = AlgoRatioK_FindNearestPointsFast(lookupTargetU,
+                                                  lookupTargetV,
+                                                  nearest,
+                                                  &nearestCount,
+                                                  whiteRatioQ10000);
+        if (status == 2u)
+        {
+            return 1u;
+        }
+        if (status == 0u)
+        {
+            return 0u;
+        }
+    }
+
+    if (AlgoRatioK_LocalPlaneFitQ10000(nearest,
+                                       nearestCount,
+                                       lookupTargetU,
+                                       lookupTargetV,
+                                       whiteRatioQ10000) != 0u)
+    {
+        return 1u;
+    }
+
+    return AlgoRatioK_WeightedAverageQ10000(nearest,
+                                            nearestCount,
+                                            whiteRatioQ10000);
+}

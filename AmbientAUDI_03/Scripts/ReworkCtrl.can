@@ -1,0 +1,476 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "Diagnostic.cin"
+}
+
+variables
+{
+  const word ReworkBufLen = 200;
+  struct SReworkCtrl
+  {
+    char FileWritePath[ReworkBufLen];  
+    char FileReadPath[ReworkBufLen];
+    char SettingPath[ReworkBufLen];
+    char StrBuf[ReworkBufLen];
+    word LockState;
+  }ReworkCtrl;
+  dword Rework_FileHandle = 0;
+  word Rework_gCNT = 0;
+}
+
+
+void Rework_Init(void)
+{
+  char FileFolder[ReworkBufLen];
+  snprintf(FileFolder,ReworkBufLen,".\\Scripts\\Rework");
+  setWritePath(FileFolder);
+  snprintf(ReworkCtrl.FileWritePath, ReworkBufLen,"Product.ini");
+  Rework_FileHandle = openFileWrite(ReworkCtrl.FileWritePath, 0); // set the file to empty
+  if(Rework_FileHandle > 0)
+  {
+    snprintf(OutString, MAXFilePathLength, "<Rework_Init> Have Create File: %s", ReworkCtrl.FileWritePath);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Information,OutString);   
+  }
+  else
+  {
+    snprintf(OutString, MAXFilePathLength, "<Rework_Init> File %s Open Error!", ReworkCtrl.FileWritePath);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Error,OutString);   
+    stop();
+  } 
+  
+  snprintf(ReworkCtrl.FileReadPath,ReworkBufLen,"..\\Scripts\\Rework\\Product.ini");
+  snprintf(ReworkCtrl.SettingPath,ReworkBufLen,"..\\Scripts\\Rework\\Setting.ini");
+  ReworkCtrl.LockState = 0;
+  Rework_PanelsInit();
+  Rework_ModeSet(1); //default: unlock only. no need to change other paras.
+  ReowrkLocal_Progress(0);
+}
+
+
+void Rework_DiagRead(void)
+{
+  long WriteStream_ret;
+  //1. 前置操作
+  System_Refresh();
+  //Rework_PanelsInit();
+  ReowrkLocal_Progress(0);
+  //2. 读文件
+  @sysvarMember::NodeInfo::Node.NAD = getProfileInt("Setting", "TargetNAD", 0, ReworkCtrl.SettingPath); 
+  DiagCtrl.CurrentNAD = (byte)@sysvarMember::NodeInfo::Node.NAD; 
+  
+  StdLIN_B2_ReadByID(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Short);
+  /* 1. 读取信息 存入文件 */
+  Public_Send0x22_0002(DiagCtrl.CurrentNAD);  //LED Supplier
+  testWaitForTimeout(Waittime_Short);
+  WriteStream_ret=writeProfileInt("Ambient", "CtrlFlag",Diag0x22_gWORD, ReworkCtrl.FileWritePath); 
+  Public_Send0x22_0003(DiagCtrl.CurrentNAD);  
+  testWaitForTimeout(Waittime_Short);
+  WriteStream_ret=writeProfileInt("Ambient", "NAD",@sysvarMember::NodeInfo::Node.NAD, ReworkCtrl.FileWritePath); 
+  Public_Send0x22_0004(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Short);
+  WriteStream_ret=writeProfileInt("Ambient", "Gaddr",@sysvarMember::NodeInfo::Node.GroupAddr, ReworkCtrl.FileWritePath);
+  Public_Send0x22_0005(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Short);
+  WriteStream_ret=writeProfileInt("Ambient", "Platform",@sysvarMember::NodeInfo::Node.Platform, ReworkCtrl.FileWritePath);
+  Public_Send0x22_0006(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Short);
+  WriteStream_ret=writeProfileInt("Ambient", "LFactor",@sysvarMember::NodeInfo::Node.LFactor, ReworkCtrl.FileWritePath);
+  Public_Send0x22_0007(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDRx", LEDPara_word.Redx, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDRy", LEDPara_word.Redy, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDRL", LEDPara_word.RedL, ReworkCtrl.FileWritePath);
+  Public_Send0x22_0008(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDGx", LEDPara_word.Greenx, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDGy", LEDPara_word.Greeny, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDGL", LEDPara_word.GreenL, ReworkCtrl.FileWritePath);
+  Public_Send0x22_0009(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDBx", LEDPara_word.Bluex, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDBy", LEDPara_word.Bluey, ReworkCtrl.FileWritePath);
+  WriteStream_ret=writeProfileInt("Ambient", "LEDBL", LEDPara_word.BlueL, ReworkCtrl.FileWritePath);
+  Public_Send0x22_6269(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.PartNumber, ReworkCtrl.StrBuf, ReworkBufLen);
+  WriteStream_ret=writeProfileString("Ambient", "PartNo", ReworkCtrl.StrBuf, ReworkCtrl.FileWritePath);
+  Public_Send0x22_6A69(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.SerialNumber, ReworkCtrl.StrBuf, ReworkBufLen);
+  WriteStream_ret=writeProfileString("Ambient", "SerialNo", ReworkCtrl.StrBuf, ReworkCtrl.FileWritePath);
+  Public_Send0x22_6869(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Short);
+  sysGetVariableString(sysvarMember::NodeInfo::Node.HWVersion, ReworkCtrl.StrBuf, ReworkBufLen);
+  WriteStream_ret=writeProfileString("Ambient", "HWVersion", ReworkCtrl.StrBuf, ReworkCtrl.FileWritePath);
+  Public_Send0x22_6469(DiagCtrl.CurrentNAD);       /* SW version */
+  testWaitForTimeout(Waittime_Long);
+  Public_Send0x22_6869(DiagCtrl.CurrentNAD);       /* HW version */
+  testWaitForTimeout(Waittime_Long);
+}
+
+
+/* Mode=1 means Unlock Product only. Mode=2 means Set Particular Paras. */
+void Rework_DiagWrite(void)
+{
+  /* 注意这里得用Initial NAD */
+  @sysvarMember::NodeInfo::Node.NAD = getProfileInt("Setting", "InitialNAD", 0, ReworkCtrl.SettingPath);
+  DiagCtrl.CurrentNAD = @sysvarMember::NodeInfo::Node.NAD;
+  /* Ctrl Flag */
+  Rework_gCNT = getProfileInt("Ambient", "CtrlFlag", 0, ReworkCtrl.FileReadPath);
+  DiagCtrl.ReqBuf[0]=0;
+  DiagCtrl.ReqBuf[1]=0;
+  Public_Send0x2E_0002(DiagCtrl.CurrentNAD);  
+  testWaitForTimeout(Waittime_Short); 
+  ReowrkLocal_Progress(5);
+  
+  /* Gaddr */
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileInt("Ambient", "Gaddr", 0, ReworkCtrl.FileReadPath);
+    @sysvarMember::NodeInfo::Node.GroupAddr = Rework_gCNT;
+    Public_Send0x2E_0004(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.GroupAddr);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[2] > 0)
+    {
+      Public_Send0x2E_0004(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.GroupAddr);
+    }
+    else
+    {
+      Rework_gCNT = getProfileInt("Ambient", "Gaddr", 0, ReworkCtrl.FileReadPath);
+      @sysvarMember::NodeInfo::Node.GroupAddr = Rework_gCNT;
+      Public_Send0x2E_0004(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.GroupAddr);
+    }
+  }  
+  testWaitForTimeout(Waittime_Short); 
+  ReowrkLocal_Progress(10);
+
+  /* Platform */
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileInt("Ambient", "Platform", 0, ReworkCtrl.FileReadPath);
+    @sysvarMember::NodeInfo::Node.Platform = Rework_gCNT;
+    Public_Send0x2E_0005(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.Platform);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[7] > 0)
+    {
+      Public_Send0x2E_0005(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.Platform);
+    }
+    else
+    {
+      Rework_gCNT = getProfileInt("Ambient", "Platform", 0, ReworkCtrl.FileReadPath);
+      @sysvarMember::NodeInfo::Node.Platform = Rework_gCNT;
+      Public_Send0x2E_0005(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.Platform);
+    }
+  }
+  testWaitForTimeout(Waittime_Short); 
+  ReowrkLocal_Progress(15);
+ 
+  /* LFactor */
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileInt("Ambient", "LFactor", 0, ReworkCtrl.FileReadPath);
+    @sysvarMember::NodeInfo::Node.LFactor = Rework_gCNT;
+    Public_Send0x2E_0006(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.LFactor);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[6] > 0)
+    {
+      Public_Send0x2E_0006(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.LFactor);
+    }
+    else
+    {
+      Rework_gCNT = getProfileInt("Ambient", "LFactor", 0, ReworkCtrl.FileReadPath);
+      @sysvarMember::NodeInfo::Node.LFactor = Rework_gCNT;
+      Public_Send0x2E_0006(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.LFactor);
+    }
+  }
+  testWaitForTimeout(Waittime_Short);
+  ReowrkLocal_Progress(20);
+  
+  /* RED */
+  LEDPara_word.Redx = getProfileInt("Ambient", "LEDRx", 0, ReworkCtrl.FileReadPath);
+  //write("<rework> LEDPara_word.Redx=%x   %d", LEDPara_word.Redx, LEDPara_word.Redx); 
+  LEDPara_double.Redx = (float)(LEDPara_word.Redx)/10000;
+  //write("<rework> LEDPara_double.Redx=%.5f", LEDPara_double.Redx);
+  snprintf(LEDPara_string.Redx, LEDParaStringLength, "%7.6f", LEDPara_double.Redx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx); 
+  //write("<rework> LEDPara_string.Redx=%s", LEDPara_string.Redx); 
+  LEDPara_word.Redy = getProfileInt("Ambient", "LEDRy", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.Redy = (float)(LEDPara_word.Redy)/10000;
+  snprintf(LEDPara_string.Redy, LEDParaStringLength, "%7.6f", LEDPara_double.Redy);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redy, LEDPara_string.Redy);
+  LEDPara_word.RedL = getProfileInt("Ambient", "LEDRL", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.RedL = (float)(LEDPara_word.RedL)/10000;
+  snprintf(LEDPara_string.RedL, LEDParaStringLength, "%7.6f", LEDPara_double.RedL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.RedL, LEDPara_string.RedL);
+  Public_Send0x2E_0007(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  ReowrkLocal_Progress(30);
+  /* GREEN */
+  LEDPara_word.Greenx = getProfileInt("Ambient", "LEDGx", 0, ReworkCtrl.FileReadPath);
+  //write("<rework> LEDPara_word.Greenx=%x   %d", LEDPara_word.Greenx, LEDPara_word.Greenx); 
+  LEDPara_double.Greenx = (float)(LEDPara_word.Greenx)/10000;
+ // write("<rework> LEDPara_double.Greenx=%.5f", LEDPara_double.Greenx, LEDPara_double.Greenx); 
+  snprintf(LEDPara_string.Greenx, LEDParaStringLength, "%7.6f", LEDPara_double.Greenx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx, LEDPara_string.Greenx); 
+  //write("<rework> LEDPara_string.Greenx=%s", LEDPara_string.Greenx); 
+  LEDPara_word.Greeny = getProfileInt("Ambient", "LEDGy", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.Greeny = (float)(LEDPara_word.Greeny)/10000;
+  snprintf(LEDPara_string.Greeny, LEDParaStringLength, "%7.6f", LEDPara_double.Greeny);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny);
+  LEDPara_word.GreenL = getProfileInt("Ambient", "LEDGL", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.GreenL = (float)(LEDPara_word.GreenL)/10000;
+  snprintf(LEDPara_string.GreenL, LEDParaStringLength, "%7.6f", LEDPara_double.GreenL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL, LEDPara_string.GreenL);
+  Public_Send0x2E_0008(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  ReowrkLocal_Progress(40);
+  /* BLUE */
+  LEDPara_word.Bluex = getProfileInt("Ambient", "LEDBx", 0, ReworkCtrl.FileReadPath);
+  //write("LEDPara_word.Bluex=%x   %d", LEDPara_word.Bluex, LEDPara_word.Bluex); 
+  LEDPara_double.Bluex = (float)(LEDPara_word.Bluex)/10000;
+  snprintf(LEDPara_string.Bluex, LEDParaStringLength, "%7.6f", LEDPara_double.Bluex);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex); 
+  LEDPara_word.Bluey = getProfileInt("Ambient", "LEDBy", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.Bluey = (float)(LEDPara_word.Bluey)/10000;
+  snprintf(LEDPara_string.Bluey, LEDParaStringLength, "%7.6f", LEDPara_double.Bluey);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey);
+  LEDPara_word.BlueL = getProfileInt("Ambient", "LEDBL", 0, ReworkCtrl.FileReadPath);
+  LEDPara_double.BlueL = (float)(LEDPara_word.BlueL)/10000;
+  snprintf(LEDPara_string.BlueL, LEDParaStringLength, "%7.6f", LEDPara_double.BlueL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL, LEDPara_string.BlueL);
+  Public_Send0x2E_0009(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  ReowrkLocal_Progress(50);
+  
+  /* PartNo */ 
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileString("Ambient", "PartNo", "*****LJM*****", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+    sysSetVariableString(sysvarMember::NodeInfo::Node.PartNumber, ReworkCtrl.StrBuf);
+    Public_Send0x2E_6269(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.PartNumber);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[5] > 0) //如果选中则从框里写
+    {
+      Public_Send0x2E_6269(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.PartNumber);
+    }
+    else  //如果没选中则从文件选。此时eeprom已清零，必须从文件写
+    {
+      Rework_gCNT = getProfileString("Ambient", "PartNo", "*****LJM*****", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.PartNumber, ReworkCtrl.StrBuf);
+      Public_Send0x2E_6269(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.PartNumber);
+    }
+  }
+  testWaitForTimeout(Waittime_Long*2); 
+  ReowrkLocal_Progress(55);
+  
+  
+  /* SerialNo */
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileString("Ambient", "SerialNo", "*******LJM*******", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+    sysSetVariableString(sysvarMember::NodeInfo::Node.SerialNumber, ReworkCtrl.StrBuf);
+    Public_Send0x2E_6A69(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.SerialNumber);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[4] > 0) //如果选中则从框里写
+    {
+      Public_Send0x2E_6A69(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.SerialNumber);
+    }
+    else  //如果没选中则从文件选。此时eeprom已清零，必须从文件写
+    {
+      Rework_gCNT = getProfileString("Ambient", "SerialNo", "*******LJM*******", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.SerialNumber, ReworkCtrl.StrBuf);
+      Public_Send0x2E_6A69(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.SerialNumber);
+    }
+  }
+  testWaitForTimeout(Waittime_Long*2); 
+  ReowrkLocal_Progress(65);
+  
+  /* HW Version */  
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileString("Ambient", "HWVersion", "**LJM**", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+    sysSetVariableString(sysvarMember::NodeInfo::Node.HWVersion, ReworkCtrl.StrBuf);
+    Public_Send0x2E_6869(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.HWVersion);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[3] > 0)
+    {
+      Public_Send0x2E_6869(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.HWVersion);
+    }
+    else
+    {
+      Rework_gCNT = getProfileString("Ambient", "HWVersion", "**LJM**", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.FileReadPath);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.HWVersion, ReworkCtrl.StrBuf);
+      Public_Send0x2E_6869(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.HWVersion);
+    }
+  }
+  testWaitForTimeout(Waittime_Long); 
+  ReowrkLocal_Progress(70);
+  
+  /* NAD */
+  if (@sysvar::Rework::Mode == 1) //Unlock only
+  {
+    Rework_gCNT = getProfileInt("Ambient", "NAD", 0, ReworkCtrl.FileReadPath);
+    @sysvarMember::NodeInfo::Node.NAD = Rework_gCNT;
+    Public_Send0x2E_0003(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.NAD);
+  }
+  else if (@sysvar::Rework::Mode == 2)  // set particular paras
+  {
+    if(@sysvarMember::Rework::KeepFlag[1] > 0)
+    {
+      Public_Send0x2E_0003(DiagCtrl.CurrentNAD, sysvarMember::Rework::NewNode.NAD);
+    }
+    else
+    {
+      Rework_gCNT = getProfileInt("Ambient", "NAD", 8, ReworkCtrl.FileReadPath);
+      @sysvarMember::NodeInfo::Node.NAD = Rework_gCNT;
+      Public_Send0x2E_0003(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.NAD);
+    }
+  }  
+  testWaitForTimeout(Waittime_Short);  
+  ReowrkLocal_Progress(75);
+  
+  testWaitForTimeout(1500);
+  ReowrkLocal_Progress(100);
+}
+
+
+
+void Rework_PanelsInit(void)
+{
+  @sysvarMember::Rework::NewNode.NAD = 0;
+  @sysvarMember::Rework::NewNode.GroupAddr = 0;
+  @sysvarMember::Rework::NewNode.Platform = 0;
+  @sysvarMember::Rework::NewNode.LFactor=0;  
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Redx,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Redy,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.RedL,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Greenx,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Greeny,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.GreenL,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Bluex,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.Bluey,"0.0");
+  sysSetVariableString(sysvarMember::Rework::NewNode.LED.BlueL,"0.0"); 
+  sysSetVariableString(sysvarMember::Rework::NewNode.SerialNumber,"*********LJM********");
+  sysSetVariableString(sysvarMember::Rework::NewNode.PartNumber,"*****LJM***");
+//  @UserPanel::ModuleInfo::LEDSupplier = 0;
+  sysSetVariableString(sysvarMember::Rework::NewNode.SWVersion,"S******");
+  sysSetVariableString(sysvarMember::Rework::NewNode.HWVersion,"H******");
+  sysSetVariableString(sysvarMember::Rework::NewNode.SubVersion,"******");
+  //@sysvar::Rework::LockState = 0;
+  sysSetVariableString(sysvarMember::Rework::NewNode.SupplierID,"*****");
+  sysSetVariableString(sysvarMember::Rework::NewNode.FunctionID,"****");
+   
+  for (Rework_gCNT = 0; Rework_gCNT < 10; Rework_gCNT++)  //10和KeepFlag的数目挂钩，不可随意变大
+  {
+    @sysvarMember::Rework::KeepFlag[Rework_gCNT] = 0;
+  }
+  
+}
+
+/* IsToLock=1 means LOCK the Panel */
+void ReworkLocal_PanelLockSetting(word IsToLockPanel)
+{
+  if (IsToLockPanel > 0)
+  {
+    SetControlVisibility("Rework", "GB_ReworkMode_Locked", 1);
+    SetControlVisibility("Rework", "GB_ReworkMode_Unlocked", 0);    
+    ReworkCtrl.LockState = 1;
+  }
+  else
+  {
+    SetControlVisibility("Rework", "GB_ReworkMode_Locked", 0);
+    SetControlVisibility("Rework", "GB_ReworkMode_Unlocked", 1);
+    ReworkCtrl.LockState = 0;
+  }
+  
+}
+
+/* Mode set 和 BottonLock 是不一样的。这个区别了只解锁和刷其它参数 */
+void Rework_ModeSet(word mode)
+{
+  if (mode == 1)
+  {
+    ReworkLocal_PanelLockSetting(1);
+    Rework_PanelsInit();  
+  }
+  else if (mode == 2)  //Set Paras, particular paras are allowed to be changed. 
+  {
+    ReworkLocal_PanelLockSetting(0);
+  }
+}
+
+/* Mode set 和 BottonLock 是不一样的。这个区别了只在 刷其它参数 下，锁定参数 */
+void Rework_ButtonLock(void)
+{
+  if (@sysvar::Rework::Mode == 2) // set paras mode
+  {
+    if (ReworkCtrl.LockState == 0)
+    {
+      ReworkCtrl.LockState = 1;
+      ReworkLocal_PanelLockSetting(1);
+      SetControlProperty("Rework", "Bt_LockSetting", "Text", "Unlock Setting");
+    }
+    else
+    {
+      ReworkCtrl.LockState = 0;
+      ReworkLocal_PanelLockSetting(0);
+      SetControlProperty("Rework", "Bt_LockSetting", "Text", "Lock Setting");
+    }
+  }
+}
+
+
+void Rework_LoadSetting(void)
+{
+  @sysvarMember::NodeInfo::Node.NAD = getProfileInt("Setting", "TargetNAD", 0, ReworkCtrl.SettingPath);
+  @sysvarMember::NodeInfo::Node.CtrlFlag = getProfileInt("Setting", "CtrlFlag", 0, ReworkCtrl.SettingPath);
+  @sysvarMember::Rework::NewNode.NAD = getProfileInt("Setting", "NewNAD", 0, ReworkCtrl.SettingPath);
+  @sysvarMember::Rework::NewNode.GroupAddr = getProfileInt("Setting", "Gaddr", 0, ReworkCtrl.SettingPath);
+  @sysvarMember::Rework::NewNode.Platform = getProfileInt("Setting", "Platform", 0, ReworkCtrl.SettingPath);
+  @sysvarMember::Rework::NewNode.LFactor = getProfileInt("Setting", "LFactor", 0, ReworkCtrl.SettingPath);
+  Rework_gCNT = getProfileString("Setting", "PartNo", "*****LJM*****", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.SettingPath);
+  sysSetVariableString(sysvarMember::Rework::NewNode.PartNumber, ReworkCtrl.StrBuf);
+  Rework_gCNT = getProfileString("Setting", "SerialNo", "*****LJM*****", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.SettingPath);
+  sysSetVariableString(sysvarMember::Rework::NewNode.SerialNumber, ReworkCtrl.StrBuf); 
+  Rework_gCNT = getProfileString("Setting", "HWVersion", "**LJM**", ReworkCtrl.StrBuf, ReworkBufLen, ReworkCtrl.SettingPath);
+  sysSetVariableString(sysvarMember::Rework::NewNode.HWVersion, ReworkCtrl.StrBuf);  
+}
+
+void ReowrkLocal_Progress(word percentage)
+{
+  snprintf(ReworkCtrl.StrBuf, ReworkBufLen, "Upload New Data (%d %%)", percentage);
+  SetControlProperty("Rework", "Bt_Upload", "Text", ReworkCtrl.StrBuf);
+}
+
+
+void Rework_By27Service(void)
+{
+  DiagCtrl.CurrentNAD = (byte)@sysvarMember::NodeInfo::Node.NAD;
+  //DiagCtrl.CurrentNAD = 8;
+  Public_Diag0x27_Unlock(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(3000);
+ 
+  sysSetVariableString(sysvarMember::NodeInfo::Node.HWVersion, "H01");
+  Public_Send0x2E_6869(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.HWVersion);    //HW Ver
+  testWaitForTimeout(1000);
+  
+  local_Diag0x2E_Prepare(DiagCtrl.CurrentNAD, SSID_0002_LEDSupplier);
+  
+  //Diag0x2E_gWORD = 2;
+  DiagCtrl.ReqBuf[0]=0x82;
+  DiagCtrl.ReqBuf[1]=0;
+}

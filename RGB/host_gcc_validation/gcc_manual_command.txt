@@ -1,0 +1,5 @@
+cd E:\AUDI_COLOR\RGB\host_gcc_validation
+powershell -ExecutionPolicy Bypass -File .\sync_flat_source.ps1
+cd .\flat_source
+cmd /c "gcc Algorithm.c FloatLib.c AlgoRatioK.c HostRatioKDebug.c host_saved_config.c ratio_k_test_main.c -o ratio_k_test.exe"
+.\ratio_k_test.exe 40 94

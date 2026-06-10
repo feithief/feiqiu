@@ -1,0 +1,26 @@
+s15 使用说明
+
+作用：
+1. 使用 T25 的 R/G/B 色坐标生成固定 xy 三角网格。
+2. 在 T25/T45/T60/T80/T100 各自的 xyY 和 SPD 光谱条件下，对同一批 25℃ 网格点重新跑 Exact。
+3. 输出每个温度下的 BestWhiteRatio、BestRa，以及相对 T25 的 DeltaWhiteRatio。
+
+本版关键修改：
+- 标签仍使用 T25/T45/T60/T80/T100，对应光谱文件夹名。
+- Temperature_C 使用 MCU 软件读取温度：T25=21.4，T45=43，T60=60，T80=80，T100=100。
+- 色坐标数组已按你给的表格填入。
+
+光谱目录：
+guangpu_temperature_input/T25/R.CSV G.CSV B.CSV W.CSV
+guangpu_temperature_input/T45/R.CSV G.CSV B.CSV W.CSV
+guangpu_temperature_input/T60/R.CSV G.CSV B.CSV W.CSV
+guangpu_temperature_input/T80/R.CSV G.CSV B.CSV W.CSV
+guangpu_temperature_input/T100/R.CSV G.CSV B.CSV W.CSV
+
+输出目录：
+triangle_grid_lut_output/s15_temperature_on_25grid/
+
+主要输出：
+s15_fixed25grid_temperature_exact_and_delta_full.csv
+s15_fixed25grid_temperature_delta_q10000.csv
+s15_fixed25grid_temperature_summary.csv

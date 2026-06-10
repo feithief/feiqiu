@@ -1,0 +1,126 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  const int BCMCtrl_Length = 128;
+  char Signal_name[BCMCtrl_Length];
+  const int MAXNodeNum = 14;
+  
+  const word ColorNum = 30;
+  byte AmbientColor[ColorNum][2] = 
+  {
+   {46,52},
+		{42,44},
+		{36,29},
+		{32,54},
+		{30,62},
+		{29,66},
+		{27,73},
+		{26,78},
+		{24,84},
+		{22,90},
+		{21,94},
+		{20,98},
+		{17,105},
+		{15,114},
+		{27,113},
+		{32,112},
+		{37,112},
+		{40,112},
+		{42,111},
+		{44,111},
+		{47,110},
+		{51,110},
+		{56,109},
+		{60,108},
+		{67,107},
+		{74,106},
+		{103,104},
+		{84,98},
+		{50,102},
+		{42,90}
+  };
+}
+
+void Public_ManualInput(void)
+{
+//  int u,v, nad;
+//  nad = @sysvarMember::BCMCmd[0];
+//  u = @sysvarMember::BCMCmd[1];
+//  v = @sysvarMember::BCMCmd[2];
+  int addr;
+  addr = @sysvarMember::BCMCmd[0];
+  if(@sysvarMember::BCMCmd[7] == 1)
+  {
+    for(addr = 1;addr <= MAXNodeNum; addr++)
+    {
+      local_BCM_Ctrl(addr);
+    }
+  }
+  else
+  {
+    local_BCM_Ctrl(addr);  
+  }
+}
+
+void Public_SignalsInit(void)
+{
+  @sysvarMember::BCMCmd[0] = 8;  // address
+  @sysvarMember::BCMCmd[1] = 42; //u
+  @sysvarMember::BCMCmd[2]= 90;  //v
+  @sysvarMember::BCMCmd[3] = 0;  // dimming ramp
+  @sysvarMember::BCMCmd[4] = 100;  // intensity
+  @sysvarMember::BCMCmd[5] = 0;  // function
+  @sysvarMember::BCMCmd[6] = 0;  // sync
+  @sysvarMember::BCMCmd[7] = 1;  // select ALL
+  
+  Public_ManualInput();
+}
+
+void Public_ColorInput(word Color)
+{
+  int addr;
+  
+  Color = Color - 1;
+  @sysvarMember::BCMCmd[1] = AmbientColor[Color][0];
+  @sysvarMember::BCMCmd[2] = AmbientColor[Color][1];
+   
+  addr = @sysvarMember::BCMCmd[0];
+  if(@sysvarMember::BCMCmd[7] == 1)
+  {
+    for(addr = 1;addr <= MAXNodeNum; addr++)
+    {
+      local_BCM_Ctrl(addr);
+    }
+  }
+  else
+  {
+    local_BCM_Ctrl(addr);
+  }
+}
+
+
+void local_BCM_Ctrl(int i)
+{  
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_Color_u_%.2d",i);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[1]);
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_Color_v_%.2d",i);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[2]);
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_Dimmrampe_%.2d",i);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[3]);
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_Intensitaet_%.2d",i);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[4]);
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_Sonderfunktion_%.2d",i);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[5]);
+  snprintf(Signal_name,BCMCtrl_Length,"BCM_RGB_GlobalSync_%.2d", (2*i-1)%14);
+  setRawSignal(Signal_name,@sysvarMember::BCMCmd[6]);
+
+}
+
+
+
+

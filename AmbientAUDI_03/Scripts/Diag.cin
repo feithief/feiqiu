@@ -1,0 +1,289 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "GenDef.cin"
+}
+
+variables
+{
+  const word BufferSize = 128;
+  struct SLEDPara_word 
+  {
+    word Redx; word Redy; dword RedL;
+    word Greenx; word Greeny; dword GreenL;
+    word Bluex; word Bluey; dword BlueL;
+  }LEDPara_word;
+  const LEDParaStringLength = 7;
+  struct SLEDPara_string 
+  {
+    char Redx[LEDParaStringLength]; char Redy[LEDParaStringLength]; char RedL[LEDParaStringLength];
+    char Greenx[LEDParaStringLength]; char Greeny[LEDParaStringLength]; char GreenL[LEDParaStringLength];
+    char Bluex[LEDParaStringLength]; char Bluey[LEDParaStringLength]; char BlueL[LEDParaStringLength];
+  }LEDPara_string;
+  struct SLEDPara_double 
+  {
+    float Redx; float Redy; float RedL;
+    float Greenx; float Greeny; float GreenL;
+    float Bluex; float Bluey; float BlueL;
+  }LEDPara_double;
+  
+  enum ESSID
+  {
+    SSID_Init = 0,
+    SSID_0002_LEDSupplier     = 0x0002,    
+    SSID_0003_SingleAddress   = 0x0003,  
+    SSID_0004_GroupAddress    = 0x0004,
+    SSID_0005_Platform        = 0x0005,
+    SSID_0006_Factor          = 0x0006,
+    SSID_0007_Redx            = 0x0007,
+    SSID_0008_Greenx          = 0x0008,
+    SSID_0009_Bluex           = 0x0009,
+    SSID_6269_Partnumber      = 0x6269,
+    SSID_6469_SWVersion       = 0x6469,
+    SSID_6869_HWVersion       = 0x6869,
+    SSID_6A69_SerialNum       = 0x6A69,
+    SSID_000A_Cali            = 0x000A,
+    SSID_000B_Meas            = 0x000B,
+    SSID_000C_Flag            = 0x000C,
+    SSID_0017_LED             = 0x0017,
+    SSID_0100_OptMode         = 0x0100,
+    SSID_0101_Threshold       = 0x0101,
+    SSID_0102_PWM             = 0x0102,   // 读取3个2字节变量 
+    SSID_03_ReqSeed           = 0x03,
+    SSID_04_ReqKey            = 0x04,
+    SSID_0017_Redshiftx       =0x001,
+    SSID_0018_Greenshiftx     =0x0018,
+    SSID_0019_Blueshiftx      =0x0019,
+    SSID_reserved
+  };
+  
+  const byte SSIDCount = 46;
+  word SID22_SSID[enum ESSID, SSIDCount];
+  word SID2E_SSID[enum ESSID, SSIDCount];
+  //word SID27_SSID[enum ESSID, 4];
+  
+  enum EDiagStep
+  {
+    DiagStep_None,
+    DiagStep_ChangeNAD,
+    
+    DiagStep_StdLINDiag,
+    DiagStep_StdLINSend3D,
+    DiagStep_ReadStdLINProcess,
+    
+    DiagStep_0x22Req,
+    DiagStep_0x2EReqFirst,
+    DiagStep_0x2EReqSerial,
+    DiagStep_WriteOver,
+    DiagStep_0x22Send3D,
+    DiagStep_ReadProcess,
+    DiagStep_ReadOver,
+    
+    DiagStep_0x27ReqSeed,
+    DiagStep_0x27RecvSeed,
+    DiagStep_0x27RecvWait,
+    DiagStep_0x27ReqByKey,
+    DiagStep_0x27RecvOutcome,
+    
+    DiagStep_DiagEnd,
+    DiagStep_Error
+  };
+  msTimer DiagTimer;
+  const byte SchTableTimeSlot = 20; //20
+  
+  struct SDiagCtrl
+  {
+    word SSID;
+    word DataLen;   //exclude PDU
+    byte ReqBuf[BufferSize];
+    byte RespBuf[BufferSize];
+    word BufPtr;    //exclude PDU
+    byte SID;
+    byte SerialCNT;  //
+    byte ReqNAD;     //
+    byte FrameCNT;   //
+    byte CurrentNAD;   //
+    byte reserved;   
+    enum EDiagStep Step;
+  }DiagCtrl;
+  
+  word Diag_gRet = 0; 
+}
+
+
+void Public_ServiceInit(word InitType)
+{ 
+  SID22_SSID[SSID_0002_LEDSupplier]           = 2;    
+  SID22_SSID[SSID_0003_SingleAddress]         = 2;
+  SID22_SSID[SSID_0004_GroupAddress]          = 2;
+  SID22_SSID[SSID_0005_Platform]              = 2;
+  SID22_SSID[SSID_0006_Factor]                = 2;
+  SID22_SSID[SSID_0007_Redx]                  = 8;
+  SID22_SSID[SSID_0008_Greenx]                = 8;
+  SID22_SSID[SSID_0009_Bluex]                 = 8;    
+  SID22_SSID[SSID_0017_LED]                   = 24;  // new style
+  SID22_SSID[SSID_6269_Partnumber]            = 11;
+  SID22_SSID[SSID_6469_SWVersion]             = 5; 
+  SID22_SSID[SSID_6869_HWVersion]             = 3;
+  SID22_SSID[SSID_6A69_SerialNum]             = 20;
+  SID22_SSID[SSID_0100_OptMode]               = 16; 
+  SID22_SSID[SSID_0101_Threshold]             = 12;
+  SID22_SSID[SSID_0102_PWM]                   = 6;
+  SID22_SSID[SSID_000C_Flag]                  = 2;   /* 读取Flag */
+  SID22_SSID[SSID_0017_Redshiftx]             = 8;
+  SID22_SSID[SSID_0018_Greenshiftx]             = 8;
+  SID22_SSID[SSID_0019_Blueshiftx]             = 8;
+  
+  
+  SID2E_SSID[SSID_0002_LEDSupplier]           = 2;    
+  SID2E_SSID[SSID_0003_SingleAddress]         = 2;
+  SID2E_SSID[SSID_0004_GroupAddress]          = 2;
+  SID2E_SSID[SSID_0005_Platform]              = 2;
+  SID2E_SSID[SSID_0006_Factor]                = 2;
+  SID2E_SSID[SSID_0007_Redx]                  = 8;
+  SID2E_SSID[SSID_0008_Greenx]                = 8;
+  SID2E_SSID[SSID_0009_Bluex]                 = 8;  
+  SID2E_SSID[SSID_0017_LED]                   = 24;  // new style
+  SID2E_SSID[SSID_6269_Partnumber]            = 11; 
+  SID2E_SSID[SSID_6869_HWVersion]             = 3;
+  SID2E_SSID[SSID_6A69_SerialNum]             = 20;
+  SID2E_SSID[SSID_0101_Threshold]             = 12;
+  SID2E_SSID[SSID_000A_Cali]                  = 1;    
+  SID2E_SSID[SSID_000B_Meas]                  = 7;
+  SID2E_SSID[SSID_000C_Flag]                  = 2;    /* Flag不能像其它项目一样无脑写 */
+  SID22_SSID[SSID_0017_Redshiftx]             = 8;
+  SID22_SSID[SSID_0018_Greenshiftx]             = 8;
+  SID22_SSID[SSID_0019_Blueshiftx]             = 8;
+}
+
+
+void Diag_CtrlInit()
+{
+  for(Diag_gRet = 0; Diag_gRet < BufferSize; Diag_gRet++)
+  {
+    DiagCtrl.ReqBuf[Diag_gRet] = 0;
+    DiagCtrl.RespBuf[Diag_gRet] = 0;
+  }
+  DiagCtrl.DataLen = 0;
+  DiagCtrl.SSID = 0;
+  DiagCtrl.SID = 0;
+  DiagCtrl.BufPtr = 0;
+  DiagCtrl.SerialCNT = 0;
+  DiagCtrl.Step = DiagStep_None;
+  DiagCtrl.ReqNAD = 0;
+  DiagCtrl.FrameCNT = 0;
+}
+
+
+word Tool_GetFrameNum(word DataNum)
+{
+  word temp;
+  if(DataNum <=3) return 1;
+  temp = (DataNum+4)%6;
+  if(temp == 0) temp = (DataNum+4)/6;
+  else temp = (DataNum+4)/6 +1;
+  return temp;
+}
+
+byte Tool_GetSerialPCNT(byte pcnt)
+{
+  byte temp;
+  temp = pcnt&0x0f;
+  temp = ((temp+1)%16);
+  return temp|0x20;
+}
+
+
+void Diag_Resp(void)
+{
+  linTransmitHeader(BCMrep);
+}
+
+
+void Diag_0x22Req_Single(byte NAD)
+{
+  BCMreq.MasterReqB0= NAD;
+  BCMreq.MasterReqB1= 3;
+  BCMreq.MasterReqB2 = 0x22;
+  BCMreq.MasterReqB3 =(byte)((DiagCtrl.SSID&0xff00)>>8);
+  BCMreq.MasterReqB4 =(byte)(DiagCtrl.SSID&0x00ff);
+  BCMreq.MasterReqB5 = 0xff;
+  BCMreq.MasterReqB6 = 0xff;
+  BCMreq.MasterReqB7 = 0xff;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+void Diag_0x2EReq_Single(byte NAD, word DataNum)
+{
+  BCMreq.MasterReqB0= NAD;
+  BCMreq.MasterReqB1= DataNum+3;
+  BCMreq.MasterReqB2 = 0x2E;
+  BCMreq.MasterReqB3 = (byte)((DiagCtrl.SSID&0xff00)>>8);
+  BCMreq.MasterReqB4 = (byte)(DiagCtrl.SSID&0x00ff);
+  BCMreq.MasterReqB5 = DiagCtrl.ReqBuf[0];
+  BCMreq.MasterReqB6 = DiagCtrl.ReqBuf[1];
+  BCMreq.MasterReqB7 = DiagCtrl.ReqBuf[2];
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+void Diag_0x2EReq_First(byte NAD, word DataNum)
+{
+  BCMreq.MasterReqB0 = NAD;
+  BCMreq.MasterReqB1 = 0x10 | (((DataNum+2) & 0xff00)>>8);
+  BCMreq.MasterReqB2 = (byte)((DataNum+3) & 0x00ff);
+  BCMreq.MasterReqB3 = 0x2E;
+  BCMreq.MasterReqB4 = (byte)((DiagCtrl.SSID&0xff00)>>8);
+  BCMreq.MasterReqB5 = (byte)(DiagCtrl.SSID&0x00ff);
+  BCMreq.MasterReqB6 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB7 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+void Diag_0x2EReq_Serial(byte NAD)
+{
+  BCMreq.MasterReqB0 = NAD;
+  BCMreq.MasterReqB1 = Tool_GetSerialPCNT(DiagCtrl.SerialCNT++);//cnt;
+  BCMreq.MasterReqB2 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB3 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB4 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB5 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB6 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  BCMreq.MasterReqB7 = DiagCtrl.ReqBuf[DiagCtrl.BufPtr++];
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+
+
+void Diag_ChangeNAD(byte NAD, byte newNAD, byte IsKBD)
+{
+  BCMreq.dlc=8;
+  BCMreq.MasterReqB0 = NAD;
+  BCMreq.MasterReqB1 = 6;
+  BCMreq.MasterReqB2 = 0xb0;
+  if(IsKBD == 0) //not kbd, select all
+  {
+    BCMreq.MasterReqB3 = 0xff;
+    BCMreq.MasterReqB4 = 0x7f;
+    BCMreq.MasterReqB5 = 0xff;
+    BCMreq.MasterReqB6 = 0xff;
+  }
+  else
+  {
+    BCMreq.MasterReqB3 = (byte)(c_SupplierID_KBD&0x00ff);
+    BCMreq.MasterReqB4 = (byte)((c_SupplierID_KBD&0xff00)>>8);   
+    BCMreq.MasterReqB5 = (byte)(c_FunctionID_KBD&0x00ff); //function id lsb
+    BCMreq.MasterReqB6 = (byte)((c_FunctionID_KBD&0xff00)>>8); 
+  }
+  BCMreq.MasterReqB7 = newNAD;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+

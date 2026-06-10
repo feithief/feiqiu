@@ -1,0 +1,26 @@
+/*@!Encoding:936*/
+includes
+{
+
+  
+}
+
+variables
+{
+
+}
+
+
+on linFrame RGBe_Slave_a
+{  
+  if(@Replay::State == 1)
+  {
+    if((this.word(0) & (word)@sysvar::Replay::Gaddr) > 0)
+    {
+      write("%f:: %02x %02x  %02x %02x %02x %02x  %02x %02x", (float)timeNow()/100000, this.byte(0), this.byte(1), 
+        this.byte(2), this.byte(3), this.byte(4), this.byte(5), this.byte(6), this.byte(7));
+      
+    }  
+  }
+}
+

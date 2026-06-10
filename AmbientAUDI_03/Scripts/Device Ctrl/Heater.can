@@ -1,0 +1,86 @@
+/*@!Encoding:936*/
+includes
+{
+
+}
+
+variables
+{
+  //double TargetTemp = 40.0;
+  msTimer Judge_500ms;
+  const word HeatTime = 500;
+  dword TaskStep = 0;
+  //double CurTemp;
+  //double CurTemp_old;
+  //word HeatDelay;
+}
+
+
+void Heat_Ctrl(word mode)
+{
+  switch(mode)
+  {
+    case 41:
+      Heat_Start();
+      //@sysvar::DeviceCtrl::EverFine::Execute = 42;
+      //write("41");
+      break;
+    case 42:
+      Heat_Enable();
+     // write("42");
+      break;
+    case 43:
+      Heat_Disable();
+      //write("43");
+      break;
+    case 44:
+      write("44");
+      Heat_Stop();
+      Heat_Disable();
+      break;
+  }
+}
+
+
+/* 这个结构时比较好的。 通过修改19可以控制占空比为 1/(1+1)  ~ 1/(19+1),  5%~50%
+ * 通过实测发现，占空比5%时，可以维持温度(45) */
+on timer Judge_500ms
+{
+  TaskStep++;
+  if(TaskStep > 19)
+  {
+    TaskStep = 0;
+    @sysvar::DeviceCtrl::EverFine::Execute = 42;
+    //write("enable");
+  }
+  else
+  {
+    @sysvar::DeviceCtrl::EverFine::Execute = 43;
+    //write("disable");
+  }
+  setTimer(Judge_500ms,HeatTime);
+}
+
+
+void Heat_Start(void)
+{
+  setTimer(Judge_500ms,HeatTime);
+  TaskStep = 0;
+}
+
+void Heat_Stop(void)
+{
+  cancelTimer(Judge_500ms);
+}
+
+void Heat_Enable(void)
+{
+  ITECH6722A_Execute(23);//enable
+  
+}
+
+void Heat_Disable(void)
+{
+  
+  ITECH6722A_Execute(24);//disable
+}

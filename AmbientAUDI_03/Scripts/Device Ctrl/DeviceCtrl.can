@@ -1,0 +1,48 @@
+/*@!Encoding:936*/
+includes
+{
+  #pragma library("capldll_3.dll")
+  #include ".\\EverFine\\EverFine.can"  
+  #include ".\\ITECH\\ITECH.can"  
+  #include ".\\HIOKI\\HIOKI.can" 
+  #include "Heater.can"
+}
+
+variables
+{
+  DWORD CtrlLJM = 0;
+}
+
+
+
+void DeviceCtrl_Init()
+{
+  CtrlLJM = registerCAPLDLL();
+  DeviceCtrl_dllInit(CtrlLJM);
+  //write("CtrlHandle = %d",CtrlLJM);
+  HAAS1200_CtrlInit();
+  ITECH6722A_CtrlInit();
+  HIOKI_CtrlInit();
+}
+
+
+void DeviceCtrl(word mode)
+{
+  if (mode>0 && mode <= 20)
+  {
+    HAAS1200_Execute(mode);
+  }
+  else if (mode>20 && mode <= 30)
+  {
+    //ITECH6722A_Execute(mode);
+    //do nothing, VISA必须使用中断
+  }
+  else if (mode > 30 && mode <=40)
+  {
+    //HIOKI
+  }
+  else if (mode > 40 && mode <=50)
+  {
+    Heat_Ctrl(mode);
+  }
+}

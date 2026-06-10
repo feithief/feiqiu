@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<configuration xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+
+  <packages/>
+
+  <device Dclock="40000000" Dcore="Cortex-M23" DcoreVersion="r1p0" Dendian="Little-endian" Dfamily="TLD40xx Series" Dfpu="NO_FPU" Dmpu="NO_MPU" Dname="TLD4020-4ET" Dvendor="Infineon:7" info="ARM , 3 KB RAM, 30 KB ROM" url="https://www.keil.com/dd2/infineon/tld4020_4et">
+
+    <package info="Infineon TLD40xx Series Device Support" name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+  </device>
+
+  <toolchain Tcompiler="IAR" Toutput="exe"/>
+
+  <components>
+
+    <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.1">
+
+      <package name="CMSIS" url="https://www.keil.com/pack/" vendor="ARM" version="6.2.0"/>
+
+      <file category="doc" name="CMSIS/Documentation/html/Core/index.html"/>
+
+      <file category="include" name="CMSIS/Core/Include/"/>
+
+      <file attr="template" category="sourceC" condition="TZ Secure" name="CMSIS/Core/Template/ARMv8-M/main_s.c" select="Secure mode 'main' module for ARMv8-M" version="1.1.1"/>
+
+      <file attr="template" category="sourceC" condition="TZ Secure" name="CMSIS/Core/Template/ARMv8-M/tz_context.c" select="RTOS Context Management (TrustZone for ARMv8-M)" version="1.1.1"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Config Wizard" Cvendor="Infineon" Cversion="1.1.0" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt.xml" version="1.1.7"/>
+
+      <file attr="config" category="doc" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/xml/tld40xx_4et.svd" version="4.0.1"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/ldrv.py" version="1.0.2"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt.xml" version="1.1.7"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_adc11.xml" version="1.0.4"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_bsl.xml" version="1.0.4"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_cpu.xml" version="1.0.5"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_gpio.xml" version="2.0.1"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_ldrv.xml" version="1.0.9"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_lin.xml" version="3.0.1"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_mem.xml" version="1.0.1"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_pmu.xml" version="1.0.4"/>
+
+      <file attr="config" category="doc" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_scu.xml" version="1.1.6"/>
+
+      <file attr="config" category="doc" condition="cond_TLD40xx_UART2" deviceDependent="1" name="device/lib/cfgwiz/xml/icw_cmt_uart2.xml" version="1.0.0"/>
+
+      <file attr="config" category="doc" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/config.icwp" version="1.1.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/adc11_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/bsl_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/cpu_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/gpio_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/ldrv_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/isr_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/lin_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/mem_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/pmu_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/scu_defines.h" version="0.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/cfgwiz/defines/TLD4020_4/uart2_defines.h" version="0.0.0"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="ADC11" Cvendor="Infineon" Cversion="1.1.4" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/adc11.h" version="1.1.4"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/adc11.c" version="1.1.4"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="BOOTROM" Cvendor="Infineon" Cversion="1.0.0" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/bootrom.h" version="1.0.2"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="CPU" Cvendor="Infineon" Cversion="1.0.7" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/cpu.h" version="1.0.7"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/cpu.c" version="1.0.7"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="GPIO" Cvendor="Infineon" Cversion="1.0.9" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/gpio.h" version="1.0.9"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/gpio.c" version="1.0.9"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="ISR" Cvendor="Infineon" Cversion="1.0.6" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr.h" version="1.0.6"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr.c" version="1.0.6"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq0_handler.h" version="1.0.6"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq0_handler.c" version="1.0.6"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq2_handler.h" version="2.0.0"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq2_handler.c" version="2.0.0"/>
+
+      <file attr="config" category="header" condition="cond_TLD40xx_UART2" deviceDependent="1" name="device/lib/inc/isr_nvic_irq3_handler.h" version="1.0.0"/>
+
+      <file attr="config" category="source" condition="cond_TLD40xx_UART2" deviceDependent="1" name="device/lib/src/isr_nvic_irq3_handler.c" version="1.0.0"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq4_handler.h" version="1.0.7"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq4_handler.c" version="1.0.7"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq5_handler.h" version="1.1.9"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq5_handler.c" version="1.1.9"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq6_handler.h" version="1.0.8"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq6_handler.c" version="1.0.8"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/isr_nvic_irq7_handler.h" version="2.0.0"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/isr_nvic_irq7_handler.c" version="2.0.0"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="LDRV" Cvendor="Infineon" Cversion="1.1.1" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/ldrv.h" version="1.1.1"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/ldrv.c" version="1.1.1"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="MEM" Cvendor="Infineon" Cversion="1.0.4" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/mem.h" version="1.0.4"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/mem.c" version="1.0.4"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="PMU" Cvendor="Infineon" Cversion="1.0.5" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/pmu.h" version="1.0.5"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/pmu.c" version="1.0.5"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Lib" Csub="SCU" Cvendor="Infineon" Cversion="1.1.1" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/scu.h" version="1.1.1"/>
+
+      <file attr="config" category="source" deviceDependent="1" name="device/lib/src/scu.c" version="1.1.1"/>
+
+    </component>
+
+    <component Cclass="Device" Cgroup="Startup" Cvendor="Infineon" Cversion="1.0.0" deviceDependent="1">
+
+      <package name="TLD40xx_DFP" url="/" vendor="Infineon" version="3.2.0-plus"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/startup/inc/system_tld40xx.h" version="1.0.6"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/device.h" version="1.0.8"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/cmsis_misra.h" version="1.0.2"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/error_codes.h" version="1.0.4"/>
+
+      <file attr="config" category="header" condition="cond_TLD4020_4" deviceDependent="1" name="device/lib/inc/tld40xx_4et.h" version="4.0.2"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/types.h" version="1.0.4"/>
+
+      <file attr="config" category="header" deviceDependent="1" name="device/lib/inc/variants.h" version="1.1.0"/>
+
+      <file attr="config" category="linkerScript" condition="cond_TLD40xx_IAR" deviceDependent="1" name="device/startup/linker/IAR/tld40xx.icf" version="1.0.0"/>
+
+      <file attr="config" category="sourceC" deviceDependent="1" name="device/lib/src/device.c" version="1.0.8"/>
+
+      <file attr="config" category="sourceC" deviceDependent="1" name="device/startup/src/startup_tld40xx.c" version="1.0.3"/>
+
+      <file attr="config" category="sourceC" deviceDependent="1" name="device/startup/src/system_tld40xx.c" version="1.0.6"/>
+
+      <file attr="template" category="sourceC" deviceDependent="1" name="device/lib/main/main.c" select="Simple Main" version="1.0.3"/>
+
+      <file category="doc" deviceDependent="1" name="documents/html/index.html"/>
+
+    </component>
+
+  </components>
+
+  <apis/>
+
+</configuration>
+

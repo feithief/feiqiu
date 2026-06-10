@@ -1,0 +1,3 @@
+#ifndef _HOST_SYSTEMCONTROL_H_
+#define _HOST_SYSTEMCONTROL_H_
+#endif

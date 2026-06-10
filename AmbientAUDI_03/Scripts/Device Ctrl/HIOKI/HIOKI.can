@@ -1,0 +1,101 @@
+/*@!Encoding:936*/
+includes
+{
+  
+
+}
+
+variables
+{
+  const word HIOKI_BufLength = 255;
+  word HIOKI_gCnt;
+  struct SHIOKICtrl
+  {
+    char USB_ID[HIOKI_BufLength];
+    char DeviceID[HIOKI_BufLength];
+    byte ChlData[4];
+  }HiokiCtrl; 
+}
+
+
+
+on sysvar sysvar::DeviceCtrl::HIOKI::Execute
+{
+  if(@this != 0)
+  {
+    HIOKI8401_Execute(@this);
+  }
+}
+
+
+void BufferClear()
+{
+  for (HIOKI_gCnt=0;HIOKI_gCnt<HIOKI_BufLength;HIOKI_gCnt++)
+  {
+    HiokiCtrl.DeviceID[HIOKI_gCnt]=0;
+  }
+}
+
+
+void HIOKI8401_Execute(word mode)
+{
+  dword ChannelNum;
+  dword TDIV;
+  dword tempData_dw;
+  
+  BufferClear();
+  switch(mode)
+  {
+    case 31:
+      strncpy(HiokiCtrl.USB_ID,"ASRL12::INSTR",255);
+      //strncpy(HiokiCtrl.USB_ID,"ASRL14::INSTR",255);
+      HIOKI_LoggerInit_LJM(HiokiCtrl.USB_ID,HiokiCtrl.DeviceID);
+      //write("%d   DeviceID=%s",HiokiCtrl.DeviceID[0],HiokiCtrl.DeviceID);
+      sysSetVariableString(sysvar::DeviceCtrl::HIOKI::DeviceID,HiokiCtrl.DeviceID);
+      break;
+    case 32:
+      ChannelNum = @sysvar::DeviceCtrl::HIOKI::ChannelNum;
+      TDIV = @sysvar::DeviceCtrl::HIOKI::TDIV;
+      write("channelNumn = %d, TDIV= %d", ChannelNum, TDIV);
+      /* 注意 TDIV只能取1,2,5,10,20,30,其余值无效 */
+      HIOKI_LoggerConfig_LJM(ChannelNum,TDIV);
+      break;
+    case 33:  //get data 
+      local_GetMultiChanelData(@sysvar::DeviceCtrl::HIOKI::ChannelNum);
+      break;
+    case 34:  //outputenable
+      HIOKI_LoggerStart_LJM();
+      break;
+    case 35:
+      HIOKI_LoggerStop_LJM();
+      break;
+  }
+  
+}
+
+
+void local_GetMultiChanelData(word MaxChannel)
+{
+  char ChanelName[8];
+  dword tempData_dw;
+  for (HIOKI_gCnt = 1; HIOKI_gCnt<=MaxChannel ; HIOKI_gCnt++)
+  {
+    Tool_GetChannelName_LJM(HIOKI_gCnt, ChanelName);
+    HIOKI_LoggerGetChnlData_LJM(ChanelName,HiokiCtrl.ChlData);
+    tempData_dw = ((dword)HiokiCtrl.ChlData[3]<<24) | ((dword)HiokiCtrl.ChlData[2]<<16) | ((dword)HiokiCtrl.ChlData[1]<<8) | ((dword)HiokiCtrl.ChlData[0]<<0);
+    @sysvarMember::DeviceCtrl::HIOKI::ChValue[HIOKI_gCnt] = (double)tempData_dw/100;
+  }
+}
+
+
+void HIOKI_CtrlInit(void)
+{
+  sysSetVariableString(sysvar::DeviceCtrl::HIOKI::DeviceID, "*****LJM*****");
+  for (HIOKI_gCnt = 0; HIOKI_gCnt < 40; HIOKI_gCnt++)
+  {
+    @sysvarMember::DeviceCtrl::HIOKI::ChValue[HIOKI_gCnt] = 0;    
+  }
+  
+  @sysvar::DeviceCtrl::HIOKI::ChannelNum = 1;
+  @sysvar::DeviceCtrl::HIOKI::TDIV = 10;
+}

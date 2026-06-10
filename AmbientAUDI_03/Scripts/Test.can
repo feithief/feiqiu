@@ -1,0 +1,283 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  
+  msTimer Test_20ms;
+  enum STestCase
+  {
+    Test_Init,
+    Test_KeepLongtimeOff,
+    Test_OtherNodeAll0xff,
+    Test_WhetherSelfReset
+  }Private_Test_Flag;
+  
+ // word ErrorCNT=0,ErrorRecoverCNT=0;
+//  const word TestSA=8; 
+ // const word TestGA = 128;
+  
+  const byte SimulatedNodesNum=4;
+  word Private_SimulatedNodes[SimulatedNodesNum];
+  word SimulatedNAD[SimulatedNodesNum],SimulatedGroup[SimulatedNodesNum];
+  
+  struct STestPara
+  {
+    word ErrorCNT;
+    word ErrorRecoverCNT;
+    dword TestStartTime;
+    dword TestTartgetTime;
+  }Private_TestParas;
+  
+  linFrame LIN::SlaveResp NADRsp; //Test2
+}
+
+
+on timer Test_20ms
+{
+  byte select;
+  setTimer(Test_20ms,10);
+  switch(Private_Test_Flag)
+  {
+    case Test_KeepLongtimeOff:
+      switch(select)
+      {
+        case 0:
+          setSignal(BCM_RGBa_Adressierungsart,1);
+          setSignal(BCM_RGBa_Slave_Adresse,@sysvar::TestMode::GroupAddr);
+          setSignal(BCM_RGBa_Intensitaet,0);
+          break;
+        case 1:
+          setSignal(BCM_RGBa_Adressierungsart,1);
+          setSignal(BCM_RGBa_Slave_Adresse,SimulatedGroup[0]);
+          setSignal(BCM_RGBa_Intensitaet,100); 
+          break;
+        case 2:
+          setSignal(BCM_RGBa_Adressierungsart,1);
+          setSignal(BCM_RGBa_Slave_Adresse,SimulatedGroup[1]);
+          setSignal(BCM_RGBa_Intensitaet,50); 
+          break;
+        case 3:
+          setSignal(BCM_RGBa_Adressierungsart,1);
+          setSignal(BCM_RGBa_Slave_Adresse,SimulatedGroup[2]);
+          setSignal(BCM_RGBa_Intensitaet,80); 
+          break;
+        case 4:
+          setSignal(BCM_RGBa_Adressierungsart,1);
+          setSignal(BCM_RGBa_Slave_Adresse,SimulatedGroup[3]);
+          setSignal(BCM_RGBa_Intensitaet,70); 
+          break;
+      }
+      setSignal(BCM_RGBa_Dimmrampe,3);
+      select=(select+1)%(SimulatedNodesNum + 1);
+      break;
+
+    default: //test flag
+      break;
+  }
+
+}
+
+
+on linFrame *
+{
+  if(Private_Test_Flag==Test_KeepLongtimeOff)
+  {
+    if(this.id ==@sysvar::TestMode::CurrentNAD  && this.simulated == 0 && Private_TestParas.ErrorCNT<5)
+    {   
+      if(this.byte(1)!=0 || this.byte(2)!=0x80 || this.byte(3)!=0xEA)
+      {
+        Private_TestParas.ErrorCNT++;
+        write("Testcase1: byte0=0x%x, byte1=0x%x, byte2=0x%x, byte3=0x%x, Time=%f",this.byte(0),this.byte(1),this.byte(2),this.byte(3), (double)timeNow()/100000);
+        Private_TestParas.TestTartgetTime = timeNow();
+      }
+    }
+    else
+    {
+      double TimeInterval;
+      TimeInterval = (double)(Private_TestParas.TestTartgetTime - Private_TestParas.TestStartTime)/100000;
+      //write("TimeInterval = %f",TimeInterval);
+      if(Private_TestParas.ErrorCNT>=5 && TimeInterval>=6)
+      {
+        @sysvar::TestMode::TestButton=1; //restart the test.
+      }
+    }
+  }
+  
+  if(Private_Test_Flag==Test_OtherNodeAll0xff)
+  {
+    if(this.id ==@sysvar::TestMode::CurrentNAD  && this.simulated == 0 && Private_TestParas.ErrorCNT<5)
+    {
+      if(this.byte(0) == 0xff)
+      {
+        write("Testcase2: response error bit is set. the DUT will set reseponse error bit if other node send all off 0x3d message.");
+      }
+    }
+  }
+  
+  if(Private_Test_Flag==Test_WhetherSelfReset)
+  {
+    if(this.id == @sysvar::TestMode::CurrentNAD  && this.simulated == 0 && Private_TestParas.ErrorCNT<3)
+    {
+      if(this.byte(1)==0 || this.byte(2)==0x80)
+      { //进入这里就是程序自己复位了。
+        Private_TestParas.ErrorCNT++;
+        write("Testcase3: byte0=0x%x, byte1=0x%x, byte2=0x%x, byte3=0x%x, Time=%f",this.byte(0),this.byte(1),this.byte(2),this.byte(3), (double)timeNow()/100000);
+      } 
+      else
+      {
+        Private_TestParas.ErrorRecoverCNT++;
+        if(Private_TestParas.ErrorRecoverCNT>500) //10s 正常工作
+        {
+          Private_TestParas.ErrorCNT=0;
+          Private_TestParas.ErrorRecoverCNT=0;
+        }
+      }
+    }
+  }
+  
+}
+
+
+/********************
+TestCase1
+Note: DUT的指令时灭灯，仿真节点的指令是亮灯
+目的：收到lin信号处理的时候会不会被lin中断打断，赋值了其他值。
+********************/
+void Public_TestCase1()
+{
+  if(@sysvar::TestMode::CurrentNAD==0 || @sysvar::TestMode::GroupAddr==0)
+  {
+    write("TestNAD or TestGroupAddr=0! Stop the simulation!");
+    stop();
+  }
+  else
+  {
+    //step1: go to sleep
+    write("step1: Go to Sleep, in order to get init signals of the DUT's state frame");
+    setSignal(BCM_RGBa_Adressierungsart,1);
+    setSignal(BCM_RGBa_Slave_Adresse,@sysvar::TestMode::GroupAddr);
+    setSignal(BCM_RGBa_Dimmrampe,0);
+    setSignal(BCM_RGBa_Intensitaet,0);
+    linGotoSleep();
+    testWaitForTimeout(3000);
+    //step2: Generate simulated nodes
+    ReturnNOREPEAT_SimulatedNAD(@sysvar::TestMode::CurrentNAD,SimulatedGroup,4, 0); //2^15 -1  
+    write("SimulatedNodes GA=%d, %d, %d, %d",SimulatedGroup[0],SimulatedGroup[1],SimulatedGroup[2],SimulatedGroup[3]);  
+    Private_TestParas.ErrorCNT=0;
+    Private_TestParas.ErrorRecoverCNT=0;  
+    Private_TestParas.TestTartgetTime=0;
+    //step3: wake up
+    write("step2: Wake up, in order to get init signals of the DUT's state frame");
+    Private_TestParas.TestStartTime = timeNow();
+    linWakeup();
+    write("Time:%f. Testcase 1 starts",(double)Private_TestParas.TestStartTime/100000 );
+    //step4: Start test
+    Private_Test_Flag = Test_KeepLongtimeOff;
+    setTimer(Test_20ms,20);
+  }
+}
+
+
+/********************
+TestCase2
+Note: 把Melex81108代码code\mulan2_platform\libsrc\LIN\lin.c中Line262 的判断条件去除。发送下列报文后，模组会报resp error bit错误
+********************/
+void SendLINRSP()
+{
+  NADRsp.SlaveRespB0= 0xff;
+  NADRsp.SlaveRespB1= 0xff;
+  NADRsp.SlaveRespB2 =0xff;
+  NADRsp.SlaveRespB3 =0xff;
+  NADRsp.SlaveRespB4 =0xff;
+  NADRsp.SlaveRespB5 =0xff;;
+  NADRsp.SlaveRespB6 =0xff;;
+  NADRsp.SlaveRespB7 =0xff;;
+  linTransmitHeader(NADRsp);
+  output(NADRsp);
+}
+
+void Public_TestCase2()
+{
+  if(@sysvar::TestMode::CurrentNAD==0 || @sysvar::TestMode::GroupAddr==0)
+  {
+    write("TestNAD or TestGroupAddr=0! Stop the simulation!");
+    stop();
+  }
+  else
+  {
+    Private_TestParas.ErrorCNT=0;
+    Private_TestParas.ErrorRecoverCNT=0;  
+    Private_TestParas.TestTartgetTime=0;
+    write("Time:%f. Testcase 2 starts",(double)timeNow()/100000 );
+    SendLINRSP();
+    Private_Test_Flag = Test_OtherNodeAll0xff;
+  }
+}
+
+
+/********************
+TestCase3
+Note: 始终让灯亮。状态normal。
+观察是否复位。复位后的第一个state frame是init。
+********************/
+void Public_TestCase3()
+{
+  if(@sysvar::TestMode::CurrentNAD!=8 || @sysvar::TestMode::GroupAddr==0)
+  {
+    write("TestNAD must be 8! Stop the simulation!");
+    stop();
+  }
+  else
+  {
+    //step1: 切换调度表。只有在频繁接收报文的情况下，该现象才复现。    
+    linChangeSchedTable(3); //3就是 全Node8的调度表. 0是默认，1是3c，2是3d
+    Private_TestParas.ErrorCNT=0;
+    Private_TestParas.ErrorRecoverCNT=0;
+    write("Testcase3: Schedule Table has been changed.");
+    //step2: keep the node being lighted on   
+    setSignal(BCM_RGBa_Adressierungsart,0); 
+    setSignal(BCM_RGBa_Slave_Adresse,@sysvar::TestMode::CurrentNAD);
+    setSignal(BCM_RGBa_Intensitaet,100);
+    testWaitForTimeout(1000);
+    write("Time:%f. Testcase 3 starts",(double)timeNow()/100000 );
+    Private_Test_Flag = Test_WhetherSelfReset;
+  }
+}
+
+
+//MAD是标签节点地址和标签组地址
+void ReturnNOREPEAT_SimulatedNAD(byte Addr, word SimulatedNodes[], byte length, byte WhetherNADSelected)
+{
+  byte cnt, cnt2;
+  word Range;
+  for(cnt=0;cnt<length;)
+  {
+    SimulatedNodes[cnt]= random(14)+1; 
+    for(cnt2=0; cnt2<length; cnt2++)
+    {
+      if(cnt == cnt2) continue;//不对比自己
+      else
+      {
+        if(SimulatedNodes[cnt]==SimulatedNodes[cnt2])
+          break;
+        else if  (SimulatedNodes[cnt]== Addr && WhetherNADSelected!=0) //NAD寻址
+          break;
+        else if( (word)_pow(2,SimulatedNodes[cnt])== Addr && WhetherNADSelected==0)  //GA寻址
+          break;
+      }
+    }
+    if(cnt2==length) //全都比了一遍
+      cnt++;
+  }
+  if(WhetherNADSelected==0)
+  {
+    for(cnt=0;cnt<length;cnt++)
+    {
+      SimulatedNodes[cnt] = (word)_pow((double)2,(double)SimulatedNodes[cnt]);
+    }
+  }
+}

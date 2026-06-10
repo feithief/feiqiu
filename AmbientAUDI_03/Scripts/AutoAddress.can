@@ -1,0 +1,142 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+ 
+}
+
+
+void AutoAddress_Init(void)
+{
+  setControlVisibility("Main Panel","Step1_off",0);
+  setControlVisibility("Main Panel","Step1_on",1);
+  setControlVisibility("Main Panel","Step2_off",1);
+  setControlVisibility("Main Panel","Step2_on",0);
+  setControlVisibility("Main Panel","Step3_off",1);
+  setControlVisibility("Main Panel","Step3_on",0);
+  setControlVisibility("Main Panel","Step4_off",1);
+  setControlVisibility("Main Panel","Step4_on",0); 
+}
+
+
+void AutoAddress_Process(word cmd)
+{
+  switch(cmd)
+  {
+    case 1: //blue
+      AssignedNAD_via_SNPD_INIT(0x7f); 
+      setControlVisibility("Main Panel","Step1_off",1);
+      setControlVisibility("Main Panel","Step1_on",0);
+      setControlVisibility("Main Panel","Step2_off",0);
+      setControlVisibility("Main Panel","Step2_on",1);
+      setControlVisibility("Main Panel","Step3_off",1);
+      setControlVisibility("Main Panel","Step3_on",0);
+      setControlVisibility("Main Panel","Step4_off",1);
+      setControlVisibility("Main Panel","Step4_on",0);
+      break; 
+    case 2:
+      AssignedNAD_to_SLAVE(0x7f, @sysvar::AutoAddress::NewNAD);    
+      setControlVisibility("Main Panel","Step1_off",1);
+      setControlVisibility("Main Panel","Step1_on",0);
+      setControlVisibility("Main Panel","Step2_off",0);
+      setControlVisibility("Main Panel","Step2_on",1);
+      setControlVisibility("Main Panel","Step3_off",0);
+      setControlVisibility("Main Panel","Step3_on",1);
+      setControlVisibility("Main Panel","Step4_off",1);
+      setControlVisibility("Main Panel","Step4_on",0); 
+      break;
+    case 3:
+      StoreNAD_to_NVR(0x7f);     
+      setControlVisibility("Main Panel","Step1_off",1);
+      setControlVisibility("Main Panel","Step1_on",0);
+      setControlVisibility("Main Panel","Step2_off",1);
+      setControlVisibility("Main Panel","Step2_on",0);
+      setControlVisibility("Main Panel","Step3_off",1);
+      setControlVisibility("Main Panel","Step3_on",0);
+      setControlVisibility("Main Panel","Step4_off",0);
+      setControlVisibility("Main Panel","Step4_on",1);
+      break;
+    case 4:
+      AssignedNAD_Finished(0x7f);  
+      setControlVisibility("Main Panel","Step1_off",0);
+      setControlVisibility("Main Panel","Step1_on",1);
+      setControlVisibility("Main Panel","Step2_off",1);
+      setControlVisibility("Main Panel","Step2_on",0);
+      setControlVisibility("Main Panel","Step3_off",1);
+      setControlVisibility("Main Panel","Step3_on",0);
+      setControlVisibility("Main Panel","Step4_off",1);
+      setControlVisibility("Main Panel","Step4_on",0);    
+      break;
+  }
+}
+
+/* SNPD */
+void AssignedNAD_via_SNPD_INIT(byte currentNAD)
+{
+  
+  BCMreq.MasterReqB0=currentNAD;
+  BCMreq.MasterReqB1=0x06;
+  BCMreq.MasterReqB2=0xb5;
+
+  BCMreq.MasterReqB3=0xff;
+  BCMreq.MasterReqB4=0x7f;
+  BCMreq.MasterReqB5=0x01;
+  BCMreq.MasterReqB6=0x02;
+
+  BCMreq.MasterReqB7=0xff;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+void AssignedNAD_to_SLAVE(byte currentNAD, byte newNAD)
+{
+  
+  BCMreq.MasterReqB0=currentNAD;
+  BCMreq.MasterReqB1=0x06;
+  BCMreq.MasterReqB2=0xb5;
+
+  BCMreq.MasterReqB3=0xff;
+  BCMreq.MasterReqB4=0x7f;
+  BCMreq.MasterReqB5=0x02;
+  BCMreq.MasterReqB6=0x02;
+
+  BCMreq.MasterReqB7=newNAD;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+void StoreNAD_to_NVR(byte currentNAD)
+{
+  BCMreq.MasterReqB0=currentNAD;
+  BCMreq.MasterReqB1=0x06;
+  BCMreq.MasterReqB2=0xb5;
+
+  BCMreq.MasterReqB3=0xff;
+  BCMreq.MasterReqB4=0x7f;
+  BCMreq.MasterReqB5=0x03;
+  BCMreq.MasterReqB6=0x02;
+
+  BCMreq.MasterReqB7=0xff;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+
+void AssignedNAD_Finished(byte currentNAD)
+{
+  BCMreq.MasterReqB0=currentNAD;
+  BCMreq.MasterReqB1=0x06;
+  BCMreq.MasterReqB2=0xb5;
+
+  BCMreq.MasterReqB3=0xff;
+  BCMreq.MasterReqB4=0x7f;
+  BCMreq.MasterReqB5=0x04;
+  BCMreq.MasterReqB6=0x02;
+
+  BCMreq.MasterReqB7=0xff;
+  linTransmitHeader(BCMreq);
+  output(BCMreq);
+}
+/* end of SNPD */

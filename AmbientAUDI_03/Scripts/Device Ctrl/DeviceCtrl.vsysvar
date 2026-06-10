@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="DeviceCtrl" comment="" interface="">
+      <namespace name="EverFine" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="AverageTime" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" minValue="1" minValuePhys="1" maxValue="20" maxValuePhys="20" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Execute" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="GetTemperature_cur" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="30" minValue="-40" minValuePhys="-40" maxValue="120" maxValuePhys="120" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="GetTemperature_env" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="30" minValue="-40" minValuePhys="-40" maxValue="120" maxValuePhys="120" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="IntegralTime" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="200" minValue="0" minValuePhys="0" maxValue="65535" maxValuePhys="65535" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SetTemperature" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="30" minValue="-40" minValuePhys="-40" maxValue="120" maxValuePhys="120" />
+      </namespace>
+      <namespace name="HIOKI" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ChannelNum" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" minValue="1" minValuePhys="1" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ChValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="floatarray" arrayLength="64" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DeviceID" comment="" bitcount="88" isSigned="true" encoding="65001" type="string" startValue="*****LJM*****" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Execute" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="TDIV" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" minValue="1" minValuePhys="1" maxValue="30" maxValuePhys="30" />
+      </namespace>
+      <namespace name="ITECH" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="CurrentLimit" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="1" minValue="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Execute" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="PowerID" comment="" bitcount="88" isSigned="true" encoding="65001" type="string" />
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Voltage" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="13.5" />
+      </namespace>
+    </namespace>
+  </namespace>
+</systemvariables>

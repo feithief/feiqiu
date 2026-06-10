@@ -1,0 +1,31 @@
+S17 使用说明
+================
+
+功能：
+  验证 S16 拟合出来的分段温度修正公式是否有效。
+
+验证温度：
+  T45 和 T80
+
+验证逻辑：
+  修正前：W25 直接对比 S15 的高温 Exact BestWhiteRatio
+  修正后：W25 + DeltaW_formula 对比 S15 的高温 Exact BestWhiteRatio
+
+运行前提：
+  已经运行 s15 和 s16。
+
+运行方式：
+  在 MATLAB 命令行输入：
+    s17
+
+输出：
+  triangle_grid_lut_output/s17_temperature_formula_validation/
+    s17_temperature_formula_validation_points.csv
+    s17_temperature_formula_validation_summary.csv
+
+重点看 summary 中：
+  MeanAbsError_Before / After
+  P95AbsError_Before / After
+  MaxAbsError_Before / After
+
+如果 After 明显小于 Before，说明温度公式有效。

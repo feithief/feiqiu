@@ -1,0 +1,149 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "Diag.cin"
+}
+
+variables
+{
+  linframe 0x3c Diagreq;
+  linframe 0x3d Diagrep;
+  word StdDiag_gWORD = 0;
+  const word StdDiagStrLen = MAXFilePathLength/32; //512/32
+  char StdDiag_gSTRING[StdDiagStrLen]; 
+}
+
+
+void StdLIN_B2_ReadByID(byte NAD)
+{
+  Diag_CtrlInit();
+  DiagCtrl.Step = DiagStep_StdLINDiag;
+  DiagCtrl.SID = 0xFF;
+  DiagCtrl.SSID = 0x00B2;
+  DiagCtrl.ReqNAD = NAD;
+  DiagCtrl.DataLen = 3; 
+  DiagCtrl.FrameCNT = Tool_GetFrameNum(DiagCtrl.DataLen);
+  setTimer(DiagTimer,1);
+}
+
+void Diag_B2_ReadByID(byte NAD)
+{
+  Diagreq.MasterReqB0 = NAD;
+  Diagreq.MasterReqB1 = 6;
+  Diagreq.MasterReqB2 = 0xB2;
+  Diagreq.MasterReqB3 = 0;
+  Diagreq.MasterReqB4 = 0xFF;
+  Diagreq.MasterReqB5 = 0x7F;
+  Diagreq.MasterReqB6 = 0xFF;
+  Diagreq.MasterReqB7 = 0xFF;
+  linTransmitHeader(Diagreq);
+  output(Diagreq);
+}
+
+
+void Diag_B0_AssignNAD_wrongData(byte NAD)
+{
+  Diagreq.MasterReqB0 = NAD;
+  Diagreq.MasterReqB1 = 6;
+  Diagreq.MasterReqB2 = 0xB0;
+  Diagreq.MasterReqB3 = 0x85;
+  Diagreq.MasterReqB4 = 0x00;
+  Diagreq.MasterReqB5 = 0x03;
+  Diagreq.MasterReqB6 = 0x00;
+  Diagreq.MasterReqB7 = 0x05;
+  linTransmitHeader(Diagreq);
+  output(Diagreq);
+}
+
+
+void StdLIN_B0_AssignNAD_wrongData(byte NAD)
+{
+  Diag_CtrlInit();
+  DiagCtrl.Step = DiagStep_StdLINDiag;
+  DiagCtrl.SID = 0xFF;
+  DiagCtrl.SSID = 0x00B0;
+  DiagCtrl.ReqNAD = NAD;
+  DiagCtrl.DataLen = 3; 
+  DiagCtrl.FrameCNT = Tool_GetFrameNum(DiagCtrl.DataLen);
+  setTimer(DiagTimer,1);
+}
+
+//void Diag_B1_AssignFrameID(byte NAD,byte FrameID)
+//{
+//  dword PID;
+//  Diagreq.MasterReqB0= NAD;
+//  Diagreq.MasterReqB1= 0x06;
+//  Diagreq.MasterReqB2 = 0xb1;
+//  Diagreq.MasterReqB3 = 0x84; //(byte)(Private_SupplierID_KBD&0x00ff);
+//  Diagreq.MasterReqB4 = 0x00; //(byte)((Private_SupplierID_KBD&0xff00)>>8);
+//  if(FrameID != 0x15)  
+//  {
+//    Diagreq.MasterReqB5 = NAD; 
+//  }
+//  else 
+//  {
+//    Diagreq.MasterReqB5 = 0x15;
+//  }
+//  Diagreq.MasterReqB6 = 0x40;
+//  //Diagreq.MasterReqB6 = 0x00;
+//  PID = linGetProtectedID((long)Diagreq.MasterReqB5);
+//  Diagreq.MasterReqB7 = (byte)PID;
+//  linTransmitHeader(Diagreq);
+//  output(Diagreq);
+//}
+
+
+void Diag_B1_AssignFrameID(byte NAD, byte OldFrameID, byte NewFrameID)
+{
+  dword PID;
+  Diagreq.MasterReqB0= NAD;
+  Diagreq.MasterReqB1= 0x06;
+  Diagreq.MasterReqB2 = 0xb1;
+  Diagreq.MasterReqB3 = 0x84; //(byte)(Private_SupplierID_KBD&0x00ff);
+  Diagreq.MasterReqB4 = 0x00; //(byte)((Private_SupplierID_KBD&0xff00)>>8);
+  Diagreq.MasterReqB5 = OldFrameID;
+  Diagreq.MasterReqB6 = 0x40;
+  PID = linGetProtectedID((long)NewFrameID);
+  Diagreq.MasterReqB7 = (byte)PID;
+  linTransmitHeader(Diagreq);
+  output(Diagreq);
+}
+
+void StdLIN_AssignFrameID(byte NAD,byte FrameID)
+{
+  Diag_CtrlInit();
+  DiagCtrl.Step = DiagStep_StdLINDiag;
+  DiagCtrl.SID = 0xFF;
+  DiagCtrl.SSID = 0x00B1;
+  DiagCtrl.ReqNAD = NAD;
+  DiagCtrl.DataLen = 3; 
+  DiagCtrl.FrameCNT = 1;//Tool_GetFrameNum(DiagCtrl.DataLen);
+  setTimer(DiagTimer,10);
+}
+
+
+void StdDiag_ReadProcess(void)
+{
+  switch(DiagCtrl.SSID)
+  {
+    case 0xB2:
+      //write("%x %x %x %x %x", DiagCtrl.RespBuf[0], DiagCtrl.RespBuf[1], DiagCtrl.RespBuf[2], DiagCtrl.RespBuf[3], DiagCtrl.RespBuf[4]);
+      StdDiag_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];
+      snprintf(StdDiag_gSTRING, StdDiagStrLen,"0x%x", StdDiag_gWORD);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.SupplierID, StdDiag_gSTRING);
+      
+      StdDiag_gWORD = ((word)(DiagCtrl.RespBuf[3])<<8) | (word)DiagCtrl.RespBuf[2];
+      snprintf(StdDiag_gSTRING, StdDiagStrLen,"0x%x", StdDiag_gWORD);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.FunctionID, StdDiag_gSTRING);
+      
+      snprintf(StdDiag_gSTRING, StdDiagStrLen,"0x%x", DiagCtrl.RespBuf[4]);
+      sysSetVariableString(sysvarMember::NodeInfo::Node.SubVersion, StdDiag_gSTRING);
+      break;
+    case 0xB1:
+      write("Process B1 . Do nothing. <void StdDiag_ReadProcess(void)>");
+      break;
+  }
+
+  
+}
+

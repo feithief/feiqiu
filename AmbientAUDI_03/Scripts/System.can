@@ -1,0 +1,330 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "App.can" 
+  #include "ReworkCtrl.can"
+  //#include "Calibration.can"
+  #include "NodeDetect.can"
+  //#include ".\\Device Ctrl\\DeviceCtrl.can" 
+  #include "AutoAddress.can"
+  #include "SendDataCrc.can"
+}
+
+variables
+{ 
+  linframe 0x3c BCMreq;
+  linframe 0x3d BCMrep;
+  const word SupplierID_KBD = 0x0084;
+  const word FunctionID_KBD = 0x0003;
+  word Sys_Ret = 0;
+  
+}
+
+
+/* 彻底初始化，所有设备 文件路径 界面全部更新 */
+void System_Init(void)
+{
+  testWaitForTimeout(100);
+  System_Refresh();
+  Public_SignalsInit();
+  setBusContext(getBusNameContext("LIN1"));  
+  NodeDetect_CtrlInit();
+  Public_ServiceInit((word)@sysvar::NodeCtrl::DiagVersion); 
+  //DeviceCtrl_Init();
+  testWaitForTimeout(100);
+  Rework_Init();
+  AutoAddress_Init();
+}
+
+/* 有些初始化不能多次执行，但又有必要对一些功能状态更新 
+ * 此函数不能使用 Sys_Ret。 见返工步骤 */
+void System_Refresh(void)
+{
+  SysLocal_PanelsInit();
+  setControlVisibility("Main Panel","GB_NodeDetails",0);
+  cancelTimer(DiagTimer);
+  @Replay::State = 0;
+}
+
+testcase Public_Functions(word cmd)
+{
+  if(cmd >0 && cmd <= 500)
+  {
+    Public_ColorInput(cmd);
+  }
+  else if ( cmd > 500 && cmd <= 700)
+  {
+    SysLocal_GenDiagFunc(cmd);   //All diag tasks including rework 
+  } 
+  else if ( cmd > 700 && cmd <= 800)
+  {
+    //SysLocal_GenFunc(cmd);   //only one. ReplayBlock
+    
+  }
+}
+
+
+void SysLocal_GenDiagFunc(word cmd)
+{
+  switch(cmd)  /* 501~700 Diag Tasks */
+  {    
+    /* 501~550 Basic Diag */
+    case 501: //read all, Note: the number can not be changed.
+      Public_Diag_ReadAll();
+      break;
+    case 502: //return     
+      Diag_ChangeNAD((byte)@sysvarMember::NodeInfo::Node.NAD, (byte)@sysvarMember::NodeInfo::Node.NAD,0);
+      System_Refresh();
+      break;
+    case 503:  //refresh
+      Sys_Ret = @sysvarMember::NodeInfo::Node.NAD;
+      SysLocal_PanelsInit();
+      @sysvarMember::NodeInfo::Node.NAD = Sys_Ret;
+      Public_Diag_ReadAll();
+      break;
+    case 504:  //upload all
+      Public_Diag_WriteAll();
+      break;
+    case 505:  // upload led
+      if(@sysvar::NodeCtrl::DiagVersion == 3)
+      {
+        Public_Send0x2E_0017((byte)@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(600);
+      }
+      else
+      {
+        Public_Send0x2E_0007((byte)@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(500);
+        Public_Send0x2E_0008((byte)@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(500);
+        Public_Send0x2E_0009((byte)@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(500);
+      }
+      break;
+    case 506:  // Normal
+      Public_Send0x2E_CaliOFF();
+      break; 
+    case 507:  // Cali red
+      Public_Send0x2E_CaliRed();
+      break;
+    case 508:  // Cali green
+      Public_Send0x2E_CaliGreen();
+      break;
+    case 509:  // Cali blue
+      Public_Send0x2E_CaliBlue();
+      break;
+    case 510: //Diag Detail
+      Public_DiagDetails((word)@NodeCtrl::DiagDetailItem);
+      break;
+    case 511:  //随意读取3个2字节变量
+      Public_Send0x22_0102((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+    case 512:
+      Public_Set3PWMs(@sysvarMember::NodeInfo::Node.NAD,
+        @NodeCtrl::PWMSet.R, @NodeCtrl::PWMSet.G, @NodeCtrl::PWMSet.B);
+      break;
+    case 513:
+      Public_Send0x2E_LeaveSetPWM();
+      break;
+    case 514:
+      Public_Send0x22_0101((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+    case 515:
+      Public_Send0x2E_0101((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+    case 516:  // write white mix parameters, DID 0x000B
+      Public_Send0x2E_000B_WhiteMix((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+      
+    /* 551 ~ 570 Rework */  
+    case 551:  // rework read    
+      Rework_DiagRead();
+      break;
+    case 552:  // rework write
+      Rework_DiagWrite();
+      break;
+    case 553:  // load setting
+      Rework_LoadSetting();
+      break;
+    case 554:  // rework lock/unlock setting
+      Rework_ButtonLock();
+      break;
+    case 555:  // rework by 0x27
+      Rework_By27Service();
+      break;
+  }
+
+}
+
+
+void Public_Diag_ReadAll(void)
+{
+  byte currentNAD;
+  /* 转A0中寻址的NAD */
+  currentNAD = (byte)@sysvarMember::NodeInfo::Node.NAD;        //记得把 DiagCtrl.CurrentNAD的赋值放到 Public_Send0x22_00XX中，
+ // DiagCtrl.CurrentNAD = 0x7F;
+  StdLIN_B2_ReadByID(currentNAD);
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x22_0002(currentNAD);       /* LED Supplier */
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x22_0003(currentNAD);       /* NAD */
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x22_0004(currentNAD);       /* Group Addr */
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x22_0005(currentNAD);       /* Platform */
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x22_0006(currentNAD);       /* LFactor */
+  testWaitForTimeout(Waittime_Short);
+
+  if(@sysvar::NodeCtrl::DiagVersion != 3)
+  {
+    Public_Send0x22_0007(currentNAD);       /* Red */
+    testWaitForTimeout(Waittime_Long);
+    Public_Send0x22_0008(currentNAD);       /* Green */
+    testWaitForTimeout(Waittime_Long);
+    Public_Send0x22_0009(currentNAD);       /* Blue */
+    testWaitForTimeout(Waittime_Long);
+  }
+  else
+  {
+    Public_Send0x22_0017(currentNAD);       /* Red */
+    testWaitForTimeout(Waittime_Long*2);
+  }
+  Public_Send0x22_6269(currentNAD);       /* PartNo */
+  testWaitForTimeout(Waittime_Long);
+  Public_Send0x22_6A69(currentNAD);       /* SerialNo */
+  testWaitForTimeout(Waittime_Long);
+  Public_Send0x22_6469(currentNAD);       /* SW version */
+  testWaitForTimeout(Waittime_Long);
+  Public_Send0x22_6869(currentNAD);       /* HW version */
+  testWaitForTimeout(Waittime_Long);
+
+  //Public_Send0x22_000C(currentNAD); 
+ // @sysvar::NodeCtrl::Execute = 0;
+  testWaitForTimeout(1000);
+}
+
+
+/* 注意这个函数没有 platform */
+void Public_Diag_WriteAll(void)
+{
+  // 这里没有CurrentNAD的赋值，说明writeALL必须在readall之后运行。不能单独运行
+  if(@sysvar::NodeCtrl::DiagVersion == 3)
+  {
+    Public_Send0x2E_0002(DiagCtrl.CurrentNAD);
+    testWaitForTimeout(Waittime_Short);    
+  }
+  
+  Public_Send0x2E_0004(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.GroupAddr);  
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x2E_0006(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.LFactor);
+  testWaitForTimeout(Waittime_Short);
+  Public_Send0x2E_0007(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  Public_Send0x2E_0008(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  Public_Send0x2E_0009(DiagCtrl.CurrentNAD);
+  testWaitForTimeout(Waittime_Long*2);
+  
+  Public_Send0x2E_6869(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.HWVersion);    //HW Ver
+  testWaitForTimeout(Waittime_Long);
+  Public_Send0x2E_6269(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.PartNumber);   //partNo
+  testWaitForTimeout(Waittime_Long*2);
+  Public_Send0x2E_6A69(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.SerialNumber);   //SerialNO
+  testWaitForTimeout(Waittime_Long*2);
+  Public_Send0x2E_0003(DiagCtrl.CurrentNAD, sysvarMember::NodeInfo::Node.NAD);   //NAD必须放最后
+  testWaitForTimeout(Waittime_Long);
+}
+
+
+
+void Public_DiagDetails(word cmd)
+{
+  byte currentNAD;
+  currentNAD = (byte)@sysvarMember::NodeInfo::Node.NAD;
+  switch(cmd)
+  {
+    case LINDiag_None_00:
+      break;
+    case LINDiag_22_SupplierID_01:
+      Public_Send0x22_0002(currentNAD);
+      break;
+    case LINDiag_22_NAD_02:
+      Public_Send0x22_0003(currentNAD);
+      break;
+    case LINDiag_22_GroupAddr_03:
+      Public_Send0x22_0004(currentNAD); 
+      break;
+    case LINDiag_22_LFactor_07:
+      Public_Send0x22_0006(currentNAD); 
+      break;
+    case LINDiag_22_PartNO_08:
+      Public_Send0x22_6269(currentNAD);
+      break;
+    case LINDiag_22_SerialNo_09:
+      Public_Send0x22_6A69(currentNAD);
+      break;
+    case LINDiag_22_SWVersion_11:
+      Public_Send0x22_6469(currentNAD);
+      break;
+      
+    case LINDiag_2E_Lock_13:
+      Public_Send0x2E_000C((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+    case LINDiag_2E_Unlock_14:
+      Public_Diag0x27_Unlock((byte)@sysvarMember::NodeInfo::Node.NAD);
+      break;
+    case LINDiag_2E_LFactor_07:
+      Public_Send0x2E_0006((byte)@sysvarMember::NodeInfo::Node.NAD, sysvarMember::NodeInfo::Node.LFactor);
+      break;
+      
+   // case LINStdDiag_B0_AssignNAD_WrongData:
+      //StdLIN_B0_AssignNAD_wrongData((byte)@sysvarMember::NodeInfo::Node.NAD);
+      //break;
+    case LINStdDiag_B1_AssignFrameID:
+      StdLIN_AssignFrameID(currentNAD, @sysvar::NodeCtrl::NewFrameID);
+      break;
+      
+  }
+  testWaitForTimeout(2000);
+  //Diag_ChangeNAD((byte)@sysvarMember::NodeInfo::Node.NAD, (byte)@sysvarMember::NodeInfo::Node.NAD,0);
+}
+
+
+
+void SysLocal_PanelsInit(void)
+{
+
+  @sysvarMember::NodeInfo::Node.NAD = 0;
+  @sysvarMember::NodeInfo::Node.GroupAddr = 0;
+  @sysvarMember::NodeInfo::Node.Platform = 0;
+  @sysvarMember::NodeInfo::Node.LFactor=0;  
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redx,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redy,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.RedL,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey,"0.0");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL,"0.0"); 
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SerialNumber,"*********LJM********");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.PartNumber,"*****LJM***");
+//  @UserPanel::ModuleInfo::LEDSupplier = 0;
+  @sysvarMember::NodeDetect::State.RedOpen = 0;
+  @sysvarMember::NodeDetect::State.RedShort = 0;
+  @sysvarMember::NodeDetect::State.GreenOpen = 0;
+  @sysvarMember::NodeDetect::State.GreenShort = 0;
+  @sysvarMember::NodeDetect::State.BlueOpen = 0;
+  @sysvarMember::NodeDetect::State.BlueShort = 0;
+  @sysvarMember::NodeDetect::State.RAM = 0;
+  @sysvarMember::NodeDetect::State.NVRAM = 0;
+  @sysvarMember::NodeDetect::State.RespError = 0;
+  @sysvarMember::NodeDetect::State.TempState = 0;
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SWVersion,"S******");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.HWVersion,"H******");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SubVersion,"******");
+  @sysvar::NodeInfo::LockState = 0;
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SupplierID,"*****");
+  sysSetVariableString(sysvarMember::NodeInfo::Node.FunctionID,"****");
+}

@@ -1,0 +1,398 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "Diag.cin"
+}
+
+variables
+{
+  word Diag0x22_gWORD = 0;
+  char Diag0x22_gSTRING[MAXFilePathLength/2];
+}
+
+
+void local_Diag0x22_Prepare(byte NAD, enum ESSID SSID)
+{
+  Diag_CtrlInit();  
+  DiagCtrl.CurrentNAD = NAD;  //new on 2022 12 11在调设备驱动的时候    
+  DiagCtrl.Step = DiagStep_ChangeNAD;
+  //DiagCtrl.Step = DiagStep_0x22Req;
+  DiagCtrl.SID = 0x22;
+  DiagCtrl.SSID = SSID;
+  DiagCtrl.ReqNAD = 0xa0; //如果不转a0就在这里写NAD
+  //DiagCtrl.ReqNAD = 0x7F;
+  DiagCtrl.DataLen = SID22_SSID[(enum ESSID)(DiagCtrl.SSID)];
+  DiagCtrl.FrameCNT = Tool_GetFrameNum(DiagCtrl.DataLen);
+  setTimer(DiagTimer,1);
+}
+
+
+/* 不直接使用local_Diag0x22_Prepare()的原因是 有些旧产品会不转A0 */
+/* Supplier ID */
+void Public_Send0x22_0002(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0002_LEDSupplier);
+}
+
+
+/* NAD */
+void Public_Send0x22_0003(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0003_SingleAddress);
+}
+
+/* GroupAddr */
+void Public_Send0x22_0004(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0004_GroupAddress);
+}
+
+/* Platform */
+void Public_Send0x22_0005(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0005_Platform);
+  //write("SSID=%x, DataLen=%d, FrameCNT = %d", DiagCtrl.SSID, DiagCtrl.DataLen, DiagCtrl.FrameCNT);
+}
+
+/* LFactor */
+void Public_Send0x22_0006(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0006_Factor);
+}
+
+/* Redx */
+void Public_Send0x22_0007(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0007_Redx);
+}
+
+/* Greenx */
+void Public_Send0x22_0008(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0008_Greenx);
+}
+
+/* Bluex */
+void Public_Send0x22_0009(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0009_Bluex);
+}
+
+
+/* Redx ~ BlueL New style */
+void Public_Send0x22_0017(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0017_LED);
+}
+
+
+/* PartNo */
+void Public_Send0x22_6269(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_6269_Partnumber);
+}
+
+/* SerialNo */
+void Public_Send0x22_6A69(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_6A69_SerialNum);
+}
+
+/* SW Version */
+void Public_Send0x22_6469(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_6469_SWVersion);
+}
+
+
+/* HW Version */
+void Public_Send0x22_6869(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_6869_HWVersion);
+}
+
+
+/* Opt Mode, 分别读出PWM R/G/B Tadc VledR/G/B */
+void Public_Send0x22_0100(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0100_OptMode);
+}
+
+/* 分别读出PWM 产品中 */
+void Public_Send0x22_0101(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0101_Threshold);
+}
+
+void Public_Send0x22_0102(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_0102_PWM);
+}
+
+/* read flag */
+void Public_Send0x22_000C(byte NAD)
+{
+  local_Diag0x22_Prepare(NAD, SSID_000C_Flag);
+}
+
+
+void Diag_0x22Process(void)
+{
+  //write("<Diag_0x22Process> SSID = %x", DiagCtrl.SSID);
+  switch(DiagCtrl.SSID)
+  {
+    case SSID_0002_LEDSupplier:
+      // TODO  加否定相应不断，否定相应不进这里或不做处理
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];     
+      //write("%x %x %x %x %x", DiagCtrl.RespBuf[0], DiagCtrl.RespBuf[1], DiagCtrl.RespBuf[2], DiagCtrl.RespBuf[3], DiagCtrl.RespBuf[4]); 
+      if((Diag0x22_gWORD & 0x0080) > 0)
+      {
+        @sysvar::NodeInfo::LockState = Lock;
+      }
+      else
+      {
+        @sysvar::NodeInfo::LockState = Unlock;
+      }
+      break;
+    case SSID_0003_SingleAddress:
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];
+      if((Diag0x22_gWORD%0x0F != @sysvarMember::NodeInfo::Node.NAD))
+      {
+        WriteLineLJM(e_sink_SystemPage,e_severity_Error, "<Diag_0x22.can::Diag_0x22Process> NAD not correct!!");
+      }
+      break;
+    case SSID_0004_GroupAddress:
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];
+      @sysvarMember::NodeInfo::Node.GroupAddr = Diag0x22_gWORD;
+      break;
+    case SSID_0005_Platform:
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];
+      @sysvarMember::NodeInfo::Node.Platform = Diag0x22_gWORD;
+      break;
+    case SSID_0006_Factor:
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];
+      @sysvarMember::NodeInfo::Node.LFactor = Diag0x22_gWORD;
+      break;
+    case SSID_0007_Redx:   
+      local_ProcessRed();
+      break;
+    case SSID_0008_Greenx:
+      local_ProcessGreen();
+      break;
+    case SSID_0009_Bluex:
+      local_ProcessBlue();
+      break;
+    case SSID_6269_Partnumber:
+      local_ProcessPartNo();
+      break;
+    case SSID_6A69_SerialNum:
+      local_ProcessSerialNo();
+      break;
+    case SSID_6469_SWVersion:
+      local_ProcessSWVersion();
+      break;
+    case SSID_6869_HWVersion:
+      local_ProcessHWVersion();
+      break;
+    case SSID_0017_LED:
+      local_ProcessLED();
+      break;
+    case SSID_0100_OptMode:
+      local_ProcessOptMode();
+      break;
+    case SSID_0101_Threshold:
+      local_GetThresholdVals();
+      break;
+    case SSID_000C_Flag:
+      // TODO  加否定相应不断，否定相应不进这里或不做处理
+      Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];     
+      write("<22 process case 000C>%x %x %x %x %x", DiagCtrl.RespBuf[0], DiagCtrl.RespBuf[1], DiagCtrl.RespBuf[2], DiagCtrl.RespBuf[3], DiagCtrl.RespBuf[4]); 
+      if((Diag0x22_gWORD & 0x0080) > 0)
+      {
+        @sysvar::NodeInfo::LockState = Lock;
+      }
+      else
+      {
+        @sysvar::NodeInfo::LockState = Unlock;
+      }
+      @NodeInfo::Node.CtrlFlag = Diag0x22_gWORD;
+      break;
+  }
+  
+}
+
+
+void local_ProcessLED(void)
+{
+  LEDPara_word.Redx = (word)DiagCtrl.RespBuf[1]<<8 | (word)DiagCtrl.RespBuf[0];  //0，1
+  LEDPara_double.Redx = (float)LEDPara_word.Redx/10000;
+  snprintf(LEDPara_string.Redx,LEDParaStringLength,"%7.6f",LEDPara_double.Redx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx);  
+  LEDPara_word.Redy = (word)DiagCtrl.RespBuf[3]<<8 | (word)DiagCtrl.RespBuf[2];  //2，3
+  LEDPara_double.Redy = (float)LEDPara_word.Redy/10000;
+  snprintf(LEDPara_string.Redy,LEDParaStringLength,"%7.6f",LEDPara_double.Redy);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redy,LEDPara_string.Redy);  
+  LEDPara_word.RedL = (dword)DiagCtrl.RespBuf[7]<<24 | (dword)DiagCtrl.RespBuf[6]<<16 |
+    (dword)DiagCtrl.RespBuf[5]<<8 | (dword)DiagCtrl.RespBuf[4];//4,5,6,7 
+  LEDPara_double.RedL = (float)LEDPara_word.RedL/10000;
+  snprintf(LEDPara_string.RedL, LEDParaStringLength,"%7.6f",LEDPara_double.RedL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.RedL,LEDPara_string.RedL);
+  
+  LEDPara_word.Greenx = (word)DiagCtrl.RespBuf[9]<<8 | (word)DiagCtrl.RespBuf[8];  //8，9
+  LEDPara_double.Greenx = (float)LEDPara_word.Greenx/10000;
+  snprintf(LEDPara_string.Greenx, LEDParaStringLength, "%7.6f", LEDPara_double.Greenx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx, LEDPara_string.Greenx);  
+  LEDPara_word.Greeny = (word)DiagCtrl.RespBuf[11]<<8 | (word)DiagCtrl.RespBuf[10];  //10，11
+  LEDPara_double.Greeny = (float)LEDPara_word.Greeny/10000;
+  snprintf(LEDPara_string.Greeny, LEDParaStringLength, "%7.6f", LEDPara_double.Greeny);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny); 
+  LEDPara_word.GreenL = (dword)DiagCtrl.RespBuf[15]<<24 | (dword)DiagCtrl.RespBuf[14]<<16 |
+    (dword)DiagCtrl.RespBuf[13]<<8 | (dword)DiagCtrl.RespBuf[12];  //12，13，14，15
+  LEDPara_double.GreenL = (float)LEDPara_word.GreenL/10000;
+  snprintf(LEDPara_string.GreenL, LEDParaStringLength, "%7.6f", LEDPara_double.GreenL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL, LEDPara_string.GreenL);
+  
+  LEDPara_word.Bluex = (word)DiagCtrl.RespBuf[17]<<8 | (word)DiagCtrl.RespBuf[16];  //16，17
+  LEDPara_double.Bluex = (float)LEDPara_word.Greenx/10000;
+  snprintf(LEDPara_string.Bluex, LEDParaStringLength, "%7.6f", LEDPara_double.Bluex);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex);  
+  LEDPara_word.Bluey = (word)DiagCtrl.RespBuf[19]<<8 | (word)DiagCtrl.RespBuf[18];  //18，19
+  LEDPara_double.Bluey = (float)LEDPara_word.Bluey/10000;
+  snprintf(LEDPara_string.Bluey, LEDParaStringLength, "%7.6f", LEDPara_double.Bluey);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey);  
+  LEDPara_word.BlueL = (dword)DiagCtrl.RespBuf[23]<<24 | (dword)DiagCtrl.RespBuf[22]<<16 |
+    (dword)DiagCtrl.RespBuf[21]<<8 | (dword)DiagCtrl.RespBuf[20];  //20, 21，22，23
+  LEDPara_double.BlueL = (float)LEDPara_word.BlueL/10000;
+  snprintf(LEDPara_string.BlueL, LEDParaStringLength, "%7.6f", LEDPara_double.BlueL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL, LEDPara_string.BlueL);
+  
+  //Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[19])<<8) | (word)DiagCtrl.RespBuf[18];
+  //@sysvarMember::NodeInfo::Node.LFactor = Diag0x22_gWORD;
+}
+
+
+void local_ProcessRed(void)
+{
+  LEDPara_word.Redx = (word)DiagCtrl.RespBuf[1]<<8 | (word)DiagCtrl.RespBuf[0];
+  LEDPara_double.Redx = (float)LEDPara_word.Redx/10000;
+  snprintf(LEDPara_string.Redx,LEDParaStringLength,"%7.6f",LEDPara_double.Redx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redx, LEDPara_string.Redx);  
+  LEDPara_word.Redy = (word)DiagCtrl.RespBuf[3]<<8 | (word)DiagCtrl.RespBuf[2];
+  LEDPara_double.Redy = (float)LEDPara_word.Redy/10000;
+  snprintf(LEDPara_string.Redy,LEDParaStringLength,"%7.6f",LEDPara_double.Redy);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Redy,LEDPara_string.Redy);             
+  LEDPara_word.RedL = (word)DiagCtrl.RespBuf[7]<<24 | (word)DiagCtrl.RespBuf[6]<<16 |
+    (word)DiagCtrl.RespBuf[5]<<8 | (word)DiagCtrl.RespBuf[4];//4,5,6,7 
+  LEDPara_double.RedL = (float)LEDPara_word.RedL/10000;
+  snprintf(LEDPara_string.RedL, LEDParaStringLength,"%7.6f",LEDPara_double.RedL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.RedL,LEDPara_string.RedL);
+}
+
+void local_ProcessGreen(void)
+{
+  LEDPara_word.Greenx = (word)DiagCtrl.RespBuf[1]<<8 | (word)DiagCtrl.RespBuf[0];
+  LEDPara_double.Greenx = (float)LEDPara_word.Greenx/10000;
+  snprintf(LEDPara_string.Greenx, LEDParaStringLength, "%7.6f", LEDPara_double.Greenx);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greenx, LEDPara_string.Greenx);  
+  LEDPara_word.Greeny = (word)DiagCtrl.RespBuf[3]<<8 | (word)DiagCtrl.RespBuf[2];
+  LEDPara_double.Greeny = (float)LEDPara_word.Greeny/10000;
+  snprintf(LEDPara_string.Greeny, LEDParaStringLength, "%7.6f", LEDPara_double.Greeny);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Greeny, LEDPara_string.Greeny);             
+  LEDPara_word.GreenL = (word)DiagCtrl.RespBuf[7]<<24 | (word)DiagCtrl.RespBuf[6]<<16 |
+    (word)DiagCtrl.RespBuf[5]<<8 | (word)DiagCtrl.RespBuf[4];//4,5,6,7
+  LEDPara_double.GreenL = (float)LEDPara_word.GreenL/10000;
+  snprintf(LEDPara_string.GreenL, LEDParaStringLength, "%7.6f", LEDPara_double.GreenL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.GreenL, LEDPara_string.GreenL);
+}
+
+void local_ProcessBlue(void)
+{
+  LEDPara_word.Bluex = (word)DiagCtrl.RespBuf[1]<<8 | (word)DiagCtrl.RespBuf[0];
+  LEDPara_double.Bluex = (float)LEDPara_word.Bluex/10000;
+  snprintf(LEDPara_string.Bluex, LEDParaStringLength, "%7.6f", LEDPara_double.Bluex);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluex, LEDPara_string.Bluex);  
+  LEDPara_word.Bluey = (word)DiagCtrl.RespBuf[3]<<8 | (word)DiagCtrl.RespBuf[2];
+  LEDPara_double.Bluey = (float)LEDPara_word.Bluey/10000;
+  snprintf(LEDPara_string.Bluey, LEDParaStringLength, "%7.6f", LEDPara_double.Bluey);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.Bluey, LEDPara_string.Bluey);             
+  LEDPara_word.BlueL = (word)DiagCtrl.RespBuf[7]<<24 | (word)DiagCtrl.RespBuf[6]<<16 |
+    (word)DiagCtrl.RespBuf[5]<<8 | (word)DiagCtrl.RespBuf[4];//4,5,6,7
+  LEDPara_double.BlueL = (float)LEDPara_word.BlueL/10000;
+  snprintf(LEDPara_string.BlueL, LEDParaStringLength, "%7.6f", LEDPara_double.BlueL);
+  sysSetVariableString(sysvarMember::NodeInfo::Node.LED.BlueL, LEDPara_string.BlueL);
+}
+
+void local_ProcessPartNo(void)
+{
+  Diag0x22_gWORD = SID22_SSID[SSID_6269_Partnumber];
+  memcpy(Diag0x22_gSTRING, DiagCtrl.RespBuf, Diag0x22_gWORD);
+  Diag0x22_gSTRING[Diag0x22_gWORD] = '\0';
+  sysSetVariableString(sysvarMember::NodeInfo::Node.PartNumber, Diag0x22_gSTRING); 
+}
+
+void local_ProcessSerialNo(void)
+{
+  Diag0x22_gWORD = SID22_SSID[SSID_6A69_SerialNum];
+  memcpy(Diag0x22_gSTRING, DiagCtrl.RespBuf, Diag0x22_gWORD);
+  Diag0x22_gSTRING[Diag0x22_gWORD] = '\0';
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SerialNumber, Diag0x22_gSTRING);
+}
+
+void local_ProcessSWVersion(void)
+{
+  Diag0x22_gWORD = SID22_SSID[SSID_6469_SWVersion];
+  memcpy(Diag0x22_gSTRING, DiagCtrl.RespBuf, Diag0x22_gWORD);
+  Diag0x22_gSTRING[Diag0x22_gWORD] = '\0';
+  sysSetVariableString(sysvarMember::NodeInfo::Node.SWVersion, Diag0x22_gSTRING);
+}
+
+void local_ProcessHWVersion(void)
+{
+  Diag0x22_gWORD = SID22_SSID[SSID_6869_HWVersion];
+  memcpy(Diag0x22_gSTRING, DiagCtrl.RespBuf, Diag0x22_gWORD);
+  Diag0x22_gSTRING[Diag0x22_gWORD] = '\0';
+  sysSetVariableString(sysvarMember::NodeInfo::Node.HWVersion, Diag0x22_gSTRING);
+}
+
+
+void local_ProcessOptMode(void)
+{
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];   
+  @sysvarMember::NodeInfo::OptPWM.R = Diag0x22_gWORD; 
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[3])<<8) | (word)DiagCtrl.RespBuf[2];   
+  @sysvarMember::NodeInfo::OptPWM.G = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[5])<<8) | (word)DiagCtrl.RespBuf[4];   
+  @sysvarMember::NodeInfo::OptADC.VVcc = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[7])<<8) | (word)DiagCtrl.RespBuf[6];  
+  @sysvarMember::NodeInfo::OptADC.TMCU = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[9])<<8) | (word)DiagCtrl.RespBuf[8];  
+  @sysvarMember::NodeInfo::OptADC.VLEDR = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[11])<<8) | (word)DiagCtrl.RespBuf[10];  
+  @sysvarMember::NodeInfo::OptADC.VLEDG = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[13])<<8) | (word)DiagCtrl.RespBuf[12];  
+  @sysvarMember::NodeInfo::OptADC.VLEDB = Diag0x22_gWORD;
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[15])<<8) | (word)DiagCtrl.RespBuf[14]; 
+  @sysvarMember::NodeInfo::OptADC.Tled= Diag0x22_gWORD;
+}
+
+
+void local_GetThresholdVals(void)
+{
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[1])<<8) | (word)DiagCtrl.RespBuf[0];  
+  @sysvarMember::NodeInfo::Threshold.RedOpen = Diag0x22_gWORD;
+  
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[3])<<8) | (word)DiagCtrl.RespBuf[2];  
+  @sysvarMember::NodeInfo::Threshold.RedShort = Diag0x22_gWORD; 
+  
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[5])<<8) | (word)DiagCtrl.RespBuf[4];  
+  @sysvarMember::NodeInfo::Threshold.GreenOpen = Diag0x22_gWORD;
+  
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[7])<<8) | (word)DiagCtrl.RespBuf[6];  
+  @sysvarMember::NodeInfo::Threshold.GreenShort = Diag0x22_gWORD;
+  
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[9])<<8) | (word)DiagCtrl.RespBuf[8];  
+  @sysvarMember::NodeInfo::Threshold.BlueOpen = Diag0x22_gWORD;
+  
+  Diag0x22_gWORD = ((word)(DiagCtrl.RespBuf[11])<<8) | (word)DiagCtrl.RespBuf[10];  
+  @sysvarMember::NodeInfo::Threshold.BlueShort = Diag0x22_gWORD;
+}

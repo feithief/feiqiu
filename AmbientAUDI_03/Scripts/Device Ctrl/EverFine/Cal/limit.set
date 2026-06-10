@@ -1,0 +1,7 @@
+Limit
+PreheatTime:	0 	60000
+IntTime    :    9       60000
+IF         :	0.1     2000.0
+VR         :    0       15
+IR         :    0       100
+

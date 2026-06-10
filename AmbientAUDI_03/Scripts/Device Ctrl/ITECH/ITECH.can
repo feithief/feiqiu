@@ -1,0 +1,77 @@
+/*@!Encoding:936*/
+includes
+{
+
+}
+
+variables
+{
+  const word ITECH_BufLength = 255;
+  word ITECH_gCnt;
+  
+  struct SITECHCtrl
+  {
+    char USB_ID[ITECH_BufLength];
+    char DeviceID[ITECH_BufLength];
+  }ItechCtrl;
+}
+
+void ITECH_BufferClear()
+{
+  for (ITECH_gCnt=0;ITECH_gCnt<ITECH_BufLength;ITECH_gCnt++)
+  {
+    ItechCtrl.DeviceID[ITECH_gCnt]=0;
+  }
+}
+
+void ITECH6722A_CtrlInit(void)
+{
+  sysSetVariableString(sysvar::DeviceCtrl::ITECH::PowerID, "*****LJM*****");
+  @sysvar::DeviceCtrl::ITECH::Voltage = 13.5;
+  @sysvar::DeviceCtrl::ITECH::CurrentLimit = 2.5;
+}
+
+
+on sysvar sysvar::DeviceCtrl::ITECH::Execute
+{
+  if((@this>20) && (@this < 30))
+  {
+    ITECH6722A_Execute(@this);
+  }
+}
+
+
+void ITECH6722A_Execute(word mode)
+{
+  dword Voltage;
+  dword Current;
+  
+  ITECH_BufferClear();
+  
+  switch(mode)
+  {
+    case 21:
+      
+      strncpy(ItechCtrl.USB_ID,"USB0::0x2EC7::0x6700::802259073757110165::0::INSTR",255);
+      ITECH_PowerInit_LJM(ItechCtrl.USB_ID,ItechCtrl.DeviceID);
+      //write("%d   DeviceID=%s",ItechCtrl.DeviceID[0],ret_byte_array);
+      sysSetVariableString(sysvar::DeviceCtrl::ITECH::PowerID, ItechCtrl.DeviceID);
+      break;
+    case 22:
+      Voltage = (dword)(@sysvar::DeviceCtrl::ITECH::Voltage * 1000);
+      Current = (dword)(@sysvar::DeviceCtrl::ITECH::CurrentLimit * 1000);
+     // write("voltage = %d, Current = %d",Voltage,Current);
+      ITECH_SetVolAndCur_LJM(Voltage,Current);
+      break;
+    case 23: //output enable
+      ITECH_OutputEnable_LJM();
+      break;
+    case 24:  //output disable
+      ITECH_OutputDisable_LJM();
+      testWaitForTimeout(80);
+      Voltage = (dword)(@sysvar::DeviceCtrl::ITECH::Voltage * 1000);
+      Current = (dword)(@sysvar::DeviceCtrl::ITECH::CurrentLimit * 1000);
+      ITECH_SetVolAndCur_LJM(Voltage,Current);
+      break;   
+  }
+}

@@ -1,0 +1,600 @@
+/*@!Encoding:936*/
+includes
+{
+  
+  
+}
+
+variables
+{
+  DWORD Meas_Handle = 0;
+  
+  const int MeasMaxBufLen = 255;
+  const int MeasMaxCmdLen = 64;
+  const int MeasIntMin = 0;
+  const int MeasIntMax = 100;   //intensity Max
+  const int MeasIntDecrease = 15;
+  const int MeasTempStart = 10;//0;注意不要用0摄氏度，制冷片不太好  //30
+  const int MeasTempEnd = 100;  //80
+  const int MeasTempStep = 10;
+  const int MeasWaitTime_PerColor = 15*1000;  //15*1000
+  const int MeasWaitTime_PerPWM = 8*1000;
+  const int TimeoutLimit_ReachTargetTemperature = 200;//建议换成100
+
+  
+  const word PWMFULL = 65500;  // 32000 或 65500 不能是其他值
+  word MinPWM = 500;
+  
+  struct SMeasCtrl
+  {
+    char MeasFilePath[MeasMaxBufLen];
+    char MeasFileFolder[MeasMaxBufLen];
+    char CmdText[MeasMaxBufLen];   //专门用来传递输出语句的字符串
+    int64 StartTime;
+    int64 TotalTime;
+  }MeasCtrl;
+  
+  long Meas_gret;
+  
+ // long testMeas = 0;
+//  int64 StartTime = 0;
+//  int64 EndTime, deltaTime;
+//  timer haha;
+}
+
+
+
+void local_Meas_IntensityPerTemperature(int Intensity)
+{
+  word ColorIndex = 0;
+  
+  snprintf(MeasCtrl.CmdText, MeasMaxBufLen, "Cmd R,G,B,L = [%d, %d, %d, %d], ", 
+    (word)getSignal(BCM_RGBa_Rot), (word)getSignal(BCM_RGBa_Gruen), (word)getSignal(BCM_RGBa_Blau), (word)getSignal(BCM_RGBa_Intensitaet));
+  for (ColorIndex = 1; ColorIndex <= ColorNum; ColorIndex++)
+  {
+    /* 亮指定颜色和指定亮度 */
+    Public_ColorInput(ColorIndex);
+    setSignal(BCM_RGBa_Intensitaet, Intensity);
+    testWaitForTimeout(MeasWaitTime_PerColor);  //亮一会，使得MCU和LED充分加热，数据才准 
+    /* 发送诊断命令获得数据 */
+    
+    Public_Send0x22_0100(@sysvarMember::NodeInfo::Node.NAD);
+    testWaitForTimeout(200);
+    /* 发送指令让积分球返回xyL */
+    Public_GetIdealCIEData(MeasCtrl.CmdText);
+    /* 温度记录仪 */
+    
+    /* 记录数据 */
+    local_MeasRecordData(ColorIndex);
+  }
+}
+
+
+/* 每个环境温度调用一次 ,  添加多次测量取平均值 */
+void local_MeasByTemperature(int CentiDegree)
+{
+  int Intensity;
+  //char tmpBuf[MeasMaxBufLen];
+  int64 MeasByTemp_StartTime, MeasByTemp_TotalTime;
+  
+  /* 设定路径 */
+  snprintf(MeasCtrl.MeasFileFolder,MeasMaxBufLen,".\\Scripts\\Measure\\MeasData\\%d", CentiDegree);
+  setWritePath(MeasCtrl.MeasFileFolder);
+  //strncpy(MeasCtrl.MeasFilePath,  FileFolder, MeasMaxBufLen);
+  //write("        %s", MeasCtrl.MeasFilePath );
+  for (Intensity = MeasIntMax; Intensity > MeasIntMin; Intensity-=MeasIntDecrease)
+  { /* 该路径下每个亮度是一个文件，每个文件内有一系列颜色 */
+    snprintf(MeasCtrl.MeasFilePath, MeasMaxBufLen,"Int_%d.ini", Intensity);
+    Meas_Handle = openFileWrite(MeasCtrl.MeasFilePath, 0); // set the file to empty
+    if(Meas_Handle > 0)
+    {      
+      MeasByTemp_StartTime = timeNowInt64();
+      snprintf(OutString, MAXFilePathLength, "<Measure.can::local_MeasByTemperature> StartTime:%.2f, Have Create File: %s\\%s", 
+        (float)MeasByTemp_StartTime/1000000000, MeasCtrl.MeasFileFolder, MeasCtrl.MeasFilePath);
+      WriteLineLJM(e_sink_SystemPage, e_severity_Information,OutString);   
+    }
+    else
+    {
+      snprintf(OutString, MAXFilePathLength, "<Measure.can> File %s Open Error!", MeasCtrl.MeasFilePath);
+      WriteLineLJM(e_sink_SystemPage, e_severity_Error,OutString);   
+      stop();
+    } 
+    /* 每一个环境温度内，遍历亮度进行按功率的测量 */
+    local_Meas_IntensityPerTemperature(Intensity);
+    Meas_gret = fileClose(Meas_Handle);
+    if(Meas_gret == 0)
+    {
+      snprintf(OutString, MAXFilePathLength, "<Measure.can> File '%s' Close Error!", MeasCtrl.MeasFilePath);
+      WriteLineLJM(e_sink_SystemPage, e_severity_Error,OutString); 
+    }
+    else
+    {
+      MeasByTemp_TotalTime = timeNowInt64() - MeasByTemp_StartTime;
+      snprintf(OutString, MAXFilePathLength, "<Measure.can> Elapsed time = %.2fs, Environment = %d℃, Intensity = %d, all data recorded.",
+        (double)MeasByTemp_TotalTime/1000000000, CentiDegree, Intensity);
+      WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString); 
+    }
+  } // for
+}
+
+
+void local_MeasRecordData(word ColorIndex)
+{
+  char strSegment[16];
+  snprintf(strSegment, 16, "Color_%d", ColorIndex);
+  Meas_gret = writeProfileInt(strSegment, "CmdR", (word)getSignal(BCM_RGBa_Rot), MeasCtrl.MeasFilePath); 
+  //write("1 %d", Meas_gret);
+  Meas_gret = writeProfileInt(strSegment, "CmdG", (word)getSignal(BCM_RGBa_Gruen), MeasCtrl.MeasFilePath); 
+  //write("2 %d", Meas_gret);
+  Meas_gret = writeProfileInt(strSegment, "CmdB", (word)getSignal(BCM_RGBa_Blau), MeasCtrl.MeasFilePath); 
+  //write("3 %d", Meas_gret);
+  Meas_gret = writeProfileInt(strSegment, "PWMR", @sysvarMember::NodeInfo::OptPWM.R, MeasCtrl.MeasFilePath); 
+  //write("4 %d", Meas_gret);
+  Meas_gret = writeProfileInt(strSegment, "PWMG", @sysvarMember::NodeInfo::OptPWM.G, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "PWMB", @sysvarMember::NodeInfo::OptPWM.B, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "TMCU", @sysvarMember::NodeInfo::OptADC.TMCU, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "VLEDR", @sysvarMember::NodeInfo::OptADC.VLEDR, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "VLEDG", @sysvarMember::NodeInfo::OptADC.VLEDG, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "VLEDB", @sysvarMember::NodeInfo::OptADC.VLEDB, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEx", @sysvar::DeviceCtrl::EverFine::CIEx, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEy", @sysvar::DeviceCtrl::EverFine::CIEy, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEL", @sysvar::DeviceCtrl::EverFine::CIEL, MeasCtrl.MeasFilePath);
+  //Meas_gret = writeProfileInt(strSegment, "MeasEnv", @sysvarMember::DeviceCtrl::HIOKI::ChValue[1], MeasCtrl.MeasFilePath);
+  //write(" %s", MeasCtrl.MeasFilePath);
+}
+
+
+void Public_MeasRecordLEDInfo(void)
+{
+  DWORD ProductHandle = 0;
+  long WriteStream_ret;
+  char tmpFolder[MeasMaxBufLen], tmpPath[MeasMaxBufLen];
+  /* 设定路径 */
+  snprintf(tmpFolder,MeasMaxBufLen,".\\Scripts\\Measure");
+  setWritePath(tmpFolder);
+  snprintf(tmpPath, MeasMaxBufLen,"DUTInfo.ini");
+  ProductHandle = openFileWrite(tmpPath, 0); // set the file to empty
+  
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDRx", LEDPara_word.Redx, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDRy", LEDPara_word.Redy, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDRL", LEDPara_word.RedL, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDGx", LEDPara_word.Greenx, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDGy", LEDPara_word.Greeny, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDGL", LEDPara_word.GreenL, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDBx", LEDPara_word.Bluex, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDBy", LEDPara_word.Bluey, tmpPath);
+  WriteStream_ret=writeProfileInt("Measure DUT", "LEDBL", LEDPara_word.BlueL, tmpPath);
+  Meas_gret = fileClose(ProductHandle);
+}
+
+
+testcase Public_MeasureStart(void)
+{
+  word Temp = 0;
+  word TimeoutCNT = 0;
+
+  TimeoutCNT = 0;
+  MeasCtrl.StartTime = timeNowInt64();
+  snprintf(OutString, MAXFilePathLength, "<Measure.can> Measurement start at %.2f", (float)(MeasCtrl.StartTime)/1000000000);
+  WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+  
+  for(Temp = MeasTempStart; Temp <= MeasTempEnd;  Temp += MeasTempStep)  //30
+  {
+    /* set temperature */
+    @sysvar::DeviceCtrl::EverFine::SetTemperature = Temp;
+    HAAS1200_Execute(7);
+    testWaitForTimeout(1000);
+    do
+    {
+      /* get temperature */
+      HAAS1200_Execute(6);
+      // 注意温度判断必须是等于，应为即使温度从小到大测，测完一份数据后，下一份数据温度要从大变到小。
+      if (@DeviceCtrl::EverFine::GetTemperature_cur == Temp)  
+      {        
+        write("<local_Measure>: Target temp = %d, Current Temp = %d", Temp, Temp);
+        TimeoutCNT = 0;
+        break;
+      }
+      testWaitForTimeout(3*1000);
+      if(TimeoutCNT++ >TimeoutLimit_ReachTargetTemperature)
+      {        
+        write("<local_Measure>: CAN NOT reach target temperature. time out!");
+        break;
+      }      
+    }while(1);
+    
+    local_MeasByTemperature(Temp);   
+  }
+  MeasCtrl.TotalTime = timeNowInt64() - MeasCtrl.StartTime;
+  snprintf(OutString, MAXFilePathLength, "<Measure.can> Measure Finished! Total time = %.2fs, all data for all temperature and intensity are recorded.",
+    (float)(MeasCtrl.TotalTime)/1000000000);
+  WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Public_LEDMeasEnableJudge(void)
+{
+  if (PWMFULL == 32000)
+  {
+    MinPWM = 150;
+  }
+  else if (PWMFULL == 65500)
+  {
+    MinPWM = 500;
+  }
+  else
+  {
+    snprintf(OutString, MAXFilePathLength, "<Measure.can> PWMFULL(%d) is invalid. ", PWMFULL);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Error, OutString); 
+    stop();
+  }
+  snprintf(OutString, MAXFilePathLength, "<Measure.can> Measurement is going to start. Waiting to set temperature. PWMFULL = %d. ", PWMFULL);
+  WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+}
+
+
+
+testcase Public_MeasureLEDStart(word chnl)
+{
+  word Temp = 0;
+  word TimeoutCNT = 0;
+  int64 TempChangeStartTime, TempChangeTime;
+  
+
+  
+  MeasCtrl.StartTime = timeNowInt64();
+  snprintf(OutString, MAXFilePathLength, "<Public_MeasureLEDStart()> LED Measurement start at %.2f", 
+    (float)(MeasCtrl.StartTime)/1000000000);
+  WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+    
+  for(Temp = MeasTempStart; Temp <= MeasTempEnd;  Temp += MeasTempStep)  
+  {    
+    /* 每次设定温度前，灭灯等待 */
+    @sysvarMember::NodeCtrl::PWMSet.R = 0;
+    @sysvarMember::NodeCtrl::PWMSet.G = 0;
+    @sysvarMember::NodeCtrl::PWMSet.B = 0;
+    $BCM_RGBa_Intensitaet = 0;
+    @DeviceCtrl::EverFine::IntegralTime = 8000;
+    Public_Set3PWMs(@sysvarMember::NodeInfo::Node.NAD, 0, 0, 0); 
+    testWaitForTimeout(1000);
+    TempChangeStartTime = timeNowInt64(); 
+    do
+    {
+      /* set temperature */
+      @sysvar::DeviceCtrl::EverFine::SetTemperature = Temp;
+      HAAS1200_Execute(7);
+      testWaitForTimeout(3000);
+      /* get temperature */
+      HAAS1200_Execute(6);
+      // 注意温度判断必须是等于，应为即使温度从小到大测，测完一份数据后，下一份数据温度要从大变到小。
+      if (@DeviceCtrl::EverFine::GetTemperature_cur == Temp)
+      {        
+        //write("<local_Measure>: Target temp = %d, Current Temp = %d", Temp, Temp); //TODO
+        TimeoutCNT = 0;
+        break;
+      }      
+      if(TimeoutCNT++ > TimeoutLimit_ReachTargetTemperature)
+      {        
+        write("<local_Measure>: CAN NOT reach target temperature. time out!");
+        break;
+      }   
+      testWaitForTimeout(3*1000);
+    }while(1);
+    /* 记录温度控制所需要的时间 */
+    TempChangeTime = timeNowInt64() - TempChangeStartTime;
+    snprintf(OutString, MAXFilePathLength, "%.2fs is elapsed to get the target temperature(%d℃).", 
+      (float)(TempChangeTime)/1000000000, Temp);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+    /* 温度控制结束后要暂停，稳定当前温度 */
+    testWaitForTimeout(5*1000);
+    
+    local_MeasLEDByTemperature(Temp, chnl);
+    testWaitForTimeout(100);
+  }
+  MeasCtrl.TotalTime = timeNowInt64() - MeasCtrl.StartTime;
+  snprintf(OutString, MAXFilePathLength, "<MeasureLED()> Measure Finished! Total time = %.2fs, all data for all temperature and PWM are recorded.",
+    (float)(MeasCtrl.TotalTime)/1000000000);
+  WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);
+}
+
+
+/* 每个环境温度调用一次 ,  添加多次测量取平均值 */
+/* 函数内每个占空比都被遍历到 然后被记录即可 */
+void local_MeasLEDByTemperature(int CentiDegree, word chnl)
+{
+  dword MeasByTemp_StartTime, MeasByTemp_TotalTime;
+  
+  /* 设定路径 */
+  snprintf(MeasCtrl.MeasFileFolder, MeasMaxBufLen, ".\\Scripts\\Measure\\MeasData\\%d", CentiDegree);
+  setWritePath(MeasCtrl.MeasFileFolder);
+  //strncpy(MeasCtrl.MeasFilePath,  FileFolder, MeasMaxBufLen);
+  //write("        %s", MeasCtrl.MeasFilePath );
+  
+  snprintf(MeasCtrl.MeasFilePath, MeasMaxBufLen,"PWM_%d.ini", chnl); 
+  Meas_Handle = openFileWrite(MeasCtrl.MeasFilePath, 0); // set the file to empty
+  if(Meas_Handle > 0)
+  {      
+    MeasByTemp_StartTime = timeNowInt64();   
+    snprintf(OutString, MAXFilePathLength, "<LEDMeasure()> Time:%.2f, Have Create File: %s\\%s", 
+      (float)(MeasByTemp_StartTime)/1000000000, MeasCtrl.MeasFileFolder, MeasCtrl.MeasFilePath);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString);   
+  }
+  else
+  {
+    snprintf(OutString, MAXFilePathLength, "<LEDMeasure()> File %s Open Error!", MeasCtrl.MeasFilePath);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Error,OutString);   
+    stop();
+  } 
+  
+  local_MeasLED(chnl);
+  testWaitForTimeout(1000);
+  Meas_gret = fileClose(Meas_Handle);
+  if(Meas_gret == 0)
+  {
+    snprintf(OutString, MAXFilePathLength, "<LEDMeasure()> File '%s' Close Error!", MeasCtrl.MeasFilePath);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Error,OutString); 
+  }
+  else
+  {
+    MeasByTemp_TotalTime = timeNowInt64() - MeasByTemp_StartTime;
+    snprintf(OutString, MAXFilePathLength, "<LEDMeasure()> Elapsed time = %.2fs, Environment = %d℃, all data recorded.",
+      (float)MeasByTemp_TotalTime/1000000000, CentiDegree);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString); 
+  }
+  testWaitForTimeout(1000);
+}
+
+
+void local_MeasLED(word chnl)
+{
+  long tmpPWM = 0, tmpDPWM = 0, NewPWM;
+  word MeasCnt = 0;
+  
+  NewPWM = MinPWM;
+  tmpPWM = MinPWM;
+  MeasCnt = 0;
+  @sysvarMember::NodeCtrl::PWMSet.R = 0;
+  @sysvarMember::NodeCtrl::PWMSet.G = 0;
+  @sysvarMember::NodeCtrl::PWMSet.B = 0;
+  
+  while (1)
+  {
+    if (NewPWM >= PWMFULL)
+    {
+      break;
+    }
+    tmpDPWM = local_GetPWM(tmpPWM, NewPWM);
+    //write("<local_MeasLED> cnt = %d, PWM = %ld, dPWM = %ld, newPWM = %ld ", MeasCnt, tmpPWM, tmpDPWM, NewPWM);
+    MeasCnt = MeasCnt + 1;
+    
+    switch(chnl)
+    {
+      case 1:  //red
+        snprintf(MeasCtrl.CmdText, MeasMaxBufLen, "PWMR = %ld, ", NewPWM);
+        /* 亮红灯 */
+        Public_Set3PWMs(@sysvarMember::NodeInfo::Node.NAD, NewPWM, 0, 0);        
+        testWaitForTimeout(MeasWaitTime_PerPWM);
+        Public_Send0x22_0100(@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(800);
+        /* 发送指令让积分球返回xyL */
+        Public_GetIdealCIEData(MeasCtrl.CmdText);
+        /* 记录数据 */
+        local_MeasRecordLEDData(MeasCnt, sysvarMember::NodeInfo::OptPWM.R);
+        break;
+      case 2:
+        snprintf(MeasCtrl.CmdText, MeasMaxBufLen, "PWMG = %ld, ", NewPWM);
+        /* 亮绿灯 */
+        Public_Set3PWMs(@sysvarMember::NodeInfo::Node.NAD, 0, NewPWM, 0);
+        testWaitForTimeout(MeasWaitTime_PerPWM);
+        Public_Send0x22_0100(@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(800);
+        /* 发送指令让积分球返回xyL */
+        //Public_GetIdealCIEData(TimeoutLimit_CalInteralTime, 2);   
+        Public_GetIdealCIEData(MeasCtrl.CmdText);
+        /* 记录数据 */
+        local_MeasRecordLEDData(MeasCnt, sysvarMember::NodeInfo::OptPWM.G);
+        break;
+      case 3:
+        snprintf(MeasCtrl.CmdText, MeasMaxBufLen, "PWMB = %ld, ", NewPWM);
+        /* 亮蓝灯 */
+        Public_Set3PWMs(@sysvarMember::NodeInfo::Node.NAD, 0, 0, NewPWM);
+        testWaitForTimeout(MeasWaitTime_PerPWM);
+        Public_Send0x22_0100(@sysvarMember::NodeInfo::Node.NAD);
+        testWaitForTimeout(800);
+        /* 发送指令让积分球返回xyL */
+        //Public_GetIdealCIEData(TimeoutLimit_CalInteralTime, 2);    
+        Public_GetIdealCIEData(MeasCtrl.CmdText);
+        /* 记录数据 */
+        local_MeasRecordLEDData(MeasCnt, sysvarMember::NodeInfo::OptPWM.B);
+        break;       
+    } 
+    tmpPWM = NewPWM;   
+    testWaitForTimeout(100);
+  } 
+}
+
+
+
+void local_MeasRecordLEDData(word MeasCnt, sysvarInt * INPWM)
+{
+  char strSegment[16];
+  snprintf(strSegment, 16, "Cnt_%d", MeasCnt);
+  Meas_gret = writeProfileInt(strSegment, "PWM", @INPWM, MeasCtrl.MeasFilePath);  
+  Meas_gret = writeProfileInt(strSegment, "TMCU", @sysvarMember::NodeInfo::OptADC.TMCU, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "VLEDR", @sysvarMember::NodeInfo::OptADC.VLEDR, MeasCtrl.MeasFilePath); 
+  Meas_gret = writeProfileInt(strSegment, "VLEDG", @sysvarMember::NodeInfo::OptADC.VLEDG, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "VLEDB", @sysvarMember::NodeInfo::OptADC.VLEDB, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEx", @sysvar::DeviceCtrl::EverFine::CIEx, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEy", @sysvar::DeviceCtrl::EverFine::CIEy, MeasCtrl.MeasFilePath);
+  Meas_gret = writeProfileInt(strSegment, "CIEL", @sysvar::DeviceCtrl::EverFine::CIEL, MeasCtrl.MeasFilePath);
+}
+
+
+long local_GetPWM(long _in_PWM, long &_out_PWM)
+{
+  long Dpwm;
+  if (PWMFULL == 32000)
+  {
+    Dpwm = local_GetPWM_32000(_in_PWM, _out_PWM);
+  }
+  else if (PWMFULL == 65500)
+  {
+    Dpwm = local_GetPWM_64000(_in_PWM, _out_PWM);
+  }
+  else
+  {
+    snprintf(OutString, MAXFilePathLength, "<Measure.can> PWMFULL(%d) is invalid. ", PWMFULL);
+    WriteLineLJM(e_sink_SystemPage, e_severity_Information, OutString); 
+    stop();
+  }
+  return Dpwm;
+}
+
+long local_GetPWM_32000(long _in_PWM, long &_out_PWM)
+{
+  long DPWM;
+  if (_in_PWM >= MinPWM && _in_PWM < 1000)
+  {
+    DPWM = 50;
+  }
+  else if (_in_PWM >= 1000 && _in_PWM < 2000)
+  {
+    DPWM = 100;
+  }
+  else if (_in_PWM >= 2000 && _in_PWM < 4000)
+  {
+    DPWM = 200;
+  }
+  else if (_in_PWM >= 4000 && _in_PWM < 8000)
+  {
+    DPWM = 400;
+  }
+  else if (_in_PWM >= 8000 && _in_PWM < 14000)
+  {
+    DPWM = 600;
+  }
+  else if (_in_PWM >= 14000 && _in_PWM < 22000)
+  {
+    DPWM = 800;
+  }
+  else if (_in_PWM >= 22000 && _in_PWM < PWMFULL)
+  {
+    DPWM = 1000;
+  }
+  else
+  {
+    DPWM = 500;
+  }
+  _out_PWM = _in_PWM + DPWM;
+  
+  if (_out_PWM >= PWMFULL)
+  {
+    _out_PWM = PWMFULL; 
+  }
+  return DPWM;
+}
+
+
+long local_GetPWM_64000(long _in_PWM, long &_out_PWM)
+{
+  long DPWM;
+  if (_in_PWM >= MinPWM && _in_PWM < 1400)
+  {
+    DPWM = 100;
+  }
+  else if (_in_PWM >= 1400 && _in_PWM < 3000)
+  {
+    DPWM = 200;
+  }
+  else if (_in_PWM >= 3000 && _in_PWM < 7000)
+  {
+    DPWM = 400;
+  }
+  else if (_in_PWM >= 7000 && _in_PWM < 14000)
+  {
+    DPWM = 700;
+  }
+  else if (_in_PWM >= 14000 && _in_PWM < 24000)
+  {
+    DPWM = 1000;
+  }
+  else if (_in_PWM >= 24000 && _in_PWM < 38000)
+  {
+    DPWM = 1400;
+  }
+  else if (_in_PWM >= 38000 && _in_PWM < PWMFULL)
+  {
+    DPWM = 1500;
+  }
+  else
+  {
+    DPWM = 1000;
+  }
+  _out_PWM = _in_PWM + DPWM;
+  
+  if (_out_PWM >= PWMFULL)
+  {
+    _out_PWM = PWMFULL; 
+  }
+  return DPWM;
+}
+
+//on key 'a'
+//{
+//  testMeas = 1;
+// // timeStart = timeNowInt64();
+// // write("<on key a> start = %ld, %.4f(/10^5)", timeStart, (float)timeStart/100000);
+//}
+//
+//on key 'b'
+//{
+//  //int64 timeEnd;
+//  testMeas = 0;
+//  
+//  //timeEnd = timeNowInt64() - timeStart;
+// // write("<on key b> dt = %ld, %.4f(/10^5)", timeEnd, (float)timeEnd/100000);
+//}
+
+
+/* 
+
+ * PWM的分布 要考虑32000和64000两组 
+ * 制冷片有问题，不要测0度 
+ * 写完一个文件，输出搞成绿色 */
+
+
+
+
+//TimeNowNS
+
+//on key 'e'
+//{
+//  StartTime = timeNowInt64();
+//  write("StartTime = %lld", StartTime);
+//}
+//
+//
+//on key 'f'
+//{
+//  int64 EndTime, deltaTime;
+//  EndTime = timeNowInt64();
+//  deltaTime = EndTime - StartTime;
+//  write("EndTime = %lld, deltaTme = %lld,  float deltatime = %.2f", EndTime, deltaTime, (float)deltaTime/1000000000);
+//}
+//
+//on timer haha
+//{
+//  setTimer(haha, 1);
+//  EndTime = timeNowInt64();  
+//  deltaTime = EndTime - StartTime;
+//  write("EndTime = %lld, deltaTme = %lld,  float deltatime = %.2f", EndTime, deltaTime, (float)deltaTime/1000000000);
+//  StartTime = EndTime;
+//}
+//
+//on key 'g'
+//{
+//  setTimer(haha, 1);
+//}

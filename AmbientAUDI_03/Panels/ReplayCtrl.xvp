@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="ReplayCtrl">
+    <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl1" Children="Controls" ControlName="Input/Output Box">
+      <Property Name="Name">TextBoxControl1</Property>
+      <Property Name="Size">98, 28</Property>
+      <Property Name="Location">31, 32</Property>
+      <Property Name="AlarmUpperTextColor">WindowText</Property>
+      <Property Name="ValueDecimalPlaces">0</Property>
+      <Property Name="AlarmLowerBkgColor">Salmon</Property>
+      <Property Name="ValueDisplay">Decimal</Property>
+      <Property Name="AlarmUpperBkgColor">IndianRed</Property>
+      <Property Name="AlarmLowerTextColor">WindowText</Property>
+      <Property Name="AlarmGeneralSettings">1;0;0;0</Property>
+      <Property Name="DisplayLabel">Left</Property>
+      <Property Name="DescriptionText">Gaddr:</Property>
+      <Property Name="DescriptionSize">41, 20</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Gaddr;1;;;-1;;;</Property>
+      <Property Name="TabIndex">6</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="ButtonControl1" Children="Controls" ControlName="Button">
+      <Property Name="Name">ButtonControl1</Property>
+      <Property Name="Size">88, 28</Property>
+      <Property Name="Location">31, 163</Property>
+      <Property Name="PressValue">701</Property>
+      <Property Name="Text">Execute</Property>
+      <Property Name="SymbolConfiguration">5;16;NodeCtrl;;;Execute;1;;;-1;;;</Property>
+      <Property Name="TabIndex">5</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.RadioButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="RadioButtonControl5" Children="Controls" ControlName="Radio Button">
+      <Property Name="Name">RadioButtonControl5</Property>
+      <Property Name="Size">88, 16</Property>
+      <Property Name="Location">31, 143</Property>
+      <Property Name="Text">Yellow2Blue</Property>
+      <Property Name="SwitchValue">5</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Item;1;;;-1;;;</Property>
+      <Property Name="TabIndex">4</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.RadioButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="RadioButtonControl4" Children="Controls" ControlName="Radio Button">
+      <Property Name="Name">RadioButtonControl4</Property>
+      <Property Name="Size">76, 16</Property>
+      <Property Name="Location">31, 124</Property>
+      <Property Name="Text">Red2Green</Property>
+      <Property Name="SwitchValue">4</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Item;1;;;-1;;;</Property>
+      <Property Name="TabIndex">3</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.RadioButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="RadioButtonControl3" Children="Controls" ControlName="Radio Button">
+      <Property Name="Name">RadioButtonControl3</Property>
+      <Property Name="Size">88, 16</Property>
+      <Property Name="Location">31, 103</Property>
+      <Property Name="Text">Blue2Orange</Property>
+      <Property Name="SwitchValue">3</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Item;1;;;-1;;;</Property>
+      <Property Name="TabIndex">2</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.RadioButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="RadioButtonControl2" Children="Controls" ControlName="Radio Button">
+      <Property Name="Name">RadioButtonControl2</Property>
+      <Property Name="Size">70, 16</Property>
+      <Property Name="Location">31, 83</Property>
+      <Property Name="Text">Blue2Red</Property>
+      <Property Name="SwitchValue">2</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Item;1;;;-1;;;</Property>
+      <Property Name="TabIndex">1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.RadioButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="RadioButtonControl1" Children="Controls" ControlName="Radio Button">
+      <Property Name="Name">RadioButtonControl1</Property>
+      <Property Name="Size">88, 16</Property>
+      <Property Name="Location">31, 64</Property>
+      <Property Name="Text">Blue2Yellow</Property>
+      <Property Name="SymbolConfiguration">5;16;Replay;;;Item;1;;;-1;;;</Property>
+      <Property Name="TabIndex">0</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">155, 233</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

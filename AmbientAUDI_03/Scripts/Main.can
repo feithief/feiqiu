@@ -1,0 +1,87 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "System.can"
+//  #include ".//Measure//Measure.can"
+//  #include ".//Measure//LEDMeasure.can"
+}
+
+variables
+{
+
+}
+
+
+void MainTest()
+{
+  long Res;
+  testWaitForTimeout(300);
+  System_Init();
+  @sysvarMember::NodeInfo::Node.NAD = 1;  //Test
+  
+  while(1)
+  {
+    testJoinSysVarEvent(sysvar::NodeCtrl::Execute);//1
+    testJoinSysVarEvent(sysvar::NodeDetect::SelectedNAD_bit);//2
+    testJoinSysVarEvent(sysvar::Rework::Mode); //3
+    testJoinSysVarEvent(sysvar::DeviceCtrl::EverFine::Execute);//4
+    testJoinSysVarEvent(sysvar::NodeInfo::OptExe);//5
+    testJoinSysVarEvent(sysvar::BCMCmd);//6
+    testJoinSysVarEvent(sysvar::AutoAddress::Execute); //7
+    testJoinSysVarEvent(sysvar::send); //8
+    Res = testWaitForAnyJoinedEvent(4000);
+    switch(Res)
+    {
+      case 1: // d
+        Public_Functions(@sysvar::NodeCtrl::Execute);
+        break;
+      case 2:
+        Public_GetSelectedNAD(@sysvar::NodeDetect::SelectedNAD_bit);
+        break;
+      case 3:
+        Rework_ModeSet((word)@sysvar::Rework::Mode);
+        break;
+      case 4:
+//        DeviceCtrl(@sysvar::DeviceCtrl::EverFine::Execute);
+        break;
+      case 5:
+        
+        switch(@sysvar::NodeInfo::OptExe)
+        {
+          case 1:
+            //Public_Send0x22_0007(8);      
+            //testWaitForTimeout(Waittime_Long);
+            //Public_Send0x22_0008(8);    
+            //testWaitForTimeout(Waittime_Long);
+            //Public_Send0x22_0009(8);   
+            //testWaitForTimeout(Waittime_Long);
+            
+//            Public_MeasRecordLEDInfo();
+//            testWaitForTimeout(1000);
+//            Public_MeasureStart();
+            break;
+          case 2:
+            Public_Send0x22_0100(8);
+            //GetMeasureTime();
+            break;
+          case 3:
+            
+            break;
+          
+        }       
+        break;
+        
+      case 6:     
+        Public_ManualInput();   
+      break;
+            
+        case 7:     
+       AutoAddress_Process(@sysvar::AutoAddress::Execute);
+      break;
+        case 8:     
+       //Public_ColorInput();
+      break;
+    }//switch(res)    
+    
+  }//while (1)
+}

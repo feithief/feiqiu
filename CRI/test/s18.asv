@@ -1,0 +1,850 @@
+% S18_SAMPLE1_ARBITRARY_COLOR_HIGH_TEMP_RA_VALIDATE
+% 中文说明：
+%   验证色域内任意一个目标颜色，在指定高温实测光学条件下的显色指数 Ra。
+%   目标色可以手动输入 uv_div5 / uv1976 / xy / xyY，不再要求来自 300 色表，也不要求是网格点。
+%
+% 主流程：
+%   任意目标色 -> s15 的 25℃固定网格局部拟合得到 W25
+%   -> 读取 s16/s16_all 温度公式系数得到 Wfinal
+%   -> 在指定高温光谱和 xyY 条件下计算 Ra，并与 Exact 扫描对比。
+
+clear;
+clc;
+
+fprintf('\n============================================================\n');
+fprintf('S18 sample1 self arbitrary-color high-temperature Ra validation\n');
+fprintf('============================================================\n\n');
+
+%% ================= User configurable parameters =================
+% 目标颜色输入模式：'uv_div5' / 'uv1976' / 'xy' / 'xyY'
+targetInputMode = 'uv_div5';
+targetUvDiv5 = [40, 94];
+targetUv1976 = [0.200, 0.470];
+targetXY = [0.3169, 0.3310];
+targetXyY = [0.3169, 0.3310, 4.0];
+targetYlm = 4.0;
+
+% 验证温度：'T45' / 'T60' / 'T80' / 'T100'
+% 注意：这里是选择哪一组已实测的高温光谱和 xyY；温度公式内部会使用对应 MCU 温度值。
+targetTemperatureLabel = 'T80';
+
+% Formula coefficient source:
+%   'auto'    : 优先找 s16_all 输出，找不到再用 s16 输出
+%   's16_all' : 只用 s16_all 输出
+%   's16'     : 只用 s16 输出
+coefSourceMode = 'auto';
+
+% Exact 扫描 WhiteRatio 点数，单色验证可以用 1001 或 2001
+whiteRatioScanCount = 1001;
+exportResultCsv = true;
+
+%% ================= 当前样件 xyY 输入 =================
+channel_xyY_T25 = [
+    0.7025, 0.2967, 2.9000;  % R, MCU temp = 21.4 deg C
+    0.1370, 0.7069, 4.7060;  % G, MCU temp = 21.4 deg C
+    0.1521, 0.0284, 0.8733;  % B, MCU temp = 21.4 deg C
+    0.3333, 0.3491, 5.5580   % W, MCU temp = 21.4 deg C / SingleWhite
+];
+
+channel_xyY_T45 = [
+    0.7056, 0.2936, 2.3170;  % R, MCU temp = 43 deg C
+    0.1441, 0.7049, 4.5910;  % G, MCU temp = 43 deg C
+    0.1511, 0.0298, 0.8697;  % B, MCU temp = 43 deg C
+    0.3319, 0.3456, 5.2870   % W, MCU temp = 43 deg C / SingleWhite
+];
+
+channel_xyY_T60 = [
+    0.7079, 0.2913, 1.8870;  % R, MCU temp = 60 deg C
+    0.1499, 0.7027, 4.4450;  % G, MCU temp = 60 deg C
+    0.1503, 0.0310, 0.8578;  % B, MCU temp = 60 deg C
+    0.3306, 0.3428, 5.0510   % W, MCU temp = 60 deg C / SingleWhite
+];
+
+channel_xyY_T80 = [
+    0.7104, 0.2889, 1.4370;  % R, MCU temp = 80 deg C
+    0.1562, 0.6998, 4.2570;  % G, MCU temp = 80 deg C
+    0.1495, 0.0323, 0.8405;  % B, MCU temp = 80 deg C
+    0.3294, 0.3404, 4.8170   % W, MCU temp = 80 deg C / SingleWhite
+];
+
+channel_xyY_T100 = [
+    0.7125, 0.2867, 1.0630;  % R, MCU temp = 100 deg C
+    0.1622, 0.6962, 4.0530;  % G, MCU temp = 100 deg C
+    0.1486, 0.0338, 0.8191;  % B, MCU temp = 100 deg C
+    0.3276, 0.3376, 4.5580   % W, MCU temp = 100 deg C / SingleWhite
+];
+
+%% ================= Locate project =================
+scriptDir = fileparts(mfilename('fullpath'));
+projectRoot = find_project_root(scriptDir, 'triangle_grid_lut_output');
+outputDir = fullfile(projectRoot, 'triangle_grid_lut_output');
+standardDir = fullfile(projectRoot, 'standard_data');
+inputDir = fullfile(projectRoot, 'guangpu_case_input');
+tempInputRoot = fullfile(projectRoot, 'guangpu_temperature_input');
+
+if exist(inputDir, 'dir')
+    addpath(inputDir);
+end
+
+%% ================= Build arbitrary target =================
+[target_xyY, targetU, targetV] = build_target_from_user_input(targetInputMode, targetUvDiv5, targetUv1976, targetXY, targetXyY, targetYlm);
+targetX = target_xyY(1);
+targetY = target_xyY(2);
+targetYlm = target_xyY(3);
+
+s15FullFile = fullfile(outputDir, 's15_temperature_on_25grid', 's15_fixed25grid_temperature_exact_and_delta_full.csv');
+W25 = predict_w25_from_s15_grid(s15FullFile, target_xyY(1:2));
+
+%% ================= Load temperature case =================
+tempC = get_temperature_value(targetTemperatureLabel);
+channel_xyY = get_channel_xyY_by_label(targetTemperatureLabel, channel_xyY_T25, channel_xyY_T45, channel_xyY_T60, channel_xyY_T80, channel_xyY_T100);
+
+spectraDir = fullfile(tempInputRoot, targetTemperatureLabel);
+if ~exist(spectraDir, 'dir')
+    error('Missing temperature spectra folder:\n%s', spectraDir);
+end
+
+%% ================= Load config / standard data / spectra =================
+caseCfg = guangpu_case_config();
+wl = caseCfg.wavelength_nm;
+dLambda = caseCfg.dLambda;
+std = load_standard_data(standardDir, wl);
+
+raw.R = read_spd(fullfile(spectraDir, 'R.CSV'), '', wl);
+raw.G = read_spd(fullfile(spectraDir, 'G.CSV'), '', wl);
+raw.B = read_spd(fullfile(spectraDir, 'B.CSV'), '', wl);
+raw.W = read_spd(fullfile(spectraDir, 'W.CSV'), '', wl);
+
+spd.R = scale_to_photopic_Y_compat(raw.R, channel_xyY(1,3), std, wl, dLambda);
+spd.G = scale_to_photopic_Y_compat(raw.G, channel_xyY(2,3), std, wl, dLambda);
+spd.B = scale_to_photopic_Y_compat(raw.B, channel_xyY(3,3), std, wl, dLambda);
+spd.W = scale_to_photopic_Y_compat(raw.W, channel_xyY(4,3), std, wl, dLambda);
+
+rgbSolveMatrix = [xyY_to_XYZ_local(channel_xyY(1,:)).', ...
+                  xyY_to_XYZ_local(channel_xyY(2,:)).', ...
+                  xyY_to_XYZ_local(channel_xyY(3,:)).'];
+
+whiteXY = channel_xyY(4,1:2);
+whiteNormSpd = scale_to_photopic_Y_compat(spd.W, targetYlm, std, wl, dLambda);
+
+ctx.target_xyY = target_xyY;
+ctx.whiteXY = whiteXY;
+ctx.rgbSolveMatrix = rgbSolveMatrix;
+ctx.spd = spd;
+ctx.whiteNormSpd = whiteNormSpd;
+ctx.std = std;
+ctx.wl = wl;
+ctx.dLambda = dLambda;
+
+%% ================= Load formula coefficients and predict Wfinal =================
+coefCsv = find_temperature_coeff_csv(outputDir, coefSourceMode);
+model = load_temperature_formula_model(coefCsv);
+[deltaW, Wfinal, segIdx, segName] = apply_temperature_formula(targetX, targetY, W25, tempC, model);
+
+%% ================= Evaluate high-temperature Ra =================
+[validW25, raW25, weightsW25, outUvW25] = evaluate_ra_at_white_ratio(W25, ctx);
+[validFormula, raFormula, weightsFormula, outUvFormula] = evaluate_ra_at_white_ratio(Wfinal, ctx);
+[exactW, exactRa, exactWeights, exactOutUv] = exact_scan_best_white_ratio(whiteRatioScanCount, ctx);
+
+%% ================= Print result =================
+fprintf('Target input mode  : %s\n', targetInputMode);
+fprintf('Temperature label  : %s\n', targetTemperatureLabel);
+fprintf('Temperature C      : %.3f\n', tempC);
+fprintf('Target xyY         : (%.6f, %.6f, %.6f)\n', target_xyY(1), target_xyY(2), target_xyY(3));
+fprintf('Target uv1976      : (%.6f, %.6f), Q1000=(%.0f, %.0f)\n', targetU, targetV, targetU*1000, targetV*1000);
+fprintf('Coefficient file   : %s\n', coefCsv);
+fprintf('Segment            : %u / %s\n', uint32(segIdx), segName);
+fprintf('\n================ WhiteRatio =================\n');
+fprintf('W25 from S15 local fit      = %.8f\n', W25);
+fprintf('DeltaW formula              = %.8f\n', deltaW);
+fprintf('Wfinal formula              = %.8f\n', Wfinal);
+fprintf('Exact best W                = %.8f\n', exactW);
+fprintf('\n================ Ra =================\n');
+fprintf('Exact BestRa                = %.6f\n', exactRa);
+fprintf('W25 Ra                      = %.6f, diff = %.6f, valid=%u\n', raW25, raW25 - exactRa, uint32(validW25));
+fprintf('Formula Ra                  = %.6f, diff = %.6f, valid=%u\n', raFormula, raFormula - exactRa, uint32(validFormula));
+fprintf('\n================ RGB weights =================\n');
+fprintf('Exact weights   R/G/B = %.8f, %.8f, %.8f\n', exactWeights(1), exactWeights(2), exactWeights(3));
+fprintf('W25 weights     R/G/B = %.8f, %.8f, %.8f\n', weightsW25(1), weightsW25(2), weightsW25(3));
+fprintf('Formula weights R/G/B = %.8f, %.8f, %.8f\n', weightsFormula(1), weightsFormula(2), weightsFormula(3));
+fprintf('\nOutput uv1976:\n');
+fprintf('Exact   = (%.6f, %.6f)\n', exactOutUv(1), exactOutUv(2));
+fprintf('W25     = (%.6f, %.6f)\n', outUvW25(1), outUvW25(2));
+fprintf('Formula = (%.6f, %.6f)\n', outUvFormula(1), outUvFormula(2));
+
+if exportResultCsv
+    resultDir = fullfile(outputDir, 's18_single_color_result');
+    if ~exist(resultDir, 'dir')
+        mkdir(resultDir);
+    end
+    R = table();
+    R.TargetInputMode = string(targetInputMode);
+    R.TemperatureLabel = string(targetTemperatureLabel);
+    R.Temperature_C = tempC;
+    R.Target_x = target_xyY(1);
+    R.Target_y = target_xyY(2);
+    R.Target_Y_lm = target_xyY(3);
+    R.Target_u1976 = targetU;
+    R.Target_v1976 = targetV;
+    R.W25 = W25;
+    R.DeltaW = deltaW;
+    R.Wfinal = Wfinal;
+    R.ExactW = exactW;
+    R.ExactRa = exactRa;
+    R.W25Ra = raW25;
+    R.FormulaRa = raFormula;
+    R.W25RaDiff = raW25 - exactRa;
+    R.FormulaRaDiff = raFormula - exactRa;
+    R.CoefficientFile = string(coefCsv);
+    outCsv = fullfile(resultDir, 's18_single_color_result.csv');
+    writetable(R, outCsv);
+    fprintf('\nExported result CSV: %s\n', outCsv);
+end
+
+%% ================= Local functions =================
+function W25 = pick_w25_from_300_result(T300, row)
+    candidates = {'S14_LocalFitPredictedWhiteRatio', 'S14_SingleWhiteRatio', 'Exact_SingleWhiteRatio'};
+    W25 = NaN;
+    for i = 1:numel(candidates)
+        name = candidates{i};
+        if ismember(name, T300.Properties.VariableNames)
+            W25 = T300.(name)(row);
+            if isfinite(W25)
+                break;
+            end
+        end
+    end
+    if ~isfinite(W25)
+        error('Cannot find usable W25 from 300-color result. Need S14_LocalFitPredictedWhiteRatio or S14_SingleWhiteRatio.');
+    end
+    W25 = min(max(W25, 0), 1);
+end
+
+function [target_xyY, targetU, targetV] = build_target_from_user_input(targetInputMode, targetUvDiv5, targetUv1976, targetXY, targetXyY, targetYlm)
+    switch lower(char(targetInputMode))
+        case 'uv_div5'
+            targetUv = double(targetUvDiv5(:).') .* 5.0 ./ 1000.0;
+            xy = uv1976_to_xy_local(targetUv);
+            target_xyY = [xy(1), xy(2), targetYlm];
+        case 'uv1976'
+            targetUv = double(targetUv1976(:).');
+            xy = uv1976_to_xy_local(targetUv);
+            target_xyY = [xy(1), xy(2), targetYlm];
+        case 'xy'
+            xy = double(targetXY(:).');
+            target_xyY = [xy(1), xy(2), targetYlm];
+            targetUv = xy_to_uv1976(xy);
+        case 'xyy'
+            target_xyY = double(targetXyY(:).');
+            targetUv = xy_to_uv1976(target_xyY(1:2));
+        otherwise
+            error('Unsupported targetInputMode: %s', targetInputMode);
+    end
+    if any(~isfinite(target_xyY))
+        error('Invalid target xyY.');
+    end
+    if ~exist('targetUv','var') || any(~isfinite(targetUv))
+        targetUv = xy_to_uv1976(target_xyY(1:2));
+    end
+    targetU = targetUv(1);
+    targetV = targetUv(2);
+end
+
+function xy = uv1976_to_xy_local(uv)
+    u = uv(1);
+    v = uv(2);
+    den = 6*u - 16*v + 12;
+    if abs(den) < eps
+        xy = [NaN, NaN];
+    else
+        xy = [9*u/den, 4*v/den];
+    end
+end
+
+function W25 = predict_w25_from_s15_grid(s15File, targetXY)
+    if ~exist(s15File, 'file')
+        error('Missing S15 full result file:\n%s\nPlease run s15 first.', s15File);
+    end
+    T = readtable(s15File, 'VariableNamingRule', 'preserve');
+    required = {'x','y','u1976','v1976','T25_Valid','T25_BestWhiteRatio'};
+    for i = 1:numel(required)
+        if ~ismember(required{i}, T.Properties.VariableNames)
+            error('S15 table missing column: %s', required{i});
+        end
+    end
+    targetUv = xy_to_uv1976(targetXY);
+    valid = logical(T.T25_Valid) & isfinite(T.T25_BestWhiteRatio) & isfinite(T.u1976) & isfinite(T.v1976);
+    if ~any(valid)
+        error('S15 table contains no valid T25 BestWhiteRatio rows.');
+    end
+    d = hypot(T.u1976(valid) - targetUv(1), T.v1976(valid) - targetUv(2));
+    validIdx = find(valid);
+    [ds, order] = sort(d, 'ascend');
+    K = min(30, numel(order));
+    idx = validIdx(order(1:K));
+    if ds(1) < 1e-12
+        W25 = T.T25_BestWhiteRatio(idx(1));
+        W25 = min(max(W25, 0), 1);
+        return;
+    end
+    x = T.x(idx);
+    y = T.y(idx);
+    z = T.T25_BestWhiteRatio(idx);
+    A = [ones(K,1), x, y, x.*y, x.^2, y.^2];
+    w = 1 ./ max(ds(1:K), 1e-9).^2;
+    w = w ./ max(w);
+    Aw = A .* sqrt(w(:));
+    zw = z .* sqrt(w(:));
+    coef = Aw \ zw;
+    basis = [1, targetXY(1), targetXY(2), targetXY(1)*targetXY(2), targetXY(1)^2, targetXY(2)^2];
+    W25 = basis * coef;
+    W25 = min(max(W25, 0), 1);
+end
+
+function tempC = get_temperature_value(label)
+    switch char(label)
+        case 'T25'
+            tempC = 21.4;
+        case 'T45'
+            tempC = 43.0;
+        case 'T60'
+            tempC = 60.0;
+        case 'T80'
+            tempC = 80.0;
+        case 'T100'
+            tempC = 100.0;
+        otherwise
+            error('Unsupported temperature label: %s', label);
+    end
+end
+
+function xyY = get_channel_xyY_by_label(label, T25, T45, T60, T80, T100)
+    switch char(label)
+        case 'T25'
+            xyY = T25;
+        case 'T45'
+            xyY = T45;
+        case 'T60'
+            xyY = T60;
+        case 'T80'
+            xyY = T80;
+        case 'T100'
+            xyY = T100;
+        otherwise
+            error('Unsupported temperature label: %s', label);
+    end
+end
+
+function coefCsv = find_temperature_coeff_csv(outputDir, mode)
+    s16AllCsv = fullfile(outputDir, 's16_all_temperature_formula_fit', 's16_all_temperature_formula_coefficients.csv');
+    s16Csv = fullfile(outputDir, 's16_temperature_formula_fit', 's16_temperature_formula_coefficients.csv');
+
+    switch char(mode)
+        case 'auto'
+            if exist(s16AllCsv, 'file')
+                coefCsv = s16AllCsv;
+            elseif exist(s16Csv, 'file')
+                coefCsv = s16Csv;
+            else
+                error('Cannot find s16_all or s16 coefficient CSV.');
+            end
+        case 's16_all'
+            coefCsv = s16AllCsv;
+            if ~exist(coefCsv, 'file')
+                error('Missing s16_all coefficient CSV:\n%s', coefCsv);
+            end
+        case 's16'
+            coefCsv = s16Csv;
+            if ~exist(coefCsv, 'file')
+                error('Missing s16 coefficient CSV:\n%s', coefCsv);
+            end
+        otherwise
+            error('Unsupported coefSourceMode: %s', mode);
+    end
+end
+
+function model = load_temperature_formula_model(coefCsv)
+    C = readtable(coefCsv, 'VariableNamingRule', 'preserve');
+    varNames = C.Properties.VariableNames;
+
+    if ismember('SegmentIndex', varNames)
+        segList = unique(C.SegmentIndex, 'stable');
+    else
+        error('Coefficient CSV must contain SegmentIndex.');
+    end
+
+    % Compatible with two coefficient CSV formats:
+    %   New format: TermGroup + BasisIndex + BasisName
+    %   Old format: Term      + Basis      + Coefficient
+    if ismember('TermGroup', varNames)
+        termCol = 'TermGroup';
+    elseif ismember('Term', varNames)
+        termCol = 'Term';
+    else
+        error('Coefficient CSV must contain TermGroup or Term.');
+    end
+
+    if ismember('BasisIndex', varNames)
+        basisCount = max(C.BasisIndex);
+        useBasisIndex = true;
+        basisNameList = {};
+    elseif ismember('BasisName', varNames)
+        basisNameList = unique(cellstr(C.BasisName), 'stable');
+        basisCount = numel(basisNameList);
+        useBasisIndex = false;
+    elseif ismember('Basis', varNames)
+        basisNameList = unique(cellstr(C.Basis), 'stable');
+        basisCount = numel(basisNameList);
+        useBasisIndex = false;
+    else
+        error('Coefficient CSV must contain BasisIndex, BasisName, or Basis.');
+    end
+
+    if ismember('BasisName', varNames)
+        basisCol = 'BasisName';
+    elseif ismember('Basis', varNames)
+        basisCol = 'Basis';
+    else
+        basisCol = '';
+    end
+
+    segCount = numel(segList);
+    f1 = zeros(segCount, basisCount);
+    f2 = zeros(segCount, basisCount);
+    segMin = zeros(segCount, 1);
+    segMax = zeros(segCount, 1);
+    segName = cell(segCount, 1);
+
+    termCell = cellstr(C.(termCol));
+
+    for s = 1:segCount
+        segIdx = segList(s);
+        segMask = C.SegmentIndex == segIdx;
+        first = find(segMask, 1, 'first');
+
+        if ismember('SegmentName', varNames)
+            segName{s} = char(C.SegmentName(first));
+        else
+            segName{s} = ['SEG' num2str(segIdx)];
+        end
+
+        if ismember('W25Min', varNames)
+            segMin(s) = C.W25Min(first);
+            segMax(s) = C.W25Max(first);
+        elseif ismember('W25Max', varNames)
+            segMin(s) = C.W25Min(first);
+            segMax(s) = C.W25Max(first);
+        elseif ismember('SegmentMin', varNames)
+            segMin(s) = C.SegmentMin(first);
+            segMax(s) = C.SegmentMax(first);
+        elseif ismember('SegmentMax', varNames)
+            segMin(s) = C.SegmentMin(first);
+            segMax(s) = C.SegmentMax(first);
+        else
+            % Compatible fallback for early s16 / s16_all coefficient CSV files
+            % that saved only SegmentIndex + coefficients, without explicit W25 bounds.
+            % Current accepted models:
+            %   3 segments: LOW <0.25, MID <0.80, HIGH >=0.80
+            %   4 segments: <0.05, 0.05~0.25, 0.25~0.80, >=0.80
+            [defaultMin, defaultMax] = default_segment_range(segCount);
+            segMin(s) = defaultMin(s);
+            segMax(s) = defaultMax(s);
+        end
+
+        for b = 1:basisCount
+            if useBasisIndex
+                basisMask = (C.BasisIndex == b);
+            else
+                basisMask = strcmp(cellstr(C.(basisCol)), basisNameList{b});
+            end
+
+            maskF1 = segMask & strcmp(termCell, 'F1') & basisMask;
+            maskF2 = segMask & strcmp(termCell, 'F2') & basisMask;
+
+            if ~any(maskF1) || ~any(maskF2)
+                if useBasisIndex
+                    error('Missing coefficient: segment=%u basisIndex=%u', uint32(segIdx), uint32(b));
+                else
+                    error('Missing coefficient: segment=%u basis=%s', uint32(segIdx), basisNameList{b});
+                end
+            end
+
+            f1(s,b) = C.Coefficient(find(maskF1, 1, 'first'));
+            f2(s,b) = C.Coefficient(find(maskF2, 1, 'first'));
+        end
+    end
+
+    model.segCount = segCount;
+    model.basisCount = basisCount;
+    model.segMin = segMin;
+    model.segMax = segMax;
+    model.segName = segName;
+    model.f1 = f1;
+    model.f2 = f2;
+    model.baseTempC = get_first_or_default(C, 'BaseTempC', 21.4);
+    model.tempScaleC = get_first_or_default(C, 'TempScaleC', 78.6);
+    model.deltaClampEnable = logical(get_first_or_default(C, 'DeltaClampEnable', false));
+    model.deltaClampAbs = get_first_or_default(C, 'DeltaClampAbs', 0.15);
+end
+
+
+function [segMin, segMax] = default_segment_range(segCount)
+    if segCount == 3
+        segMin = [-1.0e-6; 0.25; 0.80];
+        segMax = [0.25; 0.80; 1.0000001];
+    elseif segCount == 4
+        segMin = [-1.0e-6; 0.05; 0.25; 0.80];
+        segMax = [0.05; 0.25; 0.80; 1.0000001];
+    else
+        error('Coefficient CSV has no segment range columns and segmentCount=%u is unsupported.', uint32(segCount));
+    end
+end
+
+function v = get_first_or_default(T, col, defaultVal)
+    if ismember(col, T.Properties.VariableNames)
+        v = T.(col)(1);
+    else
+        v = defaultVal;
+    end
+end
+
+function [deltaW, Wfinal, segIdx, segName] = apply_temperature_formula(x, y, W25, tempC, model)
+    t = (tempC - model.baseTempC) / model.tempScaleC;
+    t = min(max(t, 0), 1);
+    segIdx = model.segCount;
+    for i = 1:model.segCount
+        if W25 >= model.segMin(i) && W25 < model.segMax(i)
+            segIdx = i;
+            break;
+        end
+    end
+    segName = model.segName{segIdx};
+    basis = make_basis_row(x, y, W25, model.basisCount);
+    F1 = sum(model.f1(segIdx,:) .* basis);
+    F2 = sum(model.f2(segIdx,:) .* basis);
+    deltaW = t .* F1 + (t.^2) .* F2;
+    if model.deltaClampEnable
+        deltaW = min(max(deltaW, -model.deltaClampAbs), model.deltaClampAbs);
+    end
+    Wfinal = min(max(W25 + deltaW, 0), 1);
+end
+
+function basis = make_basis_row(x, y, W25, basisCount)
+    fullBasis = [1, x, y, W25, x.*y, x.*W25, y.*W25, W25.*W25, x.*x, y.*y];
+    if basisCount > numel(fullBasis)
+        error('Unsupported basis count: %u', uint32(basisCount));
+    end
+    basis = fullBasis(1:basisCount);
+end
+
+function [bestW, bestRa, bestWeights, bestOutUv] = exact_scan_best_white_ratio(scanCount, ctx)
+    bestRa = -Inf;
+    bestW = NaN;
+    bestWeights = [NaN, NaN, NaN];
+    bestOutUv = [NaN, NaN];
+    wList = linspace(0, 1, scanCount);
+    for i = 1:numel(wList)
+        [valid, ra, weights, outUv] = evaluate_ra_at_white_ratio(wList(i), ctx);
+        if valid && isfinite(ra) && (ra > bestRa)
+            bestRa = ra;
+            bestW = wList(i);
+            bestWeights = weights;
+            bestOutUv = outUv;
+        end
+    end
+    if ~isfinite(bestRa)
+        error('Exact scan found no valid RGBW solution for target xy=(%.6f, %.6f).', ctx.target_xyY(1), ctx.target_xyY(2));
+    end
+end
+
+function [valid, ra, weights, outUv] = evaluate_ra_at_white_ratio(W, ctx)
+    valid = false;
+    ra = NaN;
+    weights = [NaN, NaN, NaN];
+    outUv = [NaN, NaN];
+
+    if ~isfinite(W) || W < -1e-9 || W > 1 + 1e-9
+        return;
+    end
+    W = min(max(W, 0), 1);
+
+    targetXYZ = xyY_to_XYZ_local(ctx.target_xyY);
+    whiteXYZ = xyY_to_XYZ_local([ctx.whiteXY, W * ctx.target_xyY(3)]);
+    rgbXYZ = targetXYZ(:) - whiteXYZ(:);
+    weights = (ctx.rgbSolveMatrix \ rgbXYZ).';
+
+    if any(weights < -1e-7) || any(~isfinite(weights))
+        return;
+    end
+    weights = max(weights, 0);
+
+    mixed = W .* ctx.whiteNormSpd + weights(1).*ctx.spd.R + weights(2).*ctx.spd.G + weights(3).*ctx.spd.B;
+    metrics = spectrum_metrics(mixed, ctx.std, ctx.wl, ctx.dLambda);
+    ra = extract_ra(metrics);
+
+    if isfield(metrics, 'xyY')
+        outXY = metrics.xyY(1:2);
+        outUv = xy_to_uv1976(outXY);
+    else
+        outUv = xy_to_uv1976(ctx.target_xyY(1:2));
+    end
+    valid = true;
+end
+
+function ra = extract_ra(metrics)
+    if isfield(metrics, 'Ra')
+        ra = metrics.Ra;
+    elseif isfield(metrics, 'CRI_Ra')
+        ra = metrics.CRI_Ra;
+    elseif isfield(metrics, 'ra')
+        ra = metrics.ra;
+    else
+        error('spectrum_metrics result has no Ra field.');
+    end
+end
+
+function spdOut = scale_to_photopic_Y_compat(spdIn, targetY, std, wl, dLambda)
+    try
+        spdOut = scale_to_photopic_Y(spdIn, targetY, std, wl, dLambda);
+    catch
+        spdOut = scale_to_photopic_Y(spdIn, targetY, std, dLambda);
+    end
+end
+
+function XYZ = xyY_to_XYZ_local(xyY)
+    x = xyY(1);
+    y = xyY(2);
+    Y = xyY(3);
+    if abs(y) < eps
+        XYZ = [0, 0, 0];
+        return;
+    end
+    X = x * Y / y;
+    Z = (1 - x - y) * Y / y;
+    XYZ = [X, Y, Z];
+end
+
+function uv = xy_to_uv1976(xy)
+    x = xy(1);
+    y = xy(2);
+    den = -2*x + 12*y + 3;
+    if abs(den) < eps
+        uv = [NaN, NaN];
+    else
+        uv = [4*x/den, 9*y/den];
+    end
+end
+
+function value = get_table_value_or_nan(T, colName, row)
+    if ismember(colName, T.Properties.VariableNames)
+        value = T.(colName)(row);
+    else
+        value = NaN;
+    end
+end
+
+function projectRoot = find_project_root(startDir, folderName)
+    projectRoot = startDir;
+    while true
+        if exist(fullfile(projectRoot, folderName), 'dir')
+            return;
+        end
+        parentDir = fileparts(projectRoot);
+        if strcmp(parentDir, projectRoot)
+            error('Cannot find folder %s from current script path.', folderName);
+        end
+        projectRoot = parentDir;
+    end
+end
+
+
+function std = load_standard_data(standardDir, wl)
+    xyzPath = ensure_file(standardDir, 'CIE_xyz_1931_2deg.csv', 'https://files.cie.co.at/CIE_xyz_1931_2deg.csv');
+    tcsPath = ensure_file(standardDir, 'CIE_srf_cri.csv', 'https://files.cie.co.at/CIE_srf_cri.csv');
+    dPath = ensure_file(standardDir, 'CIE_illum_Dxx_comp.csv', 'https://files.cie.co.at/CIE_illum_Dxx_comp.csv');
+
+    xyz = readmatrix(xyzPath);
+    tcs = readmatrix(tcsPath);
+    d = readmatrix(dPath);
+
+    std.cmf = interp1(xyz(:,1), xyz(:,2:4), wl, 'linear', 'extrap');
+    std.tcs = interp1(tcs(:,1), tcs(:,2:9), wl, 'linear', 'extrap');
+    std.daylightComponents = interp1(d(:,1), d(:,2:4), wl, 'linear', 'extrap');
+end
+
+function path = ensure_file(folder, fileName, url)
+    path = fullfile(folder, fileName);
+    if ~exist(path, 'file')
+        if ~exist(folder, 'dir')
+            mkdir(folder);
+        end
+        websave(path, url);
+    end
+end
+
+function spd = read_spd(fileName, sheetName, wlOut)
+    if isempty(sheetName)
+        M = readmatrix(fileName);
+    else
+        M = readmatrix(fileName, 'Sheet', sheetName);
+    end
+    wl = M(:,1);
+    if size(M, 2) >= 3
+        s = M(:,3);
+    else
+        s = M(:,2);
+    end
+    ok = isfinite(wl) & isfinite(s);
+    wl = wl(ok);
+    s = s(ok);
+    [wl, order] = sort(wl);
+    s = s(order);
+    spd = interp1(wl, s, wlOut, 'linear', 0);
+    spd = spd(:);
+    spd(spd < 0) = 0;
+end
+
+function spdScaled = scale_to_photopic_Y(spd, targetYlm, std, varargin)
+    if numel(varargin) == 1
+        dLambda = varargin{1};
+    else
+        dLambda = varargin{2};
+    end
+    Ylm = 683 * sum(spd(:) .* std.cmf(:,2)) * dLambda;
+    if Ylm <= 0
+        error('The spectrum photopic Y is 0 and cannot be normalized.');
+    end
+    spdScaled = spd(:) .* (targetYlm / Ylm);
+end
+
+function m = spectrum_metrics(spd, std, wl, dLambda)
+    XYZ = source_XYZ(spd, std.cmf, dLambda);
+    xyY = XYZ_to_xyY(XYZ);
+    photopicY = 683 * XYZ(2);
+    uv = XYZ_to_uv1960(XYZ);
+    [CCT, Duv] = estimate_cct_uv(uv, std.cmf, wl, dLambda);
+    refSpd = reference_spd(CCT, std, wl);
+    Ri = cri_R1_R8(spd, refSpd, std.cmf, std.tcs, dLambda);
+    [Rmin8, worstIndex] = min(Ri);
+    m.XYZ = XYZ;
+    m.xyY = [xyY(1), xyY(2), photopicY];
+    m.photopicY = photopicY;
+    m.uv1960 = uv;
+    m.CCT = CCT;
+    m.Duv = Duv;
+    m.Ri = Ri;
+    m.Ra = mean(Ri);
+    m.Rmin8 = Rmin8;
+    m.WorstIndex = worstIndex;
+end
+
+function XYZ = source_XYZ(spd, cmf, dLambda)
+    XYZ = sum(spd(:) .* cmf, 1) .* dLambda;
+end
+
+function xyY = XYZ_to_xyY(XYZ)
+    s = sum(XYZ);
+    if s <= 0
+        xyY = [NaN, NaN, NaN];
+    else
+        xyY = [XYZ(1) / s, XYZ(2) / s, XYZ(2)];
+    end
+end
+
+function uv = XYZ_to_uv1960(XYZ)
+    den = XYZ(1) + 15 * XYZ(2) + 3 * XYZ(3);
+    uv = [4 * XYZ(1) / den, 6 * XYZ(2) / den];
+end
+
+function [CCT, Duv] = estimate_cct_uv(uv, cmf, wl, dLambda)
+    gridT = linspace(1000, 25000, 481);
+    dist2 = zeros(size(gridT));
+    for i = 1:numel(gridT)
+        bb = blackbody_spd(gridT(i), wl);
+        bbXYZ = source_XYZ(bb, cmf, dLambda);
+        bbuv = XYZ_to_uv1960(bbXYZ);
+        dist2(i) = sum((uv - bbuv).^2);
+    end
+    [~, idx] = min(dist2);
+    lo = max(1000, gridT(max(1, idx - 2)));
+    hi = min(25000, gridT(min(numel(gridT), idx + 2)));
+    CCT = fminbnd(@(T) blackbody_uv_distance2(T, uv, cmf, wl, dLambda), lo, hi);
+    Duv = sqrt(blackbody_uv_distance2(CCT, uv, cmf, wl, dLambda));
+end
+
+function d2 = blackbody_uv_distance2(T, uv, cmf, wl, dLambda)
+    bb = blackbody_spd(T, wl);
+    bbXYZ = source_XYZ(bb, cmf, dLambda);
+    bbuv = XYZ_to_uv1960(bbXYZ);
+    d2 = sum((uv - bbuv).^2);
+end
+
+function spd = blackbody_spd(T, wl)
+    c2 = 1.438776877e-2;
+    lambda = wl(:) * 1e-9;
+    spd = 1 ./ (lambda .^ 5 .* (exp(c2 ./ (lambda .* T)) - 1));
+    spd = spd ./ max(spd);
+end
+
+function spd = reference_spd(CCT, std, wl)
+    if CCT < 5000
+        spd = blackbody_spd(CCT, wl);
+        return;
+    end
+    T = min(max(CCT, 4000), 25000);
+    if T <= 7000
+        xD = 0.244063 + 0.09911e3 / T + 2.9678e6 / T^2 - 4.6070e9 / T^3;
+    else
+        xD = 0.237040 + 0.24748e3 / T + 1.9018e6 / T^2 - 2.0064e9 / T^3;
+    end
+    yD = -3.000 * xD^2 + 2.870 * xD - 0.275;
+    den = 0.0241 + 0.2562 * xD - 0.7341 * yD;
+    M1 = (-1.3515 - 1.7703 * xD + 5.9114 * yD) / den;
+    M2 = (0.0300 - 31.4424 * xD + 30.0717 * yD) / den;
+    spd = std.daylightComponents(:,1) + M1 .* std.daylightComponents(:,2) + M2 .* std.daylightComponents(:,3);
+    spd = max(spd, 0);
+end
+
+function Ri = cri_R1_R8(testSpd, refSpd, cmf, tcs, dLambda)
+    testXYZ = source_XYZ(testSpd, cmf, dLambda);
+    refXYZ = source_XYZ(refSpd, cmf, dLambda);
+    testUV = XYZ_to_uv1960(testXYZ);
+    refUV = XYZ_to_uv1960(refXYZ);
+    testUVW = tcs_uvw(testSpd, cmf, tcs, dLambda, testUV, refUV, true);
+    refUVW = tcs_uvw(refSpd, cmf, tcs, dLambda, refUV, refUV, false);
+    Ri = zeros(8, 1);
+    for i = 1:8
+        deltaE = norm(refUVW(i,:) - testUVW(i,:));
+        Ri(i) = 100 - 4.6 * deltaE;
+    end
+end
+
+function UVW = tcs_uvw(sourceSpd, cmf, tcs, dLambda, sourceUV, refUV, doAdapt)
+    sourceY = sum(sourceSpd(:) .* cmf(:,2)) * dLambda;
+    k = 100 / sourceY;
+    UVW = zeros(size(tcs, 2), 3);
+    cfun = @(u, v) (4 - u - 10 * v) / v;
+    dfun = @(u, v) (1.708 * v + 0.404 - 1.481 * u) / v;
+    sourceC = cfun(sourceUV(1), sourceUV(2));
+    sourceD = dfun(sourceUV(1), sourceUV(2));
+    refC = cfun(refUV(1), refUV(2));
+    refD = dfun(refUV(1), refUV(2));
+    for i = 1:size(tcs, 2)
+        sampleXYZ = k .* sum(sourceSpd(:) .* tcs(:,i) .* cmf, 1) .* dLambda;
+        sampleXY = XYZ_to_xyY(sampleXYZ);
+        sampleUV = XYZ_to_uv1960(sampleXYZ);
+        u = sampleUV(1);
+        v = sampleUV(2);
+        if doAdapt
+            sampleC = cfun(u, v);
+            sampleD = dfun(u, v);
+            denominator = 16.518 + 1.481 * refC / sourceC * sampleC - refD / sourceD * sampleD;
+            u = (10.872 + 0.404 * refC / sourceC * sampleC - 4 * refD / sourceD * sampleD) / denominator;
+            v = 5.520 / denominator;
+        end
+        W = 25 * sampleXY(3)^(1/3) - 17;
+        U = 13 * W * (u - refUV(1));
+        V = 13 * W * (v - refUV(2));
+        UVW(i,:) = [U, V, W];
+    end
+end

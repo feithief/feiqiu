@@ -1,0 +1,81 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+void SendDataCrc_Init(void)
+{
+  
+  
+}
+void Public_ColorInput(void)
+{
+  int addr;
+  addr = @sysvarMember::BCMCmd[0];
+  if(@sysvarMember::BCMCmd[7] == 1)
+  {
+    for(addr = 1;addr <= 14; addr++)
+    {
+      local_BCM_data_send(addr);
+    }
+  }
+  else
+  {
+    local_BCM_data_send(addr);
+  }
+}
+
+void local_BCM_data_send(int i)
+{  
+  const int BCMCtrl_Length = 8;
+  char Data_name[BCMCtrl_Length];
+  
+  int j,k,crc;
+  int data[8];
+  data[0] = @sysvarMember::BCMCmd[8];
+  data[1] = @sysvarMember::BCMCmd[9];
+  data[2] = @sysvarMember::BCMCmd[10];
+  data[3] = @sysvarMember::BCMCmd[11];
+  data[4] = @sysvarMember::BCMCmd[12];
+  data[5] = @sysvarMember::BCMCmd[13];
+  data[6] = @sysvarMember::BCMCmd[14];
+  data[7] = @sysvarMember::BCMCmd[15];
+  for ( j= 0; j < 8; j++)
+    {
+        crc ^= data[i];
+
+        for ( k = 0; k < 8; k++)
+        {
+            if (crc & 0x80)
+            {
+                crc = (crc << 1) ^ 0x97;
+            }
+            else
+            {
+                crc <<= 1;
+            }
+        }  
+    }
+    crc = crc ^ 0x00;
+    @sysvarMember::BCMCmd[16] = crc;
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Dummy_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[8]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Len_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[9]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_MemAddress_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[10]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Data_B1_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[11]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Data_B2_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[12]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Data_B3_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[13]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Data_B4_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[14]);
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_Data_B5_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[15]);
+      
+  snprintf(Data_name,BCMCtrl_Length,"SWrite_CRC_%.2d",i);
+  setRawSignal(Data_name,@sysvarMember::BCMCmd[16]);
+    
+}

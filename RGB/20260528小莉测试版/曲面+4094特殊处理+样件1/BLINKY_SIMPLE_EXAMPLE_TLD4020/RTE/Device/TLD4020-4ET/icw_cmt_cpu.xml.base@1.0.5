@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_cpu.xml                                                            -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2025, Infineon Technologies AG                                    -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   JO           Julia Ott                                                       -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-06-27, SL:   SysTick priority can be set even if user interrupt   -->
+<!--                           is disabled                                          -->
+<!-- V1.0.2: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!-- V1.0.3: 2024-10-28, VO:   [ATVCOMETLL-114] Removed unused comments             -->
+<!-- V1.0.4: 2025-08-22, VO:   [ATVCOMETLL-216] Update Systick to latest UM         -->
+<!-- V1.0.5: 2025-09-02, VO:   [ATVCOMETLL-205] Added NVIC node for UART2           -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>b8057ce269e3be603ff4be715f69a18eda5844b4197d00d8e4cd3ff6af2bdc3e</checksum>
+  <version label="V1.0.5"/>
+
+  
+  <verticalcontainer label="CPU" desc="ARM core">
+    <treecontainer headerlabels="Item;Value;" label="CPU" desc="" columnwidths="400;250">
+        <header file="cpu_defines.h">
+                
+            <branch label="System Timer (SysTick) interrupt">
+
+                <math visible="true" label="SYSTICK clock" define="CPU_F_SYSTICK" header="temp_defines.h" svd="0" formula="SCU_F_SYSTICK" unit="MHz"/>
+
+                <!-- Set SysTick Reload value to 1ms -->
+                <math visible="true" label="Counter reload value (for 1ms period)" define="CPU.SYST_RVR.RELOAD" formula="CPU_F_SYSTICK*1000"/>
+
+                <spinbox label="Interrupt priority [0(highest)...3(lowest)]" define="CPU.SHPR3.PRI_15" range="0;3"/>
+
+                <checkbox label="SysTick User Callback" define="CPU_SYSTICK_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+
+                    <edit label="Callback" define="CPU_SYSTICK_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                    <text label="SysTick interval is 1ms"/>
+
+                </checkbox>
+
+            </branch>
+
+            <branch label="Core exception">
+
+                <checkbox label="HardFault call back" define="CPU_HARDFAULT_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+                    <edit label="Callback" define="CPU_HARDFAULT_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                </checkbox>
+
+                <checkbox label="SVCall call back" define="CPU_SVCALL_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+                    <spinbox label="Interrupt priority [0(highest)...3(lowest)]" define="CPU.SHPR2.PRI_11" range="0;3"/>
+                    <edit label="Callback" define="CPU_SVCALL_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                </checkbox>
+
+                <checkbox label="PendSV call back" define="CPU_PENDSV_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+                    <spinbox label="Interrupt priority [0(highest)...3(lowest)]" define="CPU.SHPR3.PRI_14" range="0;3"/>
+                    <edit label="Callback" define="CPU_PENDSV_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                </checkbox>
+
+            </branch>
+
+            <branch label="Nested Vectored Interrupt Controller (NVIC)">
+
+                <branch label="Interrupt enable">
+
+                    <checkbox label="PMU" define="CPU.NVIC_ISER0.SETENA[0]"/>
+                    <checkbox label="LIN" define="CPU.NVIC_ISER0.SETENA[2]"/>
+                    <checkbox startcond="UC_FEATURE_UART2==1" label="UART2" define="CPU.NVIC_ISER0.SETENA[3]"/>
+                    <checkbox label="ADC" define="CPU.NVIC_ISER0.SETENA[4]"/>
+                    <checkbox label="LDRV_DIAG" define="CPU.NVIC_ISER0.SETENA[5]"/>
+                    <checkbox label="LDVR_OSP" define="CPU.NVIC_ISER0.SETENA[6]"/>
+                    <checkbox label="GPIO" define="CPU.NVIC_ISER0.SETENA[7]"/>
+
+                </branch>
+
+                <branch label="Interrupt priority [0(highest)...3(lowest)]">
+
+                    <spinbox label="PMU" define="CPU.NVIC_IPR0.PRI_N0" range="0;3"/>
+                    <spinbox label="LIN" define="CPU.NVIC_IPR0.PRI_N2" range="0;3"/>
+                    <spinbox label="ADC" define="CPU.NVIC_IPR1.PRI_N4" range="0;3"/>
+                    <spinbox label="LDRV_DIAG" define="CPU.NVIC_IPR1.PRI_N5" range="0;3"/>
+                    <spinbox label="LDVR_OSP" define="CPU.NVIC_IPR1.PRI_N6" range="0;3"/>
+                    <spinbox label="GPIO" define="CPU.NVIC_IPR1.PRI_N7" range="0;3"/>
+
+                </branch>
+
+            </branch>
+
+
+        </header>
+    </treecontainer>
+  </verticalcontainer>
+
+</ifxmlcfg>

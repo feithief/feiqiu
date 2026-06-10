@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="TestCases">
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="StaticTextControl3" Children="Controls" ControlName="Static Text">
+      <Property Name="Name">StaticTextControl3</Property>
+      <Property Name="Size">184, 116</Property>
+      <Property Name="Location">13, 233</Property>
+      <Property Name="Text">说明：
+1. 该测试DUT节点必须是8
+2. 切换调度表。新表只有BCM报文和state frame
+3. 保持常亮
+测试目的：
+频繁接收报文的情况下，模组会不会出错</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="ButtonControl3" Children="Controls" ControlName="TestButton">
+      <Property Name="Name">ButtonControl3</Property>
+      <Property Name="Size">95, 23</Property>
+      <Property Name="Location">13, 204</Property>
+      <Property Name="PressValue">3</Property>
+      <Property Name="Text">测试用例3</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;TestButton;1;;;-1;;;</Property>
+      <Property Name="TabIndex">8</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="StaticTextControl2" Children="Controls" ControlName="Static Text">
+      <Property Name="Name">StaticTextControl2</Property>
+      <Property Name="Size">185, 78</Property>
+      <Property Name="Location">249, 86</Property>
+      <Property Name="Text">说明：
+1. 仿真节点会发全FF的0x3D报文
+2.标样会置位response error bit
+测试目的：
+DUT在其他节点回复错误时，自己
+会不会跟着发出错误回复。</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="ButtonControl2" Children="Controls" ControlName="TestButton">
+      <Property Name="Name">ButtonControl2</Property>
+      <Property Name="Size">95, 23</Property>
+      <Property Name="Location">249, 58</Property>
+      <Property Name="PressValue">2</Property>
+      <Property Name="Text">测试用例2</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;TestButton;1;;;-1;;;</Property>
+      <Property Name="TabIndex">6</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl3" Children="Controls" ControlName="Input/Output Box">
+      <Property Name="Name">TextBoxControl3</Property>
+      <Property Name="Size">121, 28</Property>
+      <Property Name="Location">124, 16</Property>
+      <Property Name="AlarmUpperTextColor">WindowText</Property>
+      <Property Name="ValueDecimalPlaces">0</Property>
+      <Property Name="AlarmLowerBkgColor">Salmon</Property>
+      <Property Name="ValueDisplay">Decimal</Property>
+      <Property Name="AlarmUpperBkgColor">IndianRed</Property>
+      <Property Name="AlarmLowerTextColor">WindowText</Property>
+      <Property Name="AlarmGeneralSettings">1;0;0;0</Property>
+      <Property Name="DisplayLabel">Left</Property>
+      <Property Name="DescriptionText">Group Addr:</Property>
+      <Property Name="DescriptionSize">73, 20</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;GroupAddr;1;;;-1;;;</Property>
+      <Property Name="TabIndex">4</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl2" Children="Controls" ControlName="Input/Output Box">
+      <Property Name="Name">TextBoxControl2</Property>
+      <Property Name="Size">87, 28</Property>
+      <Property Name="Location">249, 16</Property>
+      <Property Name="AlarmUpperTextColor">WindowText</Property>
+      <Property Name="ValueDecimalPlaces">0</Property>
+      <Property Name="AlarmLowerBkgColor">Salmon</Property>
+      <Property Name="ValueDisplay">Decimal</Property>
+      <Property Name="AlarmUpperBkgColor">IndianRed</Property>
+      <Property Name="AlarmLowerTextColor">WindowText</Property>
+      <Property Name="AlarmGeneralSettings">1;0;0;0</Property>
+      <Property Name="DisplayLabel">Left</Property>
+      <Property Name="DescriptionText">New NAD:</Property>
+      <Property Name="DescriptionSize">54, 20</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;NewNAD;1;;;-1;;;</Property>
+      <Property Name="TabIndex">3</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl1" Children="Controls" ControlName="Input/Output Box">
+      <Property Name="Name">TextBoxControl1</Property>
+      <Property Name="Size">107, 28</Property>
+      <Property Name="Location">13, 16</Property>
+      <Property Name="AlarmUpperTextColor">WindowText</Property>
+      <Property Name="ValueDecimalPlaces">0</Property>
+      <Property Name="AlarmLowerBkgColor">Salmon</Property>
+      <Property Name="ValueDisplay">Decimal</Property>
+      <Property Name="AlarmUpperBkgColor">IndianRed</Property>
+      <Property Name="AlarmLowerTextColor">WindowText</Property>
+      <Property Name="AlarmGeneralSettings">1;0;0;0</Property>
+      <Property Name="DisplayLabel">Left</Property>
+      <Property Name="DescriptionText">Module NAD:</Property>
+      <Property Name="DescriptionSize">73, 20</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;CurrentNAD;1;;;-1;;;</Property>
+      <Property Name="TabIndex">2</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="StaticTextControl1" Children="Controls" ControlName="Static Text">
+      <Property Name="Name">StaticTextControl1</Property>
+      <Property Name="Size">228, 104</Property>
+      <Property Name="Location">13, 86</Property>
+      <Property Name="Text">说明：
+1. 输入模组组地址和节点地址
+2. 仿真BCM发诸多指令选中不同节点点亮
+3. 仿真BCM指定模组灭灯
+4. 观察模组会不会变量再变暗
+测试目的：
+LIN命令从buffer赋值过程中会不会被
+中断打断，赋值错了别的节点的命令。</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=11.0.55.0, Culture=neutral, PublicKeyToken=null" Name="ButtonControl1" Children="Controls" ControlName="TestButton">
+      <Property Name="Name">ButtonControl1</Property>
+      <Property Name="Size">95, 23</Property>
+      <Property Name="Location">13, 58</Property>
+      <Property Name="Text">测试用例1</Property>
+      <Property Name="SymbolConfiguration">5;16;TestMode;;;TestButton;1;;;-1;;;</Property>
+      <Property Name="TabIndex">0</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">580, 350</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

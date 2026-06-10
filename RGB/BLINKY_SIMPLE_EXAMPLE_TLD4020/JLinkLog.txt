@@ -1,0 +1,70 @@
+T2340 000:007.972   SEGGER J-Link V7.96b Log File
+T2340 000:008.205   DLL Compiled: Mar 20 2024 16:53:15
+T2340 000:008.216   Logging started @ 2026-05-08 03:06
+T2340 000:008.226   Process: D:\keil\UV4\UV4.exe
+T2340 000:008.241 - 8.234ms
+T2340 000:008.255 JLINK_SetWarnOutHandler(...)
+T2340 000:008.265 - 0.011ms
+T2340 000:008.274 JLINK_OpenEx(...)
+T2340 000:012.261   Firmware: J-Link Lite-XMC4200 Rev.1 compiled Sep 13 2023 14:48:00
+T2340 000:012.864   Firmware: J-Link Lite-XMC4200 Rev.1 compiled Sep 13 2023 14:48:00
+T2340 000:031.631   Hardware: V1.00
+T2340 000:031.660   S/N: 591184736
+T2340 000:031.670   OEM: SEGGER
+T2340 000:031.688   Feature(s): None
+T2340 000:032.319   Bootloader: 2012 Oct 05
+T2340 000:032.680   USB speed mode: Full speed (12 MBit/s)
+T2340 000:032.963   TELNET listener socket opened on port 19021
+T2340 000:033.129   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T2340 000:036.122   WEBSRV Webserver running on local port 19080
+T2340 000:036.375   Looking for J-Link GUI Server exe at: D:\keil\ARM\Segger\JLinkGUIServer.exe
+T2340 000:036.561   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V796b\JLinkGUIServer.exe
+T2340 000:036.625   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V796b\JLinkGUIServer.exe
+T2340 000:058.391   J-Link GUI Server info: "J-Link GUI server V7.96b "
+T2340 000:059.947 - 51.660ms returns "O.K."
+T2340 000:059.976 JLINK_GetEmuCaps()
+T2340 000:059.989 - 0.010ms returns 0xB8EA5A33
+T2340 000:060.000 JLINK_TIF_GetAvailable(...)
+T2340 000:060.163 - 0.162ms
+T2340 000:060.186 JLINK_SetErrorOutHandler(...)
+T2340 000:060.195 - 0.009ms
+T2340 000:060.223 JLINK_ExecCommand("ProjectFile = "E:\AUDI_COLOR\RGB\BLINKY_SIMPLE_EXAMPLE_TLD4020\JLinkSettings.ini"", ...). 
+T2340 000:072.056   Ref file found at: D:\keil\ARM\Segger\JLinkDevices.ref
+T2340 000:072.339   REF file references invalid XML file: C:\Program Files\SEGGER\JLink_V796b\JLinkDevices.xml
+T2340 000:112.226   Device "CORTEX-M23" selected.
+T2340 000:112.919 - 52.696ms returns 0x00
+T2340 000:115.597 JLINK_ExecCommand("Device = TLD4020-4ET", ...). 
+T2340 000:118.507   Device "CORTEX-M23" selected.
+T2340 000:119.070 - 3.448ms returns 0x00
+T2340 000:119.093 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T2340 000:119.107 - 0.002ms returns 0x01
+T2340 000:119.118 JLINK_GetHardwareVersion()
+T2340 000:119.135 - 0.008ms returns 10000
+T2340 000:119.144 JLINK_GetDLLVersion()
+T2340 000:119.153 - 0.008ms returns 79602
+T2340 000:119.162 JLINK_GetOEMString(...)
+T2340 000:119.173 JLINK_GetFirmwareString(...)
+T2340 000:119.182 - 0.009ms
+T2340 000:124.612 JLINK_GetDLLVersion()
+T2340 000:124.635 - 0.022ms returns 79602
+T2340 000:124.643 JLINK_GetCompileDateTime()
+T2340 000:124.649 - 0.006ms
+T2340 000:126.397 JLINK_GetFirmwareString(...)
+T2340 000:126.419 - 0.022ms
+T2340 000:130.031 JLINK_GetHardwareVersion()
+T2340 000:130.062 - 0.029ms returns 10000
+T2340 000:132.530 JLINK_GetSN()
+T2340 000:132.554 - 0.022ms returns 591184736
+T2340 000:134.580 JLINK_GetOEMString(...)
+T2340 000:136.292 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T2340 000:136.770 - 0.478ms returns 0x00
+T2340 000:136.783 JLINK_HasError()
+T2340 000:136.799 JLINK_SetSpeed(2000)
+T2340 000:136.864 - 0.066ms
+T2340 000:136.873 JLINK_GetId()
+T2340 000:242.066   Failed to attach to CPU. Trying connect under reset.
+T2340 000:731.033 - 594.157ms returns 0x00000000
+T2340 001:638.113 JLINK_Close()
+T2340 001:647.428 - 9.314ms
+T2340 001:647.452   
+T2340 001:647.459   Closed
