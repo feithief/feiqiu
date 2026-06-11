@@ -84,10 +84,12 @@ surfObj = surf(ax, Xq, Yq, Zq, ...
     'EdgeColor', 'none', ...
     'FaceAlpha', 0.42, ...
     'FaceColor', 'interp');
+set(surfObj, 'HitTest', 'off', 'PickableParts', 'none');
 
 scatterObj = scatter3(ax, x0, y0, z0, 32, z0, 'filled', ...
     'MarkerEdgeColor', [0.15 0.15 0.15], ...
     'MarkerEdgeAlpha', 0.25);
+uistack(scatterObj, 'top');
 
 if showVectorField
     quiver3(ax, x0, y0, z0, dx, dy, dz, 0, ...
@@ -114,10 +116,10 @@ cb.Label.String = 'BestWhiteRatio';
 colormap(ax, turbo_or_parula());
 view(ax, 42, 30);
 
-setappdata(surfObj, 'S01GridTable', T);
 setappdata(scatterObj, 'S01GridTable', T);
+configure_persistent_datatips(scatterObj, T);
 dcm = datacursormode(fig);
-set(dcm, 'Enable', ternary_on_off(enableDataCursorAtStart), 'UpdateFcn', @s01_data_tip);
+set(dcm, 'Enable', ternary_on_off(enableDataCursorAtStart));
 rotate3d(fig, ternary_on_off(~enableDataCursorAtStart));
 
 %% Print summary and export figure
@@ -133,12 +135,15 @@ fprintf('\nMin BestWhiteRatio point:\n');
 print_row_summary(T(idxMinRatio, :));
 
 pngFile = fullfile(outputDir, 's01_bestwhiteratio_xy_3d_distribution.png');
+figFile = fullfile(outputDir, 's01_bestwhiteratio_xy_3d_distribution.fig');
 try
     exportgraphics(fig, pngFile, 'Resolution', 200);
-    fprintf('\nExported figure:\n  %s\n', pngFile);
+    savefig(fig, figFile);
+    fprintf('\nExported figure:\n  %s\n  %s\n', pngFile, figFile);
 catch
     saveas(fig, pngFile);
-    fprintf('\nExported figure by saveas:\n  %s\n', pngFile);
+    savefig(fig, figFile);
+    fprintf('\nExported figure by saveas:\n  %s\n  %s\n', pngFile, figFile);
 end
 
 fprintf('\nTip: click any scatter point in the figure to inspect exact values.\n');
@@ -180,6 +185,30 @@ function cmap = turbo_or_parula()
         cmap = turbo(256);
     catch
         cmap = parula(256);
+    end
+end
+
+function configure_persistent_datatips(scatterObj, T)
+    try
+        scatterObj.DataTipTemplate.DataTipRows(1).Label = 'Target x';
+        scatterObj.DataTipTemplate.DataTipRows(2).Label = 'Target y';
+        scatterObj.DataTipTemplate.DataTipRows(3).Label = 'BestWhiteRatio';
+
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('GridI', T.GridI);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('GridJ', T.GridJ);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('GridK', T.GridK);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Target u''', T.Target_u1976);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Target v''', T.Target_v1976);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best RGB x', T.Best_RGBPoint_x);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best RGB y', T.Best_RGBPoint_y);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best RGB u''', T.Best_RGBPoint_u1976);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best RGB v''', T.Best_RGBPoint_v1976);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('RGBWhiteRatio', T.Best_RGBWhiteRatio);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best Ra', T.Best_Ra);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('Best Rmin8', T.Best_Rmin_8);
+        scatterObj.DataTipTemplate.DataTipRows(end + 1) = dataTipTextRow('RayT', T.Best_RayT);
+    catch
+        % Older MATLAB versions may not support DataTipTemplate.
     end
 end
 
