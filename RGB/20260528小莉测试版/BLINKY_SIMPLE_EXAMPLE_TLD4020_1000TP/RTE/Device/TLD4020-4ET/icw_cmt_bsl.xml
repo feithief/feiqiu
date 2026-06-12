@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_bsl.xml                                                            -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2025, Infineon Technologies AG                                    -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   JO           Julia Ott                                                       -->
+<!--   VO           Vanessa Ongaro                                                  -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!-- V1.0.2: 2023-10-06, SL:   [ATVCOMETLL-132] UBSL code section min set to 0 kB   -->
+<!-- V1.0.3: 2024-03-19, VO:   [ATVCOMETLL-135] Changed to combo for FTO config     -->
+<!-- V1.0.4: 2024-11-27, VO:   [ATVCOMETLL-167] Add device support for TLD4020_4ET  -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>5eddc34cd66665a81d88384542b0a2059ae6527708ea2082a3803246e7d2442a</checksum>
+  <version label="V1.0.4"/>
+
+  <verticalcontainer label="BSL" desc="Bootstrap Loader and Startup Config Area">
+    <timer visible="false" define="BSL_INIT" svd="0" interval="1" singleShot="1" run="1">
+      <!-- init NACNAD edit -->
+      <action event="changed" cmd="setDef" data="BSL_FTO_NAD_NAC_REG_variable=BSL.FTO_NAD_NAC_to_be_written[31:0]"/>
+      <action event="changed" cmd="setDef" data="BSL_UCODE_UBSL_SIZE_REG_variable=BSL.UCODE_UBSL_SIZE_to_be_written[31:0]"/>
+    </timer>
+    <treecontainer headerlabels="Item;Value;" label="BSL" desc="" columnwidths="400;250">
+        <header file="bsl_defines.h">
+            <editbox label="Notes" define="BSL_NOTES" header="temp_defines.h" svd="0" size="400;100" default="Place your notes here!"/>
+
+            <edit label="Device name" define="device" visible="true" header="temp_defines.h" svd="0"/>
+            
+            <checkbox label="NAC/NAD/FTO Configuration" define="BSL.FTO_NAD_NAC_EN" svd="0" uielement="branch" default="1">
+
+              <combo label="BSL Active Time (NAC)" define="BSL.FTO_NAD_NAC[7:0]" svd="0" default="label=40 ms">
+                <item label="BSL deactivated" value="0"/>
+                <item label="5 ms"/>
+                <item label="10 ms"/>
+                <item label="15 ms"/>
+                <item label="20 ms"/>
+                <item label="25 ms"/>
+                <item label="30 ms"/>
+                <item label="35 ms"/>
+                <item label="40 ms"/>
+                <item label="45 ms"/>
+                <item label="50 ms"/>
+                <item label="55 ms"/>
+                <item label="60 ms"/>
+                <item label="65 ms"/>
+                <item label="70 ms"/>
+                <item label="75 ms"/>
+                <item label="80 ms"/>
+                <item label="85 ms"/>
+                <item label="90 ms"/>
+                <item label="95 ms"/>
+                <item label="100 ms"/>
+                <item label="105 ms"/>
+                <item label="110 ms"/>
+                <item label="115 ms"/>
+                <item label="120 ms"/>
+                <item label="125 ms"/>
+                <item label="130 ms"/>
+                <item label="135 ms"/>
+                <item label="140 ms"/>
+                <item label="infinite" value="255"/>
+              </combo>
+
+              <spinbox label="LIN Node Address (NAD)" define="BSL.FTO_NAD_NAC[15:8]" svd="0" default="255"/>
+
+              <combo label="Frame TimeOut (FTO)" define="BSL.FTO_NAD_NAC[23:16]" svd="0" default="label=280 ms">
+                <item label="0 ms"/>
+                <item label="5 ms"/>
+                <item label="10 ms"/>
+                <item label="15 ms"/>
+                <item label="20 ms"/>
+                <item label="25 ms"/>
+                <item label="30 ms"/>
+                <item label="35 ms"/>
+                <item label="40 ms"/>
+                <item label="45 ms"/>
+                <item label="50 ms"/>
+                <item label="55 ms"/>
+                <item label="60 ms"/>
+                <item label="65 ms"/>
+                <item label="70 ms"/>
+                <item label="75 ms"/>
+                <item label="80 ms"/>
+                <item label="85 ms"/>
+                <item label="90 ms"/>
+                <item label="95 ms"/>
+                <item label="100 ms"/>
+				<item label="105 ms"/>
+                <item label="110 ms"/>
+                <item label="115 ms"/>
+                <item label="120 ms"/>
+                <item label="125 ms"/>
+                <item label="130 ms"/>
+                <item label="135 ms"/>
+                <item label="140 ms"/>
+                <item label="145 ms"/>
+                <item label="150 ms"/>
+                <item label="155 ms"/>
+                <item label="160 ms"/>
+                <item label="165 ms"/>
+                <item label="170 ms"/>
+                <item label="175 ms"/>
+                <item label="180 ms"/>
+                <item label="185 ms"/>
+                <item label="190 ms"/>
+                <item label="195 ms"/>
+                <item label="200 ms"/>
+				<item label="205 ms"/>
+                <item label="210 ms"/>
+                <item label="215 ms"/>
+                <item label="220 ms"/>
+                <item label="225 ms"/>
+                <item label="230 ms"/>
+                <item label="235 ms"/>
+                <item label="240 ms"/>
+                <item label="245 ms"/>
+                <item label="250 ms"/>
+                <item label="255 ms"/>
+                <item label="260 ms"/>
+                <item label="265 ms"/>
+                <item label="270 ms"/>
+                <item label="275 ms"/>
+                <item label="280 ms"/>
+                <item label="285 ms"/>
+                <item label="290 ms"/>
+                <item label="295 ms"/>
+				<item label="300 ms"/>
+				<item label="305 ms"/>
+                <item label="310 ms"/>
+                <item label="315 ms"/>
+                <item label="320 ms"/>
+                <item label="325 ms"/>
+                <item label="330 ms"/>
+                <item label="335 ms"/>
+                <item label="340 ms"/>
+                <item label="345 ms"/>
+                <item label="350 ms"/>
+                <item label="355 ms"/>
+                <item label="360 ms"/>
+                <item label="365 ms"/>
+                <item label="370 ms"/>
+                <item label="375 ms"/>
+                <item label="380 ms"/>
+                <item label="385 ms"/>
+                <item label="390 ms"/>
+                <item label="395 ms"/>
+				<item label="400 ms"/>
+				<item label="405 ms"/>
+                <item label="410 ms"/>
+                <item label="415 ms"/>
+                <item label="420 ms"/>
+                <item label="425 ms"/>
+                <item label="430 ms"/>
+                <item label="435 ms"/>
+                <item label="440 ms"/>
+                <item label="445 ms"/>
+                <item label="450 ms"/>
+                <item label="455 ms"/>
+                <item label="460 ms"/>
+                <item label="465 ms"/>
+                <item label="470 ms"/>
+                <item label="475 ms"/>
+                <item label="480 ms"/>
+                <item label="485 ms"/>
+                <item label="490 ms"/>
+                <item label="495 ms"/>
+				<item label="500 ms"/>
+				<item label="505 ms"/>
+                <item label="510 ms"/>
+                <item label="515 ms"/>
+                <item label="520 ms"/>
+                <item label="525 ms"/>
+                <item label="530 ms"/>
+                <item label="535 ms"/>
+                <item label="540 ms"/>
+                <item label="545 ms"/>
+                <item label="550 ms"/>
+                <item label="555 ms"/>
+                <item label="560 ms"/>
+                <item label="565 ms"/>
+                <item label="570 ms"/>
+                <item label="575 ms"/>
+                <item label="580 ms"/>
+                <item label="585 ms"/>
+                <item label="590 ms"/>
+                <item label="595 ms"/>
+                <item label="600 ms"/>
+				<item label="605 ms"/>
+                <item label="610 ms"/>
+                <item label="615 ms"/>
+                <item label="620 ms"/>
+                <item label="625 ms"/>
+                <item label="630 ms"/>
+                <item label="635 ms"/>
+                <item label="640 ms"/>
+                <item label="645 ms"/>
+                <item label="650 ms"/>
+                <item label="655 ms"/>
+                <item label="660 ms"/>
+                <item label="665 ms"/>
+                <item label="670 ms"/>
+                <item label="675 ms"/>
+                <item label="680 ms"/>
+                <item label="685 ms"/>
+                <item label="690 ms"/>
+                <item label="695 ms"/>
+				<item label="700 ms"/>
+				<item label="705 ms"/>
+                <item label="710 ms"/>
+                <item label="715 ms"/>
+                <item label="720 ms"/>
+                <item label="725 ms"/>
+                <item label="730 ms"/>
+                <item label="735 ms"/>
+                <item label="740 ms"/>
+                <item label="745 ms"/>
+                <item label="750 ms"/>
+                <item label="755 ms"/>
+                <item label="760 ms"/>
+                <item label="765 ms"/>
+                <item label="770 ms"/>
+                <item label="775 ms"/>
+                <item label="780 ms"/>
+                <item label="785 ms"/>
+                <item label="790 ms"/>
+                <item label="795 ms"/>
+				<item label="800 ms"/>
+				<item label="805 ms"/>
+                <item label="810 ms"/>
+                <item label="815 ms"/>
+                <item label="820 ms"/>
+                <item label="825 ms"/>
+                <item label="830 ms"/>
+				<item label="Factory setting (280 ms)" value="255"/>
+              </combo>
+
+              <math visible="false" define="BSL.FTO_NAD_NAC[31:24]" svd="0" formula="0xFF"/>
+
+              <math visible="true" label="FTO_NAD_NAC Value in Bootrom config table" define="BSL.FTO_NAD_NAC_to_be_written[31:0]" svd="0" header="temp_defines.h" format="%04X" formula="(BSL.FTO_NAD_NAC[7:0]) + (BSL.FTO_NAD_NAC[15:8]&lt;&lt;8) + (BSL.FTO_NAD_NAC[23:16]&lt;&lt;16) + (BSL.FTO_NAD_NAC[31:24]&lt;&lt;24)">
+                <action event="changed" cmd="setDef" data="BSL_FTO_NAD_NAC_REG_variable=BSL.FTO_NAD_NAC_to_be_written[31:0]"/>
+              </math>
+
+            </checkbox> 
+
+            <branch label="User BLS/CODE size (1 sector = 2kB)" expand="0">
+
+              <spinbox label="User BSL size [sectors]" define="BSL.UCODE_UBSL_SIZE[7:0]" svd="0" range="0;15" startcond="UC_FEATURE_12CHANNEL!=1"/>
+              <spinbox label="User BSL size [sectors]" define="BSL.UCODE_UBSL_SIZE[7:0]" svd="0" range="0;18" startcond="UC_FEATURE_12CHANNEL==1"/>
+
+              <math visible="true" label="User CODE Size [sectors]" define="BSL.UCODE_UBSL_SIZE[15:8]" svd="0" formula="16 - BSL.UCODE_UBSL_SIZE[7:0] - 1" startcond="UC_FEATURE_12CHANNEL!=1"/>
+              <math visible="true" label="User CODE Size [sectors]" define="BSL.UCODE_UBSL_SIZE[15:8]" svd="0" formula="19 - BSL.UCODE_UBSL_SIZE[7:0] - 1" startcond="UC_FEATURE_12CHANNEL==1"/>  
+
+              <math visible="false" define="BSL.UCODE_UBSL_SIZE[23:16]" svd="0" formula="0xFF"/>
+              <math visible="false" define="BSL.UCODE_UBSL_SIZE[31:24]" svd="0" formula="0xFF"/>
+
+              <math visible="false" label="UCODE_UBSL_SIZE Value" define="BSL.UCODE_UBSL_SIZE_to_be_written[31:0]" svd="0" header="temp_defines.h" format="%04X" formula="(BSL.UCODE_UBSL_SIZE[7:0]) + (BSL.UCODE_UBSL_SIZE[15:8]&lt;&lt;8) + (BSL.UCODE_UBSL_SIZE[23:16]&lt;&lt;16) + (BSL.UCODE_UBSL_SIZE[31:24]&lt;&lt;24)">
+                <action event="changed" cmd="setDef" data="BSL_UCODE_UBSL_SIZE_REG_variable=BSL.UCODE_UBSL_SIZE_to_be_written[31:0]"/>
+              </math>
+              
+            </branch>
+
+        </header>
+    </treecontainer>
+
+    <treecontainer headerlabels="Item;Value;" label="BSL" desc="Bootstrap Loader" columnwidths="400;250" visible="false">
+      <edit visible="false" define="BSL_FTO_NAD_NAC_REG_variable" svd="0" header=""/> 
+      <edit visible="false" define="BSL_UCODE_UBSL_SIZE_REG_variable" svd="0" header=""/> 
+    </treecontainer>
+
+  </verticalcontainer>
+
+</ifxmlcfg>

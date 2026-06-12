@@ -1,0 +1,10 @@
+Example TLD4020_3ET_NVM_PROGRAMMING
+
+A data string is written to a flash page by using a bootrom user api.
+If the write operation was successful, the red led on the evalboard lights up.
+If the write operation was successful, the 32-bit xor checksum of the used
+data string is calculated to be used to verify the data in flash with a bootrom user api.
+If the verify operation was successful, the blue led on the evalboard lights up.
+If the verify operation was successful, the data is erased again from flash
+by using a bootrom user api.
+If the erase operation was successful, the green led on the evalboard lights up.

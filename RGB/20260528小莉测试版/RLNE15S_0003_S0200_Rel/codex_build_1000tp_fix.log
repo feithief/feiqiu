@@ -1,0 +1,7 @@
+*** Using Compiler 'V6.21', folder: 'D:\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Error instantiating RTE components
+Error #544: Required Software Pack 'ARM::CMSIS@6.1.0' is not installed
+Error #541: 'ARM::CMSIS:CORE@6.1.0' component is missing (previously found in pack 'ARM::CMSIS@6.1.0')
+Target not created.
+Build Time Elapsed:  00:00:01

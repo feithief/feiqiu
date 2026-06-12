@@ -1,0 +1,2120 @@
+LIN_description_file;
+LIN_protocol_version = "2.0";
+LIN_language_version = "2.0";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+	Master: CDCU, 5 ms, 0.5 ms ;
+	Slaves: ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19, SONAR_RCL ;
+}
+
+Signals {
+	CDCU_SigNAD_LEDID1_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigNAD_LEDID2_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigEnable_ColorProtocol_CLIN1: 1, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigEnable_LED_CLIN1: 1, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigEnable_Fading_CLIN1: 1, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_Sig_FadingTime_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigIntensity_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigColorR_Predef_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigColorG_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	CDCU_SigColorB_CLIN1: 8, 0, CDCU, ATL1, ATL2, ATL3, ATL4, ATL5, ATL6, ATL7, ATL8, ATL9, ATL10, ATL11, ATL12, ATL13, ATL14, ATL15 ;
+	ATL1_ROutputErr_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL1_GOutput_Err_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL1_Butput_Err_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL1_Temp_Err_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL1_Voltage_Err_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL1_Lin_Err_CLIN1: 1, 0, ATL1, CDCU ;
+	ATL2_ROutputErr_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL2_GOutput_Err_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL2_Butput_Err_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL2_Temp_Err_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL2_Voltage_Err_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL2_Lin_Err_CLIN1: 1, 0, ATL2, CDCU ;
+	ATL3_ROutputErr_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL3_GOutput_Err_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL3_Butput_Err_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL3_Temp_Err_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL3_Voltage_Err_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL3_Lin_Err_CLIN1: 1, 0, ATL3, CDCU ;
+	ATL4_ROutputErr_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL4_GOutput_Err_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL4_Butput_Err_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL4_Temp_Err_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL4_Voltage_Err_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL4_Lin_Err_CLIN1: 1, 0, ATL4, CDCU ;
+	ATL5_ROutputErr_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL5_GOutput_Err_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL5_Butput_Err_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL5_Temp_Err_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL5_Voltage_Err_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL5_Lin_Err_CLIN1: 1, 0, ATL5, CDCU ;
+	ATL6_ROutputErr_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL6_GOutput_Err_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL6_Butput_Err_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL6_Temp_Err_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL6_Voltage_Err_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL6_Lin_Err_CLIN1: 1, 0, ATL6, CDCU ;
+	ATL7_ROutputErr_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL7_GOutput_Err_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL7_Butput_Err_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL7_Temp_Err_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL7_Voltage_Err_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL7_Lin_Err_CLIN1: 1, 0, ATL7, CDCU ;
+	ATL8_ROutputErr_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL8_GOutput_Err_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL8_Butput_Err_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL8_Temp_Err_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL8_Voltage_Err_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL8_Lin_Err_CLIN1: 1, 0, ATL8, CDCU ;
+	ATL9_ROutputErr_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL9_GOutput_Err_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL9_Butput_Err_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL9_Temp_Err_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL9_Voltage_Err_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL9_Lin_Err_CLIN1: 1, 0, ATL9, CDCU ;
+	ATL10_ROutputErr_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL10_GOutput_Err_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL10_Butput_Err_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL10_Temp_Err_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL10_Voltage_Err_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL10_Lin_Err_CLIN1: 1, 0, ATL10, CDCU ;
+	ATL11_ROutputErr_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL11_GOutput_Err_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL11_Butput_Err_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL11_Temp_Err_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL11_Voltage_Err_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL11_Lin_Err_CLIN1: 1, 0, ATL11, CDCU ;
+	ATL12_ROutputErr_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL12_GOutput_Err_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL12_Butput_Err_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL12_Temp_Err_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL12_Voltage_Err_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL12_Lin_Err_CLIN1: 1, 0, ATL12, CDCU ;
+	ATL13_ROutputErr_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL13_GOutput_Err_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL13_Butput_Err_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL13_Temp_Err_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL13_Voltage_Err_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL13_Lin_Err_CLIN1: 1, 0, ATL13, CDCU ;
+	ATL14_ROutputErr_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL14_GOutput_Err_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL14_Butput_Err_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL14_Temp_Err_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL14_Voltage_Err_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL14_Lin_Err_CLIN1: 1, 0, ATL14, CDCU ;
+	ATL15_ROutputErr_CLIN1: 1, 0, ATL15, CDCU ;
+	ATL15_GOutput_Err_CLIN1: 1, 0, ATL15, CDCU ;
+	ATL15_Butput_Err_CLIN1: 1, 0, ATL15, CDCU ;
+	ATL15_Temp_Err_CLIN1: 1, 0, ATL15, CDCU ;
+	ATL15_Voltage_Err_CLIN1: 1, 0, ATL15, CDCU ;
+	ATL15_Lin_Err_CLIN1: 1, 0, ATL15, CDCU ;
+	RDCU_CorrectedExterTemp: 8, 0, CDCU, SONAR_RCL ;
+	IPB_VehSpd: 15, 0, CDCU, SONAR_RCL ;
+	LDCU_CurrentGearLev: 3, 0, CDCU, SONAR_RCL ;
+	Vehicle_CONFIG: 6, 0, CDCU, SONAR_RCL ;
+	PAS_Uradar_ROL_Status: 3, 0, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCL_Status: 3, 0, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCR_Status: 3, 0, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROR_Status: 3, 0, SONAR_RCL, CDCU ;
+	PAS_ROL_Err_Code: 6, 0, SONAR_RCL, CDCU ;
+	PAS_RCL_Err_Code: 6, 0, SONAR_RCL, CDCU ;
+	PAS_RCR_Err_Code: 6, 0, SONAR_RCL, CDCU ;
+	PAS_ROR_Err_Code: 6, 0, SONAR_RCL, CDCU ;
+	ROL_SW_HW_Version: 6, 0, SONAR_RCL, CDCU ;
+	RCL_SW_HW_Version: 6, 0, SONAR_RCL, CDCU ;
+	RCR_SW_HW_Version: 6, 0, SONAR_RCL, CDCU ;
+	ROR_SW_HW_Version: 6, 0, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROLArea_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCLArea_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCRArea_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RORArea_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROL_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCL_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCR_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROR_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROL_RCL_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCL_ROL_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCL_RCR_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCR_RCL_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_RCR_ROR_Dist: 8, 250, SONAR_RCL, CDCU ;
+	PAS_Uradar_ROR_RCR_Dist: 8, 250, SONAR_RCL, CDCU ;
+	CDCU_SigNAD_LEDID1_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigNAD_LEDID2_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigEnable_ColorProtocol_LIN1: 1, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigEnable_LED_LIN1: 1, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigEnable_Fading_LIN1: 1, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_Sig_FadingTime_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigIntensity_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigColorR_Predef_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigColorG_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	CDCU_SigColorB_LIN1: 8, 0, CDCU, ATL11, ATL12, ATL13, ATL14, ATL15, ATL16, ATL17, ATL18, ATL19 ;
+	ATL11_ROutputErr: 1, 0, ATL11, CDCU ;
+	ATL11_GOutput_Err: 1, 0, ATL11, CDCU ;
+	ATL11_Butput_Err: 1, 0, ATL11, CDCU ;
+	ATL11_Temp_Err: 1, 0, ATL11, CDCU ;
+	ATL11_Voltage_Err: 1, 0, ATL11, CDCU ;
+	ATL11_Lin_Err: 1, 0, ATL11, CDCU ;
+	ATL12_ROutputErr: 1, 0, ATL12, CDCU ;
+	ATL12_GOutput_Err: 1, 0, ATL12, CDCU ;
+	ATL12_Butput_Err: 1, 0, ATL12, CDCU ;
+	ATL12_Temp_Err: 1, 0, ATL12, CDCU ;
+	ATL12_Voltage_Err: 1, 0, ATL12, CDCU ;
+	ATL12_Lin_Err: 1, 0, ATL12, CDCU ;
+	ATL13_ROutputErr: 1, 0, ATL13, CDCU ;
+	ATL13_GOutput_Err: 1, 0, ATL13, CDCU ;
+	ATL13_Butput_Err: 1, 0, ATL13, CDCU ;
+	ATL13_Temp_Err: 1, 0, ATL13, CDCU ;
+	ATL13_Voltage_Err: 1, 0, ATL13, CDCU ;
+	ATL13_Lin_Err: 1, 0, ATL13, CDCU ;
+	ATL14_ROutputErr: 1, 0, ATL14, CDCU ;
+	ATL14_GOutput_Err: 1, 0, ATL14, CDCU ;
+	ATL14_Butput_Err: 1, 0, ATL14, CDCU ;
+	ATL14_Temp_Err: 1, 0, ATL14, CDCU ;
+	ATL14_Voltage_Err: 1, 0, ATL14, CDCU ;
+	ATL14_Lin_Err: 1, 0, ATL14, CDCU ;
+	ATL15_ROutputErr: 1, 0, ATL15, CDCU ;
+	ATL15_GOutput_Err: 1, 0, ATL15, CDCU ;
+	ATL15_Butput_Err: 1, 0, ATL15, CDCU ;
+	ATL15_Temp_Err: 1, 0, ATL15, CDCU ;
+	ATL15_Voltage_Err: 1, 0, ATL15, CDCU ;
+	ATL15_Lin_Err: 1, 0, ATL15, CDCU ;
+	ATL16_ROutputErr: 1, 0, ATL16, CDCU ;
+	ATL16_GOutput_Err: 1, 0, ATL16, CDCU ;
+	ATL16_Butput_Err: 1, 0, ATL16, CDCU ;
+	ATL16_Temp_Err: 1, 0, ATL16, CDCU ;
+	ATL16_Voltage_Err: 1, 0, ATL16, CDCU ;
+	ATL16_Lin_Err: 1, 0, ATL16, CDCU ;
+	ATL17_ROutputErr: 1, 0, ATL17, CDCU ;
+	ATL17_GOutput_Err: 1, 0, ATL17, CDCU ;
+	ATL17_Butput_Err: 1, 0, ATL17, CDCU ;
+	ATL17_Temp_Err: 1, 0, ATL17, CDCU ;
+	ATL17_Voltage_Err: 1, 0, ATL17, CDCU ;
+	ATL17_Lin_Err: 1, 0, ATL17, CDCU ;
+	ATL18_ROutputErr: 1, 0, ATL18, CDCU ;
+	ATL18_GOutput_Err: 1, 0, ATL18, CDCU ;
+	ATL18_Butput_Err: 1, 0, ATL18, CDCU ;
+	ATL18_Temp_Err: 1, 0, ATL18, CDCU ;
+	ATL18_Voltage_Err: 1, 0, ATL18, CDCU ;
+	ATL18_Lin_Err: 1, 0, ATL18, CDCU ;
+	ATL19_ROutputErr: 1, 0, ATL19, CDCU ;
+	ATL19_GOutput_Err: 1, 0, ATL19, CDCU ;
+	ATL19_Butput_Err: 1, 0, ATL19, CDCU ;
+	ATL19_Temp_Err: 1, 0, ATL19, CDCU ;
+	ATL19_Voltage_Err: 1, 0, ATL19, CDCU ;
+	ATL19_Lin_Err: 1, 0, ATL19, CDCU ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+Frames {
+	CDCU_ATLCTR_CLIN1: 36, CDCU, 8 {
+		CDCU_SigNAD_LEDID1_CLIN1, 0 ;
+		CDCU_SigNAD_LEDID2_CLIN1, 8 ;
+		CDCU_SigEnable_ColorProtocol_CLIN1, 16 ;
+		CDCU_SigEnable_LED_CLIN1, 17 ;
+		CDCU_SigEnable_Fading_CLIN1, 18 ;
+		CDCU_Sig_FadingTime_CLIN1, 24 ;
+		CDCU_SigIntensity_CLIN1, 32 ;
+		CDCU_SigColorR_Predef_CLIN1, 40 ;
+		CDCU_SigColorG_CLIN1, 48 ;
+		CDCU_SigColorB_CLIN1, 56 ;
+	}
+	ATL1_FB_CLIN1: 5, ATL1, 1 {
+		ATL1_ROutputErr_CLIN1, 0 ;
+		ATL1_GOutput_Err_CLIN1, 1 ;
+		ATL1_Butput_Err_CLIN1, 2 ;
+		ATL1_Temp_Err_CLIN1, 3 ;
+		ATL1_Voltage_Err_CLIN1, 4 ;
+		ATL1_Lin_Err_CLIN1, 5 ;
+	}
+	ATL2_FB_CLIN1: 6, ATL2, 1 {
+		ATL2_ROutputErr_CLIN1, 0 ;
+		ATL2_GOutput_Err_CLIN1, 1 ;
+		ATL2_Butput_Err_CLIN1, 2 ;
+		ATL2_Temp_Err_CLIN1, 3 ;
+		ATL2_Voltage_Err_CLIN1, 4 ;
+		ATL2_Lin_Err_CLIN1, 5 ;
+	}
+	ATL3_FB_CLIN1: 19, ATL3, 1 {
+		ATL3_ROutputErr_CLIN1, 0 ;
+		ATL3_GOutput_Err_CLIN1, 1 ;
+		ATL3_Butput_Err_CLIN1, 2 ;
+		ATL3_Temp_Err_CLIN1, 3 ;
+		ATL3_Voltage_Err_CLIN1, 4 ;
+		ATL3_Lin_Err_CLIN1, 5 ;
+	}
+	ATL4_FB_CLIN1: 4, ATL4, 1 {
+		ATL4_ROutputErr_CLIN1, 0 ;
+		ATL4_GOutput_Err_CLIN1, 1 ;
+		ATL4_Butput_Err_CLIN1, 2 ;
+		ATL4_Temp_Err_CLIN1, 3 ;
+		ATL4_Voltage_Err_CLIN1, 4 ;
+		ATL4_Lin_Err_CLIN1, 5 ;
+	}
+	ATL5_FB_CLIN1: 33, ATL5, 1 {
+		ATL5_ROutputErr_CLIN1, 0 ;
+		ATL5_GOutput_Err_CLIN1, 1 ;
+		ATL5_Butput_Err_CLIN1, 2 ;
+		ATL5_Temp_Err_CLIN1, 3 ;
+		ATL5_Voltage_Err_CLIN1, 4 ;
+		ATL5_Lin_Err_CLIN1, 5 ;
+	}
+	ATL6_FB_CLIN1: 2, ATL6, 1 {
+		ATL6_ROutputErr_CLIN1, 0 ;
+		ATL6_GOutput_Err_CLIN1, 1 ;
+		ATL6_Butput_Err_CLIN1, 2 ;
+		ATL6_Temp_Err_CLIN1, 3 ;
+		ATL6_Voltage_Err_CLIN1, 4 ;
+		ATL6_Lin_Err_CLIN1, 5 ;
+	}
+	ATL7_FB_CLIN1: 7, ATL7, 1 {
+		ATL7_ROutputErr_CLIN1, 0 ;
+		ATL7_GOutput_Err_CLIN1, 1 ;
+		ATL7_Butput_Err_CLIN1, 2 ;
+		ATL7_Temp_Err_CLIN1, 3 ;
+		ATL7_Voltage_Err_CLIN1, 4 ;
+		ATL7_Lin_Err_CLIN1, 5 ;
+	}
+	ATL8_FB_CLIN1: 8, ATL8, 1 {
+		ATL8_ROutputErr_CLIN1, 0 ;
+		ATL8_GOutput_Err_CLIN1, 1 ;
+		ATL8_Butput_Err_CLIN1, 2 ;
+		ATL8_Temp_Err_CLIN1, 3 ;
+		ATL8_Voltage_Err_CLIN1, 4 ;
+		ATL8_Lin_Err_CLIN1, 5 ;
+	}
+	ATL9_FB_CLIN1: 9, ATL9, 1 {
+		ATL9_ROutputErr_CLIN1, 0 ;
+		ATL9_GOutput_Err_CLIN1, 1 ;
+		ATL9_Butput_Err_CLIN1, 2 ;
+		ATL9_Temp_Err_CLIN1, 3 ;
+		ATL9_Voltage_Err_CLIN1, 4 ;
+		ATL9_Lin_Err_CLIN1, 5 ;
+	}
+	ATL10_FB_CLIN1: 10, ATL10, 1 {
+		ATL10_ROutputErr_CLIN1, 0 ;
+		ATL10_GOutput_Err_CLIN1, 1 ;
+		ATL10_Butput_Err_CLIN1, 2 ;
+		ATL10_Temp_Err_CLIN1, 3 ;
+		ATL10_Voltage_Err_CLIN1, 4 ;
+		ATL10_Lin_Err_CLIN1, 5 ;
+	}
+	ATL11_FB_CLIN1: 1, ATL11, 1 {
+		ATL11_ROutputErr_CLIN1, 0 ;
+		ATL11_GOutput_Err_CLIN1, 1 ;
+		ATL11_Butput_Err_CLIN1, 2 ;
+		ATL11_Temp_Err_CLIN1, 3 ;
+		ATL11_Voltage_Err_CLIN1, 4 ;
+		ATL11_Lin_Err_CLIN1, 5 ;
+	}
+	ATL12_FB_CLIN1: 12, ATL12, 1 {
+		ATL12_ROutputErr_CLIN1, 0 ;
+		ATL12_GOutput_Err_CLIN1, 1 ;
+		ATL12_Butput_Err_CLIN1, 2 ;
+		ATL12_Temp_Err_CLIN1, 3 ;
+		ATL12_Voltage_Err_CLIN1, 4 ;
+		ATL12_Lin_Err_CLIN1, 5 ;
+	}
+	ATL13_FB_CLIN1: 3, ATL13, 1 {
+		ATL13_ROutputErr_CLIN1, 0 ;
+		ATL13_GOutput_Err_CLIN1, 1 ;
+		ATL13_Butput_Err_CLIN1, 2 ;
+		ATL13_Temp_Err_CLIN1, 3 ;
+		ATL13_Voltage_Err_CLIN1, 4 ;
+		ATL13_Lin_Err_CLIN1, 5 ;
+	}
+	ATL14_FB_CLIN1: 17, ATL14, 1 {
+		ATL14_ROutputErr_CLIN1, 0 ;
+		ATL14_GOutput_Err_CLIN1, 1 ;
+		ATL14_Butput_Err_CLIN1, 2 ;
+		ATL14_Temp_Err_CLIN1, 3 ;
+		ATL14_Voltage_Err_CLIN1, 4 ;
+		ATL14_Lin_Err_CLIN1, 5 ;
+	}
+	ATL15_FB_CLIN1: 18, ATL15, 1 {
+		ATL15_ROutputErr_CLIN1, 0 ;
+		ATL15_GOutput_Err_CLIN1, 1 ;
+		ATL15_Butput_Err_CLIN1, 2 ;
+		ATL15_Temp_Err_CLIN1, 3 ;
+		ATL15_Voltage_Err_CLIN1, 4 ;
+		ATL15_Lin_Err_CLIN1, 5 ;
+	}
+	CDCU_LIN1CTR: 49, CDCU, 8 {
+		RDCU_CorrectedExterTemp, 0 ;
+		IPB_VehSpd, 8 ;
+		LDCU_CurrentGearLev, 23 ;
+		Vehicle_CONFIG, 26 ;
+	}
+	Uradar_Send1: 51, SONAR_RCL, 8 {
+		PAS_Uradar_ROL_Status, 0 ;
+		PAS_Uradar_RCL_Status, 3 ;
+		PAS_Uradar_RCR_Status, 6 ;
+		PAS_Uradar_ROR_Status, 9 ;
+		PAS_ROL_Err_Code, 12 ;
+		PAS_RCL_Err_Code, 18 ;
+		PAS_RCR_Err_Code, 24 ;
+		PAS_ROR_Err_Code, 30 ;
+		ROL_SW_HW_Version, 36 ;
+		RCL_SW_HW_Version, 42 ;
+		RCR_SW_HW_Version, 48 ;
+		ROR_SW_HW_Version, 54 ;
+	}
+	Uradar_Send2: 38, SONAR_RCL, 8 {
+		PAS_Uradar_ROLArea_Dist, 0 ;
+		PAS_Uradar_RCLArea_Dist, 8 ;
+		PAS_Uradar_RCRArea_Dist, 16 ;
+		PAS_Uradar_RORArea_Dist, 24 ;
+		PAS_Uradar_ROL_Dist, 32 ;
+		PAS_Uradar_RCL_Dist, 40 ;
+		PAS_Uradar_RCR_Dist, 48 ;
+		PAS_Uradar_ROR_Dist, 56 ;
+	}
+	Uradar_Send3: 53, SONAR_RCL, 8 {
+		PAS_Uradar_ROL_RCL_Dist, 0 ;
+		PAS_Uradar_RCL_ROL_Dist, 8 ;
+		PAS_Uradar_RCL_RCR_Dist, 16 ;
+		PAS_Uradar_RCR_RCL_Dist, 24 ;
+		PAS_Uradar_RCR_ROR_Dist, 32 ;
+		PAS_Uradar_ROR_RCR_Dist, 40 ;
+	}
+	CDCU_ATLCTR_LIN1: 36, CDCU, 8 {
+		CDCU_SigNAD_LEDID1_LIN1, 0 ;
+		CDCU_SigNAD_LEDID2_LIN1, 8 ;
+		CDCU_SigEnable_ColorProtocol_LIN1, 16 ;
+		CDCU_SigEnable_LED_LIN1, 17 ;
+		CDCU_SigEnable_Fading_LIN1, 18 ;
+		CDCU_Sig_FadingTime_LIN1, 24 ;
+		CDCU_SigIntensity_LIN1, 32 ;
+		CDCU_SigColorR_Predef_LIN1, 40 ;
+		CDCU_SigColorG_LIN1, 48 ;
+		CDCU_SigColorB_LIN1, 56 ;
+	}
+	ATL11_FB: 1, ATL11, 1 {
+		ATL11_ROutputErr, 0 ;
+		ATL11_GOutput_Err, 1 ;
+		ATL11_Butput_Err, 2 ;
+		ATL11_Temp_Err, 3 ;
+		ATL11_Voltage_Err, 4 ;
+		ATL11_Lin_Err, 5 ;
+	}
+	ATL12_FB: 2, ATL12, 1 {
+		ATL12_ROutputErr, 0 ;
+		ATL12_GOutput_Err, 1 ;
+		ATL12_Butput_Err, 2 ;
+		ATL12_Temp_Err, 3 ;
+		ATL12_Voltage_Err, 4 ;
+		ATL12_Lin_Err, 5 ;
+	}
+	ATL13_FB: 3, ATL13, 1 {
+		ATL13_ROutputErr, 0 ;
+		ATL13_GOutput_Err, 1 ;
+		ATL13_Butput_Err, 2 ;
+		ATL13_Temp_Err, 3 ;
+		ATL13_Voltage_Err, 4 ;
+		ATL13_Lin_Err, 5 ;
+	}
+	ATL14_FB: 4, ATL14, 1 {
+		ATL14_ROutputErr, 0 ;
+		ATL14_GOutput_Err, 1 ;
+		ATL14_Butput_Err, 2 ;
+		ATL14_Temp_Err, 3 ;
+		ATL14_Voltage_Err, 4 ;
+		ATL14_Lin_Err, 5 ;
+	}
+	ATL15_FB: 5, ATL15, 1 {
+		ATL15_ROutputErr, 0 ;
+		ATL15_GOutput_Err, 1 ;
+		ATL15_Butput_Err, 2 ;
+		ATL15_Temp_Err, 3 ;
+		ATL15_Voltage_Err, 4 ;
+		ATL15_Lin_Err, 5 ;
+	}
+	ATL16_FB: 6, ATL16, 1 {
+		ATL16_ROutputErr, 0 ;
+		ATL16_GOutput_Err, 1 ;
+		ATL16_Butput_Err, 2 ;
+		ATL16_Temp_Err, 3 ;
+		ATL16_Voltage_Err, 4 ;
+		ATL16_Lin_Err, 5 ;
+	}
+	ATL17_FB: 7, ATL17, 1 {
+		ATL17_ROutputErr, 0 ;
+		ATL17_GOutput_Err, 1 ;
+		ATL17_Butput_Err, 2 ;
+		ATL17_Temp_Err, 3 ;
+		ATL17_Voltage_Err, 4 ;
+		ATL17_Lin_Err, 5 ;
+	}
+	ATL18_FB: 8, ATL18, 1 {
+		ATL18_ROutputErr, 0 ;
+		ATL18_GOutput_Err, 1 ;
+		ATL18_Butput_Err, 2 ;
+		ATL18_Temp_Err, 3 ;
+		ATL18_Voltage_Err, 4 ;
+		ATL18_Lin_Err, 5 ;
+	}
+	ATL19_FB: 9, ATL19, 1 {
+		ATL19_ROutputErr, 0 ;
+		ATL19_GOutput_Err, 1 ;
+		ATL19_Butput_Err, 2 ;
+		ATL19_Temp_Err, 3 ;
+		ATL19_Voltage_Err, 4 ;
+		ATL19_Lin_Err, 5 ;
+	}
+}
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+	ATL1{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x01;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL1_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL1_FB_CLIN1 = 0x05 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL2{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x02;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL2_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL2_FB_CLIN1 = 0x06 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL3{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x03;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL3_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL3_FB_CLIN1 = 0x13 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL4{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x04;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL4_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL4_FB_CLIN1 = 0x04 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL5{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x05;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL5_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL5_FB_CLIN1 = 0x21 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL6{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x06;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL6_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL6_FB_CLIN1 = 0x02 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL7{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x07;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL7_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL7_FB_CLIN1 = 0x07 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL8{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x08;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL8_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL8_FB_CLIN1 = 0x08 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL9{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x09;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL9_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL9_FB_CLIN1 = 0x09 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL10{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0A;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL10_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL10_FB_CLIN1 = 0x0A ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			}
+		}
+	ATL11{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0B;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL11_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL11_FB_CLIN1 = 0x01 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL12{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0C;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL12_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL12_FB_CLIN1 = 0x0C ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL13{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0D;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL13_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL13_FB_CLIN1 = 0x03 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL14{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0E;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL14_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL14_FB_CLIN1 = 0x11 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL15{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0x0F;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL15_Lin_Err_CLIN1 ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			ATL15_FB_CLIN1 = 0x12 ;
+			CDCU_ATLCTR_CLIN1 = 0x24 ;
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL16{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0xFF;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL16_Lin_Err ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL17{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0xFF;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL17_Lin_Err ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL18{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0xFF;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL18_Lin_Err ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	ATL19{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0xFF;
+		product_id = 0x0, 0x0, 254 ;
+		response_error = ATL19_Lin_Err ;
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			CDCU_ATLCTR_LIN1 = 0x24 ;
+			}
+		}
+	SONAR_RCL{
+		LIN_protocol = "2.0" ;
+		configured_NAD = 0xFF;
+		product_id = 0x0, 0x0, 254 ;
+		
+		P2_min = 50 ms ;
+		ST_min = 0 ms ;
+		configurable_frames {
+			Uradar_Send1 = 0x33 ;
+			Uradar_Send2 = 0x26 ;
+			Uradar_Send3 = 0x35 ;
+			CDCU_LIN1CTR = 0x31 ;
+			}
+		}
+}
+
+Schedule_tables {
+	CLIN1_Master1 {
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL1_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL2_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL3_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL4_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL5_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL6_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL7_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL8_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL9_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL10_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL11_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL12_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL13_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL14_FB_CLIN1 delay 10 ms ;
+		CDCU_ATLCTR_CLIN1 delay 10 ms ;
+		ATL15_FB_CLIN1 delay 10 ms ;
+	}
+	CLIN1_Master2 {
+		CDCU_LIN1CTR delay 30 ms ;
+		Uradar_Send1 delay 30 ms ;
+		Uradar_Send2 delay 30 ms ;
+		Uradar_Send3 delay 30 ms ;
+	}
+	CLIN1_Master3 {
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL11_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL12_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL13_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL14_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL15_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL16_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL17_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL18_FB delay 10 ms ;
+		CDCU_ATLCTR_LIN1 delay 10 ms ;
+		ATL19_FB delay 10 ms ;
+	}
+	Diag1 {
+		MasterReq delay 10 ms ;
+		SlaveResp delay 10 ms ;
+	}
+}
+
+Signal_encoding_types {
+	CDCU_SigNAD_LEDID1_CLIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigNAD_LEDID2_CLIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigEnable_ColorProtocol_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "PredefColor" ;
+		logical_value, 1, "RGBColor" ;
+	}
+	CDCU_SigEnable_LED_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "OFF" ;
+		logical_value, 1, "ON" ;
+	}
+	CDCU_SigEnable_Fading_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "OFF" ;
+		logical_value, 1, "ON" ;
+	}
+	CDCU_Sig_FadingTime_CLIN1_Encoding {
+		physical_value, 0, 250, 20, 0, "ms" ;
+	}
+	CDCU_SigIntensity_CLIN1_Encoding {
+		physical_value, 0, 100, 1, 0, "" ;
+	}
+	CDCU_SigColorR_Predef_CLIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigColorG_CLIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigColorB_CLIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	ATL1_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL1_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL1_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL1_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL1_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL1_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL2_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL3_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL4_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL5_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL6_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL7_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL8_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL9_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL10_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_ROutputErr_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_GOutput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Butput_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Temp_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Voltage_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Lin_Err_CLIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	RDCU_CorrectedExterTemp_Encoding {
+		physical_value, 0, 254, 0.5, -40, "degC" ;
+	}
+	IPB_VehSpd_Encoding {
+		physical_value, 0, 23999, 0.01, 0, "kmph" ;
+	}
+	LDCU_CurrentGearLev_Encoding {
+		physical_value, 0, 7, 1, 0, "" ;
+		logical_value, 0, "Invalid" ;
+		logical_value, 1, "D" ;
+		logical_value, 2, "N" ;
+		logical_value, 3, "R" ;
+		logical_value, 4, "P" ;
+		logical_value, 7, "Reserved" ;
+		logical_value, 6, "Reserved" ;
+		logical_value, 5, "Reserved" ;
+	}
+	Vehicle_CONFIG_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, "F57" ;
+	}
+	PAS_Uradar_ROL_Status_Encoding {
+		physical_value, 0, 7, 1, 0, "" ;
+		logical_value, 0, "Sensor normal" ;
+		logical_value, 1, "Sensor fault" ;
+		logical_value, 2, "Be covered" ;
+		logical_value, 15, "Reserved" ;
+		logical_value, 14, "Reserved" ;
+		logical_value, 13, "Reserved" ;
+		logical_value, 12, "Reserved" ;
+		logical_value, 11, "Reserved" ;
+		logical_value, 10, "Reserved" ;
+		logical_value, 9, "Reserved" ;
+		logical_value, 8, "Reserved" ;
+		logical_value, 7, "Reserved" ;
+		logical_value, 6, "Reserved" ;
+		logical_value, 5, "Reserved" ;
+		logical_value, 4, "Reserved" ;
+		logical_value, 3, "Reserved" ;
+	}
+	PAS_Uradar_RCL_Status_Encoding {
+		physical_value, 0, 7, 1, 0, "" ;
+		logical_value, 0, "Sensor normal" ;
+		logical_value, 1, "Sensor fault" ;
+		logical_value, 2, "Be covered" ;
+		logical_value, 15, "Reserved" ;
+		logical_value, 14, "Reserved" ;
+		logical_value, 13, "Reserved" ;
+		logical_value, 12, "Reserved" ;
+		logical_value, 11, "Reserved" ;
+		logical_value, 10, "Reserved" ;
+		logical_value, 9, "Reserved" ;
+		logical_value, 8, "Reserved" ;
+		logical_value, 7, "Reserved" ;
+		logical_value, 6, "Reserved" ;
+		logical_value, 5, "Reserved" ;
+		logical_value, 4, "Reserved" ;
+		logical_value, 3, "Reserved" ;
+	}
+	PAS_Uradar_RCR_Status_Encoding {
+		physical_value, 0, 7, 1, 0, "" ;
+		logical_value, 0, "Sensor normal" ;
+		logical_value, 1, "Sensor fault" ;
+		logical_value, 2, "Be covered" ;
+		logical_value, 15, "Reserved" ;
+		logical_value, 14, "Reserved" ;
+		logical_value, 13, "Reserved" ;
+		logical_value, 12, "Reserved" ;
+		logical_value, 11, "Reserved" ;
+		logical_value, 10, "Reserved" ;
+		logical_value, 9, "Reserved" ;
+		logical_value, 8, "Reserved" ;
+		logical_value, 7, "Reserved" ;
+		logical_value, 6, "Reserved" ;
+		logical_value, 5, "Reserved" ;
+		logical_value, 4, "Reserved" ;
+		logical_value, 3, "Reserved" ;
+	}
+	PAS_Uradar_ROR_Status_Encoding {
+		physical_value, 0, 7, 1, 0, "" ;
+		logical_value, 0, "Sensor normal" ;
+		logical_value, 1, "Sensor fault" ;
+		logical_value, 2, "Be covered" ;
+		logical_value, 15, "Reserved" ;
+		logical_value, 14, "Reserved" ;
+		logical_value, 13, "Reserved" ;
+		logical_value, 12, "Reserved" ;
+		logical_value, 11, "Reserved" ;
+		logical_value, 10, "Reserved" ;
+		logical_value, 9, "Reserved" ;
+		logical_value, 8, "Reserved" ;
+		logical_value, 7, "Reserved" ;
+		logical_value, 6, "Reserved" ;
+		logical_value, 5, "Reserved" ;
+		logical_value, 4, "Reserved" ;
+		logical_value, 3, "Reserved" ;
+	}
+	PAS_ROL_Err_Code_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, "No error " ;
+		logical_value, 1, "Communication error£¨off line or hwerr£©" ;
+		logical_value, 2, "Blockage" ;
+		logical_value, 3, "Over voltage " ;
+		logical_value, 4, "Low voltage " ;
+		logical_value, 5, "In blind area" ;
+		logical_value, 6, "Noise flag" ;
+		logical_value, 7, "Over temperation" ;
+		logical_value, 8, "Ring time short or  long" ;
+		logical_value, 9, "Short to ground and  power" ;
+		logical_value, 10, "Frequency deviation" ;
+	}
+	PAS_RCL_Err_Code_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, "No error " ;
+		logical_value, 1, "Communication error£¨off line or hwerr£©" ;
+		logical_value, 2, "Blockage" ;
+		logical_value, 3, "Over voltage " ;
+		logical_value, 4, "Low voltage " ;
+		logical_value, 5, "In blind area" ;
+		logical_value, 6, "Noise flag" ;
+		logical_value, 7, "Over temperation" ;
+		logical_value, 8, "Ring time short or  long" ;
+		logical_value, 9, "Short to ground and  power" ;
+		logical_value, 10, "Frequency deviation" ;
+	}
+	PAS_RCR_Err_Code_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, "No error " ;
+		logical_value, 1, "Communication error£¨off line or hwerr£©" ;
+		logical_value, 2, "Blockage" ;
+		logical_value, 3, "Over voltage " ;
+		logical_value, 4, "Low voltage " ;
+		logical_value, 5, "In blind area" ;
+		logical_value, 6, "Noise flag" ;
+		logical_value, 7, "Over temperation" ;
+		logical_value, 8, "Ring time short or  long" ;
+		logical_value, 9, "Short to ground and  power" ;
+		logical_value, 10, "Frequency deviation" ;
+	}
+	PAS_ROR_Err_Code_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, "No error " ;
+		logical_value, 1, "Communication error£¨off line or hwerr£©" ;
+		logical_value, 2, "Blockage" ;
+		logical_value, 3, "Over voltage " ;
+		logical_value, 4, "Low voltage " ;
+		logical_value, 5, "In blind area" ;
+		logical_value, 6, "Noise flag" ;
+		logical_value, 7, "Over temperation" ;
+		logical_value, 8, "Ring time short or  long" ;
+		logical_value, 9, "Short to ground and  power" ;
+		logical_value, 10, "Frequency deviation" ;
+	}
+	ROL_SW_HW_Version_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, " SW V1" ;
+		logical_value, 1, " SW V2" ;
+		logical_value, 2, " SW V3" ;
+		logical_value, 3, " SW V4" ;
+		logical_value, 63, " SW V64" ;
+	}
+	RCL_SW_HW_Version_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, " SW V1" ;
+		logical_value, 1, " SW V2" ;
+		logical_value, 2, " SW V3" ;
+		logical_value, 3, " SW V4" ;
+		logical_value, 63, " SW V64" ;
+	}
+	RCR_SW_HW_Version_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, " SW V1" ;
+		logical_value, 1, " SW V2" ;
+		logical_value, 2, " SW V3" ;
+		logical_value, 3, " SW V4" ;
+		logical_value, 63, " SW V64" ;
+	}
+	ROR_SW_HW_Version_Encoding {
+		physical_value, 0, 63, 1, 0, "" ;
+		logical_value, 0, " SW V1" ;
+		logical_value, 1, " SW V2" ;
+		logical_value, 2, " SW V3" ;
+		logical_value, 3, " SW V4" ;
+		logical_value, 63, " SW V64" ;
+	}
+	PAS_Uradar_ROLArea_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCLArea_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCRArea_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RORArea_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_ROL_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCL_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCR_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_ROR_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_ROL_RCL_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCL_ROL_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCL_RCR_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCR_RCL_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_RCR_ROR_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	PAS_Uradar_ROR_RCR_Dist_Encoding {
+		physical_value, 0, 250, 1, 0, "CM" ;
+		logical_value, 0, "Dist 0cm" ;
+		logical_value, 1, "Dist 1cm" ;
+		logical_value, 2, "Dist 2cm" ;
+		logical_value, 3, "Dist 3cm" ;
+		logical_value, 250, "Dist 250cm" ;
+		logical_value, 255, "Invalid" ;
+	}
+	CDCU_SigNAD_LEDID1_LIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigNAD_LEDID2_LIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigEnable_ColorProtocol_LIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "PredefColor" ;
+		logical_value, 1, "RGBColor" ;
+	}
+	CDCU_SigEnable_LED_LIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "OFF" ;
+		logical_value, 1, "ON" ;
+	}
+	CDCU_SigEnable_Fading_LIN1_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "OFF" ;
+		logical_value, 1, "ON" ;
+	}
+	CDCU_Sig_FadingTime_LIN1_Encoding {
+		physical_value, 0, 250, 20, 0, "ms" ;
+	}
+	CDCU_SigIntensity_LIN1_Encoding {
+		physical_value, 0, 100, 1, 0, "" ;
+	}
+	CDCU_SigColorR_Predef_LIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigColorG_LIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	CDCU_SigColorB_LIN1_Encoding {
+		physical_value, 0, 255, 1, 0, "" ;
+	}
+	ATL11_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL11_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL12_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL13_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL14_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL15_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL16_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL17_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL18_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_ROutputErr_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_GOutput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_Butput_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_Temp_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_Voltage_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+	ATL19_Lin_Err_Encoding {
+		physical_value, 0, 1, 1, 0, "" ;
+		logical_value, 0, "No Err" ;
+		logical_value, 1, "Err" ;
+	}
+}
+
+Signal_representation {
+	CDCU_SigNAD_LEDID1_CLIN1_Encoding: CDCU_SigNAD_LEDID1_CLIN1 ;
+	CDCU_SigNAD_LEDID2_CLIN1_Encoding: CDCU_SigNAD_LEDID2_CLIN1 ;
+	CDCU_SigEnable_ColorProtocol_CLIN1_Encoding: CDCU_SigEnable_ColorProtocol_CLIN1 ;
+	CDCU_SigEnable_LED_CLIN1_Encoding: CDCU_SigEnable_LED_CLIN1 ;
+	CDCU_SigEnable_Fading_CLIN1_Encoding: CDCU_SigEnable_Fading_CLIN1 ;
+	CDCU_Sig_FadingTime_CLIN1_Encoding: CDCU_Sig_FadingTime_CLIN1 ;
+	CDCU_SigIntensity_CLIN1_Encoding: CDCU_SigIntensity_CLIN1 ;
+	CDCU_SigColorR_Predef_CLIN1_Encoding: CDCU_SigColorR_Predef_CLIN1 ;
+	CDCU_SigColorG_CLIN1_Encoding: CDCU_SigColorG_CLIN1 ;
+	CDCU_SigColorB_CLIN1_Encoding: CDCU_SigColorB_CLIN1 ;
+	ATL1_ROutputErr_CLIN1_Encoding: ATL1_ROutputErr_CLIN1 ;
+	ATL1_GOutput_Err_CLIN1_Encoding: ATL1_GOutput_Err_CLIN1 ;
+	ATL1_Butput_Err_CLIN1_Encoding: ATL1_Butput_Err_CLIN1 ;
+	ATL1_Temp_Err_CLIN1_Encoding: ATL1_Temp_Err_CLIN1 ;
+	ATL1_Voltage_Err_CLIN1_Encoding: ATL1_Voltage_Err_CLIN1 ;
+	ATL1_Lin_Err_CLIN1_Encoding: ATL1_Lin_Err_CLIN1 ;
+	ATL2_ROutputErr_CLIN1_Encoding: ATL2_ROutputErr_CLIN1 ;
+	ATL2_GOutput_Err_CLIN1_Encoding: ATL2_GOutput_Err_CLIN1 ;
+	ATL2_Butput_Err_CLIN1_Encoding: ATL2_Butput_Err_CLIN1 ;
+	ATL2_Temp_Err_CLIN1_Encoding: ATL2_Temp_Err_CLIN1 ;
+	ATL2_Voltage_Err_CLIN1_Encoding: ATL2_Voltage_Err_CLIN1 ;
+	ATL2_Lin_Err_CLIN1_Encoding: ATL2_Lin_Err_CLIN1 ;
+	ATL3_ROutputErr_CLIN1_Encoding: ATL3_ROutputErr_CLIN1 ;
+	ATL3_GOutput_Err_CLIN1_Encoding: ATL3_GOutput_Err_CLIN1 ;
+	ATL3_Butput_Err_CLIN1_Encoding: ATL3_Butput_Err_CLIN1 ;
+	ATL3_Temp_Err_CLIN1_Encoding: ATL3_Temp_Err_CLIN1 ;
+	ATL3_Voltage_Err_CLIN1_Encoding: ATL3_Voltage_Err_CLIN1 ;
+	ATL3_Lin_Err_CLIN1_Encoding: ATL3_Lin_Err_CLIN1 ;
+	ATL4_ROutputErr_CLIN1_Encoding: ATL4_ROutputErr_CLIN1 ;
+	ATL4_GOutput_Err_CLIN1_Encoding: ATL4_GOutput_Err_CLIN1 ;
+	ATL4_Butput_Err_CLIN1_Encoding: ATL4_Butput_Err_CLIN1 ;
+	ATL4_Temp_Err_CLIN1_Encoding: ATL4_Temp_Err_CLIN1 ;
+	ATL4_Voltage_Err_CLIN1_Encoding: ATL4_Voltage_Err_CLIN1 ;
+	ATL4_Lin_Err_CLIN1_Encoding: ATL4_Lin_Err_CLIN1 ;
+	ATL5_ROutputErr_CLIN1_Encoding: ATL5_ROutputErr_CLIN1 ;
+	ATL5_GOutput_Err_CLIN1_Encoding: ATL5_GOutput_Err_CLIN1 ;
+	ATL5_Butput_Err_CLIN1_Encoding: ATL5_Butput_Err_CLIN1 ;
+	ATL5_Temp_Err_CLIN1_Encoding: ATL5_Temp_Err_CLIN1 ;
+	ATL5_Voltage_Err_CLIN1_Encoding: ATL5_Voltage_Err_CLIN1 ;
+	ATL5_Lin_Err_CLIN1_Encoding: ATL5_Lin_Err_CLIN1 ;
+	ATL6_ROutputErr_CLIN1_Encoding: ATL6_ROutputErr_CLIN1 ;
+	ATL6_GOutput_Err_CLIN1_Encoding: ATL6_GOutput_Err_CLIN1 ;
+	ATL6_Butput_Err_CLIN1_Encoding: ATL6_Butput_Err_CLIN1 ;
+	ATL6_Temp_Err_CLIN1_Encoding: ATL6_Temp_Err_CLIN1 ;
+	ATL6_Voltage_Err_CLIN1_Encoding: ATL6_Voltage_Err_CLIN1 ;
+	ATL6_Lin_Err_CLIN1_Encoding: ATL6_Lin_Err_CLIN1 ;
+	ATL7_ROutputErr_CLIN1_Encoding: ATL7_ROutputErr_CLIN1 ;
+	ATL7_GOutput_Err_CLIN1_Encoding: ATL7_GOutput_Err_CLIN1 ;
+	ATL7_Butput_Err_CLIN1_Encoding: ATL7_Butput_Err_CLIN1 ;
+	ATL7_Temp_Err_CLIN1_Encoding: ATL7_Temp_Err_CLIN1 ;
+	ATL7_Voltage_Err_CLIN1_Encoding: ATL7_Voltage_Err_CLIN1 ;
+	ATL7_Lin_Err_CLIN1_Encoding: ATL7_Lin_Err_CLIN1 ;
+	ATL8_ROutputErr_CLIN1_Encoding: ATL8_ROutputErr_CLIN1 ;
+	ATL8_GOutput_Err_CLIN1_Encoding: ATL8_GOutput_Err_CLIN1 ;
+	ATL8_Butput_Err_CLIN1_Encoding: ATL8_Butput_Err_CLIN1 ;
+	ATL8_Temp_Err_CLIN1_Encoding: ATL8_Temp_Err_CLIN1 ;
+	ATL8_Voltage_Err_CLIN1_Encoding: ATL8_Voltage_Err_CLIN1 ;
+	ATL8_Lin_Err_CLIN1_Encoding: ATL8_Lin_Err_CLIN1 ;
+	ATL9_ROutputErr_CLIN1_Encoding: ATL9_ROutputErr_CLIN1 ;
+	ATL9_GOutput_Err_CLIN1_Encoding: ATL9_GOutput_Err_CLIN1 ;
+	ATL9_Butput_Err_CLIN1_Encoding: ATL9_Butput_Err_CLIN1 ;
+	ATL9_Temp_Err_CLIN1_Encoding: ATL9_Temp_Err_CLIN1 ;
+	ATL9_Voltage_Err_CLIN1_Encoding: ATL9_Voltage_Err_CLIN1 ;
+	ATL9_Lin_Err_CLIN1_Encoding: ATL9_Lin_Err_CLIN1 ;
+	ATL10_ROutputErr_CLIN1_Encoding: ATL10_ROutputErr_CLIN1 ;
+	ATL10_GOutput_Err_CLIN1_Encoding: ATL10_GOutput_Err_CLIN1 ;
+	ATL10_Butput_Err_CLIN1_Encoding: ATL10_Butput_Err_CLIN1 ;
+	ATL10_Temp_Err_CLIN1_Encoding: ATL10_Temp_Err_CLIN1 ;
+	ATL10_Voltage_Err_CLIN1_Encoding: ATL10_Voltage_Err_CLIN1 ;
+	ATL10_Lin_Err_CLIN1_Encoding: ATL10_Lin_Err_CLIN1 ;
+	ATL11_ROutputErr_CLIN1_Encoding: ATL11_ROutputErr_CLIN1 ;
+	ATL11_GOutput_Err_CLIN1_Encoding: ATL11_GOutput_Err_CLIN1 ;
+	ATL11_Butput_Err_CLIN1_Encoding: ATL11_Butput_Err_CLIN1 ;
+	ATL11_Temp_Err_CLIN1_Encoding: ATL11_Temp_Err_CLIN1 ;
+	ATL11_Voltage_Err_CLIN1_Encoding: ATL11_Voltage_Err_CLIN1 ;
+	ATL11_Lin_Err_CLIN1_Encoding: ATL11_Lin_Err_CLIN1 ;
+	ATL12_ROutputErr_CLIN1_Encoding: ATL12_ROutputErr_CLIN1 ;
+	ATL12_GOutput_Err_CLIN1_Encoding: ATL12_GOutput_Err_CLIN1 ;
+	ATL12_Butput_Err_CLIN1_Encoding: ATL12_Butput_Err_CLIN1 ;
+	ATL12_Temp_Err_CLIN1_Encoding: ATL12_Temp_Err_CLIN1 ;
+	ATL12_Voltage_Err_CLIN1_Encoding: ATL12_Voltage_Err_CLIN1 ;
+	ATL12_Lin_Err_CLIN1_Encoding: ATL12_Lin_Err_CLIN1 ;
+	ATL13_ROutputErr_CLIN1_Encoding: ATL13_ROutputErr_CLIN1 ;
+	ATL13_GOutput_Err_CLIN1_Encoding: ATL13_GOutput_Err_CLIN1 ;
+	ATL13_Butput_Err_CLIN1_Encoding: ATL13_Butput_Err_CLIN1 ;
+	ATL13_Temp_Err_CLIN1_Encoding: ATL13_Temp_Err_CLIN1 ;
+	ATL13_Voltage_Err_CLIN1_Encoding: ATL13_Voltage_Err_CLIN1 ;
+	ATL13_Lin_Err_CLIN1_Encoding: ATL13_Lin_Err_CLIN1 ;
+	ATL14_ROutputErr_CLIN1_Encoding: ATL14_ROutputErr_CLIN1 ;
+	ATL14_GOutput_Err_CLIN1_Encoding: ATL14_GOutput_Err_CLIN1 ;
+	ATL14_Butput_Err_CLIN1_Encoding: ATL14_Butput_Err_CLIN1 ;
+	ATL14_Temp_Err_CLIN1_Encoding: ATL14_Temp_Err_CLIN1 ;
+	ATL14_Voltage_Err_CLIN1_Encoding: ATL14_Voltage_Err_CLIN1 ;
+	ATL14_Lin_Err_CLIN1_Encoding: ATL14_Lin_Err_CLIN1 ;
+	ATL15_ROutputErr_CLIN1_Encoding: ATL15_ROutputErr_CLIN1 ;
+	ATL15_GOutput_Err_CLIN1_Encoding: ATL15_GOutput_Err_CLIN1 ;
+	ATL15_Butput_Err_CLIN1_Encoding: ATL15_Butput_Err_CLIN1 ;
+	ATL15_Temp_Err_CLIN1_Encoding: ATL15_Temp_Err_CLIN1 ;
+	ATL15_Voltage_Err_CLIN1_Encoding: ATL15_Voltage_Err_CLIN1 ;
+	ATL15_Lin_Err_CLIN1_Encoding: ATL15_Lin_Err_CLIN1 ;
+	RDCU_CorrectedExterTemp_Encoding: RDCU_CorrectedExterTemp ;
+	IPB_VehSpd_Encoding: IPB_VehSpd ;
+	LDCU_CurrentGearLev_Encoding: LDCU_CurrentGearLev ;
+	Vehicle_CONFIG_Encoding: Vehicle_CONFIG ;
+	PAS_Uradar_ROL_Status_Encoding: PAS_Uradar_ROL_Status ;
+	PAS_Uradar_RCL_Status_Encoding: PAS_Uradar_RCL_Status ;
+	PAS_Uradar_RCR_Status_Encoding: PAS_Uradar_RCR_Status ;
+	PAS_Uradar_ROR_Status_Encoding: PAS_Uradar_ROR_Status ;
+	PAS_ROL_Err_Code_Encoding: PAS_ROL_Err_Code ;
+	PAS_RCL_Err_Code_Encoding: PAS_RCL_Err_Code ;
+	PAS_RCR_Err_Code_Encoding: PAS_RCR_Err_Code ;
+	PAS_ROR_Err_Code_Encoding: PAS_ROR_Err_Code ;
+	ROL_SW_HW_Version_Encoding: ROL_SW_HW_Version ;
+	RCL_SW_HW_Version_Encoding: RCL_SW_HW_Version ;
+	RCR_SW_HW_Version_Encoding: RCR_SW_HW_Version ;
+	ROR_SW_HW_Version_Encoding: ROR_SW_HW_Version ;
+	PAS_Uradar_ROLArea_Dist_Encoding: PAS_Uradar_ROLArea_Dist ;
+	PAS_Uradar_RCLArea_Dist_Encoding: PAS_Uradar_RCLArea_Dist ;
+	PAS_Uradar_RCRArea_Dist_Encoding: PAS_Uradar_RCRArea_Dist ;
+	PAS_Uradar_RORArea_Dist_Encoding: PAS_Uradar_RORArea_Dist ;
+	PAS_Uradar_ROL_Dist_Encoding: PAS_Uradar_ROL_Dist ;
+	PAS_Uradar_RCL_Dist_Encoding: PAS_Uradar_RCL_Dist ;
+	PAS_Uradar_RCR_Dist_Encoding: PAS_Uradar_RCR_Dist ;
+	PAS_Uradar_ROR_Dist_Encoding: PAS_Uradar_ROR_Dist ;
+	PAS_Uradar_ROL_RCL_Dist_Encoding: PAS_Uradar_ROL_RCL_Dist ;
+	PAS_Uradar_RCL_ROL_Dist_Encoding: PAS_Uradar_RCL_ROL_Dist ;
+	PAS_Uradar_RCL_RCR_Dist_Encoding: PAS_Uradar_RCL_RCR_Dist ;
+	PAS_Uradar_RCR_RCL_Dist_Encoding: PAS_Uradar_RCR_RCL_Dist ;
+	PAS_Uradar_RCR_ROR_Dist_Encoding: PAS_Uradar_RCR_ROR_Dist ;
+	PAS_Uradar_ROR_RCR_Dist_Encoding: PAS_Uradar_ROR_RCR_Dist ;
+	CDCU_SigNAD_LEDID1_LIN1_Encoding: CDCU_SigNAD_LEDID1_LIN1 ;
+	CDCU_SigNAD_LEDID2_LIN1_Encoding: CDCU_SigNAD_LEDID2_LIN1 ;
+	CDCU_SigEnable_ColorProtocol_LIN1_Encoding: CDCU_SigEnable_ColorProtocol_LIN1 ;
+	CDCU_SigEnable_LED_LIN1_Encoding: CDCU_SigEnable_LED_LIN1 ;
+	CDCU_SigEnable_Fading_LIN1_Encoding: CDCU_SigEnable_Fading_LIN1 ;
+	CDCU_Sig_FadingTime_LIN1_Encoding: CDCU_Sig_FadingTime_LIN1 ;
+	CDCU_SigIntensity_LIN1_Encoding: CDCU_SigIntensity_LIN1 ;
+	CDCU_SigColorR_Predef_LIN1_Encoding: CDCU_SigColorR_Predef_LIN1 ;
+	CDCU_SigColorG_LIN1_Encoding: CDCU_SigColorG_LIN1 ;
+	CDCU_SigColorB_LIN1_Encoding: CDCU_SigColorB_LIN1 ;
+	ATL11_ROutputErr_Encoding: ATL11_ROutputErr ;
+	ATL11_GOutput_Err_Encoding: ATL11_GOutput_Err ;
+	ATL11_Butput_Err_Encoding: ATL11_Butput_Err ;
+	ATL11_Temp_Err_Encoding: ATL11_Temp_Err ;
+	ATL11_Voltage_Err_Encoding: ATL11_Voltage_Err ;
+	ATL11_Lin_Err_Encoding: ATL11_Lin_Err ;
+	ATL12_ROutputErr_Encoding: ATL12_ROutputErr ;
+	ATL12_GOutput_Err_Encoding: ATL12_GOutput_Err ;
+	ATL12_Butput_Err_Encoding: ATL12_Butput_Err ;
+	ATL12_Temp_Err_Encoding: ATL12_Temp_Err ;
+	ATL12_Voltage_Err_Encoding: ATL12_Voltage_Err ;
+	ATL12_Lin_Err_Encoding: ATL12_Lin_Err ;
+	ATL13_ROutputErr_Encoding: ATL13_ROutputErr ;
+	ATL13_GOutput_Err_Encoding: ATL13_GOutput_Err ;
+	ATL13_Butput_Err_Encoding: ATL13_Butput_Err ;
+	ATL13_Temp_Err_Encoding: ATL13_Temp_Err ;
+	ATL13_Voltage_Err_Encoding: ATL13_Voltage_Err ;
+	ATL13_Lin_Err_Encoding: ATL13_Lin_Err ;
+	ATL14_ROutputErr_Encoding: ATL14_ROutputErr ;
+	ATL14_GOutput_Err_Encoding: ATL14_GOutput_Err ;
+	ATL14_Butput_Err_Encoding: ATL14_Butput_Err ;
+	ATL14_Temp_Err_Encoding: ATL14_Temp_Err ;
+	ATL14_Voltage_Err_Encoding: ATL14_Voltage_Err ;
+	ATL14_Lin_Err_Encoding: ATL14_Lin_Err ;
+	ATL15_ROutputErr_Encoding: ATL15_ROutputErr ;
+	ATL15_GOutput_Err_Encoding: ATL15_GOutput_Err ;
+	ATL15_Butput_Err_Encoding: ATL15_Butput_Err ;
+	ATL15_Temp_Err_Encoding: ATL15_Temp_Err ;
+	ATL15_Voltage_Err_Encoding: ATL15_Voltage_Err ;
+	ATL15_Lin_Err_Encoding: ATL15_Lin_Err ;
+	ATL16_ROutputErr_Encoding: ATL16_ROutputErr ;
+	ATL16_GOutput_Err_Encoding: ATL16_GOutput_Err ;
+	ATL16_Butput_Err_Encoding: ATL16_Butput_Err ;
+	ATL16_Temp_Err_Encoding: ATL16_Temp_Err ;
+	ATL16_Voltage_Err_Encoding: ATL16_Voltage_Err ;
+	ATL16_Lin_Err_Encoding: ATL16_Lin_Err ;
+	ATL17_ROutputErr_Encoding: ATL17_ROutputErr ;
+	ATL17_GOutput_Err_Encoding: ATL17_GOutput_Err ;
+	ATL17_Butput_Err_Encoding: ATL17_Butput_Err ;
+	ATL17_Temp_Err_Encoding: ATL17_Temp_Err ;
+	ATL17_Voltage_Err_Encoding: ATL17_Voltage_Err ;
+	ATL17_Lin_Err_Encoding: ATL17_Lin_Err ;
+	ATL18_ROutputErr_Encoding: ATL18_ROutputErr ;
+	ATL18_GOutput_Err_Encoding: ATL18_GOutput_Err ;
+	ATL18_Butput_Err_Encoding: ATL18_Butput_Err ;
+	ATL18_Temp_Err_Encoding: ATL18_Temp_Err ;
+	ATL18_Voltage_Err_Encoding: ATL18_Voltage_Err ;
+	ATL18_Lin_Err_Encoding: ATL18_Lin_Err ;
+	ATL19_ROutputErr_Encoding: ATL19_ROutputErr ;
+	ATL19_GOutput_Err_Encoding: ATL19_GOutput_Err ;
+	ATL19_Butput_Err_Encoding: ATL19_Butput_Err ;
+	ATL19_Temp_Err_Encoding: ATL19_Temp_Err ;
+	ATL19_Voltage_Err_Encoding: ATL19_Voltage_Err ;
+	ATL19_Lin_Err_Encoding: ATL19_Lin_Err ;
+}
+

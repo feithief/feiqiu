@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_uart2.xml                                                          -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2025, Infineon Technologies AG                                    -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   VO           Vanessa Ongaro                                                  -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2025-08-27, VO:   [ATVCOMETLL-205] Initial version                     -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+  <checksum>ba6d46697d1854ab1d38501e36b025cca45936201668a280269db1a65350c187</checksum>
+  <version label="V1.0.0"/>
+
+  <verticalcontainer label="UART2" desc="Universal Asynchronous Receiver / Transmitter">
+    <treecontainer headerlabels="Item;Value;" label="UART2" desc="Universal Asynchronous Receiver / Transmitter" columnwidths="400;250">
+    <header file="uart2_defines.h">
+
+      <checkbox label="Configure UART2" define="UART2.CONFIG_EN" svd="0" uielement="branch" expand="0" default="0">
+        <!-- In mode 0 and 2, baud rate is fixed. In mode 1 and 3, baud rate generator is used.  -->
+        <math label="UART2 Baudrate" define="UART2_BAUDRATE" header="temp_defines.h" svd="0" formula="UART2.UART_SCON[1:0]==0?(SCU_F_SYS0*1000/2):UART2.UART_SCON[1:0]==1?(SCU_F_SYS0*1000/64):UART2_MANUAL_BAUDRATE_VALUE"/>
+
+        <branch label="Mode" expand="0">
+          <combo label="Mode select" define="UART2.UART_SCON[1:0]" default="label=Mode 1 : 8-Bit shift UART">
+            <item value="0" label="Mode 0 : 8-Bit shift register" lockon="UART2.UART_BCON.BR_R=0"/>
+            <item value="2" label="Mode 1 : 8-Bit shift UART" lockon="UART2.UART_BCON.BR_R=1"/>
+            <item value="1" label="Mode 2 : 9-Bit shift UART" lockon="UART2.UART_BCON.BR_R=0"/>
+            <item value="3" label="Mode 3 : 9-Bit shift UART" lockon="UART2.UART_BCON.BR_R=1"/>
+          </combo>
+          <checkbox label="Enable Serial Port Multiprocessor Communication in Mode 2 and 3" define="UART2.UART_SCON.SM2" default="0"/>
+          <checkbox label="Receiver Enabled" define="UART2.UART_SCON.REN" default="0"/>
+          <checkbox label="Disable the wait for IS.RI clear to update RX buffer" define="UART2.UART_SCON.RMOD" default="0"/>
+          <checkbox label="TX Data Inverter Enable" define="UART2.UART_SCON.TXINV" default="0"/>
+          <combo label="Transmit Start Trigger Select" define="UART2.UART_SCON.TXENSEL"/>
+        </branch>
+
+        <checkbox label="BaudRate generator" define="UART2.UART_BCON.BR_R" uielement="branch" expand="0" default="0">
+          <var define="UART2_CLOCK_prescaler" svd="0" header="temp_defines.h" default="1"/>
+          <math visible="true" label="Baudrate Generator Clock (Fdiv)" header="temp_defines.h" define="UART2.CLOCK" svd="0" formula="SCU_F_SYS0 / UART2_CLOCK_prescaler" unit="MHz"/>
+          <math visible="false" label="Baudrate Generator Clock (Fdiv)" define="UART2.CLOCK_HZ" svd="0" formula="UART2.CLOCK*1000000" unit="Hz"/>
+          <combo label="Clock Prescaler" define="UART2.UART_BCON.BR_PRE">
+            <item label="not used" hide="NotUsed_6"/>
+            <item label="not used" hide="NotUsed_7"/>
+          </combo>
+
+          <radio label="" define="UART2_BAUDRATE_GEN" header="temp_defines.h" svd="0">
+            <radiobutton label="Automatic Baudrate generation" uielement="branch">
+              <combo label="BaudRate" define="UART2_AUTOMATIC_BAUDRATE_VALUE" header="temp_defines.h" svd="0" default="label=19200">
+                <item label="2400" lockon="UART2_MANUAL_BAUDRATE_VALUE=2400"/>
+                <item label="4800" lockon="UART2_MANUAL_BAUDRATE_VALUE=4800"/>
+                <item label="9600" lockon="UART2_MANUAL_BAUDRATE_VALUE=9600"/>
+                <item label="19200" lockon="UART2_MANUAL_BAUDRATE_VALUE=19200"/>
+                <item label="20000" lockon="UART2_MANUAL_BAUDRATE_VALUE=20000"/>
+                <item label="115200" lockon="UART2_MANUAL_BAUDRATE_VALUE=115200"/>
+              </combo>
+            </radiobutton>
+            <radiobutton label="Manual Baudrate generation" uielement="branch">
+              <spinbox label="Baudrate [baud]" define="UART2_MANUAL_BAUDRATE_VALUE" header="temp_defines.h" svd="0" default="19200"/>
+            </radiobutton>
+          </radio>
+          <math label="Baudrate Value" define="UART2.UART_BCON.BG_BR_VALUE" default="0" formula="trunc((UART2.CLOCK_HZ)/(16*UART2_MANUAL_BAUDRATE_VALUE))"/>
+          <math label="Fractional Divider" define="UART2.UART_BCON.BG_FD_SEL" formula="trunc((((UART2.CLOCK_HZ)/(16*UART2_MANUAL_BAUDRATE_VALUE))-UART2.UART_BCON.BG_BR_VALUE)*32)"/>
+          <math label="Effective Baudrate" define="UART2_EFFECTIVE_BAUDRATE [bit/s]" header="temp_defines.h" svd="0" formula="UART2.CLOCK_HZ/(16*(UART2.UART_BCON.BG_BR_VALUE+(UART2.UART_BCON.BG_FD_SEL/32)))"/>
+        </checkbox>
+
+        <branch label="Port input selection" expand="0">
+            <combo label="RXD Input Select" define="UART2.UART_INSEL.RXDSEL" default="0"/>
+            <combo label="TX Start Event Input Select" define="UART2.UART_INSEL.TXEVSEL" default="0"/>
+        </branch>
+
+        <branch label="Iterrupt request handling" expand="0">
+          <checkbox label="Transmit Interrupt" define="UART2_TX_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[3]=1">
+            <checkbox label="Enable Interrupt" define="UART2.UART_IEN.TIEN" default="0"/>
+            <edit label="Callback" define="UART2_TX_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+          </checkbox>
+          <checkbox label="Receive Interrupt" define="UART2_RX_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0" lockon="CPU.NVIC_ISER0.SETENA[3]=1">
+            <checkbox label="Enable Interrupt" define="UART2.UART_IEN.RIEN" default="0"/>
+            <edit label="Callback" define="UART2_RX_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+          </checkbox>
+        </branch>
+      </checkbox>
+    </header>
+
+    <timer visible="false" define="UART2_CLOCK_prescaler_CONSISTENCY" header="temp_defines.h" svd="0" interval="100" singleShot="0" run="1">
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==0" cmd="setDef" data="UART2_CLOCK_prescaler=1"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==1" cmd="setDef" data="UART2_CLOCK_prescaler=2"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==2" cmd="setDef" data="UART2_CLOCK_prescaler=4"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==3" cmd="setDef" data="UART2_CLOCK_prescaler=8"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==4" cmd="setDef" data="UART2_CLOCK_prescaler=16"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==5" cmd="setDef" data="UART2_CLOCK_prescaler=32"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==6" cmd="setDef" data="UART2_CLOCK_prescaler=1"/>
+      <action event="changed" cond="UART2.UART_BCON.BR_PRE.index==7" cmd="setDef" data="UART2_CLOCK_prescaler=1"/>
+    </timer>
+
+    </treecontainer>
+  </verticalcontainer>
+</ifxmlcfg>

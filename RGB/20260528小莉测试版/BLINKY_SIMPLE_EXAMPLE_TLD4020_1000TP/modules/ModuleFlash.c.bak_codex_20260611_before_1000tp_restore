@@ -1,0 +1,447 @@
+/***************************************************************************//**
+* @file		mod_flash.c
+*
+* @creator		wca
+* @created		2022.06.23
+*
+* @brief  		Top application layer with main() entry point.
+*
+* @purpose             Hardware and LIN driver intialization, 
+*                      top application layer.
+*
+* Demo Code Usage Restrictions:
+* Elmos Semiconductor SE provides this source code file simply and solely for 
+* IC evaluation purposes in laboratory and this file must not be used for other 
+* purposes or within non laboratory environments. Especially, the use or the 
+* integration in production systems, appliances or other installations is 
+* prohibited.
+* 
+* Disclaimer:
+* Elmos Semiconductor SE shall not be liable for any damages arising out of 
+* defects resulting from 
+* (1) delivered hardware or software, 
+* (2) non observance of instructions contained in this document, or 
+* (3) misuse, abuse, use under abnormal conditions or alteration by anyone 
+* other than Elmos Semiconductor SE. To the extend permitted by law 
+* Elmos Semiconductor SE hereby expressively disclaims and user expressively 
+* waives any and all warranties of merchantability and of fitness for a 
+* particular purpose, statutory warranty of non-infringement and any other 
+* warranty or product liability that may arise by reason of usage of trade, 
+* custom or course of dealing.
+*
+* $Id: $
+*
+* $Revision:  $
+*
+******************************************************************************/
+#include "ModuleWatchdog.h"
+#include "ModuleFlash.h"
+#include <string.h>
+#include "flash.h"
+/*MAGIC number as well as version NO.*/
+#define DMagicNumber  553
+
+#define CODE_FLASH_SIZE      0x7600
+#define DATA_FLASH_START     (UC_FLASH_START + CODE_FLASH_SIZE)
+#define DATA_FLASH_SIZE      (UC_FLASH_SIZE - CODE_FLASH_SIZE)
+#define FLASH_PAGE_COUNT(len) (((len) + UC_FLASH_PAGE_SIZE - 1u) / UC_FLASH_PAGE_SIZE)
+
+/*
+*@brief This variant shows current flash's content.
+*@note It's dangerous to make this external, only for smaller code size.
+*/
+SFlashContent savedConfig;
+SLineContent savedProduct;
+volatile EHardwareType moduleType;
+/*
+*@brief This variant shows flash's current status.
+*@note It's dangerous to make this external, only for smaller code size.
+*/
+volatile EFlashUpdate flashFlag;
+
+/*
+*@brief This variant indicates if slave single address has been updated.
+*@warning Do not delete this flag, sometime we change slave address to 0xA0 
+in order to know whether flash need to be updated.
+*@note It's dangerous to make this external, only for smaller code size.
+*/
+uint16_t lastSavedSingalAdress;
+
+static void moduleFlashSetDefaultWhiteCIE(void)
+{
+    savedConfig.whitex = 3291u;
+    savedConfig.whitey = 3396u;
+}
+
+static bool_t moduleFlashWhiteCIEInvalid(void)
+{
+    if ((savedConfig.whitex > 10000u) ||
+        (savedConfig.whitey > 10000u) ||
+        (savedConfig.whitex == 0u) ||
+        (savedConfig.whitey == 0u))
+    {
+        return btrue;
+    }
+
+    return bfalse;
+}
+
+static uint8_t GbTestEn = 0;
+static uint8_t GucFlashEnvData[96];
+
+
+
+
+
+
+/**
+*@details   Load current flash content to ram.
+*
+*@warning   This function can not be invoked in interrupt.
+*
+*@retval    None.
+*/
+static void moduleFlashLoad(SFlashContent  *data)
+{
+    uint16_t Datasize = sizeof(SFlashContent);
+    uint16_t addr;
+    for(addr=0; addr < Datasize; addr++)
+    {
+        *((uint8_t*)data + addr) = flashByteRead(addr);
+    }
+    
+    /*ledSupplier & 0x00f0u == 0x0080 means flash content has been locked, */
+    /*can not be changed in any circumstances*/
+    if ((savedConfig.ledSupplier & 0x00f0u) ==  0x0080u)
+    {
+        flashFlag |= EFlashUpdateLocked;
+    }
+    else
+    {
+        flashFlag &= ~EFlashUpdateLocked;
+    }
+}
+
+
+
+/**
+*@details   Save current ram content to flash.
+*
+*@warning   This function can not be invoked in interrupt.
+*
+*@retval    None.
+*/
+void moduleFlashSave(void)
+{
+    
+    uint8_t eErrCode;
+    
+    uint16_t DataLength;
+    uint8_t progIndex = 0;
+    SFlashContent *savedconfigptr=&savedConfig;
+    uint8_t *ptrFlashConfig = (uint8_t *)savedconfigptr;
+    SFlashContent  temp_content;
+    DataLength = sizeof(SFlashContent);
+//    if(DataLength % 4 != 0)
+//    {
+//        DataLength /= 4;
+//        DataLength += 1;
+//        DataLength = DataLength * 4;
+//    }
+    //uint8_t ucErasedPage = 0;
+    
+    //put all content in flash into struct temp_content, including the stored crc. compare the struct temp_content and saveConfig(which gets values in FlashInit(), or changes its value in other modules)
+    moduleFlashLoad(&temp_content);
+    
+    /*if content do not been changed, we do not update flash.*/
+    
+    
+    
+//    moduleWatchdogFeed();
+    //modify
+//    GPIO->OUT.bit.P0 = (uint32)1;
+    MemoryEraseAndWrite((uint8_t*)&temp_content,
+                 ptrFlashConfig,
+                 DataLength);
+//    GPIO->OUT.bit.P0 = (uint32)0;
+    
+    /*ledSupplier & 0x00f0u == 0x0080 means flash content has been locked, */
+    /*can not be changed in any circumstances*/
+    if ((savedConfig.ledSupplier & 0x00f0u) ==  0x0080u)
+    {
+        flashFlag |= EFlashUpdateLocked;
+    }
+    else
+    {
+        flashFlag &= ~EFlashUpdateLocked;
+    }
+    
+}
+
+/**
+*@details   Initialize flash content.
+*
+*@warning   This function can not be invoked in interrupt.
+*
+*@retval    None.
+*/
+
+void moduleFlashInit(void)
+{
+    moduleFlashLoad(&savedConfig);
+
+  if (savedConfig.magicNO != DMagicNumber) //+ whether crc is correct
+  {
+    savedConfig.magicNO = DMagicNumber;
+		savedConfig.platform = EPlatformTypeMQB;
+
+    savedConfig.AutoAddr = 0x10u;
+    savedConfig.eolAddr  = 1u;//90
+    // savedConfig.eolAddr  = 15790;//70
+    savedConfig.writeAddr =0xff;
+
+    savedConfig.ledSupplier = 0x02;
+    savedConfig.singleAddr = savedConfig.AutoAddr;
+    // savedConfig.CurrentNAD = 0xA0u;
+    savedConfig.CurrentNAD = savedConfig.singleAddr;
+    savedConfig.resetNO = Edefaultreset;
+    savedConfig.factor = 0x8000;
+    //90
+    //1
+     savedConfig.redx = 7025;
+    savedConfig.redy = 2967;
+    savedConfig.redY = 29000;
+
+    savedConfig.greenx = 1370;
+    savedConfig.greeny = 7069;
+    savedConfig.greenY = 47060;
+
+    savedConfig.bluex = 1521;
+    savedConfig.bluey = 284;
+    savedConfig.blueY = 8733;
+
+    savedConfig.whitex = 3333;
+    savedConfig.whitey = 3491;
+    savedConfig.whiteY = 55580;
+        // 1
+    //  savedConfig.redx = 7030;
+    // savedConfig.redy = 2965;
+    // savedConfig.redY = 28030;
+
+    // savedConfig.greenx = 1472;
+    // savedConfig.greeny = 7211;
+    // savedConfig.greenY = 51110;
+
+    // savedConfig.bluex = 1519;
+    // savedConfig.bluey = 297;
+    // savedConfig.blueY = 8438;
+
+    // savedConfig.whitex = 3360;
+    // savedConfig.whitey = 3473;
+    // savedConfig.whiteY = 53070;
+    //70
+//     savedConfig.redx = 7024;
+//     savedConfig.redy = 2961;
+//     savedConfig.redY = 8248;
+
+//    savedConfig.greenx = 1673;
+//    savedConfig.greeny = 7328;
+//    savedConfig.greenY = 18700;
+
+//    savedConfig.bluex = 1503;
+//    savedConfig.bluey = 325;
+//    savedConfig.blueY = 2300;
+    memcpy((uint8_t*)savedConfig.partNO , "123456789012", DMAX_PART_NUMBER_LENGTH);
+		memcpy((uint8_t*)savedConfig.hardwareVersion , "H04", DHARDWARE_VERSION_LENGTH);
+		memcpy((uint8_t*)savedConfig.serialNO , "12345678900987654321", DMAX_SERIAL_NUMBER_LENGTH);
+
+    savedConfig.ProductID[0] = 0x84;
+    savedConfig.ProductID[1] = 0x00;
+    savedConfig.ProductID[2] = 0x03;
+    savedConfig.ProductID[3] = 0x00;
+
+
+    savedConfig.brightness_factor= 100;
+
+     savedConfig.x1 		= 		(uint8_t)10u;
+     savedConfig.y1l 		= 		(uint8_t)(((uint16_t)3u) & 0x00ffu);
+     savedConfig.y1h 		= 		(uint8_t)(((uint16_t)3u) >> 8u);
+
+     savedConfig.x2 		= 		(uint8_t)20u;
+     savedConfig.y2l 		= 		(uint8_t)((uint16_t)17u & 0x00ffu);
+     savedConfig.y2h 		= 		(uint8_t)(((uint16_t)17u) >> 8u);
+
+     savedConfig.x3 		= 		(uint8_t)30u;
+     savedConfig.y3l 		= 		(uint8_t)(((uint16_t)5u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y3h 		= 		(uint8_t)(((uint16_t)5u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x4 		=  		(uint8_t)40u;
+     savedConfig.y4l 		= 		(uint8_t)(((uint16_t)10u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y4h 		= 		(uint8_t)(((uint16_t)10u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x5 		= 		(uint8_t)50u;
+     savedConfig.y5l 		= 		(uint8_t)(((uint16_t)18u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y5h 		= 		(uint8_t)(((uint16_t)18u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x6 		= 		(uint8_t)60u;
+     savedConfig.y6l 		= 		(uint8_t)(((uint16_t)28u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y6h 		= 		(uint8_t)(((uint16_t)28u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x7 		= 		(uint8_t)70u;
+     savedConfig.y7l 		= 		(uint8_t)(((uint16_t)41u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y7h 		= 		(uint8_t)(((uint16_t)41u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x8 		= 		(uint8_t)80u;
+     savedConfig.y8l 		= 		(uint8_t)(((uint16_t)57u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y8h 		= 		(uint8_t)(((uint16_t)57u * (uint16_t)10u) >> 8u);
+
+     savedConfig.x9 		= 		(uint8_t)90u;
+     savedConfig.y9l 		= 		(uint8_t)(((uint16_t)77u * (uint16_t)10u) & 0x00ffu);
+     savedConfig.y9h 		= 		(uint8_t)(((uint16_t)77u * (uint16_t)10u) >> 8u);
+		savedConfig.u = 0;
+		savedConfig.v = 0;
+		memset(savedConfig.U, 0, 10);
+		memset(savedConfig.V, 0, 10);
+    savedConfig.Utemp = 80;
+    savedConfig.Vtemp = 188;
+    savedConfig.pART = Slave_Address_auto;
+    savedConfig.pDevelor = 1;
+    savedConfig.shortRed = 0;
+    savedConfig.shortGreen = 0;
+    savedConfig.shortBule = 0;
+    savedConfig.openRed = 0;
+    savedConfig.openGreen = 0;
+    savedConfig.openBule = 0;
+    savedConfig.error_ram = 0;
+    savedConfig.error_rom = 0;
+    savedConfig.error_NVM = 0;
+		savedConfig.RthermolRatio = 92;
+		savedConfig.GthermolRatio = 60;
+		savedConfig.BthermolRatio = 55;
+		savedConfig.MCUthermolRatio = 17;
+//		savedConfig.AutoSaveCnt = 0;
+    moduleFlashSave();
+  }
+/*The use of the 3C diagnostic DID 0x5000 can reset the address to the change state*/
+//  savedConfig.Utemp = 40;
+//  savedConfig.Vtemp = 94;
+  savedConfig.ProductID[4] = 0x00;
+  if ((savedConfig.CurrentNAD == 0u) ||
+      (savedConfig.CurrentNAD == 0xFFu) ||
+      (savedConfig.CurrentNAD == (uint8_t)savedConfig.singleAddr))
+  {
+    savedConfig.CurrentNAD = 0xA0u;
+  }
+  lastSavedSingalAdress = savedConfig.singleAddr;
+	
+	/**/
+//	     savedConfig.x1 		= 		(uint8_t)10u;
+//     savedConfig.y1l 		= 		(uint8_t)(((uint16_t)3u) & 0x00ffu);
+//     savedConfig.y1h 		= 		(uint8_t)(((uint16_t)3u) >> 8u);
+
+//     savedConfig.x2 		= 		(uint8_t)20u;
+//     savedConfig.y2l 		= 		(uint8_t)((uint16_t)17u & 0x00ffu);
+//     savedConfig.y2h 		= 		(uint8_t)(((uint16_t)17u) >> 8u);
+
+//     savedConfig.x3 		= 		(uint8_t)30u;
+//     savedConfig.y3l 		= 		(uint8_t)(((uint16_t)5u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y3h 		= 		(uint8_t)(((uint16_t)5u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x4 		=  		(uint8_t)40u;
+//     savedConfig.y4l 		= 		(uint8_t)(((uint16_t)10u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y4h 		= 		(uint8_t)(((uint16_t)10u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x5 		= 		(uint8_t)50u;
+//     savedConfig.y5l 		= 		(uint8_t)(((uint16_t)18u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y5h 		= 		(uint8_t)(((uint16_t)18u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x6 		= 		(uint8_t)60u;
+//     savedConfig.y6l 		= 		(uint8_t)(((uint16_t)28u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y6h 		= 		(uint8_t)(((uint16_t)28u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x7 		= 		(uint8_t)70u;
+//     savedConfig.y7l 		= 		(uint8_t)(((uint16_t)41u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y7h 		= 		(uint8_t)(((uint16_t)41u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x8 		= 		(uint8_t)80u;
+//     savedConfig.y8l 		= 		(uint8_t)(((uint16_t)57u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y8h 		= 		(uint8_t)(((uint16_t)57u * (uint16_t)10u) >> 8u);
+
+//     savedConfig.x9 		= 		(uint8_t)90u;
+//     savedConfig.y9l 		= 		(uint8_t)(((uint16_t)77u * (uint16_t)10u) & 0x00ffu);
+//     savedConfig.y9h 		= 		(uint8_t)(((uint16_t)77u * (uint16_t)10u) >> 8u);
+	/**/}
+
+
+
+
+uint8_t flashByteRead(uint16_t AddrOffset)
+{
+    return *(uint8_t *)(DATA_FLASH_START + AddrOffset);
+}
+
+
+/*
+*@details   Our own string copy function.
+*
+*@retval    string address.
+*/
+bool_t __memcmp(uint8_t* src1, uint8_t* src2, uint16_t len)
+{
+    while((*src1++ == *src2++) && (len != 0)){
+        len--;
+    }
+    
+    if (len == 0)
+        return btrue;
+    else
+        return bfalse;
+}
+
+//bool_t GetEEPROMBusyState(void)
+//{
+//    if( EEPROM_CTRL_STATUS == (uint16_t)1)
+//        return btrue;
+//    return bfalse;
+//}
+
+void MemoryEraseAndWrite(uint8_t* src1, uint8_t* src2, uint16_t len) 
+{
+    uint16_t pageIndex;
+    uint16_t pageCount;
+    uint16_t pageOffset;
+    uint16_t writeLength;
+
+    if ((src1 == 0) || (src2 == 0) || (len == 0u) || (len > DATA_FLASH_SIZE))
+    {
+        return;
+    }
+
+    if (memcmp(src1, src2, len) == 0)
+    {
+        return;
+    }
+
+    pageCount = (uint16_t)FLASH_PAGE_COUNT(len);
+
+    for (pageIndex = 0u; pageIndex < pageCount; pageIndex++)
+    {
+        pageOffset = (uint16_t)(pageIndex * UC_FLASH_PAGE_SIZE);
+        writeLength = (uint16_t)(len - pageOffset);
+
+        if (writeLength > UC_FLASH_PAGE_SIZE)
+        {
+            writeLength = UC_FLASH_PAGE_SIZE;
+        }
+
+        if (memcmp(src1 + pageOffset, src2 + pageOffset, writeLength) != 0)
+        {
+            (void)user_nvm_erase(DATA_FLASH_START + pageOffset, NVM_ERASE_PAGE);
+            (void)user_nvm_write(DATA_FLASH_START + pageOffset,
+                                  src2 + pageOffset,
+                                  writeLength,
+                                  NVM_OPTIONS_RETRY_MASK);
+            moduleWatchdogFeed();
+        }
+    }
+}

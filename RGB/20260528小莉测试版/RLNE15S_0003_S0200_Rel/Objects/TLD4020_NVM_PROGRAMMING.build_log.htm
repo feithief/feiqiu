@@ -1,0 +1,147 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¶ÃVision V5.39.0.0
+Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 it01, 1, LIC=SDA0P-MC2IB-Z98G9-4SY64-JWCZ0-GV2N2
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.39.0.0
+Toolchain Path:  D:\keil\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.21
+Assembler:       Armasm.exe V6.21
+Linker/Locator:  ArmLink.exe V6.21
+Library Manager: ArmAr.exe V6.21
+Hex Converter:   FromElf.exe V6.21
+CPU DLL:         
+Dialog DLL:      
+Target DLL:      Segger\JL2CM3.dll V2.99.43.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+E:\AUDI_COLOR\RGB\20260528–°¿Ú≤‚ ‘∞Ê\RLNE15S_0003_S0200_Rel\TLD4020_3ET_NVM_PROGRAMMING.uvprojx
+Project File Date:  06/11/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.21', folder: 'D:\keil\ARM\ARMCLANG\Bin'
+Rebuild target 'Target 1'
+Error instantiating RTE components
+Error #544: Required Software Pack 'ARM::CMSIS@6.1.0' is not installed
+Error #541: 'ARM::CMSIS:CORE@6.1.0' component is missing (previously found in pack 'ARM::CMSIS@6.1.0')
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Infineon
+                
+                Infineon::TLD40xx_DFP@2.0.1
+                Infineon TLD40xx Series Device Support
+   * Component: Config Wizard Version: 1.1.0
+   * Component: ADC11 Version: 1.0.2
+   * Component: BOOTROM Version: 1.0.0
+   * Component: CPU Version: 1.0.1
+   * Component: GPIO Version: 1.0.1
+   * Component: ISR Version: 1.0.2
+   * Component: LDRV Version: 1.0.2
+   * Component: LIN Version: 2.0.2
+   * Component: MEM Version: 1.0.1
+   * Component: OSC Version: 1.0.1
+   * Component: PMU Version: 1.0.1
+   * Component: SCU Version: 1.0.1
+   * Component: Startup files Variant: Assembler startup Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/Device/TLD4020-3ET
+  ./RTE/_Target_1
+  D:/keil/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: Infineon::Device:Config Wizard@1.1.0
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/cpu_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/adc11_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/bsl_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/scu_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/osc_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/lin_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/gpio_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/isr_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/mem_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/ldrv_defines.h
+      Include file:  device/lib/cfgwiz/defines/TLD4020_3/pmu_defines.h
+
+   * Component: Infineon::Device:Lib:ADC11@1.0.2
+      Include file:  device/lib/inc/adc11.h
+      Source file:   device/lib/src/adc11.c
+
+   * Component: Infineon::Device:Lib:BOOTROM@1.0.0
+      Include file:  device/lib/inc/bootrom.h
+
+   * Component: Infineon::Device:Lib:CPU@1.0.1
+      Include file:  device/lib/inc/cpu.h
+      Source file:   device/lib/src/cpu.c
+
+   * Component: Infineon::Device:Lib:GPIO@1.0.1
+      Include file:  device/lib/inc/gpio.h
+      Source file:   device/lib/src/gpio.c
+
+   * Component: Infineon::Device:Lib:ISR@1.0.2
+      Include file:  device/lib/inc/isr_nvic_irq6_handler.h
+      Source file:   device/lib/src/isr_nvic_irq4_handler.c
+      Include file:  device/lib/inc/isr.h
+      Include file:  device/lib/inc/isr_nvic_irq0_handler.h
+      Source file:   device/lib/src/isr_nvic_irq0_handler.c
+      Source file:   device/lib/src/isr_nvic_irq5_handler.c
+      Source file:   device/lib/src/isr_nvic_irq6_handler.c
+      Source file:   device/lib/src/isr_nvic_irq7_handler.c
+      Source file:   device/lib/src/isr.c
+      Include file:  device/lib/inc/isr_nvic_irq2_handler.h
+      Include file:  device/lib/inc/isr_nvic_irq4_handler.h
+      Include file:  device/lib/inc/isr_nvic_irq7_handler.h
+      Source file:   device/lib/src/isr_nvic_irq2_handler.c
+      Include file:  device/lib/inc/isr_nvic_irq5_handler.h
+
+   * Component: Infineon::Device:Lib:LDRV@1.0.2
+      Include file:  device/lib/inc/ldrv.h
+      Source file:   device/lib/src/ldrv.c
+
+   * Component: Infineon::Device:Lib:LIN@2.0.2
+      Source file:   device/lib/src/lin.c
+      Include file:  device/lib/inc/lin.h
+
+   * Component: Infineon::Device:Lib:MEM@1.0.1
+      Include file:  device/lib/inc/mem.h
+      Source file:   device/lib/src/mem.c
+
+   * Component: Infineon::Device:Lib:OSC@1.0.1
+      Source file:   device/lib/src/osc.c
+      Include file:  device/lib/inc/osc.h
+
+   * Component: Infineon::Device:Lib:PMU@1.0.1
+      Source file:   device/lib/src/pmu.c
+      Include file:  device/lib/inc/pmu.h
+
+   * Component: Infineon::Device:Lib:SCU@1.0.1
+      Include file:  device/lib/inc/scu.h
+      Source file:   device/lib/src/scu.c
+
+   * Component: Infineon::Device:Startup:Startup files&Assembler startup@1.0.0
+      Include file:  device/lib/inc/variants.h
+      Source file:   device/lib/cfgwiz/defines/TLD4020_3/bsl_defines_ARM.inc
+      Include file:  device/lib/inc/tld40xx.h
+      Source file:   device/startup/asm/ARM/startup_tld40xx.S
+      Source file:   device/lib/src/device.c
+      Source file:   device/startup/src/system_tld40xx.c
+      Include file:  device/lib/inc/cmsis_misra.h
+      Source file:   device/lib/main/main.c
+      Include file:  device/startup/inc/system_tld40xx.h
+      Include file:  device/lib/inc/device.h
+      Include file:  device/lib/inc/error_codes.h
+      Include file:  device/lib/inc/tld40xx_generated.h
+      Include file:  device/lib/inc/types.h
+Target not created.
+Build Time Elapsed:  00:00:00
+</pre>
+</body>
+</html>
