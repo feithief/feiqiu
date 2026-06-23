@@ -51,7 +51,7 @@ static uint8_t gAlgoSonderfunktion2HasCurrentChannelXyY = 0u;
 #endif
 
 #ifndef ALGO_SONDERFUNKTION2_TEMP_DEBUG_ENABLE
-#define ALGO_SONDERFUNKTION2_TEMP_DEBUG_ENABLE       (1u)
+#define ALGO_SONDERFUNKTION2_TEMP_DEBUG_ENABLE       (0u)
 #endif
 
 typedef struct
@@ -78,6 +78,17 @@ typedef struct
 
 static SAlgoSonderfunktion2W25Cache gAlgoSonderfunktion2W25Cache = {0u};
 static SAlgoSonderfunktion2RatioCache gAlgoSonderfunktion2RatioCache = {0u};
+
+typedef struct
+{
+    uint8_t valid;
+    uint16_t savedWhiteX;
+    uint16_t savedWhiteY;
+    fix16_t whiteX;
+    fix16_t whiteY;
+} SAlgoWhitePointFixCache;
+
+static SAlgoWhitePointFixCache gAlgoWhitePointFixCache = {0u};
 #if (ALGO_SONDERFUNKTION2_TEMP_DEBUG_ENABLE != 0u)
 volatile uint16_t gAlgoSonderfunktion2DebugTargetU = 0u;
 volatile uint16_t gAlgoSonderfunktion2DebugTargetV = 0u;
@@ -243,15 +254,30 @@ volatile SCIEColor splitWhiteCIE, splitPointCIE;
 volatile bool_t splitTargetColorValid;
 volatile fix16_t splitLambda, splitOneMinusLambda, splitRayT;
 
+static void __algoUpdateWhitePointFixCache(void)
+{
+    if ((gAlgoWhitePointFixCache.valid == 0u) ||
+        (gAlgoWhitePointFixCache.savedWhiteX != savedConfig.whitex) ||
+        (gAlgoWhitePointFixCache.savedWhiteY != savedConfig.whitey))
+    {
+        gAlgoWhitePointFixCache.savedWhiteX = savedConfig.whitex;
+        gAlgoWhitePointFixCache.savedWhiteY = savedConfig.whitey;
+        gAlgoWhitePointFixCache.whiteX = __algoWhiteRgbParamToFix16(savedConfig.whitex);
+        gAlgoWhitePointFixCache.whiteY = __algoWhiteRgbParamToFix16(savedConfig.whitey);
+        gAlgoWhitePointFixCache.valid = 1u;
+    }
+}
+
 static fix16_t __algoGetWhitePointX(void)
 {
     if ((gAlgoUseRuntimeChannelBasis != 0u) &&
         (gAlgoSonderfunktion2HasCurrentChannelXyY != 0u))
     {
-        return __algoWhiteRgbParamToFix16((uint16_t)gAlgoSonderfunktion2CurrentChannelXyY.whitex);
+        return currentWhiteCIE.x;
     }
 
-    return __algoWhiteRgbParamToFix16(savedConfig.whitex);
+    __algoUpdateWhitePointFixCache();
+    return gAlgoWhitePointFixCache.whiteX;
 }
 
 static fix16_t __algoGetWhitePointY(void)
@@ -259,10 +285,11 @@ static fix16_t __algoGetWhitePointY(void)
     if ((gAlgoUseRuntimeChannelBasis != 0u) &&
         (gAlgoSonderfunktion2HasCurrentChannelXyY != 0u))
     {
-        return __algoWhiteRgbParamToFix16((uint16_t)gAlgoSonderfunktion2CurrentChannelXyY.whitey);
+        return currentWhiteCIE.y;
     }
 
-    return __algoWhiteRgbParamToFix16(savedConfig.whitey);
+    __algoUpdateWhitePointFixCache();
+    return gAlgoWhitePointFixCache.whiteY;
 }
 void AlgoSonderfunktion2_SetCurrentTemperatureX10(int16_t temperatureDegC_x10)
 {
@@ -357,67 +384,6 @@ static int16_t __algoGetSonderfunktion2CorrectionTemperatureDegC_X10(const SColo
 static int32_t __algoFix16ToSignedQ10000(fix16_t value)
 {
     return fix16_to_int(fix16_mul(value, fix16Const10000));
-}
-
-static uint16_t __algoClampPositiveFix16ToQ10000(fix16_t value)
-{
-    int32_t q10000;
-
-    if (value < 0)
-    {
-        value = 0;
-    }
-
-    q10000 = __algoFix16ToSignedQ10000(value);
-    if (q10000 < 0)
-    {
-        q10000 = 0;
-    }
-    if (q10000 > 65535)
-    {
-        q10000 = 65535;
-    }
-
-    return (uint16_t)q10000;
-}
-
-static bool_t __algoIsSonderfunktion2TempBypassTarget(uint16_t targetU,
-                                                       uint16_t targetV)
-{
-    if (((targetU == 40u) && (targetV == 94u)) ||
-        ((targetU == 200u) && (targetV == 470u)))
-    {
-        return btrue;
-    }
-
-    if (((targetU % 5u) == 0u) && ((targetV % 5u) == 0u))
-    {
-        if (((targetU / 5u) == 40u) && ((targetV / 5u) == 94u))
-        {
-            return btrue;
-        }
-    }
-
-    return bfalse;
-}
-
-static bool_t __algoShouldBypassSonderfunktion2TempCorrection(uint16_t originalTargetU,
-                                                              uint16_t originalTargetV,
-                                                              uint16_t currentTargetU,
-                                                              uint16_t currentTargetV)
-{
-    if (sysLin_Stack.RGB.BCM_RGB_Sonderfunktion != 2u)
-    {
-        return bfalse;
-    }
-
-    if ((btrue == __algoIsSonderfunktion2TempBypassTarget(originalTargetU, originalTargetV)) ||
-        (btrue == __algoIsSonderfunktion2TempBypassTarget(currentTargetU, currentTargetV)))
-    {
-        return btrue;
-    }
-
-    return bfalse;
 }
 
 static uint16_t __algoClampWhiteRatioFix16ToQ10000(fix16_t whiteRatio)
@@ -628,6 +594,36 @@ static uint16_t __algoApplyTemperatureWhiteRatioCorrection(uint16_t targetU,
 #endif
 }
 
+static bool_t __algoIsSonderfunktion2TempBypassTarget(uint16_t targetU,
+                                                      uint16_t targetV)
+{
+    if (((targetU == 200u) && (targetV == 470u)) ||
+        ((targetU == 40u) && (targetV == 94u)))
+    {
+        return btrue;
+    }
+
+    return bfalse;
+}
+
+static bool_t __algoShouldBypassSonderfunktion2TempCorrection(uint16_t originalTargetU,
+                                                              uint16_t originalTargetV,
+                                                              uint16_t currentTargetU,
+                                                              uint16_t currentTargetV)
+{
+    if (sysLin_Stack.RGB.BCM_RGB_Sonderfunktion != 2u)
+    {
+        return bfalse;
+    }
+
+    if ((btrue == __algoIsSonderfunktion2TempBypassTarget(originalTargetU, originalTargetV)) ||
+        (btrue == __algoIsSonderfunktion2TempBypassTarget(currentTargetU, currentTargetV)))
+    {
+        return btrue;
+    }
+
+    return bfalse;
+}
 static uint8_t __algoGetSonderfunktion2W25Cached(uint16_t targetU,
                                                  uint16_t targetV,
                                                  uint16_t *whiteRatio25Q10000)
@@ -1103,6 +1099,7 @@ static void __algoLedFixCIE(int16_t ledTemp)
 	  //SCIExyY redTempxyY, greenTempxyY, blueTempxyY;
 	  int16_t tempShift;
 
+
 	  for( i = 0 ; i < (DMAX_TEMP_SHIFT_RECORD_AMOUNT-1) ; i++)
 	  {
 	    if ((ledTemp >= TtoCIE[i].Temperature) &&
@@ -1193,19 +1190,24 @@ static bool_t __algoSplitTargetColorByWhite(const SCIEColor *targetColor,
                                             volatile SCIEColor *pointColor)
 {
     SCIEColor vertices[3];
+    fix16_t whitePointX;
+    fix16_t whitePointY;
     fix16_t dirX, dirY;
     fix16_t bestT, bestPX, bestPY;
     bool_t foundPoint;
     int16_t bestEdge;
     int16_t i;
 
+    whitePointX = __algoGetWhitePointX();
+    whitePointY = __algoGetWhitePointY();
+
     splitLambda = 0;
     splitOneMinusLambda = fix16_one;
     splitRayT = 0;
     splitEdgeIndex = -1;
 
-    whiteColor->x = __algoGetWhitePointX();
-    whiteColor->y = __algoGetWhitePointY();
+    whiteColor->x = whitePointX;
+    whiteColor->y = whitePointY;
     whiteColor->Y = 0;
 
     pointColor->x = targetColor->x;
@@ -1217,8 +1219,8 @@ static bool_t __algoSplitTargetColorByWhite(const SCIEColor *targetColor,
         return btrue;
     }
 
-    dirX = fix16_sub(targetColor->x, __algoGetWhitePointX());
-    dirY = fix16_sub(targetColor->y, __algoGetWhitePointY());
+    dirX = fix16_sub(targetColor->x, whitePointX);
+    dirY = fix16_sub(targetColor->y, whitePointY);
 
     if ((__algoIsNearZero(dirX) == btrue) && (__algoIsNearZero(dirY) == btrue))
     {
@@ -1265,8 +1267,8 @@ static bool_t __algoSplitTargetColorByWhite(const SCIEColor *targetColor,
 
         edgeX = fix16_sub(endPoint.x, startPoint.x);
         edgeY = fix16_sub(endPoint.y, startPoint.y);
-        relX = fix16_sub(startPoint.x, __algoGetWhitePointX());
-        relY = fix16_sub(startPoint.y, __algoGetWhitePointY());
+        relX = fix16_sub(startPoint.x, whitePointX);
+        relY = fix16_sub(startPoint.y, whitePointY);
 
         denominator = __algoCross2D(dirX, dirY, edgeX, edgeY);
         if (__algoIsNearZero(denominator) == btrue)
@@ -1284,8 +1286,8 @@ static bool_t __algoSplitTargetColorByWhite(const SCIEColor *targetColor,
             if ((foundPoint == bfalse) || (rayT < bestT))
             {
                 bestT = rayT;
-                bestPX = fix16_add(__algoGetWhitePointX(), fix16_mul(rayT, dirX));
-                bestPY = fix16_add(__algoGetWhitePointY(), fix16_mul(rayT, dirY));
+                bestPX = fix16_add(whitePointX, fix16_mul(rayT, dirX));
+                bestPY = fix16_add(whitePointY, fix16_mul(rayT, dirY));
                 bestEdge = i;
                 foundPoint = btrue;
             }
@@ -1319,7 +1321,7 @@ static bool_t __algoSplitTargetColorByWhite(const SCIEColor *targetColor,
         splitLambda = lambda;
         splitOneMinusLambda = oneMinusLambda;
 
-        whiteRatio = fix16_mul(oneMinusLambda, __algoGetWhitePointY());
+        whiteRatio = fix16_mul(oneMinusLambda, whitePointY);
         pointRatio = fix16_mul(lambda, pointColor->y);
 
         whiteColor->Y = fix16_mul(targetColor->Y, fix16_div(whiteRatio, targetColor->y));
@@ -1377,28 +1379,6 @@ static fix16_t __algoConvertWhiteYToDutyRatio(fix16_t mixWhiteY)
 
     return duty_w_aa;
 }
-static uint16_t __algoGetCurrentBoundaryWhiteRatioQ10000(const SCIEColor *targetColorPtr)
-{
-    SCIEColor boundaryWhiteCIE;
-    SCIEColor boundaryPointCIE;
-    fix16_t boundaryRatio;
-    bool_t boundaryValid;
-
-    if ((targetColorPtr == (void *)0) || (targetColorPtr->Y <= fix16Const1M))
-    {
-        return 10000u;
-    }
-
-    boundaryValid = __algoSplitTargetColorByWhite(targetColorPtr, &boundaryWhiteCIE, &boundaryPointCIE);
-    if (boundaryValid == bfalse)
-    {
-        return 10000u;
-    }
-
-    boundaryRatio = __algoClampFix16(fix16_div(boundaryWhiteCIE.Y, targetColorPtr->Y), 0, fix16_one);
-    return __algoClampWhiteRatioFix16ToQ10000(boundaryRatio);
-}
-
 static void __algoGetWhiteDutyRatio(SColorParams * const inputColor,
                                     const SCIEColor *whiteColor,
                                     SPWMParams *outputPWM)
@@ -1633,6 +1613,8 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
     fix16_t rgbRatio;
     fix16_t dirX;
     fix16_t dirY;
+    fix16_t whitePointX;
+    fix16_t whitePointY;
 
     useRuntimeChannelBasis = gAlgoSonderfunktion2HasCurrentChannelXyY;
 
@@ -1645,6 +1627,9 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
         __algoApplyRuntimeChannelBasis();
     }
 
+    whitePointX = __algoGetWhitePointX();
+    whitePointY = __algoGetWhitePointY();
+
 #if (ALGO_SONDERFUNKTION2_TEMP_DEBUG_ENABLE != 0u)
     gAlgoSonderfunktion2DebugUseRuntimeChannel = useRuntimeChannelBasis;
     gAlgoSonderfunktion2DebugCurrentRedXQ10000 = __algoFix16ToSignedQ10000(currentRedCIE.x);
@@ -1653,8 +1638,8 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
     gAlgoSonderfunktion2DebugCurrentGreenYQ10000 = __algoFix16ToSignedQ10000(currentGreenCIE.y);
     gAlgoSonderfunktion2DebugCurrentBlueXQ10000 = __algoFix16ToSignedQ10000(currentBlueCIE.x);
     gAlgoSonderfunktion2DebugCurrentBlueYQ10000 = __algoFix16ToSignedQ10000(currentBlueCIE.y);
-    gAlgoSonderfunktion2DebugCurrentWhiteXQ10000 = __algoFix16ToSignedQ10000(__algoGetWhitePointX());
-    gAlgoSonderfunktion2DebugCurrentWhiteYQ10000 = __algoFix16ToSignedQ10000(__algoGetWhitePointY());
+    gAlgoSonderfunktion2DebugCurrentWhiteXQ10000 = __algoFix16ToSignedQ10000(whitePointX);
+    gAlgoSonderfunktion2DebugCurrentWhiteYQ10000 = __algoFix16ToSignedQ10000(whitePointY);
 #endif
 
     correctionTemperatureDegC_X10 = __algoGetSonderfunktion2CorrectionTemperatureDegC_X10(inputColor);
@@ -1669,10 +1654,6 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
     }
     else
     {
-/*
-         * Use Sonderfunktion==0 boundary split result only to get the valid
-         * max white ratio on the current white-to-target ray.
-         */
         splitTargetColorValid = __algoSplitTargetColorByWhite(targetColorPtr,
                                                               &boundaryWhiteCIE,
                                                               &boundaryPointCIE);
@@ -1697,14 +1678,14 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
             __algoSyncSonderfunktion2DebugArray();
 #endif
 
-            if (__algoGetWhitePointY() <= fix16Const1M)
+            if (whitePointY <= fix16Const1M)
             {
                 splitTargetColorValid = bfalse;
             }
             else
             {
                 ratioFactor = fix16_div(fix16_mul(whiteRatio, targetColorPtr->y),
-                                        __algoGetWhitePointY());
+                                        whitePointY);
 
                 lambda = fix16_sub(fix16_one, ratioFactor);
 
@@ -1716,15 +1697,15 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
                 {
                     splitRayT = fix16_div(fix16_one, lambda);
 
-                    dirX = fix16_sub(targetColorPtr->x, __algoGetWhitePointX());
-                    dirY = fix16_sub(targetColorPtr->y, __algoGetWhitePointY());
+                    dirX = fix16_sub(targetColorPtr->x, whitePointX);
+                    dirY = fix16_sub(targetColorPtr->y, whitePointY);
 
-                    splitWhiteCIE.x = __algoGetWhitePointX();
-                    splitWhiteCIE.y = __algoGetWhitePointY();
+                    splitWhiteCIE.x = whitePointX;
+                    splitWhiteCIE.y = whitePointY;
                     splitWhiteCIE.Y = fix16_mul(targetColorPtr->Y, whiteRatio);
 
-                    splitPointCIE.x = fix16_add(__algoGetWhitePointX(), fix16_mul(splitRayT, dirX));
-                    splitPointCIE.y = fix16_add(__algoGetWhitePointY(), fix16_mul(splitRayT, dirY));
+                    splitPointCIE.x = fix16_add(whitePointX, fix16_mul(splitRayT, dirX));
+                    splitPointCIE.y = fix16_add(whitePointY, fix16_mul(splitRayT, dirY));
 
                     rgbRatio = fix16_sub(fix16_one, whiteRatio);
 
@@ -1746,8 +1727,8 @@ static void __algoGetSonderfunktion2LookupPwmOutput(SColorParams * const inputCo
 
     if (splitTargetColorValid == bfalse)
     {
-        splitWhiteCIE.x = __algoGetWhitePointX();
-        splitWhiteCIE.y = __algoGetWhitePointY();
+        splitWhiteCIE.x = whitePointX;
+        splitWhiteCIE.y = whitePointY;
         splitWhiteCIE.Y = 0;
         dutyColor = *targetColorPtr;
     }

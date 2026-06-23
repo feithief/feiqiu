@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>ALGO_SONDERFUNKTION2_USE_MIN_ANGLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\SWSC_App;.\Generated;.\Hal;.\Protocol;.\AA;.\System;.\modules;.\dimming;.\Algorithm;.\Protocol</IncludePath>
+              <IncludePath>.\Config;.\SWSC_App;.\Generated;.\Hal;.\Protocol;.\AA;.\System;.\modules;.\dimming;.\Algorithm;.\Protocol</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -380,6 +380,21 @@
         </TargetArmAds>
       </TargetOption>
       <Groups>
+        <Group>
+          <GroupName>Config (external)</GroupName>
+          <Files>
+            <File>
+              <FileName>lin_autoaddressing_cfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config\lin_autoaddressing_cfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>lin_autoaddressing_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Config\lin_autoaddressing_cfg.h</FilePath>
+            </File>
+          </Files>
+        </Group>
         <Group>
           <GroupName>app</GroupName>
           <Files>
@@ -613,8 +628,8 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.6.0" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.7.36" url="https://www.keil.com/pack/" vendor="ARM" version="6.1.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>

@@ -86,8 +86,6 @@ static bool_t moduleFlashWhiteCIEInvalid(void)
     return bfalse;
 }
 
-static uint8_t GbTestEn = 0;
-static uint8_t GucFlashEnvData[96];
 
 
 

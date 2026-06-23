@@ -30,11 +30,8 @@
 #define DSOFTWARE_VERSION_LENGTH  5U
 
 /**@brief module name section length.*/
-#define DCONTENT_6C69_LEGNTH      13U
-
 const uint8_t softwareVersion[DSOFTWARE_VERSION_LENGTH + 1] = "S0700";    /* 5 bytes */
 
-const uint8_t CONTENT_0x6c69[DCONTENT_6C69_LEGNTH] = "RGBe_Slave   "; /* 13 bytes */
 uint16_t Debug[12] = {0};
 /**@brief Service list.*/
 #define DMAX_SERVICE_AMOUNT 24//15
@@ -55,7 +52,7 @@ uint16_t Debug[12] = {0};
 //    }
 //}
 
-//// ����ջ��ʹ�����?
+//// ����ջ��ʹ�����?
 //uint32_t measureStackUsage(void) {
 //    volatile uint32_t *stackPtr;
 //    uint32_t used = 0;
@@ -67,11 +64,11 @@ uint16_t Debug[12] = {0};
 //    for (stackPtr = stackBottom; stackPtr < &__initial_sp; ++stackPtr) {
 //        if (*stackPtr != 0xCCCCCCCC) { // ���ҵ�һ�����ǳ�ʼ��ֵ�ĵ�ַ
 //            used = (uint32_t)(&__initial_sp - stackPtr);
-//            break; // �ҵ�ջʹ�õ���ʼ�������ѭ��?
+//            break; // �ҵ�ջʹ�õ���ʼ�������ѭ��?
 //        }
 //    }
 
-//    return used * sizeof(uint32_t); // ������ʹ�õ�ջ�ռ��С����λΪ�ֽ�?
+//    return used * sizeof(uint32_t); // ������ʹ�õ�ջ�ռ��С����λΪ�ֽ�?
 //}
 
 

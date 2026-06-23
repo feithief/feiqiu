@@ -53,7 +53,6 @@ uint8_t calculateParityPID(uint8_t PID);
 *
 *@retval    None.
 */
-const uint8_t CmdListPID[17] =   {0xdd, 0x1a, 0x1a, 0x5b, 0x5b, 0x9c, 0x9c, 0xdd, 0xdd, 0x5e, 0x5e, 0x20, 0x20, 0x61, 0x61, 0x1A, 0x1A};
 const uint8_t WriteListPID[17] = {0x6a, 0xa3, 0x64, 0x25, 0xa6, 0xe7, 0xa8, 0xe9, 0x6a, 0x2b, 0xec, 0xad, 0x2e, 0x6f, 0xf0, 0x6f, 0xf0};
 const uint8_t WriteListPID00000[17] = {0x80, 0xC1, 0x42, 0x03, 0xC4, 0x85, 0x06, 0x47, 0x08, 0x49, 0xCA, 0x8B, 0x4C, 0x0D, 0x8E, 0xCF, 0x50};
 const uint8_t NadSignal_index[17] = {0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 0, 0};
@@ -65,7 +64,6 @@ void systemLinCommChangeNad(uint8_t newNad)
 	if (newNad<17 && newNad>0)
 	{
 		LIN_CHANGE_PID_FRAME_RGBs_Slave_08a(WriteListPID00000[newNad]);
-	//	LIN_CHANGE_PID_FRAME_RGBe_Slave_a_07_08(CmdListPID[newNad]);
 		LIN_CHANGE_PID_FRAME_RGBe_Write_a_08(WriteListPID[newNad]);
 	}
 	else
@@ -164,419 +162,147 @@ uint8_t IsSignalUpdated(void)
 }
 bool_t SignalColorFlag = btrue;
 
-void Updatebuf01_02(void)
+static void UpdatebufApply(uint16_t colorU,
+                           uint16_t colorV,
+                           uint8_t dimmrampe,
+                           uint8_t sonderfunktion,
+                           uint8_t intensity)
 {
-		if (savedConfig.singleAddr == 1 || savedConfig.singleAddr == 2 || savedConfig.singleAddr == 16)
-		{
-		 do{
-			 if(savedConfig.singleAddr == 2)
-			 {
-				// if (Sonderfunktion(02)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_02() != 0 && l_u8_rd_BCM_RGB_Intensitaet_02() <= 100)||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0)
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_02();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_02();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_02();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_02();
-
-						
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_02();
-						
-					}
-				}
-			 }
-			 else
-			 {
-				// if (Sonderfunktion(01)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_01() != 0 && l_u8_rd_BCM_RGB_Intensitaet_01() <= 100) ||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_01();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_01();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_01();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_01();
-
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_01();
-						
-					}
-				}
-			 }
-	//	 }
-		 
-	 }while(0);
- }
+	if (((sysLin.RGB.BCM_RGB_Intensitaet == 0u) &&
+		 (intensity != 0u) &&
+		 (intensity <= 100u)) ||
+		(sysLin.RGB.BCM_RGB_Intensitaet != 0u))
+	{
+		sysLin_Stack.RGB.BCM_RGB_Color_u = colorU;
+		sysLin_Stack.RGB.BCM_RGB_Color_v = colorV;
+		sysLin_Stack.RGB.BCM_RGB_Dimmrampe = dimmrampe;
+		SignalColorFlag = btrue;
+		sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = sonderfunktion;
+		sysLin_Stack.RGB.BCM_RGB_Intensitaet = intensity;
+	}
 }
 
-void Updatebuf03_04(void)
+static void UpdatebufCurrentAddress(void)
 {
+	switch (savedConfig.singleAddr)
+	{
+	case 1u:
+	case 16u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_01(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_01(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_01(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_01(),
+					   l_u8_rd_BCM_RGB_Intensitaet_01());
+		break;
 
-		if (savedConfig.singleAddr == 3 || savedConfig.singleAddr == 4)
-		{
-		 do{
-				 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-				 {
-					// if (Sonderfunktion(04)==0)
-					{
-						if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-							l_u8_rd_BCM_RGB_Intensitaet_04() != 0 && l_u8_rd_BCM_RGB_Intensitaet_04() <= 100)||
-						sysLin.RGB.BCM_RGB_Intensitaet != 0)
-						{
-							sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_04();//l_u8_rd_BCM_RGB_Color_u_07();
-							sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_04();
-							sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_04();
-							SignalColorFlag = btrue;
+	case 2u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_02(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_02(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_02(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_02(),
+					   l_u8_rd_BCM_RGB_Intensitaet_02());
+		break;
 
-									sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_04();
+	case 3u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_03(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_03(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_03(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_03(),
+					   l_u8_rd_BCM_RGB_Intensitaet_03());
+		break;
 
-							
-							
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_04();
-						
-						}
-					}
-					
-				 }
-				 else
-				 {
-					// if (Sonderfunktion(03)==0)
-					{
-						if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-							l_u8_rd_BCM_RGB_Intensitaet_03() != 0 && l_u8_rd_BCM_RGB_Intensitaet_03() <= 100) ||
-						sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-						{
-							sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_03();//l_u8_rd_BCM_RGB_Color_u_07();
-							sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_03();
-							sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_03();
-							SignalColorFlag = btrue;
+	case 4u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_04(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_04(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_04(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_04(),
+					   l_u8_rd_BCM_RGB_Intensitaet_04());
+		break;
 
-									sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_03();
+	case 5u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_05(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_05(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_05(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_05(),
+					   l_u8_rd_BCM_RGB_Intensitaet_05());
+		break;
 
-							
-									sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_03();
-							
-						}
-					}
-				 }
-			 
-	 }while(0);
- }
-		
+	case 6u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_06(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_06(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_06(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_06(),
+					   l_u8_rd_BCM_RGB_Intensitaet_06());
+		break;
+
+	case 7u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_07(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_07(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_07(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_07(),
+					   l_u8_rd_BCM_RGB_Intensitaet_07());
+		break;
+
+	case 8u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_08(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_08(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_08(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_08(),
+					   l_u8_rd_BCM_RGB_Intensitaet_08());
+		break;
+
+	case 9u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_09(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_09(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_09(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_09(),
+					   l_u8_rd_BCM_RGB_Intensitaet_09());
+		break;
+
+	case 10u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_10(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_10(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_10(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_10(),
+					   l_u8_rd_BCM_RGB_Intensitaet_10());
+		break;
+
+	case 11u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_11(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_11(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_09(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_11(),
+					   l_u8_rd_BCM_RGB_Intensitaet_11());
+		break;
+
+	case 12u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_12(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_12(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_12(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_12(),
+					   l_u8_rd_BCM_RGB_Intensitaet_12());
+		break;
+
+	case 13u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_13(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_13(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_13(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_13(),
+					   l_u8_rd_BCM_RGB_Intensitaet_13());
+		break;
+
+	case 14u:
+		UpdatebufApply((uint16_t)l_u8_rd_BCM_RGB_Color_u_14(),
+					   (uint16_t)l_u8_rd_BCM_RGB_Color_v_14(),
+					   l_u8_rd_BCM_RGB_Dimmrampe_14(),
+					   l_u8_rd_BCM_RGB_Sonderfunktion_14(),
+					   l_u8_rd_BCM_RGB_Intensitaet_14());
+		break;
+
+	default:
+		break;
+	}
 }
-void Updatebuf05_06(void)
-{
-
-		if (savedConfig.singleAddr == 5 || savedConfig.singleAddr == 6)
-		{
-		 do{
-			 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-			 {
-				// if (Sonderfunktion(06)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_06() != 0 && l_u8_rd_BCM_RGB_Intensitaet_06() <= 100)||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0)
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_06();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_06();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_06();
-						SignalColorFlag = btrue;
-						
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_06();
-
-						
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_06();
-						
-					}
-				}
-			 }
-			 else
-			 {
-				// if (Sonderfunktion(05)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_05() != 0 && l_u8_rd_BCM_RGB_Intensitaet_05() <= 100) ||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_05();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_05();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_05();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_05();
-
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_05();
-						
-					}
-				}
-			 }
-	//	 }
-		 
-	 }while(0);
- }
-		
-}
-
-void Updatebuf07_08(void)
-{
-		if (savedConfig.singleAddr == 7 || savedConfig.singleAddr == 8)
-		{
-		 do{
-		 
-			 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-			 {
-				// if (Sonderfunktion(08)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_08() != 0 && l_u8_rd_BCM_RGB_Intensitaet_08() <= 100)||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0)
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_08();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_08();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_08();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_08();
-
-						
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_08();
-						
-					}
-				}
-			 }
-			 else
-			 {
-				// if (Sonderfunktion(07)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_07() != 0 && l_u8_rd_BCM_RGB_Intensitaet_07() <= 100) ||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_07();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_07();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_07();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_07();
-
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_07();
-						
-					}
-				}
-			 }
-	//	 }
-		 
-	 }while(0);
- }
-		
-}
-void Updatebuf09_10(void)
-{
-		if (savedConfig.singleAddr == 9 || savedConfig.singleAddr == 10)
-		{
-		 do{
-			 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-			 {
-				// if (Sonderfunktion(10)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_10() != 0 && l_u8_rd_BCM_RGB_Intensitaet_10() <= 100)||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0)
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_10();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_10();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_10();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_10();
-
-						
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_10();
-						
-					}
-				}
-			 }
-			 else
-			 {
-				// if (Sonderfunktion(09)==0)
-				{
-					if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_09() != 0 && l_u8_rd_BCM_RGB_Intensitaet_09() <= 100) ||
-					sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-					{
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_09();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_09();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_09();
-						SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_09();
-
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_09();
-						
-					}
-				}
-			 }
-
-		 
-	 }while(0);
- }
-		
-}
-void Updatebuf11_12(void)
-{
-		if (savedConfig.singleAddr == 11 || savedConfig.singleAddr == 12)
-		{
-				 do{
-				 
-					
-					 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-					 {
-						// if (Sonderfunktion(12)==0)
-						{
-							if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-								l_u8_rd_BCM_RGB_Intensitaet_12() != 0 && l_u8_rd_BCM_RGB_Intensitaet_12() <= 100)||
-							sysLin.RGB.BCM_RGB_Intensitaet != 0)
-							{
-								sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_12();//l_u8_rd_BCM_RGB_Color_u_07();
-								sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_12();
-								sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_12();
-								SignalColorFlag = btrue;
-
-										sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_12();
-
-								
-								
-										sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_12();
-								
-							}
-						}
-					 }
-					 else
-					 {
-						// if (Sonderfunktion(11)==0)
-				 		{
-							 if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-								l_u8_rd_BCM_RGB_Intensitaet_11() != 0 && l_u8_rd_BCM_RGB_Intensitaet_11() <= 100) ||
-							 sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-							 {
-								sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_11();//l_u8_rd_BCM_RGB_Color_u_07();
-								sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_11();
-								sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_09();
-								SignalColorFlag = btrue;
-
-								sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_11();
-
-						
-								sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_11();
-								
-							}
-						 }
-						 
-					 }
-			//	 }
-				 
-			 }while(0);
-		}
-		else
-		{
-			
-		}
-		
-}
-
-void Updatebuf13_14(void)
-{
-		if (savedConfig.singleAddr == 13 || savedConfig.singleAddr == 14)
-		{
-		 do{
-		 
-			 if(savedConfig.singleAddr% 2 == 0 && savedConfig.singleAddr!=16)
-			 {
-				//  if (Sonderfunktion(14)==0)
-				 {
-					 if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_14() != 0 && l_u8_rd_BCM_RGB_Intensitaet_14() <= 100)||
-					 sysLin.RGB.BCM_RGB_Intensitaet != 0)
-					 {
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_14();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_14();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_14();
-						SignalColorFlag = btrue;
-
-						sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_14();
-
-				
-				
-						sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_14();
-						
-					}
-				}
-			 }
-			 else
-			 {
-				//  if (Sonderfunktion(13)==0)
-				 {
-					 if((sysLin.RGB.BCM_RGB_Intensitaet == 0 &&
-						l_u8_rd_BCM_RGB_Intensitaet_13() != 0 && l_u8_rd_BCM_RGB_Intensitaet_13() <= 100) ||
-					 sysLin.RGB.BCM_RGB_Intensitaet != 0 )
-					 {
-						sysLin_Stack.RGB.BCM_RGB_Color_u = (uint16_t)l_u8_rd_BCM_RGB_Color_u_13();//l_u8_rd_BCM_RGB_Color_u_07();
-						sysLin_Stack.RGB.BCM_RGB_Color_v = (uint16_t)l_u8_rd_BCM_RGB_Color_v_13();
-						sysLin_Stack.RGB.BCM_RGB_Dimmrampe = l_u8_rd_BCM_RGB_Dimmrampe_13();
-						SignalColorFlag = btrue;
-						
-						sysLin_Stack.RGB.BCM_RGB_Sonderfunktion = l_u8_rd_BCM_RGB_Sonderfunktion_13();
-
-
-						
-						sysLin_Stack.RGB.BCM_RGB_Intensitaet = l_u8_rd_BCM_RGB_Intensitaet_13();
-						
-					}
-				}
-			 }
-	 }while(0);
- }
-		
-}
-
-
-
-updatebuf_t updatebuf[7] = {
-	[0] = Updatebuf01_02,
-	[1] = Updatebuf03_04,
-	[2] = Updatebuf05_06,
-	[3] = Updatebuf07_08,
-	[4] = Updatebuf09_10,
-	[5] = Updatebuf11_12,
-	[6] = Updatebuf13_14,
-};
-
-t_Lin_Frame_Ctrl *updatebuf_flag[7] = {
-	&g_lin_frame_ctrl[0],
-	&g_lin_frame_ctrl[1],
-	&g_lin_frame_ctrl[2],
-	&g_lin_frame_ctrl[3],
-	&g_lin_frame_ctrl[4],
-	&g_lin_frame_ctrl[5],
-	&g_lin_frame_ctrl[6],
-};
-
 static uint8_t LinbrightnessDiff = 0u;
 uint8_t GetBrightnessDiffForSpeedBasedDimming(void)
 {
@@ -598,7 +324,7 @@ bool_t systemLinCommSignalUpdate(void)
 
 //	if (AutoAdressFlgLin == btrue)
 //	{
-//			updatebuf[Nad_index]();
+//			UpdatebufCurrentAddress();
 //	}
 	if (g_lin_frame_ctrl[Nad_index].frame.frame_type.update_flag == 1)
 	{
@@ -608,7 +334,7 @@ bool_t systemLinCommSignalUpdate(void)
 //		}
 		if (AutoAdressFlgLin == btrue)
 		{
-				updatebuf[Nad_index]();
+				UpdatebufCurrentAddress();
 		}
 	}
 	if (AutoAdressFlgLin == btrue)

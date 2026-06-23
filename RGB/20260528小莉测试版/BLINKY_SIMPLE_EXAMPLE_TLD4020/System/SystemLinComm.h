@@ -31,7 +31,6 @@
 #define kein_Fehler   2  /**<error flag no error.*/
 #define Fehler        3  /**<error flag error.*/
 extern uint8_t assign_addr;
-typedef void (*updatebuf_t)(void);
 typedef uint8_t (*SwriteAreaJudgeFunc)(uint8_t *dataArray);
 typedef struct LinWrite
 {
@@ -43,7 +42,6 @@ typedef struct LinWrite
   SwriteAreaJudgeFunc judge;
 } LINwritedata;
 
-extern updatebuf_t updatebuf[7];
 extern uint8_t Nad_index;
 /**
 *@details   LIN common communication initialization.

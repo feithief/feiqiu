@@ -41,6 +41,17 @@
 
 #define ALGO_RATIO_K_WEIGHT_Q_SHIFT      (28u)
 #define ALGO_RATIO_K_RATIO_NORMALIZER    (10000u)
+#ifndef ALGO_RATIO_K_POINT_CACHE_ENABLE
+#define ALGO_RATIO_K_POINT_CACHE_ENABLE  (0u)
+#endif
+
+#ifndef ALGO_RATIO_K_POINT_CACHE_SIZE
+#define ALGO_RATIO_K_POINT_CACHE_SIZE    (128u)
+#endif
+
+#if ((ALGO_RATIO_K_POINT_CACHE_SIZE & (ALGO_RATIO_K_POINT_CACHE_SIZE - 1u)) != 0u)
+#error "ALGO_RATIO_K_POINT_CACHE_SIZE must be power of two."
+#endif
 
 #if (ALGO_RATIO_K_AMOUNT == 0u)
 #error "ALGO_RATIO_K_AMOUNT must be greater than 0."
@@ -1043,7 +1054,12 @@ static const uint16_t g_algoRatioKRatioQ10000Lut[ALGO_RATIO_K_LUT_COUNT] =
         0u,  /* idx=988, ratio=0.000000 */
         0u,  /* idx=989, ratio=0.000000 */
 };
-
+#if (ALGO_RATIO_K_POINT_CACHE_ENABLE != 0u)
+static uint8_t g_algoRatioKPointCacheValid[ALGO_RATIO_K_POINT_CACHE_SIZE];
+static uint16_t g_algoRatioKPointCacheIndex[ALGO_RATIO_K_POINT_CACHE_SIZE];
+static uint16_t g_algoRatioKPointCacheU[ALGO_RATIO_K_POINT_CACHE_SIZE];
+static uint16_t g_algoRatioKPointCacheV[ALGO_RATIO_K_POINT_CACHE_SIZE];
+#endif
 typedef struct
 {
     uint16_t lutIndex;
@@ -1379,13 +1395,13 @@ static uint8_t AlgoRatioK_LocalPlaneFitQ10000(const AlgoRatioK_NearestPointType 
         pointY = (int32_t)nearest[i].v - (int32_t)targetV;
         weightQ = AlgoRatioK_ReciprocalWeightQ(nearest[i].distance2);
 
-        if (coordNormalizer < (int32_t)AlgoRatioK_AbsS64(pointX))
+        if (coordNormalizer < AlgoRatioK_AbsS32(pointX))
         {
-            coordNormalizer = (int32_t)AlgoRatioK_AbsS64(pointX);
+            coordNormalizer = AlgoRatioK_AbsS32(pointX);
         }
-        if (coordNormalizer < (int32_t)AlgoRatioK_AbsS64(pointY))
+        if (coordNormalizer < AlgoRatioK_AbsS32(pointY))
         {
-            coordNormalizer = (int32_t)AlgoRatioK_AbsS64(pointY);
+            coordNormalizer = AlgoRatioK_AbsS32(pointY);
         }
         if (maxWeightQ < weightQ)
         {
@@ -1552,7 +1568,8 @@ static int32_t AlgoRatioK_RoundDividePositiveS64ToS32(int64_t numerator,
     return (int32_t)value;
 }
 
-static void AlgoRatioK_GetPointQ1000ByGridIJ(uint16_t gridI,
+static void AlgoRatioK_GetPointQ1000ByGridIJ(uint16_t lutIndex,
+                                             uint16_t gridI,
                                              uint16_t gridJ,
                                              uint16_t *pointU,
                                              uint16_t *pointV)
@@ -1561,11 +1578,27 @@ static void AlgoRatioK_GetPointQ1000ByGridIJ(uint16_t gridI,
     int64_t xNum;
     int64_t yNum;
     int64_t denNum;
+#if (ALGO_RATIO_K_POINT_CACHE_ENABLE != 0u)
+    uint16_t cacheSlot;
+#else
+    (void)lutIndex;
+#endif
 
     if ((pointU == (void *)0) || (pointV == (void *)0))
     {
         return;
     }
+
+#if (ALGO_RATIO_K_POINT_CACHE_ENABLE != 0u)
+    cacheSlot = (uint16_t)(lutIndex & (uint16_t)(ALGO_RATIO_K_POINT_CACHE_SIZE - 1u));
+    if ((g_algoRatioKPointCacheValid[cacheSlot] != 0u) &&
+        (g_algoRatioKPointCacheIndex[cacheSlot] == lutIndex))
+    {
+        *pointU = g_algoRatioKPointCacheU[cacheSlot];
+        *pointV = g_algoRatioKPointCacheV[cacheSlot];
+        return;
+    }
+#endif
 
     gridK = (uint16_t)(ALGO_RATIO_K_GRID_ORDER - gridI - gridJ);
 
@@ -1583,26 +1616,21 @@ static void AlgoRatioK_GetPointQ1000ByGridIJ(uint16_t gridI,
     {
         *pointU = 0u;
         *pointV = 0u;
-        return;
     }
-
-    *pointU = AlgoRatioK_RoundDividePositiveU64ToU16((uint64_t)((int64_t)4000 * xNum),
-                                                     (uint64_t)denNum);
-    *pointV = AlgoRatioK_RoundDividePositiveU64ToU16((uint64_t)((int64_t)9000 * yNum),
-                                                     (uint64_t)denNum);
-}
-
-static void AlgoRatioK_ResetNearestPoints(AlgoRatioK_NearestPointType *nearest)
-{
-    uint8_t i;
-
-    for (i = 0u; i < ALGO_RATIO_K_AMOUNT; i++)
+    else
     {
-        nearest[i].lutIndex = 0u;
-        nearest[i].u = 0u;
-        nearest[i].v = 0u;
-        nearest[i].distance2 = ALGO_RATIO_K_DISTANCE_MAX;
+        *pointU = AlgoRatioK_RoundDividePositiveU64ToU16((uint64_t)((int64_t)4000 * xNum),
+                                                         (uint64_t)denNum);
+        *pointV = AlgoRatioK_RoundDividePositiveU64ToU16((uint64_t)((int64_t)9000 * yNum),
+                                                         (uint64_t)denNum);
     }
+
+#if (ALGO_RATIO_K_POINT_CACHE_ENABLE != 0u)
+    g_algoRatioKPointCacheValid[cacheSlot] = 1u;
+    g_algoRatioKPointCacheIndex[cacheSlot] = lutIndex;
+    g_algoRatioKPointCacheU[cacheSlot] = *pointU;
+    g_algoRatioKPointCacheV[cacheSlot] = *pointV;
+#endif
 }
 
 static uint8_t AlgoRatioK_TryInsertPointByGridIJ(uint16_t gridI,
@@ -1621,7 +1649,7 @@ static uint8_t AlgoRatioK_TryInsertPointByGridIJ(uint16_t gridI,
     }
 
     point.lutIndex = AlgoRatioK_GridIndexFromIJ(gridI, gridJ);
-    AlgoRatioK_GetPointQ1000ByGridIJ(gridI, gridJ, &point.u, &point.v);
+    AlgoRatioK_GetPointQ1000ByGridIJ(point.lutIndex, gridI, gridJ, &point.u, &point.v);
     point.distance2 = AlgoRatioK_CalcDistance2(targetU, targetV, point.u, point.v);
 
     if (point.distance2 == 0u)
@@ -1815,51 +1843,6 @@ static uint8_t AlgoRatioK_FindNearestPointsFast(uint16_t targetU,
     return 1u;
 }
 
-static uint8_t AlgoRatioK_FindNearestPointsFullScan(uint16_t targetU,
-                                                    uint16_t targetV,
-                                                    AlgoRatioK_NearestPointType *nearest,
-                                                    uint8_t *nearestCount,
-                                                    uint16_t *directRatioQ10000)
-{
-    uint16_t gridI;
-    uint16_t gridJ;
-    uint16_t gridJMax;
-    uint8_t status;
-
-    if ((nearest == (void *)0) || (nearestCount == (void *)0))
-    {
-        return 0u;
-    }
-
-    *nearestCount = 0u;
-
-    for (gridI = 0u; gridI <= ALGO_RATIO_K_GRID_ORDER; gridI++)
-    {
-        gridJMax = (uint16_t)(ALGO_RATIO_K_GRID_ORDER - gridI);
-        for (gridJ = 0u; gridJ <= gridJMax; gridJ++)
-        {
-            status = AlgoRatioK_TryInsertPointByGridIJ(gridI,
-                                                       gridJ,
-                                                       targetU,
-                                                       targetV,
-                                                       nearest,
-                                                       nearestCount,
-                                                       directRatioQ10000);
-            if (status == 2u)
-            {
-                return 2u;
-            }
-        }
-    }
-
-    if (*nearestCount < ALGO_RATIO_K_AMOUNT)
-    {
-        return 0u;
-    }
-
-    return 1u;
-}
-
 uint8_t AlgoRatioK_GetWhiteRatioQ10000(uint16_t targetU,
                                        uint16_t targetV,
                                        uint16_t *whiteRatioQ10000)
@@ -1872,8 +1855,6 @@ uint8_t AlgoRatioK_GetWhiteRatioQ10000(uint16_t targetU,
     {
         return 0u;
     }
-
-    AlgoRatioK_ResetNearestPoints(nearest);
 
     status = AlgoRatioK_FindNearestPointsFast(targetU,
                                               targetV,

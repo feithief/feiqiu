@@ -128,7 +128,6 @@
   {{(l_u8)17,(l_u8)64,(l_u8)17,(l_u8)129,(l_u8)8}},\
   {{(l_u8)57,(l_u8)64,(l_u8)57,(l_u8)128,(l_u8)4}}\
 }
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT [LIN_NUMBER_OF_FRAMES];
 
 /* Notification Flag API, PID and Message ID Access for whole frames */
 
@@ -1259,25 +1258,6 @@ typedef struct{
 //extern volatile t_l_flags_RGBs_Slave_01 l_flags_RGBs_Slave_01;
 extern unsigned char SlaveNodeNAD;
 extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT01 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT02 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT03 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT04 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT05 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT06 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT07 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT08 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT09 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT10 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT11 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT12 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT13 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT14 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT15 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT16 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT17 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT18 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT19 [LIN_NUMBER_OF_FRAMES];
-extern const t_Lin_Frame_Ctrl const_LIN_FRAME_CTRL_INIT20 [LIN_NUMBER_OF_FRAMES];
 
 #endif /* end #ifndef GEN_LIN_CONFIG_H */
 

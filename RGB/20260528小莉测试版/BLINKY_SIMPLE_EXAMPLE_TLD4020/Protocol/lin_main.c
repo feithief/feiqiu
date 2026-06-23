@@ -71,6 +71,8 @@
 
 #include "lin_main.h"
 
+uint8_t calculateParityPID(uint8_t PID);
+
 /* ===========================================================================
  *  Global Variables
  * ==========================================================================*/
@@ -144,6 +146,7 @@ void lin_main_init(void)
 {
    l_u8  loc_bytecounter = 0u;
    l_u8  loc_framecounter;
+   l_u8  rgbFrameId = 0u;
 
    /* init the Hardware */
    lin_hal_init();
@@ -197,63 +200,25 @@ void lin_main_init(void)
       for(loc_bytecounter = 0u; loc_bytecounter < 3u; loc_bytecounter++)
 #endif /* end #if ((defined LIN_ENABLE_ASSIGN_FRAME_ID) || (defined LIN_ENABLE_RBI_RD_MSG_ID_PID) || (defined J2602_PROTOCOL)) */
       {
-//         g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT[loc_framecounter].reg[loc_bytecounter];
-				 switch(SlaveNodeNAD)
-          {
-            case 0x01U: /* Slave NAD of AM_RGB_Slave_01 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT01[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x02U: /* Slave NAD of AM_RGB_Slave_02 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT02[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x03U: /* Slave NAD of AM_RGB_Slave_03 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT03[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x04U: /* Slave NAD of AM_RGB_Slave_04 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT04[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x05U: /* Slave NAD of AM_RGB_Slave_05 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT05[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x06U: /* Slave NAD of AM_RGB_Slave_06 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT06[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x07U: /* Slave NAD of AM_RGB_Slave_07 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT07[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x08U: /* Slave NAD of AM_RGB_Slave_08 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT08[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x09U: /* Slave NAD of AM_RGB_Slave_09 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT09[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x0AU: /* Slave NAD of AM_RGB_Slave_10 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT10[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x0BU: /* Slave NAD of AM_RGB_Slave_11 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT11[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x0CU: /* Slave NAD of AM_RGB_Slave_12 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT12[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x0DU: /* Slave NAD of AM_RGB_Slave_13 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT13[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x0EU: /* Slave NAD of AM_RGB_Slave_14 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT14[loc_framecounter].reg[loc_bytecounter];
-              break;
-            case 0x10U: /* Slave NAD of AM_RGB_Slave_16 */
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT16[loc_framecounter].reg[loc_bytecounter];
-              break;
-            default:
-              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT01[loc_framecounter].reg[loc_bytecounter];
-							g_lin_frame_ctrl[8].frame.msg_id.lo = (uint8_t)SlaveNodeNAD;
-							g_lin_frame_ctrl[8].frame.msg_id.hi = (uint8_t)(SlaveNodeNAD>>8);
-							uint8_t calculateParityPID(uint8_t PID);
-							g_lin_frame_ctrl[8].frame.pid = calculateParityPID(SlaveNodeNAD);
-              break;
-          }
+         g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT01[loc_framecounter].reg[loc_bytecounter];
       }
+   }
+
+   if (((SlaveNodeNAD >= 1u) && (SlaveNodeNAD <= 14u)) || (SlaveNodeNAD == 16u))
+   {
+      rgbFrameId = (l_u8)(SlaveNodeNAD + 34u);
+      g_lin_frame_ctrl[7].frame.msg_id.lo = rgbFrameId;
+      g_lin_frame_ctrl[7].frame.msg_id.hi = 64u;
+      g_lin_frame_ctrl[7].frame.pid = calculateParityPID(rgbFrameId);
+      g_lin_frame_ctrl[8].frame.msg_id.lo = (l_u8)SlaveNodeNAD;
+      g_lin_frame_ctrl[8].frame.msg_id.hi = 64u;
+      g_lin_frame_ctrl[8].frame.pid = calculateParityPID((uint8_t)SlaveNodeNAD);
+   }
+   else
+   {
+      g_lin_frame_ctrl[8].frame.msg_id.lo = (uint8_t)SlaveNodeNAD;
+      g_lin_frame_ctrl[8].frame.msg_id.hi = (uint8_t)(SlaveNodeNAD >> 8);
+      g_lin_frame_ctrl[8].frame.pid = calculateParityPID((uint8_t)SlaveNodeNAD);
    }
 
    /* initialize internal diagnostic buffers */

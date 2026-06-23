@@ -1,4 +1,5 @@
 --cpu=Cortex-M23 --lto
+".\objects\lin_autoaddressing_cfg.o"
 ".\objects\linapplication.o"
 ".\objects\main.o"
 ".\objects\lin_app.o"

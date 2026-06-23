@@ -69,8 +69,6 @@ static volatile unsigned char tick_1ms;
 extern tick_t currentTick;
 extern l_u8 lin_hal_rx_data_guc;
 extern l_u16 BusIdleTimeOutCounter;
-const uint8_t CmdListPID1[17] =   {0xdd, 0x1a, 0x1a, 0x1b, 0x1b, 0x1c, 0x1c, 0x1d, 0x1d, 0x1e, 0x1e, 0x20, 0x20, 0x21, 0x21,0x1a, 0x1a};
-const uint8_t WriteListPID1[17] = {0x6a, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f, 0x30,0x2f, 0x30};
 
 static void systemMainRunLinTaskDue(void)
 {
@@ -310,8 +308,6 @@ void systemMainLoop(void)
 				lastSavedSingalAdress = savedConfig.singleAddr;
 				forceReInitLin = bfalse;
 				/*re-init color*/
-		//		MID_list[0] = (0x4000 | CmdListPID1[savedConfig.singleAddr]);
-	//			MID_list[7] = (0x4000 | WriteListPID1[savedConfig.singleAddr]);
 	//			MID_list[8] = (0x4000 | savedConfig.singleAddr);
 			}
 			
