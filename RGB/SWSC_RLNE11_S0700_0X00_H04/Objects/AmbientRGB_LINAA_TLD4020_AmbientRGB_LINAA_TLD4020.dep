@@ -1,0 +1,937 @@
+Dependencies for Project 'AmbientRGB_LINAA_TLD4020', Target 'AmbientRGB_LINAA_TLD4020': (DO NOT MODIFY !)
+CompilerVersion: 6210000::V6.21::ARMCLANG
+F (.\App\LINApplication.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/linapplication.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hirotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_driver_api.hnrotocol\lin_main.hoal\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h\TE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\pp\main.hepp\LINApplication.h)(0x00000000)
+F (.\App\main.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/main.o -MD)
+I (RTE\Device\TLD4020-3ET\device.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\variants.h_TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Generated\genLinConfig.hirotocol\lin_type.hirotocol\lin_driver_api.h)(0x00000000)
+I (Protocol\lin_main.hfal\lin_hal.h\rotocol\lin_diag_tp.h)(0x00000000)
+I (App\LINApplication.happ\main.h.odules\ModuleBattery.h)(0x00000000)
+I (modules\ModuleAdc.hhystem\SystemMain.hMystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hsodules\ModuleFlash.h)(0x00000000)
+I (modules\flash.h)(0x6940C532)
+F (.\App\lin_app.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_app.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hirotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_driver_api.hnrotocol\lin_main.hoal\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h\TE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\ystem\SystemStatus.hilgorithm\Algorithm.h)(0x00000000)
+I (System\SystemType.hp:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x00000000)
+I (System\SystemLinDiag.h)(0x6940C532)
+F (.\Generated\genLinConfig.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/genlinconfig.o -MD)
+I (Generated\genLinConfig.h)(0x6940C530)
+I (Protocol\lin_type.h)(0x6940C530)
+F (.\Hal\lin_hal.c)(0x6A210D01)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_hal.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hRrotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_main.hLrotocol\lin_slave_task.h)(0x00000000)
+I (Protocol\lin_driver_api.hoal\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.hhTE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\A\lin_autoaddressing.heystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hiodules\ModuleFlash.h)(0x00000000)
+I (modules\ModuleAdc.hLystem\SystemLinComm.hoystem\SystemLinDiag.h)(0x00000000)
+F (.\Protocol\lin_config.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_config.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hfrotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_driver_api.hnrotocol\lin_main.hoal\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h\TE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\A\lin_autoaddressing.heystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hiodules\ModuleFlash.h)(0x00000000)
+I (modules\ModuleAdc.hLystem\SystemLinComm.hoystem\SystemLinDiag.h)(0x00000000)
+I (Protocol\lin_config.h)(0x6940C530)
+F (.\Protocol\lin_diag_raw.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_diag_raw.o -MD)
+I (Generated\genLinConfig.h)(0x6940C530)
+I (Protocol\lin_type.h)(0x6940C530)
+F (.\Protocol\lin_diag_tp.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_diag_tp.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hnrotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_driver_api.hnrotocol\lin_main.hoal\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h\TE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\rotocol\lin_config.h)(0x00000000)
+F (.\Protocol\lin_driver_api.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_driver_api.o -MD)
+I (Generated\genLinConfig.hc:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (Protocol\lin_type.hfrotocol\lin_slave_task.h)(0x00000000)
+I (Protocol\lin_driver_api.horotocol\lin_main.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h\TE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h)(0x6940C530)
+F (.\Protocol\lin_main.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_main.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hgrotocol\lin_type.h)(0x00000000)
+I (Hal\lin_hal.hMTE\Device\TLD4020-3ET\variants.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\device.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_slave_task.hnrotocol\lin_driver_api.h)(0x00000000)
+I (Protocol\lin_main.htrotocol\lin_diag_tp.hvodules\ModuleFlash.h)(0x00000000)
+I (modules\ModuleAdc.htystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\Protocol\lin_master_task.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_master_task.o -MD)
+I (Generated\genLinConfig.h.:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (Protocol\lin_type.h)(0x6940C530)
+F (.\Protocol\lin_slave_task.c)(0x6940C530)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_slave_task.o -MD)
+I (System\SystemLinComm.hkystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (Generated\genLinConfig.hirotocol\lin_type.htrotocol\lin_main.h)(0x00000000)
+I (Protocol\lin_driver_api.hral\lin_hal.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.hhTE\Device\TLD4020-3ET\device.h)(0x00000000)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\rotocol\lin_slave_task.hTystem\SystemStatus.h)(0x00000000)
+I (Algorithm\Algorithm.hhodules\ModuleFlash.haodules\ModuleAdc.h)(0x00000000)
+F (.\AA\lin_autoaddressing.c)(0x6A38E13F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin_autoaddressing.o -MD)
+I (AA\lin_autoaddressing.h)(0x6A21060A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (Protocol\lin_type.hLal\lin_hal.hsTE\Device\TLD4020-3ET\variants.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\device.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (modules\ModuleClock.hTodules\ModuleAdc.h)(0x00000000)
+F (.\System\SystemControl.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemcontrol.o -MD)
+I (Algorithm\Algorithm.hcystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (System\SystemLinComm.hGystem\SystemLinDiag.heystem\SystemMain.h)(0x00000000)
+I (modules\ModuleTemperature.hmodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.huTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoodules\ModuleFlash.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu.h_TE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (modules\ModuleClock.hTTE\Device\TLD4020-3ET\osc_defines.h)(0x00000000)
+I (System\SystemDerating.hE:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+F (.\System\SystemDerating.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemderating.o -MD)
+I (System\SystemDerating.h)(0x6940C532)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (modules\ModuleTemperature.hlodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.huTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.h)(0x6940C531)
+F (.\System\SystemLinComm.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemlincomm.o -MD)
+I (System\SystemType.hm:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hNystem\SystemLinDiag.h)(0x00000000)
+I (System\SystemControl.hGlgorithm\Algorithm.htystem\SystemStatus.h)(0x00000000)
+I (System\SystemDerating.hlodules\ModuleFlash.hyodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.h\TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h.odules\ModulePower.h)(0x00000000)
+I (modules\ModuleLed.h3TE\Device\TLD4020-3ET\ldrv_defines.h)(0x00000000)
+I (modules\ModuleWatchdog.herotocol\lin_driver_api.h)(0x00000000)
+I (Generated\genLinConfig.herotocol\lin_type.h_rotocol\lin_main.h)(0x00000000)
+I (Hal\lin_hal.hLTE\Device\TLD4020-3ET\variants.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\device.h-TE\Device\TLD4020-3ET\osc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\osc_defines.heTE\Device\TLD4020-3ET\scu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\scu_defines.heTE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu.heTE\Device\TLD4020-3ET\cpu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem.heTE\Device\TLD4020-3ET\mem_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio.hTTE\Device\TLD4020-3ET\gpio_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin.hhTE\Device\TLD4020-3ET\lin_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\bootrom.hDrotocol\lin_diag_tp.h_pp\lin_app.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
+F (.\System\SystemLinDiag.c)(0x6A210522)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemlindiag.o -MD)
+I (Algorithm\Algorithm.hcystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (modules\ModuleAdc.hLTE\Device\TLD4020-3ET\adc11.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h.ystem\SystemLinDiag.h)(0x00000000)
+I (modules\ModuleTemperature.hdodules\ModuleLed.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hdodules\ModuleClock.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\osc_defines.hhodules\ModuleBattery.h)(0x00000000)
+I (Protocol\lin_driver_api.hcenerated\genLinConfig.herotocol\lin_type.h)(0x00000000)
+I (Protocol\lin_main.h_al\lin_hal.heTE\Device\TLD4020-3ET\variants.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\device.hhTE\Device\TLD4020-3ET\osc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\scu.heTE\Device\TLD4020-3ET\scu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv.hTTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hiTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hiTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+I (Protocol\lin_diag_tp.h\pp\lin_app.hhystem\SystemLinComm.h)(0x00000000)
+I (System\SystemDerating.hpA\lin_autoaddressing.h)(0x00000000)
+F (.\System\SystemMain.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemmain.o -MD)
+I (System\SystemType.hn:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hNodules\ModuleClock.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.hmodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.hiTE\Device\TLD4020-3ET\adc11_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\osc_defines.hvenerated\genLinConfig.h)(0x00000000)
+I (Protocol\lin_type.h3rotocol\lin_driver_api.hdrotocol\lin_main.h)(0x00000000)
+I (Hal\lin_hal.htTE\Device\TLD4020-3ET\variants.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\device.h-TE\Device\TLD4020-3ET\osc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\scu.heTE\Device\TLD4020-3ET\scu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu.heTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv.hTTE\Device\TLD4020-3ET\ldrv_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu.hhTE\Device\TLD4020-3ET\cpu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem.hhTE\Device\TLD4020-3ET\mem_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio.hTTE\Device\TLD4020-3ET\gpio_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin.hhTE\Device\TLD4020-3ET\lin_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\bootrom.hDrotocol\lin_diag_tp.h_pp\lin_app.h)(0x00000000)
+I (System\SystemStatus.hTlgorithm\Algorithm.h)(0x00000000)
+I (modules\ModuleTemperature.htodules\ModuleFlash.hgodules\ModuleLed.h)(0x00000000)
+I (modules\ModuleBattery.hrystem\SystemControl.hhystem\SystemLinComm.h)(0x00000000)
+I (System\SystemLinDiag.hhodules\ModulePower.h.pp\LINApplication.h)(0x00000000)
+I (App\main.htA\lin_autoaddressing.h)(0x00000000)
+F (.\System\SystemStatus.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemstatus.o -MD)
+I (Algorithm\Algorithm.hsystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (modules\ModuleAdc.hLTE\Device\TLD4020-3ET\adc11.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoodules\ModuleBattery.h)(0x00000000)
+I (modules\ModuleLed.h3TE\Device\TLD4020-3ET\ldrv_defines.h)(0x00000000)
+I (System\SystemLinComm.h\ystem\SystemLinDiag.h)(0x00000000)
+F (.\System\SystemType.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/systemtype.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\modules\ModuleAdc.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/moduleadc.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\adc11.heTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.h)(0x6940C531)
+F (.\modules\ModuleBattery.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/modulebattery.o -MD)
+I (modules\ModuleBattery.h)(0x6940C532)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\adc11.heTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.h)(0x6940C531)
+F (.\modules\ModuleClock.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/moduleclock.o -MD)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.hmodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.hiTE\Device\TLD4020-3ET\adc11_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\osc_defines.hvystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\modules\ModuleFlash.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/moduleflash.o -MD)
+I (System\SystemStatus.h.lgorithm\Algorithm.hgystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\adc11.heTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoodules\ModuleFlash.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu.h_TE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.hLodules\flash.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\variants.h)(0x6940C532)
+F (.\modules\ModuleLed.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/moduleled.o -MD)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hpystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.htodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.heTE\Device\TLD4020-3ET\adc11_defines.h)(0x00000000)
+I (modules\ModuleFlash.hTTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h0ystem\SystemStatus.h)(0x00000000)
+I (Algorithm\Algorithm.hTystem\SystemControl.hSodules\mod_pwm.h)(0x00000000)
+I (App\main.hAodules\ModuleWatchdog.hCystem\SystemDerating.h)(0x00000000)
+I (modules\ModuleTemperature.h)(0x6940C532)
+F (.\modules\ModulePower.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/modulepower.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h.pp\main.h)(0x00000000)
+I (modules\ModuleLed.hLTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hpystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.htTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+F (.\modules\ModuleTemperature.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/moduletemperature.o -MD)
+I (modules\ModuleTemperature.h)(0x6940C532)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\adc11.heTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hoodules\ModuleClock.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\osc_defines.h.ystem\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.heodules\ModuleBattery.h)(0x00000000)
+I (modules\ModuleLed.hLTE\Device\TLD4020-3ET\ldrv_defines.h)(0x00000000)
+I (modules\ModuleFlash.hETE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+F (.\dimming\BINARYSEARCH_U16.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/binarysearch_u16.o -MD)
+I (dimming\rtwtypes.hCimming\BINARYSEARCH_U16.h)(0x00000000)
+F (.\dimming\Dimming_Calculate.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/dimming_calculate.o -MD)
+I (dimming\Dimming_Calculate.h)(0x6940C532)
+I (dimming\LookUp_U16_U16.h)(0x6940C532)
+F (.\dimming\INTERPOLATE_U16_U16.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/interpolate_u16_u16.o -MD)
+I (dimming\rtwtypes.hEimming\INTERPOLATE_U16_U16.h)(0x00000000)
+F (.\dimming\LookUp_U16_U16.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lookup_u16_u16.o -MD)
+I (dimming\BINARYSEARCH_U16.hmimming\INTERPOLATE_U16_U16.h)(0x00000000)
+I (dimming\LookUp_U16_U16.h)(0x6940C532)
+F (.\Algorithm\Algorithm.c)(0x6940C52F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/algorithm.o -MD)
+I (System\SystemType.h.:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hNlgorithm\FloatLib.h)(0x00000000)
+I (modules\ModuleLed.hLTE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hpodules\ModuleTemperature.h)(0x00000000)
+I (modules\ModuleAdc.h3TE\Device\TLD4020-3ET\adc11.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11_defines.h3ystem\SystemStatus.h)(0x00000000)
+I (System\SystemControl.h\odules\ModuleFlash.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu.hsTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (System\SystemLinComm.h\ystem\SystemLinDiag.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
+F (.\Algorithm\FloatLib.c)(0x6940C52F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/floatlib.o -MD)
+I (System\SystemType.hc:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (RTE/Device/TLD4020-3ET/adc11.c)(0x6940C531)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/adc11.o -MD)
+I (RTE\Device\TLD4020-3ET\adc11.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\adc11_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/adc11.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/adc11_defines.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/bootrom.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/bsl_defines.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/bsl_defines_ARM.inc)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/bsl_defines_inc_save_handler.py)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/cmsis_misra.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/config.icwp)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/cpu.c)(0x6940C531)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/cpu.o -MD)
+I (RTE\Device\TLD4020-3ET\cpu.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/cpu.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/cpu_defines.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/device.c)(0x6940C531)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/device.o -MD)
+I (RTE\Device\TLD4020-3ET\device.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\variants.h_TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+F (RTE/Device/TLD4020-3ET/device.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/error_codes.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/gpio.c)(0x6A1D6D30)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/gpio.o -MD)
+I (RTE\Device\TLD4020-3ET\gpio.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\gpio_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/gpio.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/gpio_defines.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_adc11.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_bsl.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_cpu.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_gpio.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_ldrv.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_lin.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_mem.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_osc.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_pmu.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/icw_cmt_scu.xml)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/isr.c)(0x6940C531)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr.o -MD)
+I (RTE\Device\TLD4020-3ET\isr.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\isr_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/isr.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/isr_defines.h)(0x6940C531)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq0_handler.c)(0x6940C531)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq0_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq0_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\isr_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu.heTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq0_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq2_handler.c)(0x6A210D01)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq2_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq2_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\isr_defines.h_TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu.heTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (modules\ModuleFlash.hTodules\ModuleAdc.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\adc11.hoTE\Device\TLD4020-3ET\adc11_defines.h)(0x00000000)
+I (System\SystemType.h3:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x00000000)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq2_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq4_handler.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq4_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq4_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.hmTE\Device\TLD4020-3ET\isr.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\isr_defines.hmTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq4_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq5_handler.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq5_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq5_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\isr_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu.heTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq5_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq6_handler.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq6_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq6_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\isr_defines.h_TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.hmTE\Device\TLD4020-3ET\isr.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu.h_TE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq6_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq7_handler.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/isr_nvic_irq7_handler.o -MD)
+I (RTE\Device\TLD4020-3ET\isr_nvic_irq7_handler.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\isr_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cpu_defines.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu.heTE\Device\TLD4020-3ET\pmu_defines.h)(0x00000000)
+F (RTE/Device/TLD4020-3ET/isr_nvic_irq7_handler.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/ldrv.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/ldrv.o -MD)
+I (RTE\Device\TLD4020-3ET\ldrv.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/ldrv.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/ldrv.py)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/ldrv_defines.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/lin.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/lin.o -MD)
+I (RTE\Device\TLD4020-3ET\lin.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.hmTE\Device\TLD4020-3ET\pmu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\lin_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/lin.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/lin_defines.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/mem.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/mem.o -MD)
+I (RTE\Device\TLD4020-3ET\mem.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\mem_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/mem.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/mem_defines.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/osc.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/osc.o -MD)
+I (RTE\Device\TLD4020-3ET\osc.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/osc.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/osc_defines.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/pmu.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/pmu.o -MD)
+I (RTE\Device\TLD4020-3ET\pmu.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+F (RTE/Device/TLD4020-3ET/pmu.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/pmu_defines.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/scu.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/scu.o -MD)
+I (RTE\Device\TLD4020-3ET\scu.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+F (RTE/Device/TLD4020-3ET/scu.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/scu_defines.h)(0x6A21610E)()
+F (RTE/Device/TLD4020-3ET/startup_tld40xx.S)(0x6940C532)(--target=arm-arm-none-eabi -mcpu=cortex-m23 -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4 -D__EVAL-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION=539 -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/startup_tld40xx.o)
+F (RTE/Device/TLD4020-3ET/system_tld40xx.c)(0x6940C532)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -Os -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./App -I ./Generated -I ./Hal -I ./Protocol -I ./AA -I ./System -I ./modules -I ./dimming -I ./Algorithm -I ./App -I ./Protocol-I./RTE/Device/TLD4020-3ET-I./RTE/_AmbientRGB_LINAA_TLD4020-IC:/Users/SH2304013/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/SH2304013/AppData/Local/Arm/Packs/Infineon/TLD40xx_DFP/2.0.1/device/lib/inc-D__UVISION_VERSION="539" -D_RTE_ -DTLD4020_3ET -D_RTE_-o ./objects/system_tld40xx.o -MD)
+I (RTE\Device\TLD4020-3ET\device.h)(0x6940C531)
+I (RTE\_AmbientRGB_LINAA_TLD4020\RTE_Components.h)(0x6A213071)
+I (RTE\Device\TLD4020-3ET\variants.h_TE\Device\TLD4020-3ET\tld40xx.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\tld40xx_generated.h)(0x6940C532)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm23.h)(0x626F4ADE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\SH2304013\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (RTE\Device\TLD4020-3ET\system_tld40xx.hcTE\Device\TLD4020-3ET\types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (RTE\Device\TLD4020-3ET\error_codes.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\cmsis_misra.h)(0x6940C531)
+I (RTE\Device\TLD4020-3ET\osc_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\scu_defines.h)(0x6A21610E)
+I (RTE\Device\TLD4020-3ET\pmu_defines.h)(0x6940C532)
+I (RTE\Device\TLD4020-3ET\adc11_defines.hETE\Device\TLD4020-3ET\ldrv.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\ldrv_defines.hhTE\Device\TLD4020-3ET\cpu.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\cpu_defines.hhTE\Device\TLD4020-3ET\mem.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\mem_defines.hhTE\Device\TLD4020-3ET\gpio.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\gpio_defines.hTTE\Device\TLD4020-3ET\lin.h)(0x00000000)
+I (RTE\Device\TLD4020-3ET\lin_defines.hhTE\Device\TLD4020-3ET\bootrom.h)(0x00000000)
+F (RTE/Device/TLD4020-3ET/system_tld40xx.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/tld40xx.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/tld40xx.svd)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/tld40xx_generated.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/types.h)(0x6940C532)()
+F (RTE/Device/TLD4020-3ET/variants.h)(0x6940C532)()

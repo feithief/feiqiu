@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_mem.xml                                                            -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2022-2023, Infineon Technologies AG                               -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   JO           Julia Ott                                                       -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>8622667ba006639e5c194158f19d4dfd538819eca7b5b13ae7c391037f32fd54</checksum>
+  <version label="V1.0.1"/>
+
+
+  <verticalcontainer label="MEM" desc="Memory">
+    <treecontainer headerlabels="Item;Value;" label="MEM" desc="" columnwidths="400;250">
+        <header file="mem_defines.h">
+
+            <branch label="Interrupt Request Handling" expand="0">
+                    
+                <checkbox label="DSRAM double bit error (ECC)" define="MEM_DSRAM_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+
+                    <checkbox label="Enable interrupt" define="MEM.NMICTRL.DSRAM"/>
+                    <edit label="Callback" define="MEM_DSRAM_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                </checkbox>
+
+                <checkbox label="NVM double bit error (ECC)" define="MEM_NVMDBE_INT_EN" uielement="branch" expand="0" default="0" svd="0" header="isr_defines.h">
+
+                    <checkbox label="Enable interrupt" define="MEM.NMICTRL.NVMDBE"/>
+                    <edit label="Callback" define="MEM_NVMDBE_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                </checkbox>
+                
+            </branch>
+
+
+        </header>
+    </treecontainer>
+
+  </verticalcontainer>
+
+</ifxmlcfg>
