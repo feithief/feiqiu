@@ -17,6 +17,6 @@ if errorlevel 1 exit /b %errorlevel%
 
 copy /Y "%GENOUT%\linprofile_generated.cpp" "generated\linprofile_generated.cc" >nul
 copy /Y "%GENOUT%\linprofile_generated.h" "generated\linprofile_generated.h" >nul
-copy /Y "%GENOUT%\linprofile_report.json" "generated\linprofile_report.json" >nul
+copy /Y "%GENOUT%\linprofile_report.json" "generated\linprofile_report.json.txt" >nul
 rmdir /S /Q "%GENOUT%"
 exit /b %errorlevel%
