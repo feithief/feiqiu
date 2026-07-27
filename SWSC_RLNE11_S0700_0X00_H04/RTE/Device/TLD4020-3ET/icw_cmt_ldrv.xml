@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--file icw_cmt_ldrv.xml                                                            -->
+<!--brief Infineon LITIX(TM) MCU Modules configuration                              -->
+<!--                                                                                -->
+<!--Copyright (c) 2022-2023, Infineon Technologies AG                               -->
+<!--All rights reserved.                                                            -->
+<!--                                                                                -->
+<!--Redistribution and use in source and binary forms, with or without modification,-->
+<!--are permitted provided that the following conditions are met:                   -->
+<!--                                                                                -->
+<!--  Redistributions of source code must retain the above copyright notice, this   -->
+<!--  list of conditions and the following disclaimer.                              -->
+<!--                                                                                -->
+<!--  Redistributions in binary form must reproduce the above copyright notice,     -->
+<!--  this list of conditions and the following disclaimer in the documentation     -->
+<!--  and/or other materials provided with the distribution.                        -->
+<!--                                                                                -->
+<!--  Neither the name of the copyright holders nor the names of its contributors   -->
+<!--  may be used to endorse or promote products derived from this software without -->
+<!--  specific prior written permission.                                            -->
+<!--                                                                                -->
+<!--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND -->
+<!--ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED   -->
+<!--WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE          -->
+<!--DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE    -->
+<!--FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL      -->
+<!--DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR      -->
+<!--SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      -->
+<!--CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,   -->
+<!--OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   -->
+<!--OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.            -->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                Infineon LITIX(TM) MCU Module configuration file                -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                               Author(s) Identity                               -->
+<!--********************************************************************************-->
+<!--   Initials     Name                                                            -->
+<!--   FP           Federico Pacini                                                 -->
+<!--   SL           Stefano Lissandron                                              -->
+<!--   VO           Vanessa Ongaro                                                  -->
+<!--   JO           Julia Ott                                                       -->
+<!--********************************************************************************-->
+<!--                                                                                -->
+<!--********************************************************************************-->
+<!--                            Revision Control History                            -->
+<!--********************************************************************************-->
+<!-- V1.0.0: 2022-10-21, FP:   Initial version                                      -->
+<!-- V1.0.1: 2023-08-07, VO:   [ATVCOMETLL-119] Added Duty-Cycle settings for GPIO0 -->
+<!--                           Synchronization                                      -->
+<!--                           Added Interrupt Req Handling for PWM_SYNCH and OVLF  -->
+<!--                           Fixed indentation                                    -->
+<!-- V1.0.2: 2023-08-08, VO:   [ATVCOMETLL-49] Linked Current set-point to svd      -->
+<!-- V1.0.3: 2023-08-29, SL:   [ATVCOMETLL-121] f_PWM indication added on the GUI   -->
+<!-- V1.0.4: 2023-09-28, JO:   [ATVCOMETLL-131] Updated date format                 -->
+<!--********************************************************************************-->
+<ifxmlcfg version="2.6.2">
+	<checksum>eb76b1b14e88683d086d3d9f5788bda971d30fb006391b0cd733a25d0930be89</checksum>
+  <version label="V1.0.4"/>
+
+
+  <verticalcontainer label="LDRV" desc="Led driver">
+    <treecontainer headerlabels="Item;Value;" label="PWM Setting" desc="PWM Setting" columnwidths="400;250">
+        <header file="ldrv_defines.h">
+                
+            <checkbox label="LED driver enable" define="LDRV.MOD_CFG.LD_ENABLE" lockon="ADC11.CFG_1.ADC_ENABLE=1" uielement="branch" expand="0" default="0">
+                    
+                <branch label="PWM setting" expand="0">
+
+                    <math visible="true" label="f_PWM" define="LDRV_F_PWM" header="temp_defines.h" svd="0" formula="SCU_F_SYS0 * 1000000 / ( (LDRV.PWM_FREQ.PWM_PS + 1) * (LDRV.PWM_FREQ.PWM_MAX + 1) )" unit="Hz" />
+
+                    <spinbox label="Frequency divider" define="LDRV.PWM_FREQ.PWM_PS" default="0" step="1" range="0;511"/>
+
+                    <spinbox label="Max counter value" define="LDRV.PWM_FREQ.PWM_MAX" default="65535" step="1" range="0;65535"/>
+                    
+                    <branch label="Phase shift" expand="0">
+                        <radio label="Phase shift" define="PHASE_SHIFT" svd="0" header="temp_defines.h">
+                                    
+                            <radiobutton label="Register value" uielement="branch">
+                                <!-- Used to set the value for the percentage value -->
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG0_PWM_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_PHASE_CFG0.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_PHASE_CFG0.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG1_PWM_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_PHASE_CFG1.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_PHASE_CFG1.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG2_PWM_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_PHASE_CFG2.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_PHASE_CFG2.PWM_PHASE * 256 /LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                
+                                <spinbox label="Channel 0" define="LDRV.PWM_PHASE_CFG0.PWM_PHASE" default="0" step="1" range="0;255">
+                                        <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                        <action event="changed" cond="LDRV.PWM_PHASE_CFG0.PWM_PHASE*256&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG0_PWM_PHASE_ERROR=0"/>
+                                        <action event="changed" cond="LDRV.PWM_PHASE_CFG0.PWM_PHASE*256==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG0_PWM_PHASE_ERROR=0"/>
+                                        <action event="changed" cond="LDRV.PWM_PHASE_CFG0.PWM_PHASE*256&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG0_PWM_PHASE_ERROR=1"/>
+                                    </spinbox>
+
+                                <math visible="true" label="Channel 0 [ticks]" svd="0" header="temp_defines.h" formula="LDRV.PWM_PHASE_CFG0.PWM_PHASE * 256"/>
+
+                                <spinbox label="Channel 1" define="LDRV.PWM_PHASE_CFG1.PWM_PHASE" default="0" step="1" range="0;255">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG1.PWM_PHASE*256&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG1_PWM_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG1.PWM_PHASE*256==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG1_PWM_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG1.PWM_PHASE*256&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG1_PWM_PHASE_ERROR=1"/>
+                                </spinbox>
+
+                                <math visible="true" label="Channel 1 [ticks]" svd="0" header="temp_defines.h" formula="LDRV.PWM_PHASE_CFG1.PWM_PHASE * 256"/>
+
+                                <spinbox label="Channel 2" define="LDRV.PWM_PHASE_CFG2.PWM_PHASE" default="0" step="1" range="0;255">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG2.PWM_PHASE*256&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG2_PWM_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG2.PWM_PHASE*256==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG2_PWM_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_PHASE_CFG2.PWM_PHASE*256&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_PHASE_CFG2_PWM_PHASE_ERROR=1"/>
+                                </spinbox>
+
+                                <math visible="true" label="Channel 2 [ticks]" svd="0" header="temp_defines.h" formula="LDRV.PWM_PHASE_CFG2.PWM_PHASE * 256"/>
+                            </radiobutton>
+                            
+                            <radiobutton label="Percentage of 'Max Counter Value'" uielement="branch">
+                                <!-- Used to set the correct value of "register value" by the timer -->
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG0_PWM_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_PHASE_CFG0_PWM_PHASE_percentage_value_spinbox/100)/256)"/>
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG1_PWM_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_PHASE_CFG1_PWM_PHASE_percentage_value_spinbox/100)/256)"/>
+                                <math visible="false" define="LDRV_PWM_PHASE_CFG2_PWM_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_PHASE_CFG2_PWM_PHASE_percentage_value_spinbox/100)/256)"/>
+                                
+                                <spinbox label="Channel 0 [%]" define="LDRV_PWM_PHASE_CFG0_PWM_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" range="0;100"/>
+                                <spinbox label="Channel 1 [%]" define="LDRV_PWM_PHASE_CFG1_PWM_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                                <spinbox label="Channel 2 [%]" define="LDRV_PWM_PHASE_CFG2_PWM_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                            </radiobutton>
+                            
+                        </radio>
+                    </branch>
+                    <branch label="Duty-cycle" expand="0">
+                        <radio label="Duty cycle" define="DUTY_CYCLE" svd="0" header="temp_defines.h">
+                                    
+                            <radiobutton label="Register value" uielement="branch">
+                                <!-- Used to set the value for the percentage value -->
+                                <math visible="false" define="LDRV_PWM_DC_CFG0_PWM_DC_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_DC_CFG0.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_DC_CFG0.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_PWM_DC_CFG1_PWM_DC_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_DC_CFG1.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_DC_CFG1.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_PWM_DC_CFG2_PWM_DC_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_DC_CFG2.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_DC_CFG2.PWM_DC / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+								<math visible="false" define="LDRV_PWM_SYNCH_PWM_SYNCH_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.PWM_SYNCH.PWM_SYNCH / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.PWM_SYNCH.PWM_SYNCH / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                
+                                <spinbox label="Channel 0" define="LDRV.PWM_DC_CFG0.PWM_DC" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG0.PWM_DC&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG0_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG0.PWM_DC==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG0_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG0.PWM_DC&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG0_PWM_DC_ERROR=1"/>
+                                </spinbox>
+                                <spinbox label="Channel 1" define="LDRV.PWM_DC_CFG1.PWM_DC" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG1.PWM_DC&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG1_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG1.PWM_DC==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG1_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG1.PWM_DC&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG1_PWM_DC_ERROR=1"/>
+                                </spinbox>
+                                <spinbox label="Channel 2" define="LDRV.PWM_DC_CFG2.PWM_DC" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG2.PWM_DC&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG2_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG2.PWM_DC==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG2_PWM_DC_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_DC_CFG2.PWM_DC&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_DC_CFG2_PWM_DC_ERROR=1"/>
+                                </spinbox>
+								<spinbox label="GPIO 0 Synchronization" define="LDRV.PWM_SYNCH.PWM_SYNCH" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.PWM_SYNCH.PWM_SYNCH&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_SYNCH_PWM_SYNCH_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_SYNCH.PWM_SYNCH==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_SYNCH_PWM_SYNCH_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.PWM_SYNCH.PWM_SYNCH&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_PWM_SYNCH_PWM_SYNCH_ERROR=1"/>
+                                </spinbox>
+                            </radiobutton>
+                            
+                            <radiobutton label="Percentage of 'Max Counter Value'" uielement="branch">
+                                <!-- Used to set the correct value of "register value" by the timer -->
+                                <math visible="false" define="LDRV_PWM_DC_CFG0_PWM_DC_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_DC_CFG0_PWM_DC_percentage_value_spinbox/100))"/>
+                                <math visible="false" define="LDRV_PWM_DC_CFG1_PWM_DC_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_DC_CFG1_PWM_DC_percentage_value_spinbox/100))"/>
+                                <math visible="false" define="LDRV_PWM_DC_CFG2_PWM_DC_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_DC_CFG2_PWM_DC_percentage_value_spinbox/100))"/>
+                                <math visible="false" define="LDRV_PWM_SYNCH_PWM_SYNCH_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_PWM_SYNCH_PWM_SYNCH_percentage_value_spinbox/100))"/>
+                                
+                                <spinbox label="Channel 0 [%]" define="LDRV_PWM_DC_CFG0_PWM_DC_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                                <spinbox label="Channel 1 [%]" define="LDRV_PWM_DC_CFG1_PWM_DC_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                                <spinbox label="Channel 2 [%]" define="LDRV_PWM_DC_CFG2_PWM_DC_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+								<spinbox label="GPIO 0 Synchronization [%]" define="LDRV_PWM_SYNCH_PWM_SYNCH_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                            </radiobutton>
+                            
+                        </radio>
+                    </branch>
+                    
+                    <branch label="Current set-point" expand="0">
+					    <combo label="Channel 0 ISET" define="LDRV.PWM_ISET_CFG0.PWM_ISET" default="label=5000 uA current"/>
+						<combo label="Channel 1 ISET" define="LDRV.PWM_ISET_CFG1.PWM_ISET" default="label=5000 uA current"/>
+						<combo label="Channel 2 ISET" define="LDRV.PWM_ISET_CFG2.PWM_ISET" default="label=5000 uA current"/>
+                    </branch>
+                    
+                    <branch label="Current ramp mode" expand="0">
+
+                        <combo label="Channel 0" define="LDRV.PWM_ISET_CFG0.RAMP_MODE" default="label=Normal mode selected"/>
+
+                        <combo label="Channel 1" define="LDRV.PWM_ISET_CFG1.RAMP_MODE" default="label=Normal mode selected"/>
+
+                        <combo label="Channel 2" define="LDRV.PWM_ISET_CFG2.RAMP_MODE" default="label=Normal mode selected"/>
+
+                    </branch>
+
+                </branch>
+
+                <branch label="Output stage protection" expand="0">
+                    
+                    <branch label="Thermal overload" expand="0">
+                        <combo label="Synchronization strategy" define="LDRV.OSP_CFG.TH_OVLD_SYNCH" size="250;-1"/>
+                        <!-- If want to select another default value different from the first, insert attribute default="label=131.5 123.5 8 C" with whatever label we want to select -->
+                        <combo label="Threshold" define="LDRV.OSP_CFG.OVLD_TH_CFG" size="250;-1" default="label=174.5:164.5 10C"/>
+
+                    </branch>
+
+                    <checkbox label="Short to ground protection enable" define="LDRV.OSP_CFG.DIAG_S2G_EN" default="0" />
+                
+                </branch>
+
+                <branch label="Diagnostics" expand="0">
+                    
+                    <checkbox label="Supply voltage VS vs. threshold fast conversion enable" define="LDRV.DIAG_CFG.DIAG_VS_TH_EN" default="0" />
+
+                    <checkbox label="VGPIO0 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO0_EN" default="0" />
+
+                    <checkbox label="VGPIO1 ADC conversion" define="LDRV.DIAG_CFG.DIAG_VGPIO1_EN" default="0" />
+
+                    <checkbox label="End Of Channel Conversion interrupt flag generation enable" define="LDRV.DIAG_CFG.DIAG_EOC_EN" default="0" />
+
+                    <branch label="Diagnostic start phase shift" expand="0">
+                        <radio label="Diagnostic start phase shift" define="DIAGNOSTIC_START_PHASE_SHIFT" svd="0" header="temp_defines.h">
+                                    
+                            <radiobutton label="Register value" uielement="branch">
+                                <!-- Used to set the value for the percentage value -->
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.DIAG_PHASE_CFG0.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.DIAG_PHASE_CFG0.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.DIAG_PHASE_CFG1.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.DIAG_PHASE_CFG1.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_percentage" svd="0" header="temp_defines.h" formula="LDRV.PWM_FREQ.PWM_MAX==0?0:(LDRV.DIAG_PHASE_CFG2.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100)&gt;100?100:round((LDRV.DIAG_PHASE_CFG2.DIAG_PHASE / LDRV.PWM_FREQ.PWM_MAX * 100))"/>
+                                
+                                <spinbox label="Channel 0" define="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_ERROR=1"/>
+                                </spinbox>
+                                
+                                <spinbox label="Channel 1" define="LDRV.DIAG_PHASE_CFG1.DIAG_PHASE" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG1.DIAG_PHASE&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG1.DIAG_PHASE==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG1.DIAG_PHASE&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_ERROR=1"/>
+                                </spinbox>
+                                <spinbox label="Channel 2" define="LDRV.DIAG_PHASE_CFG2.DIAG_PHASE" default="0" step="1" range="0;65535">
+                                    <!-- Checking if register value is not above the MAX COUNTER VALUE -->
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG2.DIAG_PHASE&lt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG2.DIAG_PHASE==LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_ERROR=0"/>
+                                    <action event="changed" cond="LDRV.DIAG_PHASE_CFG2.DIAG_PHASE&gt;LDRV.PWM_FREQ.PWM_MAX" cmd="setDef" data="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_ERROR=1"/>
+                                </spinbox>
+                            </radiobutton>
+                            
+                            <radiobutton label="Percentage of 'Max Counter Value'" uielement="branch">
+                                <!-- Used to set the correct value of "register value" by the timer -->
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_percentage_value_spinbox/100))"/>
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_percentage_value_spinbox/100))"/>
+                                <math visible="false" define="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_absolute" svd="0" header="temp_defines.h" formula="floor((LDRV.PWM_FREQ.PWM_MAX * LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_percentage_value_spinbox/100))"/>
+                                
+                                <spinbox label="Channel 0 [%]" define="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                                <spinbox label="Channel 1 [%]" define="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                                <spinbox label="Channel 2 [%]" define="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_percentage_value_spinbox" header="temp_defines.h" svd="0" default="0" step="1" range="0;100"/>
+                            </radiobutton>
+                            
+                        </radio>
+                    </branch>
+                
+                </branch>
+
+                <branch label="Interrupt Request Handling" expand="0">
+                    
+                    <checkbox label="End Of Diagnostic" define="LDRV_EOD_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable interrupt" define="LDRV.IEN0.EOD" default="0"/>
+                        <edit label="Callback" define="LDRV_EOD_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+
+                    <checkbox label="End Of Conversion" define="LDRV_EOC_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable on channel 0" define="LDRV.IEN0[16]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 1" define="LDRV.IEN0[17]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 2" define="LDRV.IEN0[18]" svd="0" default="0"/>
+
+                        <edit label="Callback channel 0" define="LDRV_EOC_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 1" define="LDRV_EOC_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 2" define="LDRV_EOC_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+					
+					<checkbox label="PWM Synchronization" define="LDRV_PWM_SYNCH_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable PWM SYNCH interrupt" define="LDRV.IEN0.PWM_SYNCH" default="0"/>
+                        <edit label="Callback" define="LDRV_PWM_SYNCH_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+					
+					<checkbox label="PWM Overflow" define="LDRV_OVLF_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable PWM Overflow interrupt" define="LDRV.IEN0.OVLF" default="0"/>
+                        <edit label="Callback" define="LDRV_OVLF_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+
+                    <checkbox label="Thermal overload" define="LDRV_TH_OVLD_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable on channel 0" define="LDRV.IEN1[0]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 1" define="LDRV.IEN1[1]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 2" define="LDRV.IEN1[2]" svd="0" default="0"/>
+
+                        <edit label="Callback channel 0" define="LDRV_TH_OVLD_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 1" define="LDRV_TH_OVLD_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 2" define="LDRV_TH_OVLD_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+
+                    <checkbox label="Short to ground" define="LDRV_S2G_INT_EN" svd="0" header="isr_defines.h" uielement="branch" expand="0" default="0">
+
+                        <checkbox label="Enable on channel 0" define="LDRV.IEN1[16]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 1" define="LDRV.IEN1[17]" svd="0" default="0"/>
+                        <checkbox label="Enable on channel 2" define="LDRV.IEN1[18]" svd="0" default="0"/>
+
+                        <edit label="Callback channel 0" define="LDRV_S2G_CH0_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 1" define="LDRV_S2G_CH1_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+                        <edit label="Callback channel 2" define="LDRV_S2G_CH2_CALLBACK" svd="0" header="isr_defines.h" default="place_your_function_call_back_here"/>
+
+                    </checkbox>
+                    
+                </branch>
+        
+            </checkbox>
+
+        </header>
+    </treecontainer>
+    
+
+    <!-- Used to make appearing an error window box in case of inconsistency between channel counter and max counter -->
+    <groupcontainer label="Consistency checking" visible="false">
+        <!-- Used to make appearing an error window box in case of inconsistency between channel counter and max counter -->
+        <verticalcontainer visible="false" label="Phase error">
+            <!-- combos needed to raise messagebox in case of clock error -->
+            <combo label="LDRV_PWM_PHASE_CFG0_PWM_PHASE_ERROR" define="LDRV_PWM_PHASE_CFG0_PWM_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 0 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_PWM_PHASE_CFG1_PWM_PHASE_ERROR" define="LDRV_PWM_PHASE_CFG1_PWM_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 1 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_PWM_PHASE_CFG2_PWM_PHASE_ERROR" define="LDRV_PWM_PHASE_CFG2_PWM_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 2 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+        </verticalcontainer>
+        <!-- Used to make appearing an error window box in case of inconsistency between channel counter and max counter -->
+        <verticalcontainer visible="false" label="Duty cycle error">
+            <!-- combos needed to raise messagebox in case of clock error -->
+            <combo label="LDRV_PWM_DC_CFG0_PWM_DC_ERROR" define="LDRV_PWM_DC_CFG0_PWM_DC_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 0 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_PWM_DC_CFG1_PWM_DC_ERROR" define="LDRV_PWM_DC_CFG1_PWM_DC_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 1 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_PWM_DC_CFG2_PWM_DC_ERROR" define="LDRV_PWM_DC_CFG2_PWM_DC_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 2 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+			<combo label="LDRV_PWM_SYNCH_PWM_SYNCH_ERROR" define="LDRV_PWM_SYNCH_PWM_SYNCH_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(PWM Synchronization counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+        </verticalcontainer>
+        <verticalcontainer visible="false" label="Diagnostic start phase shift">
+            <!-- combos needed to raise messagebox in case of clock error -->
+            <combo label="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_ERROR" define="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 0 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_ERROR" define="LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 1 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+            <combo label="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_ERROR" define="LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_ERROR" header="temp_defines.h" svd="0">
+                <item value="0" label="no error">
+                </item>
+                <item value="1" label="counter error">
+                    <action event="selected" cmd="runScript" data="MessageBox(Channel 2 counter cannot be greater than Max Counter Value.)"/>
+                </item>
+            </combo>
+        </verticalcontainer>
+    </groupcontainer>
+
+    <!-- Timers used to ensure consistency between "register value" and "percentage". When the user modifies one of them, the other one gets updated as well -->
+    <groupcontainer label="Timers" visible="false">
+        <timer visible="false" define="LDRV_PWM_PHASE_CFGX_PWM_PHASE_percentage_value_spinbox_CONSISTENCY" header="temp_defines.h" svd="0" interval="100" singleShot="0" run="1">
+            <!-- Not activating in case we want to set the %, otherwise it prevents to modify the absolute value -->
+            <!-- index == 0 means "register value" selected ; index == 1 means "percentage" selected-->
+            <action event="changed" cond="PHASE_SHIFT.index==0" cmd="setDef" data="LDRV_PWM_PHASE_CFG0_PWM_PHASE_percentage_value_spinbox=LDRV_PWM_PHASE_CFG0_PWM_PHASE_percentage;LDRV_PWM_PHASE_CFG1_PWM_PHASE_percentage_value_spinbox=LDRV_PWM_PHASE_CFG1_PWM_PHASE_percentage;LDRV_PWM_PHASE_CFG2_PWM_PHASE_percentage_value_spinbox=LDRV_PWM_PHASE_CFG2_PWM_PHASE_percentage"/>
+            <action event="changed" cond="PHASE_SHIFT.index==1" cmd="setDef" data="LDRV.PWM_PHASE_CFG0.PWM_PHASE=LDRV_PWM_PHASE_CFG0_PWM_PHASE_absolute;LDRV.PWM_PHASE_CFG1.PWM_PHASE=LDRV_PWM_PHASE_CFG1_PWM_PHASE_absolute;LDRV.PWM_PHASE_CFG2.PWM_PHASE=LDRV_PWM_PHASE_CFG2_PWM_PHASE_absolute"/>
+        </timer>
+        <timer visible="false" define="LDRV_PWM_DC_CFGX_PWM_DC_percentage_value_spinbox_CONSISTENCY" header="temp_defines.h" svd="0" interval="100" singleShot="0" run="1">
+            <!-- Not activating in case we want to set the %, otherwise it prevents to modify the absolute value -->
+            <!-- index == 0 means "register value" selected ; index == 1 means "percentage" selected-->
+            <action event="changed" cond="DUTY_CYCLE.index==0" cmd="setDef" data="LDRV_PWM_DC_CFG0_PWM_DC_percentage_value_spinbox=LDRV_PWM_DC_CFG0_PWM_DC_percentage;LDRV_PWM_DC_CFG1_PWM_DC_percentage_value_spinbox=LDRV_PWM_DC_CFG1_PWM_DC_percentage;LDRV_PWM_DC_CFG2_PWM_DC_percentage_value_spinbox=LDRV_PWM_DC_CFG2_PWM_DC_percentage;LDRV_PWM_SYNCH_PWM_SYNCH_percentage_value_spinbox=LDRV_PWM_SYNCH_PWM_SYNCH_percentage"/>
+            <action event="changed" cond="DUTY_CYCLE.index==1" cmd="setDef" data="LDRV.PWM_DC_CFG0.PWM_DC=LDRV_PWM_DC_CFG0_PWM_DC_absolute;LDRV.PWM_DC_CFG1.PWM_DC=LDRV_PWM_DC_CFG1_PWM_DC_absolute;LDRV.PWM_DC_CFG2.PWM_DC=LDRV_PWM_DC_CFG2_PWM_DC_absolute;LDRV.PWM_SYNCH.PWM_SYNCH=LDRV_PWM_SYNCH_PWM_SYNCH_absolute"/>
+        </timer>
+        <timer visible="false" define="LDRV_DIAG_PHASE_CFGX_DIAG_PHASEpercentage_value_spinbox_CONSISTENCY" header="temp_defines.h" svd="0" interval="100" singleShot="0" run="1">
+            <!-- Not activating in case we want to set the %, otherwise it prevents to modify the absolute value -->
+            <!-- index == 0 means "register value" selected ; index == 1 means "percentage" selected-->
+            <action event="changed" cond="DIAGNOSTIC_START_PHASE_SHIFT.index==0" cmd="setDef" data="LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_percentage_value_spinbox=LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_percentage;LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_percentage_value_spinbox=LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_percentage;LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_percentage_value_spinbox=LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_percentage"/>
+            <action event="changed" cond="DIAGNOSTIC_START_PHASE_SHIFT.index==1" cmd="setDef" data="LDRV.DIAG_PHASE_CFG0.DIAG_PHASE=LDRV_DIAG_PHASE_CFG0_DIAG_PHASE_absolute;LDRV.DIAG_PHASE_CFG1.DIAG_PHASE=LDRV_DIAG_PHASE_CFG1_DIAG_PHASE_absolute;LDRV.DIAG_PHASE_CFG2.DIAG_PHASE=LDRV_DIAG_PHASE_CFG2_DIAG_PHASE_absolute"/>
+        </timer>
+    </groupcontainer>
+
+  </verticalcontainer>
+
+</ifxmlcfg>

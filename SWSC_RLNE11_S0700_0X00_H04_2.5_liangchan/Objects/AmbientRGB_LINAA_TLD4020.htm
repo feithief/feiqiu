@@ -1,0 +1,1468 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [.\Objects\AmbientRGB_LINAA_TLD4020.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image .\Objects\AmbientRGB_LINAA_TLD4020.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Sat May  9 20:37:08 2026
+<BR><P>
+<H3>Maximum Stack Usage =        220 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+__rt_entry_main &rArr; main &rArr; systemMainLoop &rArr; algoGetPWMOutput &rArr; whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+<P>
+<H3>
+Functions with no stack information
+</H3><UL>
+ <LI><a href="#[39]">__user_initial_stackheap</a>
+</UL>
+</UL>
+<P>
+<H3>
+Mutually Recursive functions
+</H3> <LI><a href="#[10]">SVC_Handler_main</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[10]">SVC_Handler_main</a><BR>
+ <LI><a href="#[1]">NMI_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1]">NMI_Handler</a><BR>
+ <LI><a href="#[2]">HardFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">HardFault_Handler</a><BR>
+ <LI><a href="#[4]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[4]">PendSV_Handler</a><BR>
+ <LI><a href="#[6]">NVIC_IRQ0_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[6]">NVIC_IRQ0_Handler</a><BR>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[2]">HardFault_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[1]">NMI_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[6]">NVIC_IRQ0_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[7]">NVIC_IRQ1_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[8]">NVIC_IRQ2_Handler</a> from isr_nvic_irq2_handler.o(.text.NVIC_IRQ2_Handler) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[9]">NVIC_IRQ3_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[a]">NVIC_IRQ4_Handler</a> from isr_nvic_irq4_handler.o(.text.NVIC_IRQ4_Handler) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[b]">NVIC_IRQ5_Handler</a> from isr_nvic_irq5_handler.o(.text.NVIC_IRQ5_Handler) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[c]">NVIC_IRQ6_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[d]">NVIC_IRQ7_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[4]">PendSV_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[0]">Reset_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[3]">SVC_Handler</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[10]">SVC_Handler_main</a> from startup_tld40xx.o(.text) referenced from startup_tld40xx.o(.text)
+ <LI><a href="#[19]">SwriteJudge_AutolAddr</a> from systemlincomm.o(.text.SwriteJudge_AutolAddr) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[1a]">SwriteJudge_DimXnYn</a> from systemlincomm.o(.text.SwriteJudge_DimXnYn) referenced 9 times from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[1b]">SwriteJudge_ResetDummy</a> from systemlincomm.o(.text.SwriteJudge_ResetDummy) referenced 9 times from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[14]">SwriteJudge_Utemp</a> from systemlincomm.o(.text.SwriteJudge_Utemp) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[15]">SwriteJudge_Vtemp</a> from systemlincomm.o(.text.SwriteJudge_Vtemp) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[13]">SwriteJudge_brightnessFactor</a> from systemlincomm.o(.text.SwriteJudge_brightnessFactor) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[18]">SwriteJudge_eolAddr</a> from systemlincomm.o(.text.SwriteJudge_eolAddr) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[17]">SwriteJudge_pART</a> from systemlincomm.o(.text.SwriteJudge_pART) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[16]">SwriteJudge_pDeveloper</a> from systemlincomm.o(.text.SwriteJudge_pDeveloper) referenced from systemlincomm.o(.rodata.Serverlist)
+ <LI><a href="#[5]">SysTick_Handler</a> from isr.o(.text.SysTick_Handler) referenced from startup_tld40xx.o(RESET)
+ <LI><a href="#[e]">SystemInit</a> from system_tld40xx.o(.text.SystemInit) referenced from startup_tld40xx.o(.text)
+ <LI><a href="#[1c]">Updatebuf01_02</a> from systemlincomm.o(.text.Updatebuf01_02) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[1d]">Updatebuf03_04</a> from systemlincomm.o(.text.Updatebuf03_04) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[1e]">Updatebuf05_06</a> from systemlincomm.o(.text.Updatebuf05_06) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[1f]">Updatebuf07_08</a> from systemlincomm.o(.text.Updatebuf07_08) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[20]">Updatebuf09_10</a> from systemlincomm.o(.text.Updatebuf09_10) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[21]">Updatebuf11_12</a> from systemlincomm.o(.text.Updatebuf11_12) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[22]">Updatebuf13_14</a> from systemlincomm.o(.text.Updatebuf13_14) referenced from systemlincomm.o(.data.updatebuf)
+ <LI><a href="#[f]">__main</a> from __main.o(!!!main) referenced from startup_tld40xx.o(.text)
+ <LI><a href="#[12]">endAAProcess</a> from systemmain.o(.text.endAAProcess) referenced from systemmain.o(.text.systemInit)
+ <LI><a href="#[11]">startAAProcess</a> from systemmain.o(.text.startAAProcess) referenced from systemmain.o(.text.systemInit)
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[f]"></a>__main</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
+<BR><BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(.text)
+</UL>
+<P><STRONG><a name="[23]"></a>__scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
+<BR><BR>[Called By]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+
+<P><STRONG><a name="[25]"></a>__scatterload_rt2</STRONG> (Thumb, 74 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[c2]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+<P><STRONG><a name="[c3]"></a>__scatterload_loop</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+<P><STRONG><a name="[c4]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, __scatter.o(!!handler_null), UNUSED)
+
+<P><STRONG><a name="[c5]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[c6]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[26]"></a>__scatterload_copy</STRONG> (Thumb, 26 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+
+<P><STRONG><a name="[c7]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+
+<P><STRONG><a name="[2a]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li
+</UL>
+
+<P><STRONG><a name="[c8]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+
+<P><STRONG><a name="[c9]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+
+<P><STRONG><a name="[ca]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+
+<P><STRONG><a name="[cb]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+
+<P><STRONG><a name="[cc]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000034))
+
+<P><STRONG><a name="[cd]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
+
+<P><STRONG><a name="[ce]"></a>__rt_lib_init_fp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000002))
+
+<P><STRONG><a name="[cf]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+
+<P><STRONG><a name="[d0]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
+
+<P><STRONG><a name="[d1]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+
+<P><STRONG><a name="[d2]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+
+<P><STRONG><a name="[d3]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+
+<P><STRONG><a name="[d4]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+
+<P><STRONG><a name="[d5]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+
+<P><STRONG><a name="[d6]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+
+<P><STRONG><a name="[d7]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000006))
+
+<P><STRONG><a name="[d8]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000010))
+
+<P><STRONG><a name="[d9]"></a>__rt_lib_init_relocate_pie_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
+
+<P><STRONG><a name="[da]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000035))
+
+<P><STRONG><a name="[db]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+
+<P><STRONG><a name="[dc]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000027))
+
+<P><STRONG><a name="[dd]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
+
+<P><STRONG><a name="[2f]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls
+</UL>
+
+<P><STRONG><a name="[de]"></a>__rt_lib_shutdown_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
+
+<P><STRONG><a name="[df]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
+
+<P><STRONG><a name="[e0]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+
+<P><STRONG><a name="[e1]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
+
+<P><STRONG><a name="[e2]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
+
+<P><STRONG><a name="[e3]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
+
+<P><STRONG><a name="[e4]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
+
+<P><STRONG><a name="[24]"></a>__rt_entry</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry.o(.ARM.Collect$$rtentry$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+
+<P><STRONG><a name="[e5]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
+
+<P><STRONG><a name="[27]"></a>__rt_entry_sh</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry4.o(.ARM.Collect$$rtentry$$00000004))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_sh &rArr; __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[29]"></a>__rt_entry_li</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
+<BR><BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
+</UL>
+
+<P><STRONG><a name="[e6]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+
+<P><STRONG><a name="[2b]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; systemMainLoop &rArr; algoGetPWMOutput &rArr; whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+</UL>
+
+<P><STRONG><a name="[e7]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
+
+<P><STRONG><a name="[3b]"></a>__rt_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+</UL>
+
+<P><STRONG><a name="[2e]"></a>__rt_exit_ls</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
+<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
+</UL>
+
+<P><STRONG><a name="[e8]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+
+<P><STRONG><a name="[30]"></a>__rt_exit_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
+<BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
+</UL>
+
+<P><STRONG><a name="[33]"></a>__aeabi_memcpy4</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, rt_memcpy.o(.emb_text))
+<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+</UL>
+
+<P><STRONG><a name="[e9]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy.o(.emb_text), UNUSED)
+
+<P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[10]"></a>SVC_Handler_main</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler_main
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler_main
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(.text)
+</UL>
+<P><STRONG><a name="[1]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[4]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[6]"></a>NVIC_IRQ0_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ0_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ0_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[7]"></a>NVIC_IRQ1_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[9]"></a>NVIC_IRQ3_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[c]"></a>NVIC_IRQ6_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[d]"></a>NVIC_IRQ7_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[39]"></a>__user_initial_stackheap</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup_tld40xx.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[6e]"></a>__aeabi_lmul</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, llmul.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_lmul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_div
+</UL>
+
+<P><STRONG><a name="[ea]"></a>_ll_mul</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, llmul.o(.text), UNUSED)
+
+<P><STRONG><a name="[6f]"></a>__aeabi_uldivmod</STRONG> (Thumb, 272 bytes, Stack size 32 bytes, lludiv.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_uldivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
+</UL>
+
+<P><STRONG><a name="[eb]"></a>_ll_udiv</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, lludiv.o(.text), UNUSED)
+
+<P><STRONG><a name="[67]"></a>memcmp</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, memcmp.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = memcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReciveDataCrc
+</UL>
+
+<P><STRONG><a name="[32]"></a>__aeabi_memcpy</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, rt_memcpy.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __aeabi_memcpy
+</UL>
+<BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_data
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashInit
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reply_message
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReciveDataCrc
+</UL>
+
+<P><STRONG><a name="[ec]"></a>__rt_memcpy</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, rt_memcpy.o(.text), UNUSED)
+
+<P><STRONG><a name="[35]"></a>_memset_w</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rt_memclr.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memclr_w
+<LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset
+</UL>
+
+<P><STRONG><a name="[34]"></a>_memset</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rt_memclr.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset_w
+</UL>
+<BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+</UL>
+
+<P><STRONG><a name="[36]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rt_memclr.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommInitColor_app
+</UL>
+
+<P><STRONG><a name="[ed]"></a>__rt_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text), UNUSED)
+
+<P><STRONG><a name="[b3]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommInitColor_linStk
+</UL>
+
+<P><STRONG><a name="[ee]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text), UNUSED)
+
+<P><STRONG><a name="[37]"></a>__rt_memclr_w</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rt_memclr.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset_w
+</UL>
+
+<P><STRONG><a name="[ef]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[f0]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[f1]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[28]"></a>__user_setup_stackheap</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
+<LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
+</UL>
+<BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_sh
+</UL>
+
+<P><STRONG><a name="[2d]"></a>exit</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, exit.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = exit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit
+<LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_call_atexit_fns (Weak Reference)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
+</UL>
+
+<P><STRONG><a name="[f2]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[38]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[f3]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[31]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+</UL>
+
+<P><STRONG><a name="[51]"></a>ADC11_compensateLinAutoAddrDiff</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, adc11.o(.text.ADC11_compensateLinAutoAddrDiff))
+<BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Measure_ISR
+</UL>
+
+<P><STRONG><a name="[f4]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[3e]"></a>ADC11_init</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, adc11.o(.text.ADC11_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[61]"></a>ADC_TEMP</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, moduleadc.o(.text.ADC_TEMP))
+<BR><BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ4_Handler
+</UL>
+
+<P><STRONG><a name="[60]"></a>ADC_VS</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, moduleadc.o(.text.ADC_VS))
+<BR><BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ4_Handler
+</UL>
+
+<P><STRONG><a name="[63]"></a>BLUE_V</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, moduleadc.o(.text.BLUE_V))
+<BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ5_Handler
+</UL>
+
+<P><STRONG><a name="[40]"></a>CPU_init</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, cpu.o(.text.CPU_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[72]"></a>CPU_initSysTick</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, cpu.o(.text.CPU_initSysTick))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CPU_initSysTick
+</UL>
+<BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[3c]"></a>Device_init</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, device.o(.text.Device_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Device_init &rArr; LIN_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_init
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_init
+<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_init
+<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LDRV_init
+<LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PMU_init
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_init
+<LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC11_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[44]"></a>Diag_Handle</STRONG> (Thumb, 312 bytes, Stack size 16 bytes, lin_app.o(.text.Diag_Handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Diag_Handle &rArr; systemLinDiagHandleSend &rArr; __doRequest
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiagHandleSend
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiag0x27Handle
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiagHandleRecv
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_send_message
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_tp_init
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_receive_message
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Task
+</UL>
+
+<P><STRONG><a name="[65]"></a>EOD</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, moduleadc.o(.text.EOD))
+<BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ5_Handler
+</UL>
+
+<P><STRONG><a name="[42]"></a>GPIO_init</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, gpio.o(.text.GPIO_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[64]"></a>GREEN_V</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, moduleadc.o(.text.GREEN_V))
+<BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ5_Handler
+</UL>
+
+<P><STRONG><a name="[76]"></a>GetBrightnessDiffForSpeedBasedDimming</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, systemlincomm.o(.text.GetBrightnessDiffForSpeedBasedDimming))
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__systemIntensityDimming
+</UL>
+
+<P><STRONG><a name="[b8]"></a>Is_S_Write_SignalUpdated</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, systemlincomm.o(.text.Is_S_Write_SignalUpdated))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Is_S_Write_SignalUpdated
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[3f]"></a>LDRV_init</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, ldrv.o(.text.LDRV_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[8c]"></a>LIN_AutoAddr_Assign_NAD</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Assign_NAD))
+<BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_handle_config
+</UL>
+
+<P><STRONG><a name="[4b]"></a>LIN_AutoAddr_Edge_ISR</STRONG> (Thumb, 508 bytes, Stack size 32 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Edge_ISR))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = LIN_AutoAddr_Edge_ISR &rArr; LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleAdcInit
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_exf2_isr
+</UL>
+
+<P><STRONG><a name="[8d]"></a>LIN_AutoAddr_End</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_End))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = LIN_AutoAddr_End
+</UL>
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_handle_config
+</UL>
+
+<P><STRONG><a name="[4f]"></a>LIN_AutoAddr_Error_ISR</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Error_ISR))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LIN_AutoAddr_Error_ISR &rArr; LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_aa_err_isr
+</UL>
+
+<P><STRONG><a name="[54]"></a>LIN_AutoAddr_Get_Status</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Get_Status))
+<BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_exf2_isr
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_ISR
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_COM_Handler
+</UL>
+
+<P><STRONG><a name="[af]"></a>LIN_AutoAddr_Init</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[4e]"></a>LIN_AutoAddr_Meas_Exit</STRONG> (Thumb, 220 bytes, Stack size 20 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Meas_Exit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Edge_ISR
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Error_ISR
+</UL>
+
+<P><STRONG><a name="[50]"></a>LIN_AutoAddr_Measure_ISR</STRONG> (Thumb, 692 bytes, Stack size 24 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Measure_ISR))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LIN_AutoAddr_Measure_ISR
+</UL>
+<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC11_compensateLinAutoAddrDiff
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_aa_meas_isr
+</UL>
+
+<P><STRONG><a name="[52]"></a>LIN_AutoAddr_Start</STRONG> (Thumb, 312 bytes, Stack size 32 bytes, lin_autoaddressing.o(.text.LIN_AutoAddr_Start))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = LIN_AutoAddr_Start
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+</UL>
+
+<P><STRONG><a name="[53]"></a>LIN_COM_Handler</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, systemmain.o(.text.LIN_COM_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = LIN_COM_Handler &rArr; l_hal_cyclic_call &rArr; l_hal_rx_state_machine &rArr; lin_slave_task_rx_pid &rArr; lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Get_Status
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_cyclic_call
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_ISR
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ2_Handler
+</UL>
+
+<P><STRONG><a name="[57]"></a>LIN_Sleep_Status</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, lin_app.o(.text.LIN_Sleep_Status))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = LIN_Sleep_Status &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_ifc_read_status
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[5b]"></a>LIN_Task</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, lin_app.o(.text.LIN_Task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = LIN_Task &rArr; ld_task &rArr; ld_tp_task &rArr; lin_handle_config &rArr; moduleFlashSave
+</UL>
+<BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_task
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[6b]"></a>LIN_Task_1ms</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, systemmain.o(.text.LIN_Task_1ms))
+<BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+
+<P><STRONG><a name="[43]"></a>LIN_init</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, lin.o(.text.LIN_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LIN_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[41]"></a>MEM_init</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, mem.o(.text.MEM_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[8]"></a>NVIC_IRQ2_Handler</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, isr_nvic_irq2_handler.o(.text.NVIC_IRQ2_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = NVIC_IRQ2_Handler &rArr; LIN_COM_Handler &rArr; l_hal_cyclic_call &rArr; l_hal_rx_state_machine &rArr; lin_slave_task_rx_pid &rArr; lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_exf2_isr
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_aa_err_isr
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_aa_meas_isr
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_COM_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[a]"></a>NVIC_IRQ4_Handler</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, isr_nvic_irq4_handler.o(.text.NVIC_IRQ4_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_IRQ4_Handler
+</UL>
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_TEMP
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_VS
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[b]"></a>NVIC_IRQ5_Handler</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, isr_nvic_irq5_handler.o(.text.NVIC_IRQ5_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = NVIC_IRQ5_Handler
+</UL>
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EOD
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GREEN_V
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BLUE_V
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RED_V
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[70]"></a>OSC_init</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, osc.o(.text.OSC_init))
+<BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[6c]"></a>PMU_countWatchdog</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, pmu.o(.text.PMU_countWatchdog))
+<BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+
+<P><STRONG><a name="[3d]"></a>PMU_init</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, pmu.o(.text.PMU_init))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+
+<P><STRONG><a name="[a7]"></a>PMU_initWatchdog</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, pmu.o(.text.PMU_initWatchdog))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[be]"></a>PMU_stopWatchdog</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, pmu.o(.text.PMU_stopWatchdog))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[62]"></a>RED_V</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, moduleadc.o(.text.RED_V))
+<BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ5_Handler
+</UL>
+
+<P><STRONG><a name="[66]"></a>ReciveDataCrc</STRONG> (Thumb, 520 bytes, Stack size 72 bytes, systemlincomm.o(.text.ReciveDataCrc))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ReciveDataCrc &rArr; __aeabi_memcpy
+</UL>
+<BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[68]"></a>Reply_message</STRONG> (Thumb, 240 bytes, Stack size 40 bytes, systemlincomm.o(.text.Reply_message))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Reply_message &rArr; __aeabi_memcpy
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_set_frame_disable
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_set_frame_enable
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[99]"></a>ReturnADCBuffer</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, moduleadc.o(.text.ReturnADCBuffer))
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedUpdateStatus
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatUpdateStatus
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatInit
+</UL>
+
+<P><STRONG><a name="[bf]"></a>SCU_enterSleepMode</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scu.o(.text.SCU_enterSleepMode))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[71]"></a>SCU_init</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, scu.o(.text.SCU_init))
+<BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[19]"></a>SwriteJudge_AutolAddr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_AutolAddr))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[1a]"></a>SwriteJudge_DimXnYn</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, systemlincomm.o(.text.SwriteJudge_DimXnYn))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SwriteJudge_DimXnYn
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[1b]"></a>SwriteJudge_ResetDummy</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_ResetDummy))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[14]"></a>SwriteJudge_Utemp</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_Utemp))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[15]"></a>SwriteJudge_Vtemp</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_Vtemp))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[13]"></a>SwriteJudge_brightnessFactor</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_brightnessFactor))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[18]"></a>SwriteJudge_eolAddr</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_eolAddr))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[17]"></a>SwriteJudge_pART</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_pART))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[16]"></a>SwriteJudge_pDeveloper</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, systemlincomm.o(.text.SwriteJudge_pDeveloper))
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.rodata.Serverlist)
+</UL>
+<P><STRONG><a name="[5]"></a>SysTick_Handler</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, isr.o(.text.SysTick_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysTick_Handler
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PMU_countWatchdog
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Task_1ms
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL>
+<P><STRONG><a name="[6d]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 140 bytes, Stack size 24 bytes, system_tld40xx.o(.text.SystemCoreClockUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SystemCoreClockUpdate &rArr; __aeabi_uldivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_lmul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[e]"></a>SystemInit</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, system_tld40xx.o(.text.SystemInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = SystemInit &rArr; SystemCoreClockUpdate &rArr; __aeabi_uldivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCU_init
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSC_init
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_initSysTick
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(.text)
+</UL>
+<P><STRONG><a name="[1c]"></a>Updatebuf01_02</STRONG> (Thumb, 192 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf01_02))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf01_02
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[1d]"></a>Updatebuf03_04</STRONG> (Thumb, 212 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf03_04))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf03_04
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[1e]"></a>Updatebuf05_06</STRONG> (Thumb, 212 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf05_06))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf05_06
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[1f]"></a>Updatebuf07_08</STRONG> (Thumb, 212 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf07_08))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf07_08
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[20]"></a>Updatebuf09_10</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf09_10))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf09_10
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[21]"></a>Updatebuf11_12</STRONG> (Thumb, 260 bytes, Stack size 20 bytes, systemlincomm.o(.text.Updatebuf11_12))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = Updatebuf11_12
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[22]"></a>Updatebuf13_14</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, systemlincomm.o(.text.Updatebuf13_14))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Updatebuf13_14
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemlincomm.o(.data.updatebuf)
+</UL>
+<P><STRONG><a name="[73]"></a>WitheBalanceTempInit</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, algorithm.o(.text.WitheBalanceTempInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = WitheBalanceTempInit &rArr; whiteBalanceInit &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalanceInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[75]"></a>__systemIntensityDimming</STRONG> (Thumb, 664 bytes, Stack size 32 bytes, systemcontrol.o(.text.__systemIntensityDimming))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __systemIntensityDimming
+</UL>
+<BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetBrightnessDiffForSpeedBasedDimming
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+</UL>
+
+<P><STRONG><a name="[77]"></a>algoGetPWMOutput</STRONG> (Thumb, 1568 bytes, Stack size 88 bytes, algorithm.o(.text.algoGetPWMOutput))
+<BR><BR>[Stack]<UL><LI>Max Depth = 164<LI>Call Chain = algoGetPWMOutput &rArr; whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalance
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_div
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_mul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[ad]"></a>algoUpdateBlueCIE</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, algorithm.o(.text.algoUpdateBlueCIE))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[ac]"></a>algoUpdateGreenCIE</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, algorithm.o(.text.algoUpdateGreenCIE))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[ab]"></a>algoUpdateRedCIE</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, algorithm.o(.text.algoUpdateRedCIE))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[90]"></a>calculateParityPID</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, systemlincomm.o(.text.calculateParityPID))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = calculateParityPID
+</UL>
+<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+</UL>
+
+<P><STRONG><a name="[7a]"></a>fix16_div</STRONG> (Thumb, 200 bytes, Stack size 32 bytes, floatlib.o(.text.fix16_div))
+<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_lmul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalance
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalanceInit
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoGetPWMOutput
+</UL>
+
+<P><STRONG><a name="[79]"></a>fix16_mul</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, floatlib.o(.text.fix16_mul))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = fix16_mul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalance
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;whiteBalanceInit
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoGetPWMOutput
+</UL>
+
+<P><STRONG><a name="[91]"></a>l_Update_Frame_Flags</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, genlinconfig.o(.text.l_Update_Frame_Flags))
+<BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_data
+</UL>
+
+<P><STRONG><a name="[7d]"></a>l_autobaud_control</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, lin_hal.o(.text.l_autobaud_control))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = l_autobaud_control &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_init_uart
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_task
+</UL>
+
+<P><STRONG><a name="[8f]"></a>l_callback_Get_Initial_NAD</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, linapplication.o(.text.l_callback_Get_Initial_NAD))
+<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+</UL>
+
+<P><STRONG><a name="[7f]"></a>l_frame_timeout_control</STRONG> (Thumb, 124 bytes, Stack size 24 bytes, lin_hal.o(.text.l_frame_timeout_control))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = l_frame_timeout_control &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_task
+</UL>
+
+<P><STRONG><a name="[86]"></a>l_hal_baudrate_control</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, lin_hal.o(.text.l_hal_baudrate_control))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = l_hal_baudrate_control
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_task
+</UL>
+
+<P><STRONG><a name="[56]"></a>l_hal_cyclic_call</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, lin_hal.o(.text.l_hal_cyclic_call))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = l_hal_cyclic_call &rArr; l_hal_rx_state_machine &rArr; lin_slave_task_rx_pid &rArr; lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+</UL>
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_COM_Handler
+</UL>
+
+<P><STRONG><a name="[80]"></a>l_hal_rx_state_machine</STRONG> (Thumb, 512 bytes, Stack size 24 bytes, lin_hal.o(.text.l_hal_rx_state_machine))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = l_hal_rx_state_machine &rArr; lin_slave_task_rx_pid &rArr; lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_tx_data
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_data
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Start
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_pid
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Get_Status
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_cyclic_call
+</UL>
+
+<P><STRONG><a name="[59]"></a>l_ifc_read_status</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, lin_driver_api.o(.text.l_ifc_read_status))
+<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Sleep_Status
+</UL>
+
+<P><STRONG><a name="[7b]"></a>l_sys_init</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, lin_driver_api.o(.text.l_sys_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = l_sys_init &rArr; lin_main_init &rArr; lin_hal_init &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+<LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;endAAProcess
+</UL>
+
+<P><STRONG><a name="[58]"></a>l_sys_irq_disable</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, systemmain.o(.text.l_sys_irq_disable))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_frame_timeout_control
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_data
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_tx_response
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_ISR
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Sleep_Status
+</UL>
+
+<P><STRONG><a name="[5a]"></a>l_sys_irq_restore</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, systemmain.o(.text.l_sys_irq_restore))
+<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_frame_timeout_control
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_data
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_tx_response
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_ISR
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Sleep_Status
+</UL>
+
+<P><STRONG><a name="[45]"></a>ld_receive_message</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, lin_diag_tp.o(.text.ld_receive_message))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ld_receive_message
+</UL>
+<BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[47]"></a>ld_send_message</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, lin_diag_tp.o(.text.ld_send_message))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ld_send_message
+</UL>
+<BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[5c]"></a>ld_task</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, lin_driver_api.o(.text.ld_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = ld_task &rArr; ld_tp_task &rArr; lin_handle_config &rArr; moduleFlashSave
+</UL>
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_tp_task
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_frame_timeout_control
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_baudrate_control
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_autobaud_control
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Task
+</UL>
+
+<P><STRONG><a name="[85]"></a>ld_tp_task</STRONG> (Thumb, 624 bytes, Stack size 40 bytes, lin_diag_tp.o(.text.ld_tp_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = ld_tp_task &rArr; lin_handle_config &rArr; moduleFlashSave
+</UL>
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_handle_config
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_task
+</UL>
+
+<P><STRONG><a name="[8e]"></a>lin_frame_control_init</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, genlinconfig.o(.text.lin_frame_control_init))
+<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+</UL>
+
+<P><STRONG><a name="[93]"></a>lin_get_frame_status</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, genlinconfig.o(.text.lin_get_frame_status))
+<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_pid
+</UL>
+
+<P><STRONG><a name="[55]"></a>lin_hal_ISR</STRONG> (Thumb, 884 bytes, Stack size 40 bytes, lin_hal.o(.text.lin_hal_ISR))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = lin_hal_ISR &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Get_Status
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_COM_Handler
+</UL>
+
+<P><STRONG><a name="[88]"></a>lin_hal_T2_ISR</STRONG> (Thumb, 156 bytes, Stack size 16 bytes, lin_hal.o(.text.lin_hal_T2_ISR))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = lin_hal_T2_ISR
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_exf2_isr
+</UL>
+
+<P><STRONG><a name="[5f]"></a>lin_hal_aa_err_isr</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, lin_hal.o(.text.lin_hal_aa_err_isr))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = lin_hal_aa_err_isr &rArr; LIN_AutoAddr_Error_ISR &rArr; LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Error_ISR
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ2_Handler
+</UL>
+
+<P><STRONG><a name="[5e]"></a>lin_hal_aa_meas_isr</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, lin_hal.o(.text.lin_hal_aa_meas_isr))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = lin_hal_aa_meas_isr &rArr; LIN_AutoAddr_Measure_ISR
+</UL>
+<BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Measure_ISR
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ2_Handler
+</UL>
+
+<P><STRONG><a name="[5d]"></a>lin_hal_exf2_isr</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, lin_hal.o(.text.lin_hal_exf2_isr))
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = lin_hal_exf2_isr &rArr; LIN_AutoAddr_Edge_ISR &rArr; LIN_AutoAddr_Meas_Exit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Edge_ISR
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_T2_ISR
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Get_Status
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_IRQ2_Handler
+</UL>
+
+<P><STRONG><a name="[89]"></a>lin_hal_init</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, lin_hal.o(.text.lin_hal_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = lin_hal_init &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_init_uart
+</UL>
+<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+</UL>
+
+<P><STRONG><a name="[7e]"></a>lin_hal_init_uart</STRONG> (Thumb, 316 bytes, Stack size 40 bytes, lin_hal.o(.text.lin_hal_init_uart))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = lin_hal_init_uart
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_autobaud_control
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_init
+</UL>
+
+<P><STRONG><a name="[92]"></a>lin_hal_rx_response</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, lin_hal.o(.text.lin_hal_rx_response))
+<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_pid
+</UL>
+
+<P><STRONG><a name="[8a]"></a>lin_hal_tx_response</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, lin_hal.o(.text.lin_hal_tx_response))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+</UL>
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_pid
+</UL>
+
+<P><STRONG><a name="[94]"></a>lin_hal_wait_for_break</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, lin_hal.o(.text.lin_hal_wait_for_break))
+<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_rx_pid
+</UL>
+
+<P><STRONG><a name="[87]"></a>lin_handle_config</STRONG> (Thumb, 856 bytes, Stack size 40 bytes, lin_config.o(.text.lin_handle_config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = lin_handle_config &rArr; moduleFlashSave
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_End
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommChangeNad
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Assign_NAD
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashSave
+</UL>
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_tp_task
+</UL>
+
+<P><STRONG><a name="[84]"></a>lin_main_init</STRONG> (Thumb, 504 bytes, Stack size 88 bytes, lin_main.o(.text.lin_main_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = lin_main_init &rArr; lin_hal_init &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculateParityPID
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_init
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_frame_control_init
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_tp_init
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_callback_Get_Initial_NAD
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_init
+</UL>
+
+<P><STRONG><a name="[6a]"></a>lin_set_frame_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, genlinconfig.o(.text.lin_set_frame_disable))
+<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reply_message
+</UL>
+
+<P><STRONG><a name="[69]"></a>lin_set_frame_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, genlinconfig.o(.text.lin_set_frame_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reply_message
+</UL>
+
+<P><STRONG><a name="[82]"></a>lin_slave_task_rx_data</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, lin_slave_task.o(.text.lin_slave_task_rx_data))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = lin_slave_task_rx_data &rArr; __aeabi_memcpy
+</UL>
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_Update_Frame_Flags
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_restore
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_irq_disable
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+</UL>
+
+<P><STRONG><a name="[81]"></a>lin_slave_task_rx_pid</STRONG> (Thumb, 200 bytes, Stack size 24 bytes, lin_slave_task.o(.text.lin_slave_task_rx_pid))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = lin_slave_task_rx_pid &rArr; lin_hal_tx_response &rArr; l_sys_irq_disable
+</UL>
+<BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_wait_for_break
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_rx_response
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_hal_tx_response
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_get_frame_status
+</UL>
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+</UL>
+
+<P><STRONG><a name="[83]"></a>lin_slave_task_tx_data</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, lin_slave_task.o(.text.lin_slave_task_tx_data))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = lin_slave_task_tx_data &rArr; lin_tp_tx_part_complete
+</UL>
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_tp_tx_part_complete
+</UL>
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_hal_rx_state_machine
+</UL>
+
+<P><STRONG><a name="[46]"></a>lin_tp_init</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, lin_diag_tp.o(.text.lin_tp_init))
+<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_main_init
+<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[95]"></a>lin_tp_tx_part_complete</STRONG> (Thumb, 124 bytes, Stack size 20 bytes, lin_diag_tp.o(.text.lin_tp_tx_part_complete))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = lin_tp_tx_part_complete
+</UL>
+<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_slave_task_tx_data
+</UL>
+
+<P><STRONG><a name="[2c]"></a>main</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, main.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = main &rArr; systemMainLoop &rArr; algoGetPWMOutput &rArr; whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
+</UL>
+
+<P><STRONG><a name="[4c]"></a>moduleAdcInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, adc11.o(.text.moduleAdcInit))
+<BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Edge_ISR
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[a2]"></a>moduleBatGetVoltage</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, modulebattery.o(.text.moduleBatGetVoltage))
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommRespUpdate
+</UL>
+
+<P><STRONG><a name="[98]"></a>moduleBatInit</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, modulebattery.o(.text.moduleBatInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = moduleBatInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReturnADCBuffer
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[9a]"></a>moduleBatUpdateStatus</STRONG> (Thumb, 136 bytes, Stack size 16 bytes, modulebattery.o(.text.moduleBatUpdateStatus))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = moduleBatUpdateStatus
+</UL>
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReturnADCBuffer
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusUpdate
+</UL>
+
+<P><STRONG><a name="[4d]"></a>moduleClockGet</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, moduleclock.o(.text.moduleClockGet))
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__systemIntensityDimming
+<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Edge_ISR
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Measure_ISR
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Start
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiag0x27Handle
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+</UL>
+
+<P><STRONG><a name="[a9]"></a>moduleClockInit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, moduleclock.o(.text.moduleClockInit))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[9b]"></a>moduleFlashInit</STRONG> (Thumb, 284 bytes, Stack size 16 bytes, moduleflash.o(.text.moduleFlashInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = moduleFlashInit &rArr; moduleFlashSave
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashSave
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[8b]"></a>moduleFlashSave</STRONG> (Thumb, 184 bytes, Stack size 32 bytes, moduleflash.o(.text.moduleFlashSave))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = moduleFlashSave
+</UL>
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_handle_config
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashInit
+</UL>
+
+<P><STRONG><a name="[a0]"></a>moduleLedGetPWM</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedGetPWM))
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+</UL>
+
+<P><STRONG><a name="[b6]"></a>moduleLedGetStatus</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedGetStatus))
+<BR><BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommRespUpdate
+</UL>
+
+<P><STRONG><a name="[a1]"></a>moduleLedGetVoltage</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedGetVoltage))
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+</UL>
+
+<P><STRONG><a name="[ae]"></a>moduleLedInit</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedInit))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[9c]"></a>moduleLedPowerOff</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedPowerOff))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = moduleLedPowerOff &rArr; moduleLedUpdatePWM
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedUpdatePWM
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startAAProcess
+</UL>
+
+<P><STRONG><a name="[c0]"></a>moduleLedResetDetection</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedResetDetection))
+<BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusUpdate
+</UL>
+
+<P><STRONG><a name="[bd]"></a>moduleLedSleep</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, moduleled.o(.text.moduleLedSleep))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[9d]"></a>moduleLedUpdatePWM</STRONG> (Thumb, 260 bytes, Stack size 24 bytes, moduleled.o(.text.moduleLedUpdatePWM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = moduleLedUpdatePWM
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedPowerOff
+</UL>
+
+<P><STRONG><a name="[9e]"></a>moduleLedUpdateStatus</STRONG> (Thumb, 596 bytes, Stack size 48 bytes, moduleled.o(.text.moduleLedUpdateStatus))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = moduleLedUpdateStatus
+</UL>
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReturnADCBuffer
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusUpdate
+</UL>
+
+<P><STRONG><a name="[a4]"></a>moduleTempLedGet</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, moduletemperature.o(.text.moduleTempLedGet))
+<BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemTempDerating
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+</UL>
+
+<P><STRONG><a name="[c1]"></a>moduleTempMcuGet</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, moduletemperature.o(.text.moduleTempMcuGet))
+<BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemTempDerating
+</UL>
+
+<P><STRONG><a name="[9f]"></a>moduleTempUpdate</STRONG> (Thumb, 492 bytes, Stack size 64 bytes, moduletemperature.o(.text.moduleTempUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = moduleTempUpdate
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedGetPWM
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedGetVoltage
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReturnADCBuffer
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatGetVoltage
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusUpdate
+</UL>
+
+<P><STRONG><a name="[a8]"></a>moduleWatchdogFeed</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, pmu.o(.text.moduleWatchdogFeed))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = moduleWatchdogFeed
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[a6]"></a>moduleWatchdogInit</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, pmu.o(.text.moduleWatchdogInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = moduleWatchdogInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[b1]"></a>reinitColorDimming</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, systemcontrol.o(.text.reinitColorDimming))
+<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommInitColor_app
+</UL>
+
+<P><STRONG><a name="[a3]"></a>systemControl</STRONG> (Thumb, 432 bytes, Stack size 24 bytes, systemcontrol.o(.text.systemControl))
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = systemControl &rArr; WitheBalanceTempInit &rArr; whiteBalanceInit &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemTempDerating
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempLedGet
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WitheBalanceTempInit
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetBrightnessDiffForSpeedBasedDimming
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__systemIntensityDimming
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[bc]"></a>systemControlSleep</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, systemcontrol.o(.text.systemControlSleep))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[b5]"></a>systemDeratingGetTempstate</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, systemderating.o(.text.systemDeratingGetTempstate))
+<BR><BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommRespUpdate
+</UL>
+
+<P><STRONG><a name="[96]"></a>systemInit</STRONG> (Thumb, 248 bytes, Stack size 8 bytes, systemmain.o(.text.systemInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = systemInit &rArr; l_sys_init &rArr; lin_main_init &rArr; lin_hal_init &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WitheBalanceTempInit
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleAdcInit
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Init
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommChangeNad
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_init
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedInit
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatInit
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateBlueCIE
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateGreenCIE
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateRedCIE
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusInit
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockInit
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleWatchdogFeed
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PMU_initWatchdog
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleWatchdogInit
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashInit
+<LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Device_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[7c]"></a>systemLinCommChangeNad</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, systemlincomm.o(.text.systemLinCommChangeNad))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = systemLinCommChangeNad
+</UL>
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lin_handle_config
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+<LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;endAAProcess
+<LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startAAProcess
+</UL>
+
+<P><STRONG><a name="[b0]"></a>systemLinCommInitColor_app</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, systemlincomm.o(.text.systemLinCommInitColor_app))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = systemLinCommInitColor_app
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reinitColorDimming
+<LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[b2]"></a>systemLinCommInitColor_linStk</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, systemlincomm.o(.text.systemLinCommInitColor_linStk))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = systemLinCommInitColor_linStk
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[b4]"></a>systemLinCommRespUpdate</STRONG> (Thumb, 320 bytes, Stack size 24 bytes, systemlindiag.o(.text.systemLinCommRespUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = systemLinCommRespUpdate
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemDeratingGetTempstate
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatGetVoltage
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedGetStatus
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[b9]"></a>systemLinCommSignalUpdate</STRONG> (Thumb, 648 bytes, Stack size 72 bytes, systemlincomm.o(.text.systemLinCommSignalUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = systemLinCommSignalUpdate
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[bb]"></a>systemLinCommSleep</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, systemlincomm.o(.text.systemLinCommSleep))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[49]"></a>systemLinDiag0x27Handle</STRONG> (Thumb, 164 bytes, Stack size 24 bytes, systemlindiag.o(.text.systemLinDiag0x27Handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = systemLinDiag0x27Handle
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[48]"></a>systemLinDiagHandleRecv</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, systemlindiag.o(.text.systemLinDiagHandleRecv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = systemLinDiagHandleRecv &rArr; __doRequest
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__doRequest
+</UL>
+<BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[4a]"></a>systemLinDiagHandleSend</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, systemlindiag.o(.text.systemLinDiagHandleSend))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = systemLinDiagHandleSend &rArr; __doRequest
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__doRequest
+</UL>
+<BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Diag_Handle
+</UL>
+
+<P><STRONG><a name="[97]"></a>systemMainLoop</STRONG> (Thumb, 592 bytes, Stack size 56 bytes, systemmain.o(.text.systemMainLoop))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = systemMainLoop &rArr; algoGetPWMOutput &rArr; whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommSignalUpdate
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControlSleep
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleClockGet
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommChangeNad
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleFlashSave
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_AutoAddr_Get_Status
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Sleep_Status
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIN_Task
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedSleep
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedUpdatePWM
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoGetPWMOutput
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemStatusUpdate
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCU_enterSleepMode
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PMU_stopWatchdog
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedPowerOff
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateBlueCIE
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateGreenCIE
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoUpdateRedCIE
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleWatchdogFeed
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommRespUpdate
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reply_message
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReciveDataCrc
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommInitColor_linStk
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommInitColor_app
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommSleep
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Is_S_Write_SignalUpdated
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[aa]"></a>systemStatusInit</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, systemstatus.o(.text.systemStatusInit))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemInit
+</UL>
+
+<P><STRONG><a name="[ba]"></a>systemStatusUpdate</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, systemstatus.o(.text.systemStatusUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = systemStatusUpdate &rArr; moduleTempUpdate
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedResetDetection
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempUpdate
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedUpdateStatus
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleBatUpdateStatus
+</UL>
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemMainLoop
+</UL>
+
+<P><STRONG><a name="[a5]"></a>systemTempDerating</STRONG> (Thumb, 308 bytes, Stack size 24 bytes, systemderating.o(.text.systemTempDerating))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = systemTempDerating
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempMcuGet
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleTempLedGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemControl
+</UL>
+
+<P><STRONG><a name="[78]"></a>whiteBalance</STRONG> (Thumb, 212 bytes, Stack size 32 bytes, algorithm.o(.text.whiteBalance))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = whiteBalance &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_div
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_mul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;algoGetPWMOutput
+</UL>
+
+<P><STRONG><a name="[74]"></a>whiteBalanceInit</STRONG> (Thumb, 336 bytes, Stack size 24 bytes, algorithm.o(.text.whiteBalanceInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = whiteBalanceInit &rArr; fix16_div &rArr; __aeabi_lmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_div
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fix16_mul
+</UL>
+<BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WitheBalanceTempInit
+</UL>
+<P>
+<H3>
+Local Symbols
+</H3>
+<P><STRONG><a name="[b7]"></a>__doRequest</STRONG> (Thumb, 252 bytes, Stack size 24 bytes, systemlindiag.o(.text.__doRequest))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __doRequest
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiagHandleSend
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinDiagHandleRecv
+</UL>
+
+<P><STRONG><a name="[11]"></a>startAAProcess</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, systemmain.o(.text.startAAProcess))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = startAAProcess &rArr; moduleLedPowerOff &rArr; moduleLedUpdatePWM
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommChangeNad
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moduleLedPowerOff
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemmain.o(.text.systemInit)
+</UL>
+<P><STRONG><a name="[12]"></a>endAAProcess</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, systemmain.o(.text.endAAProcess))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = endAAProcess &rArr; l_sys_init &rArr; lin_main_init &rArr; lin_hal_init &rArr; lin_hal_init_uart
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;systemLinCommChangeNad
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;l_sys_init
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> systemmain.o(.text.systemInit)
+</UL>
+<P><STRONG><a name="[3]"></a>SVC_Handler</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, startup_tld40xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_tld40xx.o(RESET)
+</UL><P>
+<H3>
+Undefined Global Symbols
+</H3>
+<P><STRONG><a name="[3a]"></a>_call_atexit_fns</STRONG> (ARM, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+</UL>
+<HR></body></html>

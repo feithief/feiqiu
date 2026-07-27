@@ -1,0 +1,90 @@
+2024/08/04 08:00:01 Started Launch Tool 
+2024/08/04 08:00:01 Started as PID 36532
+2024/08/04 08:00:01 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\NVM_PROGRAMMING_TLD4020_Trunck_AA\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/08/04 08:00:01 Started in directory E:\SVN\Project\Audi_B10\RLNE11\NVM_PROGRAMMING_TLD4020_Trunck_AA
+2024/08/04 08:00:01 Reading tool data
+2024/08/04 08:00:01 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/08/04 08:00:01 Validating tool data
+2024/08/04 08:00:01 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/08/04 08:00:01 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\NVM_PROGRAMMING_TLD4020_Trunck_AA\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/08/04 08:00:01 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/08/04 08:00:01 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 22332
+2024/08/04 08:00:01 Starting Launcher Service
+2024/08/04 08:00:01 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/08/04 08:00:01 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/08/04 08:00:01 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 37212
+2024/10/25 10:12:54 Started Launch Tool 
+2024/10/25 10:12:54 Started as PID 21740
+2024/10/25 10:12:54 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/10/25 10:12:54 Started in directory E:\SVN\Project\Audi_B10\RLNE11\Trunck\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010
+2024/10/25 10:12:54 Reading tool data
+2024/10/25 10:12:54 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/10/25 10:12:54 Validating tool data
+2024/10/25 10:12:54 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/10/25 10:12:54 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/10/25 10:12:54 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/10/25 10:12:54 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 9896
+2024/10/25 10:12:54 Starting Launcher Service
+2024/10/25 10:12:54 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/10/25 10:12:54 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/10/25 10:12:54 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 23524
+2024/11/12 02:19:37 Started Launch Tool 
+2024/11/12 02:19:37 Started as PID 15532
+2024/11/12 02:19:37 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 02:19:37 Started in directory E:\SVN\Project\Audi_B10\RLNE11\Trunck\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010
+2024/11/12 02:19:37 Reading tool data
+2024/11/12 02:19:37 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/11/12 02:19:37 Validating tool data
+2024/11/12 02:19:37 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/11/12 02:19:37 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241010\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 02:19:37 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/11/12 02:19:37 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 11268
+2024/11/12 02:19:37 Starting Launcher Service
+2024/11/12 02:19:37 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/11/12 02:19:37 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/11/12 02:19:37 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 31636
+2024/11/12 12:10:25 Started Launch Tool 
+2024/11/12 12:10:25 Started as PID 21644
+2024/11/12 12:10:25 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:10:25 Started in directory E:\SVN\Project\Audi_B10\RLNE11\Trunck\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112
+2024/11/12 12:10:25 Reading tool data
+2024/11/12 12:10:25 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/11/12 12:10:25 Validating tool data
+2024/11/12 12:10:25 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/11/12 12:10:25 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:10:25 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/11/12 12:10:26 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 6524
+2024/11/12 12:10:26 Starting Launcher Service
+2024/11/12 12:10:26 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/11/12 12:10:26 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/11/12 12:10:26 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 21720
+2024/11/12 12:18:26 Started Launch Tool 
+2024/11/12 12:18:26 Started as PID 20844
+2024/11/12 12:18:26 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:18:26 Started in directory E:\SVN\Project\Audi_B10\RLNE11\Trunck\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112
+2024/11/12 12:18:26 Reading tool data
+2024/11/12 12:18:26 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/11/12 12:18:26 Validating tool data
+2024/11/12 12:18:26 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/11/12 12:18:26 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:18:26 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/11/12 12:18:26 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 8168
+2024/11/12 12:18:26 Starting Launcher Service
+2024/11/12 12:18:26 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/11/12 12:18:26 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/11/12 12:18:26 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 20996
+2024/11/12 12:19:46 Started Launch Tool 
+2024/11/12 12:19:46 Started as PID 22164
+2024/11/12 12:19:46 Started with arguments []string{"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\launch-tool.exe", "“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:19:46 Started in directory E:\SVN\Project\Audi_B10\RLNE11\Trunck\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112
+2024/11/12 12:19:46 Reading tool data
+2024/11/12 12:19:46 Reading "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\resources\\tool-details.json"
+2024/11/12 12:19:46 Validating tool data
+2024/11/12 12:19:46 Starting tool &main.Tool{FeatureID:"com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics", Title:"Config Wizard for MOTIX? MCU", Version:"2.7.3.202306221148", Path:"C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe"}
+2024/11/12 12:19:46 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" with arguments []string{"“E:\\SVN\\Project\\Audi_B10\\RLNE11\\Trunck\\NVM_PROGRAMMING_TLD4020_Trunck_AA_20241112\\RTE\\DeviceTLD4020-3ET\\config.icwp”", "-ddevice=TLD4020-3ET"}
+2024/11/12 12:19:46 Starting "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" in directory "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148"
+2024/11/12 12:19:46 Started "C:\\Users\\SH2304013\\Infineon\\Tools\\Config-Wizard-for-MOTIX-MCU\\2.7.3.202306221148\\/ConfigWizard.exe" as PID 10356
+2024/11/12 12:19:46 Starting Launcher Service
+2024/11/12 12:19:46 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" with arguments []string{"-featureid", "com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics:2.7.3.202306221148", "-notification", "-toolbox.service", "checkUpdate com.ifx.tb.tool.ifxconfigwizardforembeddedpowerics"}
+2024/11/12 12:19:46 Starting "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" in directory "C:\\Users\\SH2304013"
+2024/11/12 12:19:46 Started "C:\\Users\\SH2304013\\Infineon\\LauncherService\\idc-launcher-service.exe" as PID 24492

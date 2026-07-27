@@ -1,0 +1,107 @@
+
+
+LIN_description_file;
+LIN_protocol_version = "2.2";
+LIN_language_version = "2.2";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: LIN_Master, 1 ms, 0 ms ;
+  Slaves: Slave_1 ;
+}
+
+Signals {
+  Word1OUT: 16, 0, LIN_Master, Slave_1;
+  Word2OUT: 16, 0, LIN_Master, Slave_1;
+  Word3OUT: 16, 0, LIN_Master, Slave_1;
+  Word4OUT: 16, 0, LIN_Master, Slave_1;
+  Word1IN: 16, 0, Slave_1, LIN_Master;
+  Word2IN: 16, 0, Slave_1, LIN_Master;
+  Word3IN: 16, 0, Slave_1, LIN_Master;
+  Word4IN: 16, 0, Slave_1, LIN_Master;
+  ExchangeOutData01 : 7, 0, LIN_Master, Slave_1;
+  ExchangeOutData02 : 7, 0, LIN_Master, Slave_1;
+  ExchangeOutData03 : 6, 0, LIN_Master, Slave_1;
+  ExchangeInData01 : 7 , 0, Slave_1, LIN_Master;
+  ExchangeInData02 : 7 , 0, Slave_1, LIN_Master;
+  ExchangeInData03 : 6 , 0, Slave_1, LIN_Master;
+  ExchangeInData04 : 1 , 0, Slave_1, LIN_Master;
+  ExchangeInData05 : 1 , 0, Slave_1, LIN_Master;
+  ExchangeInData06 : 1 , 0, Slave_1, LIN_Master;
+  ExchangeInData07 : 1 , 0, Slave_1, LIN_Master;
+}
+
+
+Frames {
+  /* set PWM values via function processing : PWMCh0, PWMCh1, PWMCh2, PWMCh3 */
+  ExchangeOutFun: 0, LIN_Master, 3 {
+    ExchangeOutData01, 0 ;
+    ExchangeOutData02, 7 ;
+    ExchangeOutData03, 14 ;
+  }
+  ExchangeInFun: 1, Slave_1, 3 {
+    ExchangeInData01, 0 ;
+    ExchangeInData02, 7 ;
+    ExchangeInData03, 14 ;
+    ExchangeInData04, 20 ;
+    ExchangeInData05, 21 ;
+    ExchangeInData06, 22 ;
+    ExchangeInData07, 23 ;
+  }
+  AnalyzeFrameFun: 3, LIN_Master, 8 {
+    Word1OUT, 0 ;
+    Word2OUT, 16 ;
+    Word3OUT, 32 ;
+    Word4OUT, 48;
+  }
+ /* request PWM values via function processing : PWMCh0, PWMCh1, PWMCh2, PWMCh3 */ 
+  BuildFrameFun: 5, Slave_1, 8 {
+    Word1IN, 0 ;
+    Word2IN, 16 ;
+    Word3IN, 32 ;
+    Word4IN, 48;
+  }
+}
+
+
+Node_attributes {
+  Slave_1{
+    LIN_protocol = "2.2" ;
+    configured_NAD = 0x1 ;
+    initial_NAD = 0x01 ;
+    product_id = 0x23, 0x521, 0x39 ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      AnalyzeFrameFun ;
+      BuildFrameFun ;
+    }
+  }
+}
+
+Schedule_tables {
+ ScheduleTable {
+    AnalyzeFrameFun delay 10 ms ;
+    BuildFrameFun delay 10 ms ;
+  }
+  REQUEST_PWM_VALUES{
+  BuildFrameFun delay 10 ms ;
+  }
+ EXCHANGE_RED{
+	ExchangeOutFun{ExchangeOutData01=0x0, ExchangeOutData02=0x0, ExchangeOutData03=0x1F} delay 10 ms ;
+	ExchangeInFun delay 10 ms ;
+ }
+ EXCHANGE_GREEN{
+	ExchangeOutFun{ExchangeOutData01=0x0, ExchangeOutData02=0x3E, ExchangeOutData03=0x0} delay 10 ms ;
+	ExchangeInFun delay 10 ms ;
+ }
+ EXCHANGE_BLUE{
+	ExchangeOutFun{ExchangeOutData01=0x3E, ExchangeOutData02=0, ExchangeOutData03=0x0} delay 10 ms ;
+	ExchangeInFun delay 10 ms ;
+ }
+}
+
+
+

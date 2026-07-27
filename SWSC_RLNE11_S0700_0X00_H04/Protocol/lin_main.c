@@ -1,0 +1,346 @@
+/******************************************************************************
+*                _  _               ___             _                         *
+*               (_)| |__   _ __    / _ \ _ __ ___  | |__    /\  /\            *
+*               | || '_ \ | '__|  / /_\/| '_ ` _ \ | '_ \  / /_/ /            *
+*               | || | | || |    / /_\\ | | | | | || |_) |/ __  /             *
+*               |_||_| |_||_|    \____/ |_| |_| |_||_.__/ \/ /_/              *
+*                                                                             *
+*    ihr GmbH                                                                 *
+*    Airport Boulevard B210                                                   *
+*    77836 Rheinm?nster - Germany                                             *
+*    http://www.ihr.de                                                        *
+*    Phone +49(0) 7229-18475-0                                                *
+*    Fax   +49(0) 7229-18475-11                                               *
+*                                                                             *
+*******************************************************************************
+*                                                                             *
+* (c) Alle Rechte bleiben bei IHR GmbH, auch fuer den Fall von Schutzrechts-  *
+* anmeldungen. Jede Verfuegungsbefugnis, wie Kopier- und Weitergaberecht      *
+* bleibt bei IHR GmbH.                                                        *
+*                                                                             *
+* (c) All rights reserved by IHR GmbH including the right to file             *
+* industrial property rights. IHR GmbH retains the sole power of              *
+* disposition such as reproduction or distribution.                           *
+*                                                                             *
+********************     Workfile:      lin_main.c       **********************
+*                                                                             *
+*  PROJECT-DESCRIPTION:  LIN Driver Protocol Layer                            *
+*  FILE-DESCRIPTION:     Main routines for LIN driver                         *
+*                                                                             *
+*******************************************************************************
+*                                                                             *
+*       Revision:        $Rev:: 1120        $                                 *
+*       Responsible:     B.Reiss                                              *
+*       Co-Responsible:  P.Koch                                               *
+*       Last Modtime:    $Date:: 2019-11-28#$                                 *
+*                                                                             *
+******************************************************************************/
+/**
+@file lin_main.c
+@brief Implementation of the Main Functionality inside the LIN Driver
+*/
+
+/* ===========================================================================
+ *  Header files
+ * ==========================================================================*/
+
+#include "genLinConfig.h"
+#include "lin_hal.h"
+#include "lin_slave_task.h"
+#include "lin_driver_api.h"
+#include "ModuleFlash.h"
+
+
+#ifndef LIN_PROTOCOL_VERSION_1_3
+#if ((defined LIN_MASTER)||(defined J2602_MASTER))
+#include "lin_master_task.h"
+#endif /* #if ((defined LIN_MASTER)||(defined J2602_MASTER)) */
+#endif /* end #ifndef LIN_PROTOCOL_VERSION_1_3*/
+
+#ifdef LIN_COOKED_API
+#include "lin_diag_tp.h"
+#endif /* end #ifdef LIN_COOKED_API */
+
+#ifdef LIN_RAW_API
+#include "lin_diag_raw.h"
+#endif /* end #ifdef LIN_RAW_API */
+
+#if ((!defined(LIN_DIAG_ENABLE)) && (!defined(LIN_USER_DEF_DIAG_ENABLE)))
+#include "lin_config.h"
+#endif /* end #ifndef LIN_DIAG_ENABLE */
+
+#include "lin_main.h"
+
+/* ===========================================================================
+ *  Global Variables
+ * ==========================================================================*/
+
+l_u8              g_lin_frame_index;
+l_u8              g_lin_active_pid;
+t_Lin_Frame_Ctrl  g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];  /* init with const from the config file */
+t_lin_diag_frame  g_lin_diag_mreq;
+t_lin_diag_frame  g_lin_diag_sresp;
+#if ((defined LIN_MASTER)||(defined J2602_MASTER))
+l_u8   g_lin_config_buffer[3]; /* NAD, PCI, SID */
+l_u8   (*g_lin_config_rbid_data)[]; /* Data pointer for read by ID service */
+#endif /* #if ((defined LIN_MASTER)||(defined J2602_MASTER)) */
+#if ((!defined LIN_MASTER) && (!defined J2602_MASTER))
+t_lin_prod_id     g_lin_prod_id; /* init with const from the config file */
+#endif /* #if ((!defined LIN_MASTER) && (!defined J2602_MASTER)) */
+t_lin_status_word g_lin_status_word;
+l_irqmask         g_lin_irqState;
+t_lin_rx_ctrl     g_lin_rx_ctrl;
+l_u8              g_lin_frame_data_size;
+#if ((!defined(LIN_USER_DEF_DIAG_ENABLE)) || defined(LIN_USER_DEF_DIAG_MANDSERV_ENABLE))
+l_u16             g_lin_tp_timeoutcounter;
+#endif /* end #if (!defined(LIN_USER_DEF_DIAG_ENABLE)) || defined(LIN_USER_DEF_DIAG_MANDSERV_ENABLE) */
+
+#if ((!defined(LIN_DIAG_ENABLE)) && (!defined(LIN_USER_DEF_DIAG_ENABLE)))
+l_u8              g_lin_diag_config_active;
+#endif /* #if (!defined(LIN_DIAG_ENABLE)) && (!defined(LIN_USER_DEF_DIAG_ENABLE)) */
+#ifdef LIN_USER_DEF_DIAG_ENABLE
+l_u8              g_lin_user_diag_active;
+#endif /* end #ifdef LIN_USER_DEF_DIAG_ENABLE */
+#if (defined J2602_PROTOCOL)
+t_lin_diag_frame  j2602_config_frame;
+t_j2602_status    g_j2602_status;
+#endif /* #if (defined J2602_PROTOCOL) */
+#ifdef J2602_SLAVE
+l_u8              j2602_broadcast_bytes[2][J2602_DNN_NUMBER_OF_BYTES];
+#ifndef GM_SPEC_ADAPTION
+l_u8              j2602_statusbyte = 0x00u;
+#endif /* #ifndef GM_SPEC_ADAPTION */
+#endif /* J2602_SLAVE */
+
+#if ((defined LIN_MASTER)||(defined J2602_MASTER))
+l_u8              g_ld_NodeConfRSID;
+l_u8              g_ld_NodeConfErr;
+#ifdef LIN_EVENT_TRIGGERED_FRAME_ENABLE
+l_u8              g_ScheduleFrmIdx;
+l_u16             g_ScheduleIdx;
+#endif /* #ifdef LIN_EVENT_TRIGGERED_FRAME_ENABLE */
+#ifndef LIN_PROTOCOL_VERSION_1_3
+l_u8              g_lin_config_status;
+#endif /* ifndef LIN_PROTOCOL_VERSION_1_3 */
+l_u8              g_lin_zero_schedule;
+l_u16             g_nextScheduleIdx;
+l_u8              g_nextScheduleFrmIdx;
+l_u16             g_ld_timer_p2;
+#endif /* #if ((defined LIN_MASTER)||(defined J2602_MASTER)) */
+
+/* ===========================================================================
+ *  Functions
+ * ==========================================================================*/
+
+/* ---------------------------------------------------------------------------
+ *  void lin_main_init(void)
+ * --------------------------------------------------------------------------*/
+/**
+   @brief  Initializes driver, calls HAL-init
+   @param  void
+   @retval void
+*/
+void lin_main_init(void)
+{
+   l_u8  loc_bytecounter = 0u;
+   l_u8  loc_framecounter;
+
+   /* init the Hardware */
+   lin_hal_init();
+/*Songjm Add for frame control*/
+   lin_frame_control_init();
+/*Add end*/
+#ifdef LIN_COOKED_API
+   /* init diagnostic functions with transport protocol support */
+   (void)lin_tp_init();
+#endif /* end #ifdef LIN_COOKED_API */
+#ifdef LIN_RAW_API
+   /* init diagnostic functions with raw data support */
+   (void)lin_diag_raw_init();
+#endif /* end #ifdef LIN_RAW_API */
+
+#if ((!defined(LIN_USER_DEF_DIAG_ENABLE)) || defined(LIN_USER_DEF_DIAG_MANDSERV_ENABLE))
+   g_lin_tp_timeoutcounter = 0u;
+#endif /* end #if (!defined(LIN_USER_DEF_DIAG_ENABLE)) || defined(LIN_USER_DEF_DIAG_MANDSERV_ENABLE) */
+
+   /* initialise general data settings */
+#if ((defined(LIN_SLAVE)) || (defined(J2602_SLAVE)))
+#ifdef LIN_INITIAL_NAD
+   g_lin_prod_id.NAD = LIN_INITIAL_NAD;
+   g_lin_prod_id.Initial_NAD = LIN_INITIAL_NAD;
+#else
+   g_lin_prod_id.NAD = l_callback_Get_Initial_NAD();
+   g_lin_prod_id.Initial_NAD = l_callback_Get_Initial_NAD();
+#endif /* end #ifdef LIN_INITIAL_NAD */
+#if ((defined LIN_PROTOCOL_VERSION_2_0) || (defined LIN_PROTOCOL_VERSION_2_1) || (defined J2602_PROTOCOL))
+   g_lin_prod_id.Supplier_lo = savedConfig.ProductID[0];
+   g_lin_prod_id.Supplier_hi = savedConfig.ProductID[1];
+   g_lin_prod_id.Function_lo = savedConfig.ProductID[2];
+   g_lin_prod_id.Function_hi = savedConfig.ProductID[3];
+   g_lin_prod_id.Variant = savedConfig.ProductID[4];
+#endif /* end #if defined LIN_PROTOCOL_VERSION_2_0 || defined LIN_PROTOCOL_VERSION_2_1 */
+#endif /* #if ((defined(LIN_SLAVE)) || (defined(J2602_SLAVE))) */
+
+   g_lin_frame_index       = 0xFFu;
+   g_lin_active_pid        = 0x0u;
+   g_lin_status_word.reg   = 0u;
+   g_lin_rx_ctrl.reg       = 0u;
+   g_lin_irqState          = 0u;
+   g_lin_frame_data_size   = 0u;
+
+   /* initialize frame array*/
+   for(loc_framecounter = 0u; loc_framecounter < LIN_NUMBER_OF_FRAMES; loc_framecounter++)
+   {
+#if ((defined LIN_ENABLE_ASSIGN_FRAME_ID) || (defined LIN_ENABLE_RBI_RD_MSG_ID_PID) || (defined J2602_PROTOCOL))
+      for(loc_bytecounter = 0u; loc_bytecounter < 5u; loc_bytecounter++)
+#else
+      for(loc_bytecounter = 0u; loc_bytecounter < 3u; loc_bytecounter++)
+#endif /* end #if ((defined LIN_ENABLE_ASSIGN_FRAME_ID) || (defined LIN_ENABLE_RBI_RD_MSG_ID_PID) || (defined J2602_PROTOCOL)) */
+      {
+//         g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT[loc_framecounter].reg[loc_bytecounter];
+				 switch(SlaveNodeNAD)
+          {
+            case 0x01U: /* Slave NAD of AM_RGB_Slave_01 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT01[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x02U: /* Slave NAD of AM_RGB_Slave_02 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT02[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x03U: /* Slave NAD of AM_RGB_Slave_03 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT03[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x04U: /* Slave NAD of AM_RGB_Slave_04 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT04[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x05U: /* Slave NAD of AM_RGB_Slave_05 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT05[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x06U: /* Slave NAD of AM_RGB_Slave_06 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT06[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x07U: /* Slave NAD of AM_RGB_Slave_07 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT07[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x08U: /* Slave NAD of AM_RGB_Slave_08 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT08[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x09U: /* Slave NAD of AM_RGB_Slave_09 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT09[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x0AU: /* Slave NAD of AM_RGB_Slave_10 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT10[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x0BU: /* Slave NAD of AM_RGB_Slave_11 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT11[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x0CU: /* Slave NAD of AM_RGB_Slave_12 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT12[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x0DU: /* Slave NAD of AM_RGB_Slave_13 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT13[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x0EU: /* Slave NAD of AM_RGB_Slave_14 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT14[loc_framecounter].reg[loc_bytecounter];
+              break;
+            case 0x10U: /* Slave NAD of AM_RGB_Slave_16 */
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT16[loc_framecounter].reg[loc_bytecounter];
+              break;
+            default:
+              g_lin_frame_ctrl[loc_framecounter].reg[loc_bytecounter] = const_LIN_FRAME_CTRL_INIT01[loc_framecounter].reg[loc_bytecounter];
+							g_lin_frame_ctrl[8].frame.msg_id.lo = (uint8_t)SlaveNodeNAD;
+							g_lin_frame_ctrl[8].frame.msg_id.hi = (uint8_t)(SlaveNodeNAD>>8);
+							uint8_t calculateParityPID(uint8_t PID);
+							g_lin_frame_ctrl[8].frame.pid = calculateParityPID(SlaveNodeNAD);
+              break;
+          }
+      }
+   }
+
+   /* initialize internal diagnostic buffers */
+   for(loc_bytecounter = 0u; loc_bytecounter < 8u; loc_bytecounter++)
+   {
+      LIN_DIAG_RECEIVE_FRAME.byte[loc_bytecounter]   = 0xFFu;
+      LIN_DIAG_SEND_FRAME.byte[loc_bytecounter]  = 0xFFu;
+#ifdef J2602_SLAVE
+      j2602_config_frame.byte[loc_bytecounter] = 0u;
+#endif /* end #ifdef J2602_SLAVE */
+   }
+
+#if ((!defined(LIN_DIAG_ENABLE)) && (!defined(LIN_USER_DEF_DIAG_ENABLE)))
+   g_lin_diag_config_active = 0x0u;
+#endif /* #if (!defined(LIN_DIAG_ENABLE)) && (!defined(LIN_USER_DEF_DIAG_ENABLE)) */
+#ifdef LIN_USER_DEF_DIAG_ENABLE
+   g_lin_user_diag_active = 0x0u;
+#endif /* end #ifdef LIN_USER_DEF_DIAG_ENABLE */
+
+   /* Initialize l_LinData with default data from the LDF file */
+   for(loc_bytecounter = 0u; loc_bytecounter < (LIN_NUMBER_OF_FRAMES * 8u); loc_bytecounter++)
+   {
+         l_LinData.dataBytes[loc_bytecounter] = const_LinData.dataBytes[loc_bytecounter];
+   }
+#ifdef J2602_SLAVE
+   g_j2602_status.reg[0] = 0u;
+   /* Initialize buffers for broadcast message bytes */
+   for(loc_bytecounter = 0u; loc_bytecounter < J2602_DNN_NUMBER_OF_BYTES; loc_bytecounter++)
+   {
+       j2602_broadcast_bytes[0][loc_bytecounter] = 0u;
+       j2602_broadcast_bytes[1][loc_bytecounter] = 0u;
+   }
+#ifndef GM_SPEC_ADAPTION
+   j2602_statusbyte = 0x00u;
+#endif /* #ifndef GM_SPEC_ADAPTION */
+   j2602_hal_target_reset (0u);
+#endif /* end #ifdef J2602_SLAVE */
+
+#if ((defined LIN_MASTER)||(defined J2602_MASTER))
+   g_lin_config_rbid_data = (l_u8 (*) [])0u; /* Data pointer for read by ID service */
+   g_lin_zero_schedule = L_SET;
+   Init_ScheduleTableList();
+   lin_master_task_init();
+   g_ld_timer_p2 = 0xFFFFu;
+   g_lin_config_buffer[0u] = 0u;
+   g_lin_config_buffer[1u] = 0u;
+   g_lin_config_buffer[2u] = 0u;
+#endif /* #if ((defined LIN_MASTER)||(defined J2602_MASTER)) */
+}
+
+/* ---------------------------------------------------------------------------
+ *  void l_get_byte_array(l_u8 start[], l_u8 count, l_u8 destination[])
+ * --------------------------------------------------------------------------*/
+/**
+   @brief  Fetch a byte array
+   @pre    LIN driver initialized
+   @param  l_u8 start        source buffer
+   @param  l_u8 count        number of bytes to be copied
+   @param  l_u8 destination  target buffer
+   @retval void
+*/
+void l_get_byte_array(l_u8 start[], l_u8 count, l_u8 destination[])
+{
+   l_u8 loc_i;
+   for(loc_i = 0u; loc_i < count; loc_i++)
+   {
+      destination[loc_i] = start[loc_i];
+   }
+}
+
+/* ---------------------------------------------------------------------------
+ *  void l_set_byte_array(l_u8 start[], l_u8 count, const l_u8 source[])
+ * --------------------------------------------------------------------------*/
+/**
+   @brief  Set a byte array
+   @pre    LIN driver initialized
+   @param  l_u8 start        target buffer
+   @param  l_u8 count        number of bytes to be copied
+   @param  l_u8 source       source buffer
+   @retval void
+*/
+void l_set_byte_array(l_u8 start[], l_u8 count, const l_u8 source[])
+{
+   l_u8 loc_i;
+   for(loc_i = 0u; loc_i < count; loc_i++)
+   {
+      start[loc_i] = source[loc_i];
+   }
+}
+
