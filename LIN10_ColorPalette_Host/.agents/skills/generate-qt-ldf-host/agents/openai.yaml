@@ -1,0 +1,4 @@
+interface:
+  display_name: "生成 Qt LDF 上位机"
+  short_description: "从母 Seed、LDF 和信号组合创建独立 Qt 上位机"
+  default_prompt: "使用 $generate-qt-ldf-host 根据 LDF 和信号组合新建一个独立 Qt 上位机工程。"

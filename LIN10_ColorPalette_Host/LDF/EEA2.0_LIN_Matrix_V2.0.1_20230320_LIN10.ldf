@@ -1,0 +1,521 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                        Mentor Graphics Corporation                         */
+/*                            All rights reserved                             */
+/*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
+/*  Description:   LIN Description file                                       */
+/*  System:        EP1                                                        */
+/*  Variant:       X_Max                                                      */
+/*  Cluster:       LIN10                                                      */
+/*  Master:        HU_LIN10_Ctrl                                              */
+/*  Generated at:  2023-03-17 10:52                                           */
+/*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
+/*                THIS CONFIGURATION MIGHT CONTAIN SOME ERRORS                */
+/*                 IF THE INPUT MODEL WAS NOT PROPERLY FORMED!                */
+/*                       Do Not Use this File directly!                       */
+/*                                                                            */
+/* ************************************************************************** */
+
+LIN_description_file;
+LIN_protocol_version = "2.1";
+LIN_language_version = "2.1";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: HU, 5 ms, 0 ms ;
+  Slaves: ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+}
+
+Signals {
+  ALM10_ErrorResp: 1, 0, ALM10, HU ;
+  ALM11_ErrorResp: 1, 0, ALM11, HU ;
+  ALM1_ErrorResp: 1, 0, ALM1, HU ;
+  ALM2_ErrorResp: 1, 0, ALM2, HU ;
+  ALM3_ErrorResp: 1, 0, ALM3, HU ;
+  ALM4_ErrorResp: 1, 0, ALM4, HU ;
+  ALM5_ErrorResp: 1, 0, ALM5, HU ;
+  ALM6_ErrorResp: 1, 0, ALM6, HU ;
+  ALM7_ErrorResp: 1, 0, ALM7, HU ;
+  ALM8_ErrorResp: 1, 0, ALM8, HU ;
+  ALM9_ErrorResp: 1, 0, ALM9, HU ;
+  Brightness: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  CtrlList: 16, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  HWVerNum1: 8, 0, ALM1, HU ;
+  HWVerNum10: 8, 0, ALM10, HU ;
+  HWVerNum11: 8, 0, ALM11, HU ;
+  HWVerNum2: 8, 0, ALM2, HU ;
+  HWVerNum3: 8, 0, ALM3, HU ;
+  HWVerNum4: 8, 0, ALM4, HU ;
+  HWVerNum5: 8, 0, ALM5, HU ;
+  HWVerNum6: 8, 0, ALM6, HU ;
+  HWVerNum7: 8, 0, ALM7, HU ;
+  HWVerNum8: 8, 0, ALM8, HU ;
+  HWVerNum9: 8, 0, ALM9, HU ;
+  RampTime: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  RGB_B: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  RGB_G: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  RGB_R: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+  SWVerNum1: 8, 0, ALM1, HU ;
+  SWVerNum10: 8, 0, ALM10, HU ;
+  SWVerNum11: 8, 0, ALM11, HU ;
+  SWVerNum2: 8, 0, ALM2, HU ;
+  SWVerNum3: 8, 0, ALM3, HU ;
+  SWVerNum4: 8, 0, ALM4, HU ;
+  SWVerNum5: 8, 0, ALM5, HU ;
+  SWVerNum6: 8, 0, ALM6, HU ;
+  SWVerNum7: 8, 0, ALM7, HU ;
+  SWVerNum8: 8, 0, ALM8, HU ;
+  SWVerNum9: 8, 0, ALM9, HU ;
+  VehicleTypeInfo: 8, 0, HU, ALM1, ALM10, ALM11, ALM2, ALM3, ALM4, ALM5, ALM6, ALM7, ALM8, ALM9 ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+
+Frames {
+  ALM10Status: 28, ALM10, 8 {
+    ALM10_ErrorResp, 0 ;
+    HWVerNum10, 8 ;
+    SWVerNum10, 16 ;
+  }
+  ALM11Status: 29, ALM11, 8 {
+    ALM11_ErrorResp, 0 ;
+    HWVerNum11, 8 ;
+    SWVerNum11, 16 ;
+  }
+  ALM1Status: 19, ALM1, 8 {
+    ALM1_ErrorResp, 0 ;
+    HWVerNum1, 8 ;
+    SWVerNum1, 16 ;
+  }
+  ALM2Status: 20, ALM2, 8 {
+    ALM2_ErrorResp, 0 ;
+    HWVerNum2, 8 ;
+    SWVerNum2, 16 ;
+  }
+  ALM3Status: 21, ALM3, 8 {
+    ALM3_ErrorResp, 0 ;
+    HWVerNum3, 8 ;
+    SWVerNum3, 16 ;
+  }
+  ALM4Status: 22, ALM4, 8 {
+    ALM4_ErrorResp, 0 ;
+    HWVerNum4, 8 ;
+    SWVerNum4, 16 ;
+  }
+  ALM5Status: 23, ALM5, 8 {
+    ALM5_ErrorResp, 0 ;
+    HWVerNum5, 8 ;
+    SWVerNum5, 16 ;
+  }
+  ALM6Status: 24, ALM6, 8 {
+    ALM6_ErrorResp, 0 ;
+    HWVerNum6, 8 ;
+    SWVerNum6, 16 ;
+  }
+  ALM7Status: 25, ALM7, 8 {
+    ALM7_ErrorResp, 0 ;
+    HWVerNum7, 8 ;
+    SWVerNum7, 16 ;
+  }
+  ALM8Status: 26, ALM8, 8 {
+    ALM8_ErrorResp, 0 ;
+    HWVerNum8, 8 ;
+    SWVerNum8, 16 ;
+  }
+  ALM9Status: 27, ALM9, 8 {
+    ALM9_ErrorResp, 0 ;
+    HWVerNum9, 8 ;
+    SWVerNum9, 16 ;
+  }
+  HU_ALMCtrl: 16, HU, 8 {
+    Brightness, 16 ;
+    CtrlList, 0 ;
+    RampTime, 48 ;
+    RGB_B, 40 ;
+    RGB_G, 32 ;
+    RGB_R, 24 ;
+    VehicleTypeInfo, 56 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  ALM1{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x29 ;
+    initial_NAD = 0x29 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM1_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      HU_ALMCtrl ;
+      ALM1Status ;
+    }
+  }
+  ALM10{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x32 ;
+    initial_NAD = 0x32 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM10_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM10Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM11{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x33 ;
+    initial_NAD = 0x33 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM11_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM11Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM2{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2A ;
+    initial_NAD = 0x2A ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM2_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM2Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM3{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2B ;
+    initial_NAD = 0x2B ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM3_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM3Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM4{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2C ;
+    initial_NAD = 0x2C ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM4_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM4Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM5{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2D ;
+    initial_NAD = 0x2D ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM5_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM5Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM6{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2E ;
+    initial_NAD = 0x2E ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM6_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM6Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM7{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2F ;
+    initial_NAD = 0x2F ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM7_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM7Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM8{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x30 ;
+    initial_NAD = 0x30 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM8_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM8Status ;
+      HU_ALMCtrl ;
+    }
+  }
+  ALM9{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x31 ;
+    initial_NAD = 0x31 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = ALM9_ErrorResp ;
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      ALM9Status ;
+      HU_ALMCtrl ;
+    }
+  }
+}
+
+Schedule_tables {
+ HU_LIN10_W01_7Seats {
+    HU_ALMCtrl delay 10 ms ;
+    ALM1Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM2Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM3Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM4Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM5Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM6Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM7Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM8Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM9Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM10Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM11Status delay 10 ms ;
+  }
+ HU_LIN10_W01_8Seats {
+    HU_ALMCtrl delay 10 ms ;
+    ALM1Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM4Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM5Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM6Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM7Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM8Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM9Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM10Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM11Status delay 10 ms ;
+  }
+ HU_LIN10_X01X02X03 {
+    HU_ALMCtrl delay 10 ms ;
+    ALM2Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM3Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM4Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM5Status delay 10 ms ;
+  }
+ HU_LIN10_X04_and_X01X02X03_24Model {
+    HU_ALMCtrl delay 10 ms ;
+    ALM1Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM2Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM3Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM4Status delay 10 ms ;
+    HU_ALMCtrl delay 10 ms ;
+    ALM5Status delay 10 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  ALM10_ErrorRespCoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No error" ;
+    logical_value, 1, "Error" ;
+  }
+  ALM1_ErrorRespCoding {
+    logical_value, 0, "No error" ;
+    logical_value, 1, "Error" ;
+  }
+  ALM2_ErrorRespCoding {
+    logical_value, 0, "No error" ;
+    logical_value, 1, "Error" ;
+  }
+  BrightnessCoding2 {
+    physical_value, 0, 200, 0.5, 0, "%" ;
+  }
+  CtrlList_Encoding {
+    physical_value, 0, 65535, 1, 0, "NA" ;
+  }
+  HWVerNum10Coding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  HWVerNum1Coding {
+    physical_value, 0, 255, 1, 0 ;
+  }
+  HWVerNum2_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  HWVerNum3_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  HWVerNum4_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  HWVerNum5_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  RGB_B_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  RGB_G_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  RGB_RCoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  RampTimeCoding2 {
+    physical_value, 0, 255, 20, 0, "ms" ;
+  }
+  SWVerNum2_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  SWVerNum3_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  SWVerNum4_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  SWVerNum5_Encoding {
+    physical_value, 0, 255, 1, 0, "NA" ;
+  }
+  VehicleTypeInfoCoding {
+    physical_value, 0, 255, 1, 0 ;
+    logical_value, 0, "Not Support" ;
+    logical_value, 1, "X04" ;
+    logical_value, 2, "X01/X02" ;
+    logical_value, 3, "X03" ;
+    logical_value, 4, "W01" ;
+    logical_value, 5, "W02" ;
+  }
+}
+
+Signal_representation {
+  ALM10_ErrorRespCoding: ALM10_ErrorResp, ALM11_ErrorResp, ALM6_ErrorResp, ALM7_ErrorResp, ALM8_ErrorResp, ALM9_ErrorResp ;
+  ALM1_ErrorRespCoding: ALM1_ErrorResp ;
+  ALM2_ErrorRespCoding: ALM2_ErrorResp, ALM3_ErrorResp, ALM4_ErrorResp, ALM5_ErrorResp ;
+  BrightnessCoding2: Brightness ;
+  CtrlList_Encoding: CtrlList ;
+  HWVerNum10Coding: HWVerNum10, HWVerNum11, HWVerNum6, HWVerNum7, HWVerNum8, HWVerNum9, SWVerNum10, SWVerNum11, SWVerNum6, SWVerNum7, SWVerNum8, SWVerNum9 ;
+  HWVerNum1Coding: HWVerNum1, SWVerNum1 ;
+  HWVerNum2_Encoding: HWVerNum2 ;
+  HWVerNum3_Encoding: HWVerNum3 ;
+  HWVerNum4_Encoding: HWVerNum4 ;
+  HWVerNum5_Encoding: HWVerNum5 ;
+  RGB_B_Encoding: RGB_B ;
+  RGB_G_Encoding: RGB_G ;
+  RGB_RCoding: RGB_R ;
+  RampTimeCoding2: RampTime ;
+  SWVerNum2_Encoding: SWVerNum2 ;
+  SWVerNum3_Encoding: SWVerNum3 ;
+  SWVerNum4_Encoding: SWVerNum4 ;
+  SWVerNum5_Encoding: SWVerNum5 ;
+  VehicleTypeInfoCoding: VehicleTypeInfo ;
+}
