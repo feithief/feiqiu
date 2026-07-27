@@ -1,3 +1,0 @@
-2024-02-05,15:26:43.527 [INFO] - MainThread: python version: 3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:34:34) [MSC v.1928 32 bit (Intel)]
-2024-02-05,15:26:43.527 [INFO] - MainThread: python version info: sys.version_info(major=3, minor=8, micro=10, releaselevel='final', serial=0)
-2024-02-05,15:26:43.527 [INFO] - MainThread: __name__='__main__'

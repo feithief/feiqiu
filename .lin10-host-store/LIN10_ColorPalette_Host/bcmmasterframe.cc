@@ -1,4 +1,4 @@
-#include "bcmmasterframe.h"
+﻿#include "bcmmasterframe.h"
 #include "application_config.h"
 #include "linlayout.h"
 #include <QString>
@@ -578,7 +578,7 @@ void BCMMasterFrame::updateColorPage()
   if (signalPresetMode)
   {
     ui->labelTitleColorTabel->setText(
-      QString("%1 路 绗?%2/%3 椤碉紙%4-%5 / %6锛?)
+      QString("%1 | Page %2/%3 (%4-%5 / %6)")
         .arg(QString::fromUtf8(layout.signalPresetGroupName))
         .arg(colorPage + 1)
         .arg(pageCount)
