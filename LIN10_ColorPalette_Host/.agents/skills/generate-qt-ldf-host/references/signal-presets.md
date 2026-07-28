@@ -1,28 +1,19 @@
 # Signal-combination overlay
 
-Use a small second JSON overlay when the user provides named combinations. It is merged after the main profile, so the user only has to supply shortcut data.
+Use a second JSON overlay for user-supplied combinations:
 
 ```json
 {
   "signal_presets": {
-    "group_name": "RGB 30色",
+    "group_name": "RGB 快捷颜色",
     "items": [
       {
         "name": "红色",
         "values": {
-          "CDCU_SigEnable_ColorProtocol_CLIN1": 1,
-          "CDCU_SigColorR_Predef_CLIN1": 255,
-          "CDCU_SigColorG_CLIN1": 0,
-          "CDCU_SigColorB_CLIN1": 0
-        }
-      },
-      {
-        "name": "绿色",
-        "values": {
-          "CDCU_SigEnable_ColorProtocol_CLIN1": 1,
-          "CDCU_SigColorR_Predef_CLIN1": 0,
-          "CDCU_SigColorG_CLIN1": 255,
-          "CDCU_SigColorB_CLIN1": 0
+          "ColorProtocolEnable": 1,
+          "RGB_R": 255,
+          "RGB_G": 0,
+          "RGB_B": 0
         }
       }
     ]
@@ -32,16 +23,15 @@ Use a small second JSON overlay when the user provides named combinations. It is
 
 Rules:
 
-- `items` order is the visible button order. Names must be non-empty and unique.
-- Support at most 30 buttons, matching the mother Seed's reusable button pool.
-- `values` accepts decimal integers or strings such as `"0xFF"`.
-- Every key must exactly match a signal in `schedule.control_frame` of the merged base profile.
-- Every raw value must fit the signal's LDF bit width. Do not scale, clamp, invert, or silently substitute values.
-- One click applies all listed values to the cached primary-frame payload, then requests a high-priority transmission through the scheduler and LIN worker thread.
-- Signals omitted by a combination retain their current primary-frame value. A later ordinary UI edit rebuilds the normal logical payload and supersedes the preset.
+- Item order is visible button order; names are non-empty and unique.
+- Allow at most 512 items. The UI shows 30 per page and creates no per-item
+  widget in `.ui`.
+- Values are decimal integers or strings such as `"0xFF"`.
+- Every key exactly matches a signal in the merged profile's primary control
+  frame, and every raw value fits the LDF bit width.
+- Never scale, clamp, invert, rename, or silently substitute a supplied value.
+- One click atomically applies all listed assignments to the cached control
+  payload and requests a high-priority send through Scheduler and Worker.
+- Omitted signals retain the current payload value.
 
-Generate with the base profile first and this file second:
-
-```text
-python tools/ldf_profile_gen.py generate --ldf INPUT.ldf --overlay profiles/base.profile.json --overlay profiles/name.presets.json --output generated
-```
+Generate with base overlay first and preset overlay second.

@@ -102,15 +102,13 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
       button->setGeometry(nodeButtonGeometry(node.uiSlot, profile.nodeCount));
       button->setButtonEnabled(false);
       button->setConfigurationEnabled(nodeConfigurationAvailable);
-      if (nodeConfigurationAvailable)
-      {
-        connect(button, SIGNAL(slaveClicked(int)),
-                this, SLOT(slaveConfig(int)));
-      }
-      else
+      connect(button, SIGNAL(slaveClicked(int)),
+              this, SLOT(slaveConfig(int)));
+      if (!nodeConfigurationAvailable)
       {
         button->setToolTip(
-          tr("The active profile provides status monitoring only."));
+          tr("Open node status. Proprietary DID read/write is not "
+             "defined by this LDF."));
       }
       button->show();
       slaveButtons.insert(node.diagnosticNad, button);
@@ -162,8 +160,7 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   {
     masterFrame = new BCMMasterFrame(linScheduler, this);
     productVerifyFrame = new ProductionVerify(linScheduler, this);
-    if (nodeConfigurationAvailable)
-      slaveFrame = new SlaveFrameConfig(linScheduler, this);
+    slaveFrame = new SlaveFrameConfig(linScheduler, this);
   }
 
   debugPanel = new DebugPanel(debug, this);

@@ -55,6 +55,7 @@ private:
   AmbientLinScheduler *linScheduler;
   int currentNode;
   ENodeType nodeType;
+  bool configurationAvailable;
   Ui::SlaveNodeFrame *ui;
   ADialog *dialog;
   QFrame *backgroundframe;
@@ -67,6 +68,7 @@ private:
   bool eventFilter(QObject *watched, QEvent *event);
   void showInputKeyBoard(bool show);
   void resetForm();
+  void setConfigurationControlsEnabled(bool enabled);
   void displayConfiguration(const SlaveConfigInfo &info);
   void showReadWriteOk();
   void requestCalibration(quint8 mode);

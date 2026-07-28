@@ -47,14 +47,21 @@ void SlaveButton::setConfigurationEnabled(bool enabled)
 
 void SlaveButton::refreshAppearance()
 {
-  setEnabled(online && configurationEnabled);
+  /*
+   * Online state is diagnostic information, not a navigation gate.  Keep
+   * every generated node clickable so an offline/status-only node can still
+   * open its diagnostic page.
+   */
+  setEnabled(true);
   setStyleSheet(online ? kEnabledStyle : kDisabledStyle);
   setText(QString("%1  [NAD %2]\n%3")
           .arg(name)
           .arg(address)
           .arg(online
                ? (configurationEnabled ? "ON-Line" : "ON-Line (Status Only)")
-               : "OFF-Line"));
+               : (configurationEnabled
+                  ? "OFF-Line (Diagnostic)"
+                  : "OFF-Line (Status Only)")));
 }
 
 bool SlaveButton::isOnLine() const

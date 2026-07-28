@@ -54,9 +54,9 @@ int productionColorCount(const LinLayout &layout)
 
 void assignProductionColor(const LinLayout &layout,
                            int colorIndex,
-                           BCMSignal *signals)
+                           BCMSignal *signalValues)
 {
-  if (signals == 0)
+  if (signalValues == 0)
     return;
 
   const int colorCount = productionColorCount(layout);
@@ -66,15 +66,15 @@ void assignProductionColor(const LinLayout &layout,
   if (layout.colorModel == ELinColorModelDirectRgbOnly)
   {
     const LinPredefinedColor &color = kDirectRgbTestColors[colorIndex];
-    signals->directRgbEnabled = true;
-    signals->redOrPredefinedColor = color.red;
-    signals->green = color.green;
-    signals->blue = color.blue;
+    signalValues->directRgbEnabled = true;
+    signalValues->redOrPredefinedColor = color.red;
+    signalValues->green = color.green;
+    signalValues->blue = color.blue;
   }
   else
   {
-    signals->directRgbEnabled = false;
-    signals->redOrPredefinedColor = static_cast<quint8>(colorIndex);
+    signalValues->directRgbEnabled = false;
+    signalValues->redOrPredefinedColor = static_cast<quint8>(colorIndex);
   }
 }
 

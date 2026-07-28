@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.machinery
 import importlib.util
 import json
 import sys
@@ -69,8 +70,8 @@ def validate_shape(document: Dict[str, Any]) -> Tuple[int, int]:
         raise PresetError("signal_presets.items must be an array")
     if not items:
         raise PresetError("signal_presets.items must not be empty")
-    if len(items) > 30:
-        raise PresetError("signal_presets.items may contain at most 30 buttons")
+    if len(items) > 512:
+        raise PresetError("signal_presets.items may contain at most 512 buttons")
 
     used_names = set()
     assignment_count = 0
@@ -98,10 +99,28 @@ def validate_shape(document: Dict[str, Any]) -> Tuple[int, int]:
 
 
 def load_generator(seed_root: Path):
-    generator_path = seed_root / "tools" / "ldf_profile_gen.py"
-    if not generator_path.is_file():
-        raise PresetError("mother Seed generator is missing: " + str(generator_path))
-    spec = importlib.util.spec_from_file_location("seed_ldf_profile_gen", generator_path)
+    candidates = [
+        seed_root / "tools" / "ldf_profile_gen.py",
+        seed_root / "tools" / "ldf_profile_gen.py.txt",
+    ]
+    generator_path = None
+    for candidate in candidates:
+        if not candidate.is_file():
+            continue
+        try:
+            candidate.read_text(encoding="utf-8-sig")
+            generator_path = candidate
+            break
+        except UnicodeDecodeError:
+            continue
+    if generator_path is None:
+        raise PresetError(
+            "mother Seed has no readable tools/ldf_profile_gen.py or .py.txt"
+        )
+    loader = importlib.machinery.SourceFileLoader(
+        "seed_ldf_profile_gen", str(generator_path)
+    )
+    spec = importlib.util.spec_from_loader(loader.name, loader)
     if spec is None or spec.loader is None:
         raise PresetError("cannot load mother Seed generator: " + str(generator_path))
     module = importlib.util.module_from_spec(spec)

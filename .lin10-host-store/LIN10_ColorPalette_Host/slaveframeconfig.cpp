@@ -78,6 +78,7 @@ SlaveFrameConfig::SlaveFrameConfig(AmbientLinScheduler *scheduler,
     linScheduler(scheduler),
     currentNode(0),
     nodeType(ENodeTypeRGB),
+    configurationAvailable(false),
     ui(new Ui::SlaveNodeFrame),
     dialog(0),
     backgroundframe(0),
@@ -175,19 +176,41 @@ SlaveFrameConfig::~SlaveFrameConfig()
   delete ui;
 }
 
+void SlaveFrameConfig::setConfigurationControlsEnabled(bool enabled)
+{
+  ui->pushButtonAccept->setEnabled(enabled);
+  ui->pushButtonNoCalibrate->setEnabled(enabled);
+  ui->pushButtonCalibrateR->setEnabled(enabled);
+  ui->pushButtonCalibrateG->setEnabled(enabled);
+  ui->pushButtonCalibrateB->setEnabled(enabled);
+
+  ui->spinBoxSA->setReadOnly(!enabled);
+  ui->spinBoxPlatform->setReadOnly(!enabled);
+  ui->spinBoxIntensity->setReadOnly(!enabled);
+  ui->lineEditPN->setReadOnly(!enabled);
+  ui->lineEditSerial->setReadOnly(!enabled);
+  ui->doubleSpinBoxRX->setReadOnly(!enabled);
+  ui->doubleSpinBoxRY->setReadOnly(!enabled);
+  ui->doubleSpinBoxRL->setReadOnly(!enabled);
+  ui->doubleSpinBoxGX->setReadOnly(!enabled);
+  ui->doubleSpinBoxGY->setReadOnly(!enabled);
+  ui->doubleSpinBoxGL->setReadOnly(!enabled);
+  ui->doubleSpinBoxBX->setReadOnly(!enabled);
+  ui->doubleSpinBoxBY->setReadOnly(!enabled);
+  ui->doubleSpinBoxBL->setReadOnly(!enabled);
+
+  const QString reason = enabled
+    ? QString()
+    : QString("Status-only: this LDF defines no proprietary DID services.");
+  ui->pushButtonAccept->setToolTip(reason);
+}
+
 void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
 {
   const LinLayout &profile = linScheduler->layout();
-  if ((profile.diagnosticModel != ELinDiagnosticModelCustomDid) ||
-      (profile.serviceCount <= 0))
-  {
-    /* An LDF can describe standard node configuration without defining this
-     * application's proprietary DID page.  Do not send guessed services. */
-    hide();
-    return;
-  }
-
-  if (findLinNode(profile, static_cast<quint8>(slaveNode)) == 0)
+  const LinNodeLayout *node = findLinNode(
+    profile, static_cast<quint8>(slaveNode));
+  if (node == 0)
   {
     /* Keep diagnostic failures in Debug; this page only pops up read/write OK. */
     dialog->hide();
@@ -206,13 +229,24 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
   calibrationRequestId = 0;
 
   currentNode = slaveNode;
-  const LinNodeLayout *node = findLinNode(linScheduler->layout(),
-                                         static_cast<quint8>(slaveNode));
   nodeType = node->nodeType;
+  configurationAvailable =
+    (profile.diagnosticModel == ELinDiagnosticModelCustomDid) &&
+    (profile.serviceCount > 0);
   resetForm();
+  ui->spinBoxSA->setValue(node->diagnosticNad);
+  ui->spinBoxGA->setValue(node->controlAddressMask);
+  setConfigurationControlsEnabled(configurationAvailable);
+
+  /*
+   * LDF-only profiles still open this page in status-only mode.  Never guess
+   * proprietary DIDs that are absent from the supplied protocol data.
+   */
+  dialog->hide();
+  if (!configurationAvailable)
+    return;
 
   /* Diagnostic progress is intentionally silent; only read/write OK is shown. */
-  dialog->hide();
   readRequestId = linScheduler->readNodeConfiguration(
     static_cast<quint8>(currentNode));
   if (readRequestId == 0)
@@ -226,7 +260,12 @@ void SlaveFrameConfig::updateNodeState(SlaveStatus status)
 
   if (!status.isOnLine)
   {
-    exitSlaveConfig();
+    setStatusLabel(ui->ROutput_Err, ESlaveErrorFlagUnknown);
+    setStatusLabel(ui->GOutput_Err, ESlaveErrorFlagUnknown);
+    setStatusLabel(ui->BOutput_Err, ESlaveErrorFlagUnknown);
+    setStatusLabel(ui->Temp_Err, ESlaveErrorFlagUnknown);
+    setStatusLabel(ui->Voltage_Err, ESlaveErrorFlagUnknown);
+    setStatusLabel(ui->Lin_Err, ESlaveErrorFlagUnknown);
     return;
   }
 
@@ -259,7 +298,9 @@ void SlaveFrameConfig::exitSlaveConfig()
 
 void SlaveFrameConfig::changeConfigs()
 {
-  if ((currentNode == 0) || (writeRequestId != 0))
+  if (!configurationAvailable ||
+      (currentNode == 0) ||
+      (writeRequestId != 0))
     return;
 
   const int requestedNad = ui->spinBoxSA->value();
@@ -393,7 +434,9 @@ void SlaveFrameConfig::buttonCalibrateB()
 
 void SlaveFrameConfig::requestCalibration(quint8 mode)
 {
-  if ((currentNode == 0) || (calibrationRequestId != 0))
+  if (!configurationAvailable ||
+      (currentNode == 0) ||
+      (calibrationRequestId != 0))
     return;
 
   dialog->hide();

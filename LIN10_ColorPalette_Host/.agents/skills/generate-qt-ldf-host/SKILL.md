@@ -1,24 +1,33 @@
 ---
 name: generate-qt-ldf-host
-description: Create an independent Qt LIN upper-computer project from this mother Seed using an LDF, a project name, and optional named combinations of exact LDF signal values. Use when generating a new LDF-based host, cloning the mother Seed without changing it, adding shortcut buttons for multi-signal presets such as RGB colors, or regenerating and checking an existing profile.
+description: Create a new independent Qt LIN upper-computer from the mother Seed using an LDF, a project name, and optional named combinations of exact LDF signal values. Use for quickly generating or regenerating an LDF-based host, adding paged multi-signal shortcut buttons such as RGB colors, and statically accepting diagnostics, UI navigation, generated sources, and Qt-macro safety without compiling Qt.
 ---
 
 # Generate Qt LDF Host
 
-Use the current repository as the mother Seed. Keep its UI, scheduler, worker-thread model, diagnostics, debug panel, and generated `LinLayout` architecture. Put all LDF-specific data in JSON overlays and generated files.
+Generate from the current mother Seed. Keep its UI, scheduler, single LIN worker
+thread, queued synchronization, diagnostics, debug panel, and generated
+`LinLayout` architecture. Keep LDF-specific facts in JSON overlays and generated
+files.
 
-## Required inputs
+## Inputs
 
-- Require an LDF path and a new project name when creating a project.
-- Accept named signal combinations as optional input. Each combination needs only a button name and exact LDF signal/value pairs; do not ask the user to describe UI wiring or C++ behavior.
-- If the user supplies slave source code, use it to verify application semantics and proprietary diagnostics. Never infer a proprietary DID from the LDF alone.
+- For a new host, require an LDF path and a new project name.
+- Treat named signal combinations as optional data: button name plus exact LDF
+  signal/value pairs. Do not ask the user to design C++ or UI wiring.
+- Use supplied slave code to verify proprietary diagnostics. Never invent a DID,
+  SID, byte layout, scaling rule, or signal meaning from an LDF alone.
 
-## Creating a new project
+## Fast creation workflow
 
 1. Read [references/seed-contract.md](references/seed-contract.md).
-2. Inspect the LDF and the chosen base overlay. If no suitable overlay exists, run the generator's `init` command, then resolve every `TODO` from the LDF, supplied slave code, or explicit user information.
-3. If signal combinations were supplied, read [references/signal-presets.md](references/signal-presets.md), preserve their order and values exactly, and write a preset-only JSON overlay.
-4. Validate the combinations before copying:
+2. Reuse a reviewed base overlay when it matches the LDF. Otherwise run the
+   generator `init` command and resolve every `TODO` from the LDF, slave code, or
+   explicit user input.
+3. If combinations were supplied, read
+   [references/signal-presets.md](references/signal-presets.md), preserve order
+   and raw values, and write a preset-only overlay.
+4. Validate combinations:
 
    ```text
    python scripts/validate_signal_presets.py PRESETS.json --ldf INPUT.ldf --overlay BASE.profile.json
@@ -30,21 +39,48 @@ Use the current repository as the mother Seed. Keep its UI, scheduler, worker-th
    python scripts/create_qt_host.py --project-name NAME --ldf INPUT.ldf --overlay BASE.profile.json --presets PRESETS.json --destination OUTPUT_PARENT
    ```
 
-   Omit `--presets` when no combinations are needed.
+   Omit `--presets` when absent. The creation command generates, checks, and
+   statically accepts the host before publishing the destination directory.
+6. For an existing project, regenerate with base overlay first and preset
+   overlay second, run generator `check`, then run:
 
-6. Report the new project path, selected profile, preset count, static checks, and any unresolved semantic assumptions. Do not compile Qt; this mother Seed is built inside the user's VM unless the user explicitly changes that instruction.
+   ```text
+   python .agents/skills/generate-qt-ldf-host/scripts/validate_generated_host.py PROJECT_ROOT
+   ```
 
-## Updating an existing project
+7. Report project path, profile, node and preset counts, diagnostic mode,
+   validation result, and unresolved semantic assumptions. Do not compile Qt;
+   this project is compiled in the user's VM.
 
-- Change the JSON overlay, not generated C++.
-- Run `tools/ldf_profile_gen.py generate`, then `check`, with the base overlay first and the preset overlay second.
-- For signal combinations, validate with `scripts/validate_signal_presets.py` before regeneration.
-- Do not edit `.ui` merely to add, remove, reorder, or rename shortcut buttons. The first 30 existing button widgets are configured from generated preset data at runtime.
+## Mandatory diagnostics contract
 
-## Safety and completion rules
+- Every generated node button remains clickable whether the node is online or
+  offline. Online state changes appearance and status only; it never gates
+  navigation.
+- Every node button opens the node diagnostic/status page.
+- When the profile defines reviewed custom-DID services, enable read/write and
+  calibration controls.
+- When the LDF defines only standard LIN node configuration or no proprietary
+  services, open the same page in status-only mode. Disable write/calibration
+  controls and send no guessed proprietary request.
+- Do not close the page merely because a node becomes offline.
+- Show only read/write success popups. Route progress and failures to Debug.
+- A host is incomplete if `validate_generated_host.py` fails any navigation,
+  source, report, C++ literal, or Qt macro-collision check.
 
+## Speed and safety rules
+
+- Work from overlays and generator scripts; do not hand-edit generated C++.
+- Do not reopen or analyze unrelated project files after a matching reviewed
+  profile is found.
 - Never overwrite the mother Seed or an existing destination project.
-- Never copy `.pro.user`, build directories, `.git`, caches, or temporary files.
-- Keep LIN device I/O inside `LinBusWorker`; UI-to-worker calls remain queued.
-- Treat exact LDF signal names and bit widths as the source of truth. Reject missing signals, duplicate names, out-of-range values, and combinations outside the primary control frame.
-- A generated project is complete only after preset validation, profile generation, and profile `check` all pass.
+- Never copy `.pro.user`, build directories, version-control data, caches, or
+  temporary files.
+- Keep device I/O in `LinBusWorker`; UI-to-worker calls remain queued.
+- Reject missing signals, duplicate names, out-of-range values, and assignments
+  outside the primary control frame.
+- Support up to 512 preset combinations with 30 buttons per page. Do not add
+  fixed buttons to `.ui` for every combination.
+- If DLP protection replaces a generated text file with a binary wrapper, use
+  its executable/readable `.txt` companion and ensure the `.pro` file lists
+  readable compiler sources.

@@ -1,32 +1,29 @@
 # Mother Seed contract
 
-The skill lives inside the mother Seed at `.agents/skills/generate-qt-ldf-host` and is copied into each generated project.
+The skill lives at `.agents/skills/generate-qt-ldf-host` and is copied into every
+generated project.
 
-Seed components:
+Reusable parts:
 
-- `AmbientDevice/`: Qt application source, reusable `.ui` files, scheduler, LIN worker, diagnostics, and debug panel.
-- `tools/ldf_profile_gen.py`: parses LDF plus one or more JSON overlays and emits fixed-name C++ layout data.
-- `profiles/`: reviewed LDF/application semantic overlays. Generated projects receive only the selected profile and optional preset overlay.
-- `AmbientDevice/generated/`: generated `LinLayout` files; never edit these manually.
+- `AmbientDevice/`: Qt UI, scheduler, one LIN worker thread, diagnostics, debug
+  panel, and reusable 30-button paged shortcut palette.
+- `tools/ldf_profile_gen.py`: LDF plus ordered JSON overlays to fixed generated
+  `LinLayout` C++.
+- `profiles/`: reviewed application-semantic overlays.
+- `AmbientDevice/generated/`: generated data; never edit manually.
 
-The destination project is self-contained:
+An independent output contains its renamed `.pro`, Qt sources, `generated/`,
+`LDF/`, `profiles/`, `tools/`, and this skill. Exclude `.pro.user`, Makefiles,
+build output, version-control data, caches, and temporary files.
 
-```text
-ProjectName/
-  ProjectName.pro
-  generated/
-  LDF/
-  profiles/
-  tools/
-  .agents/skills/generate-qt-ldf-host/
-  ...Qt source and UI files...
-```
+Creation is complete only after:
 
-Creation rules:
+1. signal combinations validate;
+2. profile `generate` passes;
+3. profile `check` passes;
+4. `validate_generated_host.py` passes.
 
-- The output parent must already be chosen, and `ProjectName` must not exist there.
-- Rename `AmbientDevice.pro` to `ProjectName.pro` and set `TARGET = ProjectName`.
-- Copy source files, resources, generator, selected LDF, selected overlays, and this skill.
-- Exclude `.pro.user`, `Makefile`, build output, version-control data, caches, and temporary files.
-- Generate and statically check the profile inside the new project. Do not run qmake, make, or a compiler for this workflow.
-- Keep shortcut sends on the existing queued Scheduler-to-Worker path. `LIN.ActiveSignalPreset` is a dedicated debug value; the ten `Reserved.01` through `Reserved.10` variables remain free for future features.
+Do not run qmake, make, or a compiler in this workflow. Keep shortcut sends on
+the queued Scheduler-to-Worker path. `LIN.ActiveSignalPreset` records the active
+shortcut, while `Reserved.01` through `Reserved.10` remain available for future
+features.

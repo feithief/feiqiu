@@ -80,6 +80,21 @@ def run_checked(command: List[str], cwd: Path) -> None:
         )
 
 
+def readable_script(primary: Path) -> Path:
+    candidates = [primary, Path(str(primary) + ".txt")]
+    for candidate in candidates:
+        if not candidate.is_file():
+            continue
+        try:
+            candidate.read_text(encoding="utf-8-sig")
+            return candidate
+        except UnicodeDecodeError:
+            continue
+    raise CreateError(
+        "no readable generator script: {0} or {0}.txt".format(primary)
+    )
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Create an independent Qt project from the LDF mother Seed."
@@ -174,8 +189,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         project_file.write_text(pro_text, encoding="utf-8", newline="\n")
 
         source_tools = seed_root / "tools"
-        if not (source_tools / "ldf_profile_gen.py").is_file():
-            raise CreateError("mother Seed tools/ldf_profile_gen.py is missing")
+        readable_script(source_tools / "ldf_profile_gen.py")
         shutil.copytree(
             source_tools,
             stage / "tools",
@@ -199,7 +213,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 args.project_name + ".presets.json",
             )
 
-        generator = stage / "tools" / "ldf_profile_gen.py"
+        generator = readable_script(stage / "tools" / "ldf_profile_gen.py")
         output = stage / "generated"
         overlays = ["--overlay", str(target_overlay)]
         if target_presets is not None:
@@ -213,6 +227,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         ]
         run_checked([sys.executable, str(generator), "generate", *common], stage)
         run_checked([sys.executable, str(generator), "check", *common], stage)
+        host_validator = skill_root / "scripts" / "validate_generated_host.py"
+        run_checked([sys.executable, str(host_validator), str(stage)], stage)
 
         try:
             os.replace(str(stage), str(target))

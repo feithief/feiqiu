@@ -1,4 +1,4 @@
 interface:
-  display_name: "ç”Ÿæˆ Qt LDF ä¸Šä½æœº"
-  short_description: "ä»æ¯ Seedã€LDF å’Œä¿¡å·ç»„åˆåˆ›å»ºç‹¬ç«‹ Qt ä¸Šä½æœº"
-  default_prompt: "ä½¿ç”¨ $generate-qt-ldf-host æ ¹æ® LDF å’Œä¿¡å·ç»„åˆæ–°å»ºä¸€ä¸ªç‹¬ç«‹ Qt ä¸Šä½æœºå·¥ç¨‹ã€‚"
+  display_name: "Éú³É Qt LDF ÉÏÎ»»ú"
+  short_description: "´ÓÄ¸ Seed ¿ìËÙÉú³É²¢¾²Ì¬ÑéÊÕ¿É²Ù×÷µÄ Qt LIN ÉÏÎ»»ú"
+  default_prompt: "Ê¹ÓÃ $generate-qt-ldf-host ¸ù¾İ LDF ºÍĞÅºÅ×éºÏÉú³É¶ÀÁ¢ Qt ÉÏÎ»»ú£¬²¢Íê³ÉÕï¶Ïµ¼º½¡¢·ÖÒ³°´Å¥ºÍÔ´Âë¾²Ì¬ÑéÊÕ¡£"
