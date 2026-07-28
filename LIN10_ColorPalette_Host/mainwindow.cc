@@ -222,6 +222,20 @@ void MainWindow::enterMasterConfigMode()
 
 void MainWindow::slaveConfig(int nodeAddress)
 {
+  SlaveButton *button = slaveButtons.value(
+    static_cast<quint8>(nodeAddress), 0);
+  if ((button == 0) || !button->isOnLine())
+  {
+    if (debug != 0)
+    {
+      debug->setValue(
+        DebugLastError,
+        QString("Diagnostic page blocked: NAD %1 has no valid status feedback")
+        .arg(nodeAddress));
+    }
+    return;
+  }
+
   if ((slaveFrame != 0) && slaveFrame->isHidden())
   {
     slaveFrame->setGeometry(0, 0, 1366, 768);

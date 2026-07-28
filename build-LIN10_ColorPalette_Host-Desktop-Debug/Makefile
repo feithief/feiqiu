@@ -249,6 +249,7 @@ DIST          = /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf \
+		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/.qmake.stash \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -453,6 +454,7 @@ Makefile: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/LIN10_ColorPa
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -618,6 +620,7 @@ Makefile: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/LIN10_ColorPa
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf:
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf:
 /home/xsc/Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -1240,11 +1243,49 @@ moc_bcmmasterframe.cpp: /home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_masterframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QGroupBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSlider \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSpinBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/lin_types.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMap \
@@ -1477,6 +1518,44 @@ moc_adialog.cpp: /home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvector2d.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtouchdevice.h \
 		ui_deviceDialog.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QFrame \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.h \
 		moc_predefs.h \
 		/home/xsc/Qt/5.10.1/gcc_64/bin/moc
@@ -1592,6 +1671,40 @@ moc_keyboard.cpp: /home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_amkeyboard.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
 		moc_predefs.h \
 		/home/xsc/Qt/5.10.1/gcc_64/bin/moc
@@ -1712,11 +1825,44 @@ moc_productionverify.cpp: /home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QWidget \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_amkeyboard.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/lin_types.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMetaType \
@@ -1838,6 +1984,42 @@ moc_unlockfrom.cpp: /home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QWidget \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		ui_deviceDialog.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QSignalMapper \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
@@ -2340,6 +2522,41 @@ mainwindow.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/mainwindo
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_masterframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QGroupBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSlider \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSpinBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
 		ui_amkeyboard.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/debugpanel.h \
@@ -2872,11 +3089,49 @@ bcmmasterframe.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/bcmma
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_masterframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QGroupBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSlider \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSpinBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/lin_types.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMap \
@@ -2892,10 +3147,7 @@ bcmmasterframe.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/bcmma
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qpainter.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextoption.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qpen.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QPen \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QPen
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bcmmasterframe.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/bcmmasterframe.cc
 
 slaveframeconfig.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/slaveframeconfig.cc ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/slaveframeconfig.h \
@@ -3011,21 +3263,11 @@ slaveframeconfig.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/sla
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		ui_deviceDialog.h \
-		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
-		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QFrame \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QSignalMapper \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
-		ui_amkeyboard.h \
-		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/linlayout.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QStringList \
-		ui_slavenodeframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -3033,6 +3275,53 @@ slaveframeconfig.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/sla
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QFrame \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
+		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QSignalMapper \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
+		ui_amkeyboard.h \
+		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/linlayout.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QStringList \
+		ui_slavenodeframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QDoubleSpinBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLineEdit \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextcursor.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextformat.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qpen.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSpinBox \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o slaveframeconfig.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/slaveframeconfig.cc
 
@@ -3141,7 +3430,45 @@ adialog.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.cc .
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qfiledevice.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvector2d.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_deviceDialog.h
+		ui_deviceDialog.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QFrame \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o adialog.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.cc
 
 keyboard.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.cc ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
@@ -3255,6 +3582,40 @@ keyboard.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.cc
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_amkeyboard.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QKeyEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o keyboard.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.cc
 
@@ -3374,11 +3735,44 @@ productionverify.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/pro
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QList \
 		ui_amkeyboard.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/ambientlinscheduler.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMutex \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QPointer \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qpointer.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/lin_types.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QMetaType \
@@ -3387,19 +3781,19 @@ productionverify.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/pro
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/linlayout.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QStringList \
 		ui_productionverify.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSlider \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QSpinBox \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QGridLayout \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlayout.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlayoutitem.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/QHideEvent \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QScrollArea \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qscrollarea.h \
-		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qscrollarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o productionverify.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/productionverify.cc
 
 unlockfrom.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/unlockfrom.cc ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/unlockfrom.h \
@@ -3514,6 +3908,42 @@ unlockfrom.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/unlockfro
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/adialog.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QObject \
 		ui_deviceDialog.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QVariant \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qicon.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qregularexpression.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/keyboard.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QSignalMapper \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qsignalmapper.h \
@@ -3521,6 +3951,12 @@ unlockfrom.o: ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/unlockfro
 		ui_amkeyboard.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QString \
 		ui_unlockfrom.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/QLineEdit \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextcursor.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextformat.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qpen.h \
+		/home/xsc/Qt/5.10.1/gcc_64/include/QtGui/qtextoption.h \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/QTime \
 		/home/xsc/Qt/5.10.1/gcc_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o unlockfrom.o ../../../feiqiu-main/feiqiu-main/LIN10_ColorPalette_Host/unlockfrom.cc

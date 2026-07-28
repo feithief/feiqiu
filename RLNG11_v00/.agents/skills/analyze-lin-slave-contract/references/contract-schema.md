@@ -1,0 +1,76 @@
+# Reviewed contract schema
+
+Keep the scanner's top-level structure and replace candidates with reviewed
+values. The generator consumes only `addressing_contract` and
+`protocol_contract`; `review` and evidence prevent unsafe generation.
+
+```json
+{
+  "schema_version": 1,
+  "addressing_contract": {
+    "status": "confirmed",
+    "domains": [
+      {
+        "name": "diagnostic_current_nad",
+        "valid_values": {"minimum": 1, "maximum": 15},
+        "source": "saved_single_address",
+        "meaning": "MasterReq/SlaveResp transport NAD",
+        "evidence": [
+          {"file": "user/lin_app.c", "line": 321, "contains": "return g_u8_SlaveNodeNAD;"}
+        ]
+      },
+      {
+        "name": "application_target_or_mask",
+        "encoding": "little_endian_u16",
+        "valid_values": {"table": [1, 2, 4, 8]},
+        "meaning": "ordinary control-frame lamp selection",
+        "evidence": []
+      }
+    ],
+    "mappings": [
+      {
+        "from": "diagnostic_current_nad",
+        "to": "feedback_frame_id_or_pid",
+        "method": "lookup_table",
+        "pairs": [{"input": 1, "output": 193}],
+        "evidence": []
+      }
+    ]
+  },
+  "protocol_contract": {
+    "status": "confirmed",
+    "frames": [
+      {
+        "name": "ControlFrame",
+        "direction": "master_to_slave",
+        "frame_id_or_pid": 36,
+        "length": 8,
+        "signals": [
+          {
+            "signal": "Enable",
+            "semantic": "led_enable",
+            "start_bit": 17,
+            "bit_length": 1,
+            "default": 0,
+            "evidence": []
+          }
+        ]
+      }
+    ],
+    "diagnostics": {
+      "enabled": true,
+      "request_frame": {"id": 60, "name": "MasterReq"},
+      "response_frame": {"id": 61, "name": "SlaveResp"},
+      "request_nad_rule": "current, initial, or broadcast according to active transport branch",
+      "response_nad_rule": "current NAD unless assignment service explicitly returns old NAD",
+      "services": [],
+      "evidence": []
+    }
+  },
+  "review": {"status": "confirmed", "unresolved": []}
+}
+```
+
+Use symbolic lengths only in the draft. Resolve them from active `#define`
+values before confirmation. Every signal and address domain needs source
+evidence. Diagnostics need evidence for both acceptance and response paths.
