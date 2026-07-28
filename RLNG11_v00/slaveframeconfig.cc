@@ -179,6 +179,7 @@ SlaveFrameConfig::~SlaveFrameConfig()
 void SlaveFrameConfig::setConfigurationControlsEnabled(bool enabled)
 {
   ui->pushButtonAccept->setEnabled(enabled);
+  ui->pushButtonAccept->setText("Apply");
   ui->pushButtonNoCalibrate->setEnabled(enabled);
   ui->pushButtonCalibrateR->setEnabled(enabled);
   ui->pushButtonCalibrateG->setEnabled(enabled);
@@ -298,10 +299,19 @@ void SlaveFrameConfig::exitSlaveConfig()
 
 void SlaveFrameConfig::changeConfigs()
 {
-  if (!configurationAvailable ||
-      (currentNode == 0) ||
-      (writeRequestId != 0))
+  if (!configurationAvailable || (currentNode == 0))
+  {
+    ui->pushButtonAccept->setText("Unavailable");
+    ui->pushButtonAccept->setToolTip(
+      "No writable diagnostic configuration is available for this node.");
     return;
+  }
+
+  if (writeRequestId != 0)
+  {
+    ui->pushButtonAccept->setText("Writing...");
+    return;
+  }
 
   const int requestedNad = ui->spinBoxSA->value();
   const LinLayout &profile = linScheduler->layout();
@@ -309,16 +319,14 @@ void SlaveFrameConfig::changeConfigs()
     profile, static_cast<quint8>(requestedNad));
   if (requestedNode == 0)
   {
-    dialog->hide();
+    ui->pushButtonAccept->setText("Invalid NAD");
+    ui->pushButtonAccept->setToolTip(
+      "Single Address is not declared in the active node table.");
     return;
   }
 
   if (ui->spinBoxGA->value() != requestedNode->controlAddressMask)
-  {
     ui->spinBoxGA->setValue(requestedNode->controlAddressMask);
-    dialog->hide();
-    return;
-  }
 
   SlaveConfigInfo info;
   info.slaveNode = static_cast<quint8>(currentNode);
@@ -340,11 +348,23 @@ void SlaveFrameConfig::changeConfigs()
   info.b.y = ui->doubleSpinBoxBY->value();
   info.b.Y = ui->doubleSpinBoxBL->value();
 
-  /* Diagnostic progress is intentionally silent; only read/write OK is shown. */
+  /*
+   * Do not use a progress popup: the diagnostic page only pops up read/write
+   * OK.  The Apply button itself must still acknowledge the click immediately.
+   */
   dialog->hide();
+  ui->pushButtonAccept->setText("Writing...");
+  ui->pushButtonAccept->setToolTip(
+    "Writing and reading back all configuration values.");
+  ui->pushButtonAccept->setEnabled(false);
   writeRequestId = linScheduler->writeNodeConfiguration(info);
   if (writeRequestId == 0)
-    dialog->hide();
+  {
+    ui->pushButtonAccept->setEnabled(true);
+    ui->pushButtonAccept->setText("Failed - F12");
+    ui->pushButtonAccept->setToolTip(
+      "The diagnostic request was not queued. Open Debug F12 for details.");
+  }
 }
 
 void SlaveFrameConfig::singleAddressChanged(int value)
@@ -387,12 +407,20 @@ void SlaveFrameConfig::handleWriteResult(quint32 requestId,
     return;
 
   writeRequestId = 0;
+  ui->pushButtonAccept->setEnabled(configurationAvailable);
   if (success)
   {
+    ui->pushButtonAccept->setText("Apply");
+    ui->pushButtonAccept->setToolTip(QString());
     showReadWriteOk();
   }
   else
   {
+    ui->pushButtonAccept->setText("Failed - F12");
+    ui->pushButtonAccept->setToolTip(
+      errorMessage.isEmpty()
+      ? QString("Configuration write failed. Open Debug F12 for details.")
+      : errorMessage);
     dialog->hide();
   }
 }
@@ -495,6 +523,7 @@ void SlaveFrameConfig::showReadWriteOk()
 
 void SlaveFrameConfig::resetForm()
 {
+  ui->pushButtonAccept->setText("Apply");
   ui->ROutput_Err->clear();
   ui->GOutput_Err->clear();
   ui->BOutput_Err->clear();

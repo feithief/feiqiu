@@ -99,7 +99,9 @@ struct LinSecurityAccessLayout
   bool enabled;
   quint8 requestSeedSubFunction;
   quint8 sendKeySubFunction;
-  quint16 keyAddend;
+  quint32 keyAddend;
+  /* Number of little-endian key bytes carried after the sub-function. */
+  quint8 keyLength;
 };
 
 struct LinPredefinedColor

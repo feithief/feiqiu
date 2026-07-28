@@ -1318,87 +1318,53 @@ bool LinBusWorker::unlockSecurity(quint8 requestNad)
                     .arg(static_cast<int>(requestNad), 2, 16, QChar('0'))
                     .toUpper());
 
-  quint32 seed = 0;
-  bool usableSeed = false;
-  for (int attempt = 0; attempt < 2; ++attempt)
+  QByteArray seedRequest(8, static_cast<char>(0xFF));
+  seedRequest[0] = static_cast<char>(requestNad);
+  seedRequest[1] = static_cast<char>(0x02);
+  seedRequest[2] = static_cast<char>(0x27);
+  seedRequest[3] = static_cast<char>(
+    linLayout->securityAccess.requestSeedSubFunction);
+
+  QByteArray seedResponse;
+  if (!sendDiagnosticFrame(seedRequest) ||
+      !receiveDiagnosticFrame(&seedResponse))
+    return false;
+
+  const bool validSeed =
+    (seedResponse.size() == 8) &&
+    (static_cast<quint8>(seedResponse.at(0)) == requestNad) &&
+    (static_cast<quint8>(seedResponse.at(1)) == 0x06) &&
+    (static_cast<quint8>(seedResponse.at(2)) == 0x67) &&
+    (static_cast<quint8>(seedResponse.at(3)) ==
+     linLayout->securityAccess.requestSeedSubFunction);
+  if (!validSeed)
   {
-    QByteArray seedRequest(8, static_cast<char>(0xFF));
-    seedRequest[0] = static_cast<char>(requestNad);
-    seedRequest[1] = static_cast<char>(0x02);
-    seedRequest[2] = static_cast<char>(0x27);
-    seedRequest[3] = static_cast<char>(
-      linLayout->securityAccess.requestSeedSubFunction);
-
-    QByteArray seedResponse;
-    if (!sendDiagnosticFrame(seedRequest) ||
-        !receiveDiagnosticFrame(&seedResponse))
-      return false;
-
-    const bool validSeed =
-      (seedResponse.size() == 8) &&
-      (static_cast<quint8>(seedResponse.at(0)) == requestNad) &&
-      (static_cast<quint8>(seedResponse.at(1)) == 0x06) &&
-      (static_cast<quint8>(seedResponse.at(2)) == 0x67) &&
-      (static_cast<quint8>(seedResponse.at(3)) ==
-       linLayout->securityAccess.requestSeedSubFunction);
-    if (!validSeed)
-    {
-      protocolError = QString("Unexpected SecurityAccess seed response");
-      return false;
-    }
-
-    seed =
-      static_cast<quint8>(seedResponse.at(4)) |
-      (static_cast<quint32>(static_cast<quint8>(seedResponse.at(5))) << 8) |
-      (static_cast<quint32>(static_cast<quint8>(seedResponse.at(6))) << 16) |
-      (static_cast<quint32>(static_cast<quint8>(seedResponse.at(7))) << 24);
-
-    /*
-     * This slave compares a 16-bit key with an unmasked seed+offset.  During
-     * the final keyAddend milliseconds of its 16-bit tick, no key can match.
-     * Wait for the tick rollover once and request a fresh seed instead of
-     * creating a predictable intermittent SecurityAccess failure.
-     */
-    const quint32 keySum = seed + linLayout->securityAccess.keyAddend;
-    if (keySum <= 0xFFFFu)
-    {
-      usableSeed = true;
-      break;
-    }
-
-    if (attempt == 0)
-    {
-      const int rolloverWaitMs = static_cast<int>(
-        0x10000u - (seed & 0xFFFFu) + 2u);
-      if (debug != 0)
-        debug->setValue(DebugDiagnosticState,
-                        QString("27 seed rollover wait: %1 ms")
-                        .arg(rolloverWaitMs));
-      if (!waitInterruptibly(rolloverWaitMs))
-      {
-        protocolError = QString("Request interrupted while waiting for a usable security seed");
-        return false;
-      }
-    }
-  }
-
-  if (!usableSeed)
-  {
-    protocolError = QString("SecurityAccess seed cannot produce the slave's 16-bit key");
+    protocolError = QString("Unexpected SecurityAccess seed response");
     return false;
   }
 
-  const quint16 key = static_cast<quint16>(
-    seed + linLayout->securityAccess.keyAddend);
+  const quint32 seed =
+    static_cast<quint8>(seedResponse.at(4)) |
+    (static_cast<quint32>(static_cast<quint8>(seedResponse.at(5))) << 8) |
+    (static_cast<quint32>(static_cast<quint8>(seedResponse.at(6))) << 16) |
+    (static_cast<quint32>(static_cast<quint8>(seedResponse.at(7))) << 24);
+  const quint32 key = seed + linLayout->securityAccess.keyAddend;
+  const int configuredKeyLength = linLayout->securityAccess.keyLength;
+  /* Zero preserves compatibility with profiles generated before keyLength. */
+  const int keyLength = (configuredKeyLength >= 1 &&
+                         configuredKeyLength <= 4)
+                        ? configuredKeyLength
+                        : 2;
 
   QByteArray keyRequest(8, static_cast<char>(0xFF));
   keyRequest[0] = static_cast<char>(requestNad);
-  keyRequest[1] = static_cast<char>(0x04);
+  keyRequest[1] = static_cast<char>(2 + keyLength);
   keyRequest[2] = static_cast<char>(0x27);
   keyRequest[3] = static_cast<char>(
     linLayout->securityAccess.sendKeySubFunction);
-  keyRequest[4] = static_cast<char>(key & 0xFF);
-  keyRequest[5] = static_cast<char>((key >> 8) & 0xFF);
+  for (int byteIndex = 0; byteIndex < keyLength; ++byteIndex)
+    keyRequest[4 + byteIndex] = static_cast<char>(
+      (key >> (8 * byteIndex)) & 0xFF);
 
   QByteArray keyResponse;
   if (!sendDiagnosticFrame(keyRequest) ||
@@ -1724,7 +1690,7 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
     }
   }
 
-  /* This firmware sends no 0x6E on success and saves flash synchronously. */
+  /* Leave the confirmed post-write settling time before read-back. */
   if (writeComplete &&
       !waitInterruptibly(linLayout->postWriteSettleMs))
   {

@@ -540,6 +540,10 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
        (layout.securityAccess.requestSeedSubFunction ==
         layout.securityAccess.sendKeySubFunction)))
     localErrors.append("Security-access sub-functions are invalid");
+  if (layout.securityAccess.enabled &&
+      ((layout.securityAccess.keyLength < 1) ||
+       (layout.securityAccess.keyLength > 4)))
+    localErrors.append("Security-access key length must be in range 1..4 bytes");
   if (layout.maximumDiagnosticQueueDepth < 0)
     localErrors.append("Diagnostic queue depth cannot be negative");
   else if (diagnosticsEnabled &&

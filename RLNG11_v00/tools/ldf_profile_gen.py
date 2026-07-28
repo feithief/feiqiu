@@ -1874,7 +1874,10 @@ def build_profile(network: LdfNetwork, overlay: Dict[str, Any], overlay_sha256: 
             security_cfg, "send_key_sub_function", "diagnostics.security", 0, 255, 0
         ),
         "key_addend": optional_int(
-            security_cfg, "key_addend", "diagnostics.security", 0, 0xFFFF, 0
+            security_cfg, "key_addend", "diagnostics.security", 0, 0xFFFFFFFF, 0
+        ),
+        "key_length": optional_int(
+            security_cfg, "key_length", "diagnostics.security", 1, 4, 2
         ),
     }
     if security_enabled:
@@ -2234,11 +2237,12 @@ def emit_source(profile: Mapping[str, Any]) -> str:
             "  {0},".format(len(services)),
             "  {0},".format(bulk_ptr),
             "  {0},".format(len(bulk)),
-            "  {{{0}, {1}, {2}, {3}}},".format(
+            "  {{{0}, {1}, {2}, {3}, {4}}},".format(
                 cpp_bool(security["enabled"]),
                 cpp_hex(security["request_seed_sub_function"]),
                 cpp_hex(security["send_key_sub_function"]),
-                cpp_hex(security["key_addend"], 4),
+                cpp_hex(security["key_addend"], 8),
+                security["key_length"],
             ),
             "  kSchedule,",
             "  {0},".format(len(profile["schedule"]["items"])),
@@ -2481,6 +2485,7 @@ def make_initial_overlay(network: LdfNetwork, ldf_path: Path) -> Dict[str, Any]:
                 "request_seed_sub_function": "0x00",
                 "send_key_sub_function": "0x00",
                 "key_addend": "0x0000",
+                "key_length": 2,
             },
             "_diagnostic_frame_candidates": list(network.diagnostic_frames),
         },
