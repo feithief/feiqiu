@@ -426,10 +426,10 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
       (layout.primaryControlFrameIndex >= layout.publishedFrameCount))
     localErrors.append("Primary control frame index is out of range");
   if ((layout.signalPresetCount < 0) ||
-      (layout.signalPresetCount > 30) ||
+      (layout.signalPresetCount > 512) ||
       ((layout.signalPresetCount == 0) != (layout.signalPresets == 0)))
   {
-    localErrors.append("Signal-preset table must contain 0..30 presets");
+    localErrors.append("Signal-preset table must contain 0..512 presets");
   }
   if ((layout.signalPresetCount > 0) &&
       ((layout.signalPresetGroupName == 0) ||

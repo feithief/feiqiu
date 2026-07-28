@@ -16,6 +16,7 @@
 #include <QCloseEvent>
 #include <QFont>
 #include <QKeySequence>
+#include <QLabel>
 #include <QPushButton>
 #include <QRect>
 #include <QShortcut>
@@ -171,6 +172,22 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
     "background-color:rgba(0,0,0,190);font-size:18px;}");
   connect(debugQuickButton, SIGNAL(clicked()),
           debugPanel, SLOT(togglePanel()));
+
+  if (!layoutValid)
+  {
+    QLabel *layoutErrorLabel = new QLabel(this);
+    layoutErrorLabel->setGeometry(45, 250, 880, 210);
+    layoutErrorLabel->setWordWrap(true);
+    layoutErrorLabel->setAlignment(Qt::AlignCenter);
+    layoutErrorLabel->setStyleSheet(
+      "QLabel{color:#ff6666;border:2px solid #ff6666;border-radius:12px;"
+      "background-color:rgba(35,0,0,220);font-size:22px;padding:18px;}");
+    layoutErrorLabel->setText(
+      QString("LIN layout invalid\n%1\nPress F12 for Debug")
+      .arg(linScheduler->layoutErrorText()));
+    layoutErrorLabel->show();
+    layoutErrorLabel->raise();
+  }
 
   QShortcut *debugShortcut = new QShortcut(QKeySequence(Qt::Key_F12), this);
   connect(debugShortcut, SIGNAL(activated()),
