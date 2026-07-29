@@ -305,6 +305,26 @@ def validate(project_root: Path) -> None:
         debug_panel_text = read_text(debug_panel_header)
         if "DebugSnapshotSource" not in debug_panel_text:
             errors.append("F12 panel must depend on read-only DebugSnapshotSource")
+    debug_panel_source = find_source(source_texts, "debugpanel")
+    require_marker(
+        errors,
+        debug_panel_source,
+        "debugSource->snapshot()",
+        "F12 panel must read through DebugSnapshotSource",
+    )
+    require_marker(
+        errors,
+        debug_panel_source,
+        "table->setRowCount(values.size())",
+        "F12 panel must size itself from the snapshot instead of DebugVariableCount",
+    )
+    if debug_panel_source and (
+        "debugStore" in debug_panel_source
+        or "DebugVariableCount" in debug_panel_source
+    ):
+        errors.append(
+            "debugpanel source still depends on concrete DebugStore/debug enum"
+        )
 
     for ui_header in (
         "mainwindow.h",

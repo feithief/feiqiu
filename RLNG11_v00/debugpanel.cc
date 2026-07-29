@@ -35,7 +35,7 @@ DebugPanel::DebugPanel(DebugSnapshotSource *source, QWidget *parent)
   closeButton = new QPushButton(tr("Close (F12)"), this);
   closeButton->setGeometry(1120, 20, 190, 50);
 
-  table = new QTableWidget(DebugVariableCount, 4, this);
+  table = new QTableWidget(0, 4, this);
   table->setGeometry(55, 85, 1255, 635);
   table->setHorizontalHeaderLabels(QStringList()
                                    << tr("Variable")
@@ -50,12 +50,6 @@ DebugPanel::DebugPanel(DebugSnapshotSource *source, QWidget *parent)
   table->setColumnWidth(3, 120);
   table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   table->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-  for (int row = 0; row < DebugVariableCount; ++row)
-  {
-    for (int column = 0; column < 4; ++column)
-      table->setItem(row, column, new QTableWidgetItem());
-  }
 
   refreshTimer = new QTimer(this);
   refreshTimer->setInterval(250);
@@ -91,10 +85,23 @@ void DebugPanel::togglePanel()
 
 void DebugPanel::refreshValues()
 {
-  if (debugStore == 0)
+  if (debugSource == 0)
     return;
 
   const QVector<DebugSnapshotItem> values = debugSource->snapshot();
+  if (table->rowCount() != values.size())
+  {
+    table->setRowCount(values.size());
+    for (int row = 0; row < values.size(); ++row)
+    {
+      for (int column = 0; column < 4; ++column)
+      {
+        if (table->item(row, column) == 0)
+          table->setItem(row, column, new QTableWidgetItem());
+      }
+    }
+  }
+
   for (int row = 0; row < values.size(); ++row)
   {
     const DebugSnapshotItem &value = values[row];
