@@ -8,14 +8,14 @@
 #include <QSignalMapper>
 #include <QList>
 #include "ui_masterframe.h"
-#include "ambientlinscheduler.h"
+#include "linruntime.h"
 #include "keyboard.h"
 
 class BCMMasterFrame : public QWidget
 {
   Q_OBJECT
 public:
-  explicit BCMMasterFrame(AmbientLinScheduler *scheduler,
+  explicit BCMMasterFrame(LinRuntime *runtime,
                           QWidget *parent = 0);
   ~BCMMasterFrame();
   void init();
@@ -24,7 +24,7 @@ private:
   Ui::MasterFrame *ui;
   double colorX, colorY;
   QFrame *backgroundframe;
-  AmbientLinScheduler *linScheduler;
+  LinRuntime *linRuntime;
   BCMSignal masterSignals;
   bool groupTargetMode;
   bool signalPresetMode;

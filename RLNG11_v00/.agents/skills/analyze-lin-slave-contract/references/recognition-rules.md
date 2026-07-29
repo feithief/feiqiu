@@ -56,8 +56,16 @@ Trace the active path rather than searching isolated constants:
 6. SlaveResp NAD rule.
 7. delay, queue, unlock, and post-write constraints.
 
+For flash-backed bulk configuration, do not treat a positive write response as
+proof that persistence has completed. Record a bulk-write/read-back policy:
+send the complete batch, wait one evidence-backed flash window, then read back
+the batch. Never insert a speculative read between individual writes.
+
 Differentiate standard LIN node configuration services from proprietary
-SID `0x22`, `0x2E`, `0x27`, or project-specific services. A DID table alone does
+SID `0x22`, `0x2E`, `0x27`, or project-specific services. For SecurityAccess,
+derive the seed byte order and the exact key payload byte count from every byte
+read by the active key handler; never infer key width from the arithmetic
+constant or clock source type. A DID table alone does
 not prove the transport framing or the response NAD.
 
 ## Stop conditions

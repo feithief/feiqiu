@@ -187,8 +187,10 @@ struct LinLayout
   int diagnosticInterFrameDelayMs;
   /* Header-to-driver-read guard used by unconditional and diagnostic frames. */
   int responseDelayMs;
-  /* Flash-backed DIDs need time to finish saving before the next request. */
+  /* SecurityAccess may schedule a flash save before writes can begin. */
   int postWriteSettleMs;
+  /* Wait once after the complete bulk write, before unified read-back. */
+  int bulkWriteReadBackDelayMs;
   int maximumDiagnosticQueueDepth;
 };
 

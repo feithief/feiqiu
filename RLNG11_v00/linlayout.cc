@@ -532,6 +532,10 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
       (layout.postWriteSettleMs < 0) ||
       (layout.postWriteSettleMs > kMaximumBlockingLinDelayMs))
     localErrors.append("Blocking LIN delays must be in range 0..1000 ms");
+  if ((layout.bulkWriteReadBackDelayMs < 0) ||
+      (layout.bulkWriteReadBackDelayMs > 10000))
+    localErrors.append(
+      "Bulk-write read-back delay must be in range 0..10000 ms");
   if (!diagnosticsEnabled && layout.securityAccess.enabled)
     localErrors.append("Security access requires diagnostics");
   if (layout.securityAccess.enabled &&

@@ -1,4 +1,4 @@
-﻿#include "bcmmasterframe.h"
+#include "bcmmasterframe.h"
 #include "application_config.h"
 #include "linlayout.h"
 #include <QString>
@@ -117,16 +117,17 @@ bool presetRgb(const LinSignalPreset &preset, int *red, int *green, int *blue)
 
 } // namespace
 
-BCMMasterFrame::BCMMasterFrame(AmbientLinScheduler *scheduler,
+BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
                                QWidget *parent):
   QWidget(parent),
   ui(new Ui::MasterFrame),
-  linScheduler(scheduler),
+  linRuntime(runtime),
   groupTargetMode(false),
   signalPresetMode(false),
   colorPage(0),
   colorPageSize(30)
 {
+  Q_ASSERT(linRuntime != 0);
   colorX = 0;
   colorY = 0;
 
@@ -138,7 +139,7 @@ BCMMasterFrame::BCMMasterFrame(AmbientLinScheduler *scheduler,
   ui->setupUi(this);
   ui->frameCIE->installEventFilter(this);
 
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
 
   const bool fixedTargetMask =
     (layout.addressingModel == ELinAddressingModelFixedTargetMask);
@@ -316,10 +317,10 @@ BCMMasterFrame::~BCMMasterFrame()
 
 void BCMMasterFrame::init()
 {
-  BCMSignal currentSig = linScheduler->getBCMSignal();
+  BCMSignal currentSig = linRuntime->getBCMSignal();
   masterSignals = currentSig;
 
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
   if (layout.addressingModel == ELinAddressingModelFixedTargetMask)
   {
     masterSignals.targetMask = static_cast<quint16>(
@@ -478,7 +479,7 @@ bool BCMMasterFrame::eventFilter(QObject *watched, QEvent *event)
 
 void BCMMasterFrame::updateSignals()
 {
-  linScheduler->setBCMSignal(masterSignals);
+  linRuntime->setBCMSignal(masterSignals);
 }
 
 void BCMMasterFrame::setDirectRgbControlsEnabled(bool enabled)
@@ -509,7 +510,7 @@ void BCMMasterFrame::setDirectRgbControlsVisible(bool visible)
 
 void BCMMasterFrame::updateColorPage()
 {
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
   const int shortcutCount = signalPresetMode
     ? layout.signalPresetCount
     : layout.predefinedColorCount;
@@ -599,7 +600,7 @@ void BCMMasterFrame::showPreviousColorPage()
 
 void BCMMasterFrame::showNextColorPage()
 {
-  const int shortcutCount = linScheduler->layout().signalPresetCount;
+  const int shortcutCount = linRuntime->layout().signalPresetCount;
   if ((colorPage + 1) * colorPageSize < shortcutCount)
   {
     ++colorPage;
@@ -611,8 +612,8 @@ void BCMMasterFrame::setPredefinedColorControlsVisible(bool visible)
 {
   ui->labelTitleColorTabel->setVisible(visible);
   ui->groupBox1->setVisible(visible &&
-    ((linScheduler->layout().signalPresetCount > 0) ||
-     (linScheduler->layout().predefinedColorCount > 0)));
+    ((linRuntime->layout().signalPresetCount > 0) ||
+     (linRuntime->layout().predefinedColorCount > 0)));
   ui->groupBox2->hide();
 }
 
@@ -632,7 +633,7 @@ void BCMMasterFrame::setSingle()
   groupTargetMode = false;
   masterSignals.groupAddressing = false;
 
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
   if (layout.addressingModel == ELinAddressingModelFixedTargetMask)
   {
     const quint16 singleMask = firstSelectedNodeMask(
@@ -648,7 +649,7 @@ void BCMMasterFrame::setSingle()
 
 void BCMMasterFrame::changeAddr(int value)
 {
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
   quint16 targetMask = static_cast<quint16>(value);
   if (layout.addressingModel == ELinAddressingModelFixedTargetMask)
   {
@@ -742,7 +743,7 @@ void BCMMasterFrame::showInputKeyBoard(bool show)
 
 void BCMMasterFrame::changeColor(int i)
 {
-  const LinLayout &layout = linScheduler->layout();
+  const LinLayout &layout = linRuntime->layout();
   if (signalPresetMode)
   {
     if ((i < 0) || (i >= layout.signalPresetCount) ||
@@ -772,7 +773,7 @@ void BCMMasterFrame::changeColor(int i)
     }
     ui->PredefColor->setText(
       QString("Preset: %1").arg(visiblePresetName(preset)));
-    linScheduler->applySignalPreset(i);
+    linRuntime->applySignalPreset(i);
     return;
   }
 
@@ -795,7 +796,7 @@ void BCMMasterFrame::changeColor(int i)
 void BCMMasterFrame::on_pushButtonSleep_clicked()
 {
 
-        linScheduler->sleepBus();
+        linRuntime->sleepBus();
         ui->pushButtonSleep->hide();
         ui->pushButtonAwake->show();
 
@@ -803,7 +804,7 @@ void BCMMasterFrame::on_pushButtonSleep_clicked()
 
 void BCMMasterFrame::on_pushButtonAwake_clicked()
 {
-    linScheduler->wakeBus();
+    linRuntime->wakeBus();
     ui->pushButtonAwake->hide();
     ui->pushButtonSleep->show();
 }
@@ -812,14 +813,14 @@ void BCMMasterFrame::on_pushButtonAwake_clicked()
 
 void BCMMasterFrame::on_LinStart_clicked()
 {
-    linScheduler->setBusEnabled(true);
+    linRuntime->setBusEnabled(true);
     ui->LinStart->hide();
     ui->LinStop->show();
 }
 
 void BCMMasterFrame::on_LinStop_clicked()
 {
-    linScheduler->setBusEnabled(false);
+    linRuntime->setBusEnabled(false);
     ui->LinStop->hide();
     ui->LinStart->show();
 }
@@ -828,7 +829,7 @@ void BCMMasterFrame::on_LinStop_clicked()
 
 void BCMMasterFrame::on_PredefColor_clicked()
 {
-    const LinLayout &layout = linScheduler->layout();
+    const LinLayout &layout = linRuntime->layout();
     if (layout.colorModel == ELinColorModelDirectRgbOnly)
     {
       masterSignals.directRgbEnabled = true;
@@ -864,7 +865,7 @@ void BCMMasterFrame::on_PredefColor_clicked()
 
 void BCMMasterFrame::on_RGBColor_clicked()
 {
-    const LinLayout &layout = linScheduler->layout();
+    const LinLayout &layout = linRuntime->layout();
     const bool useDirectRgb =
       (layout.colorModel != ELinColorModelPredefinedOnly) &&
       supportsDirectRgb(layout);
@@ -885,7 +886,7 @@ void BCMMasterFrame::on_RGBColor_clicked()
 
 void BCMMasterFrame::on_LED_Enable_clicked()
 {
-    const LinLayout &layout = linScheduler->layout();
+    const LinLayout &layout = linRuntime->layout();
     const bool hasLedEnable = primaryControlHasSignal(
       layout, ELinSignalLedEnable);
     const bool hasCommandValidity = primaryControlHasSignal(
@@ -906,7 +907,7 @@ void BCMMasterFrame::on_LED_Enable_clicked()
     if (hasLedEnable && (masterSignals.intensity == 0))
     {
       quint8 visibleIntensity =
-        createDefaultBCMSignal(linScheduler->layout()).intensity;
+        createDefaultBCMSignal(linRuntime->layout()).intensity;
       if (visibleIntensity == 0)
       {
         visibleIntensity = layout.intensityMaximum < 100
@@ -931,7 +932,7 @@ void BCMMasterFrame::on_LED_Enable_clicked()
 
 void BCMMasterFrame::on_LED_Disable_clicked()
 {
-    const LinLayout &layout = linScheduler->layout();
+    const LinLayout &layout = linRuntime->layout();
     const bool hasLedEnable = primaryControlHasSignal(
       layout, ELinSignalLedEnable);
     const bool hasCommandValidity = primaryControlHasSignal(
@@ -948,11 +949,11 @@ void BCMMasterFrame::on_LED_Disable_clicked()
 void BCMMasterFrame::on_Fading_Enable_clicked()
 {
     masterSignals.fadingEnabled = true;
-    linScheduler->setBCMSignal(masterSignals);
+    linRuntime->setBCMSignal(masterSignals);
 }
 
 void BCMMasterFrame::on_Fading_Disable_clicked()
 {
     masterSignals.fadingEnabled = false;
-    linScheduler->setBCMSignal(masterSignals);
+    linRuntime->setBCMSignal(masterSignals);
 }

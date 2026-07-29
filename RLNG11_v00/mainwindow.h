@@ -6,12 +6,13 @@
 
 #include "lin_types.h"
 
-class AmbientLinScheduler;
+class LinRuntime;
 class BCMMasterButton;
 class BCMMasterFrame;
 class QCloseEvent;
 class DebugPanel;
-class DebugStore;
+class DebugSink;
+class DebugSnapshotSource;
 class ProductionVerify;
 class QPushButton;
 class SlaveButton;
@@ -27,7 +28,10 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
 public:
-  explicit MainWindow(DebugStore *debugStore, QWidget *parent = 0);
+  explicit MainWindow(LinRuntime *runtime,
+                      DebugSink *debugSink,
+                      DebugSnapshotSource *debugSource,
+                      QWidget *parent = 0);
   ~MainWindow();
 
 protected:
@@ -41,8 +45,8 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
-  DebugStore *debug;
-  AmbientLinScheduler *linScheduler;
+  DebugSink *debug;
+  LinRuntime *linRuntime;
 
   BCMMasterButton *masterButton;
   BCMMasterButton *exitButton;

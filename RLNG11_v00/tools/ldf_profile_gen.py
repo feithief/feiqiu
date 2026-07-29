@@ -1085,6 +1085,10 @@ def build_profile(network: LdfNetwork, overlay: Dict[str, Any], overlay_sha256: 
         profile_cfg.get("post_write_settle_ms"),
         "profile.post_write_settle_ms", 0, 1000,
     )
+    bulk_readback_delay = config_int(
+        profile_cfg.get("bulk_write_readback_delay_ms", 1000),
+        "profile.bulk_write_readback_delay_ms", 0, 10000,
+    )
     max_queue = config_int(
         profile_cfg.get("maximum_diagnostic_queue_depth"),
         "profile.maximum_diagnostic_queue_depth", 1, 10000,
@@ -1964,6 +1968,7 @@ def build_profile(network: LdfNetwork, overlay: Dict[str, Any], overlay_sha256: 
         "diagnostic_inter_frame_delay_ms": diag_gap,
         "response_delay_ms": response_delay,
         "post_write_settle_ms": post_write,
+        "bulk_write_readback_delay_ms": bulk_readback_delay,
         "maximum_diagnostic_queue_depth": max_queue,
         "warnings": warnings,
     }
@@ -2250,6 +2255,7 @@ def emit_source(profile: Mapping[str, Any]) -> str:
             "  {0},".format(profile["diagnostic_inter_frame_delay_ms"]),
             "  {0},".format(profile["response_delay_ms"]),
             "  {0},".format(profile["post_write_settle_ms"]),
+            "  {0},".format(profile["bulk_write_readback_delay_ms"]),
             "  {0}".format(profile["maximum_diagnostic_queue_depth"]),
             "};",
             "",
@@ -2440,6 +2446,7 @@ def make_initial_overlay(network: LdfNetwork, ldf_path: Path) -> Dict[str, Any]:
             "diagnostic_inter_frame_delay_ms": "TODO_AT_LEAST_LDF_ST_MIN",
             "response_delay_ms": 10,
             "post_write_settle_ms": 100,
+            "bulk_write_readback_delay_ms": 1000,
             "maximum_diagnostic_queue_depth": 16,
         },
         "models": {

@@ -63,6 +63,14 @@ values. The generator consumes only `addressing_contract` and
       "response_frame": {"id": 61, "name": "SlaveResp"},
       "request_nad_rule": "current, initial, or broadcast according to active transport branch",
       "response_nad_rule": "current NAD unless assignment service explicitly returns old NAD",
+      "bulk_write_readback_delay_ms": 1000,
+      "security": {
+        "request_seed_sub_function": 3,
+        "send_key_sub_function": 4,
+        "seed_byte_order": "little_endian_u32",
+        "key_rule": "key = seed + project_constant",
+        "key_length": 4
+      },
       "services": [],
       "evidence": []
     }
@@ -74,3 +82,5 @@ values. The generator consumes only `addressing_contract` and
 Use symbolic lengths only in the draft. Resolve them from active `#define`
 values before confirmation. Every signal and address domain needs source
 evidence. Diagnostics need evidence for both acceptance and response paths.
+SecurityAccess also needs direct evidence for seed byte order and the exact
+number of key bytes consumed by the active handler.

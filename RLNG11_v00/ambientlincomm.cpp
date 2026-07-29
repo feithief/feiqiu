@@ -2,6 +2,7 @@
 
 #include <QByteArray>
 #include <QElapsedTimer>
+#include <QThread>
 
 #ifdef Q_OS_LINUX
 #include <cerrno>
@@ -50,6 +51,13 @@ QString systemErrorText(const QString &operation)
 
 } // namespace
 
+LinTransport *AmbientLinCommFactory::create(const QString &deviceName,
+                                            quint32 baudRate,
+                                            int ioTimeoutMs) const
+{
+  return new AmbientLinComm(deviceName, baudRate, ioTimeoutMs);
+}
+
 AmbientLinComm::AmbientLinComm(const QString &deviceName,
                                quint32 baudRate,
                                int ioTimeoutMs)
@@ -57,17 +65,21 @@ AmbientLinComm::AmbientLinComm(const QString &deviceName,
     fileDescriptor(-1),
     baud(baudRate),
     ioDeadlineMs(ioTimeoutMs),
-    currentError(ELinIoNoError)
+    currentError(ELinIoNoError),
+    ownerThread(QThread::currentThread())
 {
 }
 
 AmbientLinComm::~AmbientLinComm()
 {
+  assertOwnerThread();
   closeDevice();
 }
 
 bool AmbientLinComm::openDevice()
 {
+  assertOwnerThread();
+
   if (isDeviceReady())
     return true;
 
@@ -151,6 +163,8 @@ bool AmbientLinComm::openDevice()
 
 void AmbientLinComm::closeDevice()
 {
+  assertOwnerThread();
+
 #ifdef Q_OS_LINUX
   if (fileDescriptor >= 0)
   {
@@ -164,6 +178,7 @@ void AmbientLinComm::closeDevice()
 
 bool AmbientLinComm::isDeviceReady() const
 {
+  assertOwnerThread();
   return fileDescriptor >= 0;
 }
 
@@ -171,6 +186,8 @@ bool AmbientLinComm::sendFrame(quint8 frameId,
                                const QByteArray &payload,
                                LinChecksumMode checksumMode)
 {
+  assertOwnerThread();
+
   if (!isDeviceReady())
   {
     setError(ELinIoNotOpen, "Cannot send LIN frame: device is not open");
@@ -200,6 +217,8 @@ bool AmbientLinComm::sendFrame(quint8 frameId,
 
 bool AmbientLinComm::sendHeader(quint8 frameId)
 {
+  assertOwnerThread();
+
   if (!isDeviceReady())
   {
     setError(ELinIoNotOpen, "Cannot send LIN header: device is not open");
@@ -235,6 +254,8 @@ bool AmbientLinComm::readResponse(quint8 expectedFrameId,
                                   LinChecksumMode checksumMode,
                                   QByteArray *payload)
 {
+  assertOwnerThread();
+
   if (payload == 0)
   {
     setError(ELinIoInvalidArgument, "Response output pointer is null");
@@ -315,12 +336,19 @@ bool AmbientLinComm::readResponse(quint8 expectedFrameId,
 
 LinIoError AmbientLinComm::lastError() const
 {
+  assertOwnerThread();
   return currentError;
 }
 
 QString AmbientLinComm::lastErrorText() const
 {
+  assertOwnerThread();
   return currentErrorText;
+}
+
+void AmbientLinComm::assertOwnerThread() const
+{
+  Q_ASSERT(QThread::currentThread() == ownerThread);
 }
 
 void AmbientLinComm::setError(LinIoError error, const QString &message)

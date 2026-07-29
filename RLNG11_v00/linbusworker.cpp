@@ -1,8 +1,8 @@
 #include "linbusworker.h"
 
-#include "ambientlincomm.h"
-#include "debugstore.h"
+#include "debugsink.h"
 #include "linlayout.h"
+#include "lintransport.h"
 
 #include <QThread>
 #include <QTimer>
@@ -19,9 +19,11 @@ QString toHexText(const QByteArray &value)
 
 LinBusWorker::LinBusWorker(const LinLayout *layout,
                            const BCMSignal &initialSignal,
-                           DebugStore *debugStore)
+                           const LinTransportFactory *factory,
+                           DebugSink *debugSink)
   : linLayout(layout),
-    debug(debugStore),
+    transportFactory(factory),
+    debug(debugSink),
     comm(0),
     scheduleTimer(0),
     controlSignal(initialSignal),
@@ -35,6 +37,8 @@ LinBusWorker::LinBusWorker(const LinLayout *layout,
     activeSecurityUnlocked(false),
     activeInitialNad(0),
     activeStepIndex(0),
+    activeWritePhase(EWriteTaskPhaseWrite),
+    activeNadChanged(false),
     pendingBusAction(EPendingBusActionNone),
     controlSwitchPending(false),
     pendingControlSignal(initialSignal),
@@ -52,14 +56,26 @@ LinBusWorker::LinBusWorker(const LinLayout *layout,
 
 void LinBusWorker::initialize()
 {
-  if (initialized || (linLayout == 0))
+  assertWorkerThread();
+
+  if (initialized || (linLayout == 0) || (transportFactory == 0))
     return;
 
   if (QThread::currentThread()->isInterruptionRequested())
     return;
 
   if (debug != 0)
+  {
     debug->setValue(DebugSchedulerState, QString("Initializing"));
+    debug->setValue(
+      DebugLinThread,
+      QString("0x%1").arg(
+        static_cast<qulonglong>(
+          reinterpret_cast<quintptr>(QThread::currentThreadId())),
+        0,
+        16));
+  }
+  updateTaskQueueDebug();
 
   QStringList layoutErrors;
   if (!validateLinLayout(*linLayout, &layoutErrors))
@@ -84,9 +100,18 @@ void LinBusWorker::initialize()
     return;
   }
 
-  comm = new AmbientLinComm(QString::fromLatin1(linLayout->deviceName),
-                            linLayout->baudRate,
-                            linLayout->serialIoTimeoutMs);
+  comm = transportFactory->create(
+    QString::fromLatin1(linLayout->deviceName),
+    linLayout->baudRate,
+    linLayout->serialIoTimeoutMs);
+  if (comm == 0)
+  {
+    const QString error = QString("LIN transport factory returned null");
+    if (debug != 0)
+      debug->setValue(DebugLastError, error);
+    emit busStateChanged(false, error);
+    return;
+  }
   const bool opened = comm->openDevice();
   recordIoResult(opened);
 
@@ -122,6 +147,8 @@ void LinBusWorker::initialize()
 
 void LinBusWorker::stopWorker()
 {
+  assertWorkerThread();
+
   if (stopping)
     return;
 
@@ -144,6 +171,8 @@ void LinBusWorker::stopWorker()
 
 void LinBusWorker::updateControlSignal(BCMSignal signal)
 {
+  assertWorkerThread();
+
   controlSignal = signal;
   if (!refreshPrimaryControlPayload())
     return;
@@ -159,6 +188,8 @@ void LinBusWorker::updateControlSignal(BCMSignal signal)
 
 void LinBusWorker::applySignalPreset(int presetIndex)
 {
+  assertWorkerThread();
+
   if ((linLayout == 0) ||
       (presetIndex < 0) || (presetIndex >= linLayout->signalPresetCount))
     return;
@@ -189,6 +220,7 @@ void LinBusWorker::applySignalPreset(int presetIndex)
 
 void LinBusWorker::requestPriorityControlTransmission()
 {
+  assertWorkerThread();
 
   /*
    * A control change must not wait for a complete status-poll cycle.  With
@@ -229,6 +261,8 @@ void LinBusWorker::requestPriorityControlTransmission()
 
 void LinBusWorker::switchControlSignal(BCMSignal signal)
 {
+  assertWorkerThread();
+
   if (stopping)
     return;
 
@@ -264,6 +298,8 @@ void LinBusWorker::switchControlSignal(BCMSignal signal)
 
 void LinBusWorker::enqueueReadNode(quint32 requestId, quint8 node)
 {
+  assertWorkerThread();
+
   PendingTask task;
   task.kind = ETaskReadNode;
   task.requestId = requestId;
@@ -290,15 +326,19 @@ void LinBusWorker::enqueueReadNode(quint32 requestId, quint8 node)
   if (!rejection.isEmpty())
   {
     emitTaskResult(task, task.config, false, rejection);
+    updateTaskQueueDebug();
     return;
   }
 
   taskQueue.enqueue(task);
+  updateTaskQueueDebug();
   startNextTask();
 }
 
 void LinBusWorker::enqueueWriteNode(quint32 requestId, SlaveConfigInfo info)
 {
+  assertWorkerThread();
+
   PendingTask task;
   task.kind = ETaskWriteNode;
   task.requestId = requestId;
@@ -325,10 +365,12 @@ void LinBusWorker::enqueueWriteNode(quint32 requestId, SlaveConfigInfo info)
   if (!rejection.isEmpty())
   {
     emitTaskResult(task, createEmptyConfig(task.node), false, rejection);
+    updateTaskQueueDebug();
     return;
   }
 
   taskQueue.enqueue(task);
+  updateTaskQueueDebug();
   startNextTask();
 }
 
@@ -336,6 +378,8 @@ void LinBusWorker::enqueueCalibration(quint32 requestId,
                                       quint8 node,
                                       quint8 mode)
 {
+  assertWorkerThread();
+
   PendingTask task;
   task.kind = ETaskCalibration;
   task.requestId = requestId;
@@ -366,15 +410,19 @@ void LinBusWorker::enqueueCalibration(quint32 requestId,
   if (!rejection.isEmpty())
   {
     emitTaskResult(task, task.config, false, rejection);
+    updateTaskQueueDebug();
     return;
   }
 
   taskQueue.enqueue(task);
+  updateTaskQueueDebug();
   startNextTask();
 }
 
 void LinBusWorker::cancelRequest(quint32 requestId)
 {
+  assertWorkerThread();
+
   if (taskActive && (activeTask.requestId == requestId))
     activeTaskCancelled = true;
 
@@ -390,10 +438,13 @@ void LinBusWorker::cancelRequest(quint32 requestId)
                      QString("Request cancelled"));
     }
   }
+  updateTaskQueueDebug();
 }
 
 void LinBusWorker::sleepBus()
 {
+  assertWorkerThread();
+
   if (stopping)
     return;
 
@@ -419,11 +470,14 @@ void LinBusWorker::sleepBus()
 
 void LinBusWorker::wakeBus()
 {
+  assertWorkerThread();
   setBusEnabled(true);
 }
 
 void LinBusWorker::setBusEnabled(bool enabled)
 {
+  assertWorkerThread();
+
   if (stopping)
     return;
 
@@ -472,6 +526,8 @@ void LinBusWorker::setBusEnabled(bool enabled)
 
 void LinBusWorker::processScheduleSlot()
 {
+  assertWorkerThread();
+
   if (QThread::currentThread()->isInterruptionRequested())
   {
     busEnabled = false;
@@ -560,6 +616,8 @@ void LinBusWorker::processScheduleSlot()
 
 void LinBusWorker::processTaskStep()
 {
+  assertWorkerThread();
+
   if (!taskActive)
   {
     if (stopping)
@@ -627,9 +685,43 @@ void LinBusWorker::processTaskStep()
 
   if (activeTask.kind == ETaskWriteNode)
   {
+    if (activeWritePhase == EWriteTaskPhaseWaitForFlash)
+    {
+      /*
+       * DID 0003 may make the firmware leave temporary NAD A0 while saving.
+       * After the configured flash window, start a fresh A0 session from the
+       * new Initial NAD before unified read-back.
+       */
+      if (activeNadChanged)
+        temporaryNadActive = false;
+      activeWritePhase = EWriteTaskPhaseReadBack;
+      activeStepIndex = 0;
+      if (debug != 0)
+        debug->setValue(DebugDiagnosticState,
+                        QString("Bulk write read-back"));
+      QTimer::singleShot(0, this, SLOT(processTaskStep()));
+      return;
+    }
+
     if (activeStepIndex >= linLayout->bulkWriteCount)
     {
-      finishActiveTask(true, QString());
+      if (activeWritePhase == EWriteTaskPhaseWrite)
+      {
+        activeWritePhase = EWriteTaskPhaseWaitForFlash;
+        activeStepIndex = 0;
+        if (debug != 0)
+          debug->setValue(
+            DebugDiagnosticState,
+            QString("Bulk write complete; flash wait %1 ms")
+            .arg(linLayout->bulkWriteReadBackDelayMs));
+        QTimer::singleShot(linLayout->bulkWriteReadBackDelayMs,
+                           this,
+                           SLOT(processTaskStep()));
+      }
+      else
+      {
+        finishActiveTask(true, QString());
+      }
       return;
     }
 
@@ -654,16 +746,49 @@ void LinBusWorker::processTaskStep()
     if (!encodeLinServiceValue(*service,
                                activeTask.config,
                                &value,
-                               &encodeError) ||
-        !writeServiceValue(activeTask.node, *service, value))
+                               &encodeError))
     {
-      const QString error = encodeError.isEmpty() ? transactionErrorText()
-                                                   : encodeError;
       finishActiveTask(false,
-                       QString("Write %1 failed: %2")
+                       QString("Encode %1 failed: %2")
                        .arg(QString::fromLatin1(service->name))
-                       .arg(error));
+                       .arg(encodeError));
       return;
+    }
+
+    if (activeWritePhase == EWriteTaskPhaseWrite)
+    {
+      if (!writeServiceValue(activeTask.node, *service, value))
+      {
+        finishActiveTask(false,
+                         QString("Write %1 failed: %2")
+                         .arg(QString::fromLatin1(service->name))
+                         .arg(transactionErrorText()));
+        return;
+      }
+    }
+    else if (service->readable)
+    {
+      QByteArray readBack;
+      if (!readServiceValue(activeInitialNad, *service, &readBack))
+      {
+        finishActiveTask(false,
+                         QString("Read-back %1 failed after flash wait: %2")
+                         .arg(QString::fromLatin1(service->name))
+                         .arg(transactionErrorText()));
+        return;
+      }
+
+      const QByteArray expected = value.left(service->dataLength);
+      if (readBack != expected)
+      {
+        finishActiveTask(
+          false,
+          QString("Read-back %1 mismatch: expected [%2], got [%3]")
+          .arg(QString::fromLatin1(service->name))
+          .arg(toHexText(expected))
+          .arg(toHexText(readBack)));
+        return;
+      }
     }
 
     QTimer::singleShot(0, this, SLOT(processTaskStep()));
@@ -693,8 +818,25 @@ void LinBusWorker::processTaskStep()
   finishActiveTask(false, QString("Unknown worker task"));
 }
 
+void LinBusWorker::assertWorkerThread() const
+{
+  Q_ASSERT(QThread::currentThread() == thread());
+}
+
+void LinBusWorker::updateTaskQueueDebug() const
+{
+  assertWorkerThread();
+  if (debug == 0)
+    return;
+
+  const int depth = taskQueue.size() + (taskActive ? 1 : 0);
+  debug->setValue(DebugDiagnosticQueueDepth, depth);
+}
+
 void LinBusWorker::startNextTask()
 {
+  assertWorkerThread();
+
   if (stopping || taskActive || !busEnabled || taskQueue.isEmpty())
     return;
 
@@ -708,8 +850,11 @@ void LinBusWorker::startNextTask()
   activeSecurityUnlocked = false;
   activeInitialNad = activeTask.node;
   activeStepIndex = 0;
+  activeWritePhase = EWriteTaskPhaseWrite;
+  activeNadChanged = false;
   diagnosticResponsePending = false;
   activeReadResult = createEmptyConfig(activeTask.node);
+  updateTaskQueueDebug();
 
   if (debug != 0)
   {
@@ -717,7 +862,10 @@ void LinBusWorker::startNextTask()
                     QString("Request %1, node %2")
                     .arg(activeTask.requestId)
                     .arg(static_cast<int>(activeTask.node)));
+    debug->setValue(DebugDiagnosticError, QString());
     debug->setValue(DebugCurrentNad, static_cast<int>(activeTask.node));
+    debug->setValue(DebugActiveRequestId,
+                    static_cast<qulonglong>(activeTask.requestId));
   }
 
   QTimer::singleShot(0, this, SLOT(processTaskStep()));
@@ -725,6 +873,8 @@ void LinBusWorker::startNextTask()
 
 void LinBusWorker::finishActiveTask(bool success, const QString &errorMessage)
 {
+  assertWorkerThread();
+
   const PendingTask completed = activeTask;
   const SlaveConfigInfo readResult = activeReadResult;
   QString finalError = errorMessage;
@@ -751,17 +901,23 @@ void LinBusWorker::finishActiveTask(bool success, const QString &errorMessage)
   temporaryNadActive = false;
   activeSecurityUnlocked = false;
   activeInitialNad = 0;
+  activeWritePhase = EWriteTaskPhaseWrite;
+  activeNadChanged = false;
   taskControlYieldPending = false;
   taskControlYieldServed = false;
   diagnosticResponsePending = false;
   activeTask.kind = ETaskNone;
+  updateTaskQueueDebug();
 
   if (debug != 0)
   {
     debug->setValue(DebugDiagnosticState,
                     success ? QString("Idle") : QString("Failed"));
+    debug->setValue(DebugDiagnosticError,
+                    success ? QString() : finalError);
     if (!success && !finalError.isEmpty())
       debug->setValue(DebugLastError, finalError);
+    debug->setValue(DebugActiveRequestId, static_cast<qulonglong>(0));
   }
 
   emitTaskResult(completed, readResult, success, finalError);
@@ -835,6 +991,8 @@ void LinBusWorker::emitTaskResult(const PendingTask &task,
 
 void LinBusWorker::rejectQueuedTasks(const QString &errorMessage)
 {
+  assertWorkerThread();
+
   while (!taskQueue.isEmpty())
   {
     const PendingTask task = taskQueue.dequeue();
@@ -843,6 +1001,7 @@ void LinBusWorker::rejectQueuedTasks(const QString &errorMessage)
                    false,
                    errorMessage);
   }
+  updateTaskQueueDebug();
 }
 
 void LinBusWorker::performSleepBus()
@@ -926,6 +1085,8 @@ void LinBusWorker::applyPendingBusAction()
 
 void LinBusWorker::finishStopping()
 {
+  assertWorkerThread();
+
   if (comm != 0)
   {
     comm->closeDevice();
@@ -1690,39 +1851,11 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
     }
   }
 
-  /* Leave the confirmed post-write settling time before read-back. */
-  if (writeComplete &&
-      !waitInterruptibly(linLayout->postWriteSettleMs))
-  {
-    protocolError = QString("Request interrupted during diagnostic write save");
-    writeComplete = false;
-  }
-
-  /* The slave silently ignores writes while locked; read-back is definitive. */
-  if (writeComplete && service.readable)
-  {
-    QByteArray readBack;
-    if (!readServiceValue(nad, service, &readBack))
-    {
-      if (protocolError.isEmpty())
-        protocolError = QString("Written value could not be read back");
-      return false;
-    }
-    const QByteArray expected = value.left(service.dataLength);
-    if (readBack != expected)
-    {
-      protocolError = QString("Write verification mismatch: expected [%1], got [%2]")
-                      .arg(toHexText(expected))
-                      .arg(toHexText(readBack));
-      return false;
-    }
-  }
-
   /*
    * DID 0003 changes savedConfig.singleAddr immediately.  The slave's B0
-   * callback then accepts the new Initial NAD, not the old one.  Switch the
-   * cleanup address only after the mandatory read-back has confirmed the
-   * write, so finishActiveTask() can restore A0 with the correct NAD.
+   * callback then accepts the new Initial NAD, not the old one.  Remember it
+   * now, but do not read anything until the complete bulk write has finished
+   * and the single configured flash delay has elapsed.
    */
   if (writeComplete &&
       temporaryNadActive &&
@@ -1734,6 +1867,8 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
       (static_cast<quint16>(static_cast<quint8>(value.at(1))) << 8);
     if ((changedNad >= 1) && (changedNad <= 0x7D))
     {
+      activeNadChanged =
+        (static_cast<quint8>(changedNad) != activeTask.node);
       activeInitialNad = static_cast<quint8>(changedNad);
       if (debug != 0)
         debug->setValue(DebugCurrentNad, static_cast<int>(activeInitialNad));

@@ -6,7 +6,7 @@
 #include "lin_types.h"
 
 class ADialog;
-class AmbientLinScheduler;
+class LinRuntime;
 class KeyBoard;
 class QFrame;
 
@@ -19,7 +19,7 @@ class SlaveFrameConfig : public QWidget
   Q_OBJECT
 
 public:
-  explicit SlaveFrameConfig(AmbientLinScheduler *scheduler,
+  explicit SlaveFrameConfig(LinRuntime *runtime,
                             QWidget *parent = 0);
   ~SlaveFrameConfig();
 
@@ -52,7 +52,7 @@ private slots:
   void on_AwakeButton_clicked();
 
 private:
-  AmbientLinScheduler *linScheduler;
+  LinRuntime *linRuntime;
   int currentNode;
   ENodeType nodeType;
   bool configurationAvailable;

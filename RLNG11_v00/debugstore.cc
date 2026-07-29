@@ -8,6 +8,10 @@ namespace {
 static const char *const kDebugNames[] = {
   "Application.State",
   "Scheduler.State",
+  "Thread.GUI",
+  "Thread.LIN",
+  "Queue.DiagnosticDepth",
+  "Diagnostic.ActiveRequestID",
   "Device.State",
   "LIN.CurrentFrameID",
   "LIN.CurrentNAD",
@@ -19,6 +23,7 @@ static const char *const kDebugNames[] = {
   "LIN.TimeoutCount",
   "LIN.ChecksumErrorCount",
   "Diagnostic.State",
+  "Diagnostic.LastError",
   "Diagnostic.Request",
   "Diagnostic.Response",
   "LIN.ActiveSignalPreset",
@@ -59,6 +64,8 @@ DebugStore::DebugStore()
   items[DebugRxCount].value = static_cast<qulonglong>(0);
   items[DebugTimeoutCount].value = static_cast<qulonglong>(0);
   items[DebugChecksumErrorCount].value = static_cast<qulonglong>(0);
+  items[DebugDiagnosticQueueDepth].value = 0;
+  items[DebugActiveRequestId].value = static_cast<qulonglong>(0);
 }
 
 void DebugStore::setVariant(DebugVariable variable, const QVariant &value)

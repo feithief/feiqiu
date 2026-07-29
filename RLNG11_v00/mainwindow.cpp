@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 
-#include "ambientlinscheduler.h"
+#include "linruntime.h"
 #include "application_config.h"
 #include "bcmmasterbutton.h"
 #include "bcmmasterframe.h"
 #include "debugpanel.h"
-#include "debugstore.h"
+#include "debugsink.h"
+#include "debugsnapshot.h"
 #include "linlayout.h"
 #include "productionverify.h"
 #include "slavebutton.h"
@@ -16,6 +17,7 @@
 #include <QCloseEvent>
 #include <QFont>
 #include <QKeySequence>
+#include <QLabel>
 #include <QPushButton>
 #include <QRect>
 #include <QShortcut>
@@ -59,11 +61,14 @@ QRect nodeButtonGeometry(int index, int nodeCount)
 
 } // namespace
 
-MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
+MainWindow::MainWindow(LinRuntime *runtime,
+                       DebugSink *debugSink,
+                       DebugSnapshotSource *debugSource,
+                       QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    debug(debugStore),
-    linScheduler(new AmbientLinScheduler(defaultLinLayout(), debugStore, this)),
+    debug(debugSink),
+    linRuntime(runtime),
     masterButton(0),
     exitButton(0),
     settingButton(0),
@@ -74,6 +79,8 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
     lockFrame(0),
     debugPanel(0)
 {
+  Q_ASSERT(linRuntime != 0);
+  Q_ASSERT(debugSource != 0);
   ui->setupUi(this);
   setMinimumSize(kApplicationWindowSize);
   setMaximumSize(kApplicationWindowSize);
@@ -84,8 +91,8 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   QFont controlFont;
   controlFont.setPointSize(22);
 
-  const LinLayout &profile = linScheduler->layout();
-  const bool layoutValid = linScheduler->isLayoutValid();
+  const LinLayout &profile = linRuntime->layout();
+  const bool layoutValid = linRuntime->isLayoutValid();
   const bool nodeConfigurationAvailable =
     layoutValid &&
     (profile.diagnosticModel == ELinDiagnosticModelCustomDid) &&
@@ -118,7 +125,7 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   {
     debug->setValue(DebugLastError,
                     QString("Invalid LIN layout: %1")
-                    .arg(linScheduler->layoutErrorText()));
+                    .arg(linRuntime->layoutErrorText()));
   }
 
   masterButton = new BCMMasterButton(this);
@@ -133,7 +140,7 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   }
   else
   {
-    masterButton->setToolTip(linScheduler->layoutErrorText());
+    masterButton->setToolTip(linRuntime->layoutErrorText());
   }
   masterButton->show();
 
@@ -158,12 +165,12 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   lockFrame->hide();
   if (layoutValid)
   {
-    masterFrame = new BCMMasterFrame(linScheduler, this);
-    productVerifyFrame = new ProductionVerify(linScheduler, this);
-    slaveFrame = new SlaveFrameConfig(linScheduler, this);
+    masterFrame = new BCMMasterFrame(linRuntime, this);
+    productVerifyFrame = new ProductionVerify(linRuntime, this);
+    slaveFrame = new SlaveFrameConfig(linRuntime, this);
   }
 
-  debugPanel = new DebugPanel(debug, this);
+  debugPanel = new DebugPanel(debugSource, this);
   debugQuickButton = new QPushButton(tr("DEBUG  F12"), this);
   debugQuickButton->setGeometry(1160, 705, 175, 45);
   debugQuickButton->setStyleSheet(
@@ -172,15 +179,31 @@ MainWindow::MainWindow(DebugStore *debugStore, QWidget *parent)
   connect(debugQuickButton, SIGNAL(clicked()),
           debugPanel, SLOT(togglePanel()));
 
+  if (!layoutValid)
+  {
+    QLabel *layoutErrorLabel = new QLabel(this);
+    layoutErrorLabel->setGeometry(45, 250, 880, 210);
+    layoutErrorLabel->setWordWrap(true);
+    layoutErrorLabel->setAlignment(Qt::AlignCenter);
+    layoutErrorLabel->setStyleSheet(
+      "QLabel{color:#ff6666;border:2px solid #ff6666;border-radius:12px;"
+      "background-color:rgba(35,0,0,220);font-size:22px;padding:18px;}");
+    layoutErrorLabel->setText(
+      QString("LIN layout invalid\n%1\nPress F12 for Debug")
+      .arg(linRuntime->layoutErrorText()));
+    layoutErrorLabel->show();
+    layoutErrorLabel->raise();
+  }
+
   QShortcut *debugShortcut = new QShortcut(QKeySequence(Qt::Key_F12), this);
   connect(debugShortcut, SIGNAL(activated()),
           debugPanel, SLOT(togglePanel()));
 
-  connect(linScheduler, SIGNAL(SlaveStatusChanged(SlaveStatus)),
+  connect(linRuntime, SIGNAL(SlaveStatusChanged(SlaveStatus)),
           this, SLOT(slaveStatusHandle(SlaveStatus)));
 
   if (layoutValid)
-    linScheduler->start();
+    linRuntime->start();
   if (debug != 0)
     debug->setValue(DebugAppState,
                     layoutValid
@@ -202,7 +225,7 @@ void MainWindow::slaveStatusHandle(SlaveStatus status)
   if (button != 0)
   {
     button->setFeedbackAvailable(status.isOnLine);
-    const LinLayout &profile = linScheduler->layout();
+    const LinLayout &profile = linRuntime->layout();
     button->setConfigurationEnabled(
       (profile.diagnosticModel == ELinDiagnosticModelCustomDid) &&
       (profile.serviceCount > 0));
@@ -251,7 +274,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
   if (debug != 0)
     debug->setValue(DebugAppState, QString("Application stopping"));
 
-  if (linScheduler->stop(5000))
+  if (linRuntime->stop(5000))
   {
     if (debug != 0)
       debug->setValue(DebugAppState, QString("Application stopped"));

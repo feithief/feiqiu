@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-class DebugStore;
+class DebugSnapshotSource;
 class QLabel;
 class QPushButton;
 class QTableWidget;
@@ -14,7 +14,7 @@ class DebugPanel : public QWidget
   Q_OBJECT
 
 public:
-  explicit DebugPanel(DebugStore *store, QWidget *parent = 0);
+  explicit DebugPanel(DebugSnapshotSource *source, QWidget *parent = 0);
 
 public slots:
   void openPanel();
@@ -25,7 +25,7 @@ private slots:
   void refreshValues();
 
 private:
-  DebugStore *debugStore;
+  DebugSnapshotSource *debugSource;
   QLabel *titleLabel;
   QTableWidget *table;
   QPushButton *closeButton;

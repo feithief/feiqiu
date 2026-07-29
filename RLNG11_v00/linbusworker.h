@@ -7,8 +7,9 @@
 
 #include "lin_types.h"
 
-class AmbientLinComm;
-class DebugStore;
+class DebugSink;
+class LinTransport;
+class LinTransportFactory;
 class QTimer;
 struct LinLayout;
 struct LinServiceLayout;
@@ -20,7 +21,8 @@ class LinBusWorker : public QObject
 public:
   LinBusWorker(const LinLayout *layout,
                const BCMSignal &initialSignal,
-               DebugStore *debugStore);
+               const LinTransportFactory *transportFactory,
+               DebugSink *debugSink);
 
 signals:
   void slaveStatusChanged(SlaveStatus status);
@@ -74,6 +76,13 @@ private:
     EPendingBusActionDisable
   };
 
+  enum WriteTaskPhase
+  {
+    EWriteTaskPhaseWrite = 0,
+    EWriteTaskPhaseWaitForFlash,
+    EWriteTaskPhaseReadBack
+  };
+
   struct PendingTask
   {
     TaskKind kind;
@@ -84,8 +93,9 @@ private:
   };
 
   const LinLayout *linLayout;
-  DebugStore *debug;
-  AmbientLinComm *comm;
+  const LinTransportFactory *transportFactory;
+  DebugSink *debug;
+  LinTransport *comm;
   QTimer *scheduleTimer;
   BCMSignal controlSignal;
   QByteArray primaryControlPayload;
@@ -102,6 +112,8 @@ private:
   bool activeSecurityUnlocked;
   quint8 activeInitialNad;
   int activeStepIndex;
+  WriteTaskPhase activeWritePhase;
+  bool activeNadChanged;
   SlaveConfigInfo activeReadResult;
   QString protocolError;
   PendingBusAction pendingBusAction;
@@ -117,6 +129,8 @@ private:
   /* True until the first response header after the latest diagnostic write. */
   bool diagnosticResponsePending;
 
+  void assertWorkerThread() const;
+  void updateTaskQueueDebug() const;
   void startNextTask();
   void finishActiveTask(bool success, const QString &errorMessage);
   void emitTaskResult(const PendingTask &task,

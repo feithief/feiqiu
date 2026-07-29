@@ -1,15 +1,13 @@
 #ifndef AMBIENTLINSCHEDULER_H
 #define AMBIENTLINSCHEDULER_H
 
-#include <QMutex>
-#include <QObject>
 #include <QPointer>
-#include <QVariant>
 
-#include "lin_types.h"
+#include "linruntime.h"
 
-class DebugStore;
+class DebugSink;
 class LinBusWorker;
+class LinTransportFactory;
 class QThread;
 class QTimer;
 struct LinLayout;
@@ -22,68 +20,45 @@ struct LinLayout;
  * The LinLayout and all tables referenced by it must outlive this object;
  * tools/ldf_profile_gen.py emits the intended static generated profile.
  */
-class AmbientLinScheduler : public QObject
+class AmbientLinScheduler : public LinRuntime
 {
   Q_OBJECT
 
 public:
   AmbientLinScheduler(const LinLayout &layout,
-                      DebugStore *debugStore,
+                      const LinTransportFactory *transportFactory,
+                      DebugSink *debugSink,
                       QObject *parent = 0);
-  ~AmbientLinScheduler();
+  ~AmbientLinScheduler() override;
 
-  void start();
-  bool stop(unsigned long timeoutMs = 5000);
-  bool isRunning() const;
+  void start() override;
+  bool stop(unsigned long timeoutMs = 5000) override;
+  bool isRunning() const override;
+  bool isReady() const override;
 
-  const LinLayout &layout() const;
-  bool isLayoutValid() const;
-  QString layoutErrorText() const;
+  const LinLayout &layout() const override;
+  bool isLayoutValid() const override;
+  QString layoutErrorText() const override;
 
-  void setBCMSignal(const BCMSignal &signal);
-  void switchBCMSignal(const BCMSignal &signal);
-  BCMSignal getBCMSignal() const;
-  void applySignalPreset(int presetIndex);
+  void setBCMSignal(const BCMSignal &signal) override;
+  void switchBCMSignal(const BCMSignal &signal) override;
+  BCMSignal getBCMSignal() const override;
+  void applySignalPreset(int presetIndex) override;
 
-  quint32 readNodeConfiguration(quint8 node);
-  quint32 writeNodeConfiguration(const SlaveConfigInfo &info);
-  quint32 calibrateNode(quint8 node, quint8 mode);
-  void cancel(quint32 requestId);
+  quint32 readNodeConfiguration(quint8 node) override;
+  quint32 writeNodeConfiguration(const SlaveConfigInfo &info) override;
+  quint32 calibrateNode(quint8 node, quint8 mode) override;
+  void cancel(quint32 requestId) override;
 
   void setReservedDebugValue(int reservedIndex,
                              const QString &name,
-                             const QVariant &value);
+                             const QVariant &value) override;
 
-  template <typename T>
-  void setReservedDebugValue(int reservedIndex,
-                             const QString &name,
-                             const T &value)
-  {
-    setReservedDebugValue(reservedIndex,
-                          name,
-                          QVariant::fromValue(value));
-  }
-
-  void sleepBus();
-  void wakeBus();
-  void setBusEnabled(bool enabled);
+  void sleepBus() override;
+  void wakeBus() override;
+  void setBusEnabled(bool enabled) override;
 
 signals:
-  void SlaveStatusChanged(SlaveStatus status);
-  void nodeConfigurationRead(quint32 requestId,
-                             SlaveConfigInfo info,
-                             bool success,
-                             QString errorMessage);
-  void nodeConfigurationWritten(quint32 requestId,
-                                quint8 node,
-                                bool success,
-                                QString errorMessage);
-  void calibrationFinished(quint32 requestId,
-                           quint8 node,
-                           bool success,
-                           QString errorMessage);
-  void busStateChanged(bool ready, QString message);
-
   /* Internal queued commands. */
   void stopRequested();
   void controlSignalRequested(BCMSignal signal);
@@ -99,21 +74,24 @@ signals:
 
 private slots:
   void flushControlSignal();
+  void handleWorkerBusStateChanged(bool ready, QString message);
 
 private:
   const LinLayout *linLayout;
-  DebugStore *debug;
+  const LinTransportFactory *transportFactory;
+  DebugSink *debug;
   QThread *workerThread;
   QPointer<LinBusWorker> worker;
   QTimer *controlCoalesceTimer;
   bool startedOnce;
+  bool workerReady;
   bool validLayout;
   QString validationError;
 
-  mutable QMutex controlMutex;
   BCMSignal desiredControlSignal;
   quint32 requestSequence;
 
+  void assertFacadeThread() const;
   void createWorker();
   bool canSubmitDiagnosticRequest() const;
   quint32 nextRequestId();

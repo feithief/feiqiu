@@ -333,6 +333,7 @@
       "request_nad_rule": "standard services use current Initial NAD; custom 0x22/0x2E/0x27 require current NAD and request NAD both equal 0xA0",
       "response_nad_rule": "custom response uses request/current NAD; Assign-NAD response uses the request Initial NAD",
       "temporary_nad": 160,
+      "bulk_write_readback_delay_ms": 1000,
       "security": {
         "request_seed_sub_function": 3,
         "send_key_sub_function": 4,
@@ -992,6 +993,7 @@
     "diagnostic_inter_frame_delay_ms": 10,
     "response_delay_ms": 10,
     "post_write_settle_ms": 50,
+    "bulk_write_readback_delay_ms": 1000,
     "maximum_diagnostic_queue_depth": 16
   },
   "review": {

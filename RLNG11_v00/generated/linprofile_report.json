@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source_code_contract": {
     "name": "RLNG11_v00.code-contract.json.txt",
-    "sha256": "604d962fc94de8ed48a92636ceabe72cc718053bca2e20dcff614823251047aa",
+    "sha256": "de2537ed7561483de9c8ece3eee7ce661e1371191b45cd813da7b13f68cd2de3",
     "source_root": "E:\\SVN\\Project\\RLNG11\\tag\\RelVersion\\SWSC_RLNG11_SW0400_0x00_HW0100",
     "review": {
       "status": "confirmed",
@@ -6634,10 +6634,11 @@
     "diagnostic_inter_frame_delay_ms": 10,
     "response_delay_ms": 10,
     "post_write_settle_ms": 50,
+    "bulk_write_readback_delay_ms": 1000,
     "maximum_diagnostic_queue_depth": 16,
     "source": {
       "name": "SWSC_RLNG11_SW0400_0x00_HW0100 C-code contract",
-      "sha256": "604d962fc94de8ed48a92636ceabe72cc718053bca2e20dcff614823251047aa",
+      "sha256": "de2537ed7561483de9c8ece3eee7ce661e1371191b45cd813da7b13f68cd2de3",
       "overlay_sha256": "9aa059159bc132d7d6070f18453e5bc39907519f0e9ce9a57ba81ad2b525a30b"
     }
   },

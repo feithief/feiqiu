@@ -80,12 +80,13 @@ void assignProductionColor(const LinLayout &layout,
 
 } // namespace
 
-ProductionVerify::ProductionVerify(AmbientLinScheduler *scheduler,
+ProductionVerify::ProductionVerify(LinRuntime *runtime,
                                    QWidget *parent) :
   QWidget(parent),
   ui(new Ui::ProductionVerify),
-  linScheduler(scheduler)
+  linRuntime(runtime)
 {
+  Q_ASSERT(linRuntime != 0);
   backgroundframe  = new QFrame(this);
   backgroundframe->setStyleSheet(QFrameBasicQSS);
   backgroundframe->setGeometry(0,0,1366,768);
@@ -98,7 +99,7 @@ ProductionVerify::ProductionVerify(AmbientLinScheduler *scheduler,
   colorChangeTimer = new QTimer(this);
   colorChangeTimer->setInterval(3000);
   /* A hidden optional page must not overwrite the active control command. */
-  masterSignals = linScheduler->getBCMSignal();
+  masterSignals = linRuntime->getBCMSignal();
 
   connect(ui->pushButtonCancel,SIGNAL(clicked()),this, SLOT(closePage()));
 
@@ -124,7 +125,7 @@ ProductionVerify::ProductionVerify(AmbientLinScheduler *scheduler,
   nodeGrid->setHorizontalSpacing(12);
   nodeGrid->setVerticalSpacing(12);
 
-  const LinLayout &profile = linScheduler->layout();
+  const LinLayout &profile = linRuntime->layout();
   const int testColorCount = productionColorCount(profile);
   if (profile.colorModel == ELinColorModelDirectRgbOnly)
   {
@@ -148,7 +149,7 @@ ProductionVerify::ProductionVerify(AmbientLinScheduler *scheduler,
   ui->horizontalSliderIntensity->setRange(0, maximumIntensity);
   const bool fixedTargetMask =
     (profile.addressingModel == ELinAddressingModelFixedTargetMask);
-  if (linScheduler->isLayoutValid())
+  if (linRuntime->isLayoutValid())
   {
     const int columns = 7;
     for (int index = 0; index < profile.nodeCount; ++index)
@@ -196,8 +197,8 @@ ProductionVerify::~ProductionVerify()
 
 void ProductionVerify::init(void)
 {
-  masterSignals = linScheduler->getBCMSignal();
-  const LinLayout &profile = linScheduler->layout();
+  masterSignals = linRuntime->getBCMSignal();
+  const LinLayout &profile = linRuntime->layout();
 
   QMap<int, QPushButton *>::const_iterator button = nodeButtons.constBegin();
   while (button != nodeButtons.constEnd())
@@ -263,19 +264,19 @@ void ProductionVerify::init(void)
   ui->horizontalSliderIntensity->blockSignals(sliderSignalsBlocked);
 
   if (nodeButtons.isEmpty())
-    linScheduler->setBCMSignal(masterSignals);
+    linRuntime->setBCMSignal(masterSignals);
 }
 
 void ProductionVerify::intensityChanged(int intensity)
 {
   const int maximumIntensity = static_cast<int>(
-    linScheduler->layout().intensityMaximum);
+    linRuntime->layout().intensityMaximum);
   if (intensity < 0)
     intensity = 0;
   else if (intensity > maximumIntensity)
     intensity = maximumIntensity;
   masterSignals.intensity = static_cast<quint8>(intensity);
-  linScheduler->setBCMSignal(masterSignals);
+  linRuntime->setBCMSignal(masterSignals);
 }
 
 void ProductionVerify::changeColorManual(void)
@@ -291,7 +292,7 @@ void ProductionVerify::changeColorManual(void)
 
 void ProductionVerify::changeColorAuto(void)
 {
-  if (productionColorCount(linScheduler->layout()) <= 0)
+  if (productionColorCount(linRuntime->layout()) <= 0)
     return;
 
   if (colorChangeTimer->isActive())
@@ -308,7 +309,7 @@ void ProductionVerify::changeColorAuto(void)
 
 void ProductionVerify::changeColor(void)
 {
-  const LinLayout &profile = linScheduler->layout();
+  const LinLayout &profile = linRuntime->layout();
   const int availableColorCount = productionColorCount(profile);
   if (availableColorCount <= 0)
     return;
@@ -316,7 +317,7 @@ void ProductionVerify::changeColor(void)
   colorIndex = colorIndex % availableColorCount;
   assignProductionColor(profile, colorIndex, &masterSignals);
 
-  linScheduler->setBCMSignal(masterSignals);
+  linRuntime->setBCMSignal(masterSignals);
   colorIndex++;
 }
 
@@ -333,12 +334,12 @@ void ProductionVerify::changeAddress(int targetMask)
   }
 
   if (!nodeButtons.contains(targetMask))
-    targetMask = linScheduler->layout().nodes[0].controlAddressMask;
+    targetMask = linRuntime->layout().nodes[0].controlAddressMask;
   nodeButtons.value(targetMask)->setStyleSheet(buttonEnabled);
 
   masterSignals.targetMask = static_cast<quint16>(targetMask);
   masterSignals.groupAddressing = false;
-  if (linScheduler->layout().colorModel == ELinColorModelDirectRgbOnly)
+  if (linRuntime->layout().colorModel == ELinColorModelDirectRgbOnly)
     masterSignals.directRgbEnabled = true;
   else
     masterSignals.directRgbEnabled = false;
@@ -350,9 +351,9 @@ void ProductionVerify::changeAddress(int targetMask)
   selectedTargetMaskRecord = targetMask;
 
   if (requiresAtomicSwitch)
-    linScheduler->switchBCMSignal(masterSignals);
+    linRuntime->switchBCMSignal(masterSignals);
   else
-    linScheduler->setBCMSignal(masterSignals);
+    linRuntime->setBCMSignal(masterSignals);
 }
 
 void ProductionVerify::closePage()

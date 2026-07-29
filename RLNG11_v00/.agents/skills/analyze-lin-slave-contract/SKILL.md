@@ -1,6 +1,6 @@
 ---
 name: analyze-lin-slave-contract
-description: "Read a LIN slave C project without an LDF and extract an evidence-backed contract for the mother Qt Seed: NAD/address ranges and mappings, application frame/signal bit layout, feedback PID mapping, diagnostic request/response NAD rules, SID/DID services, lengths, byte order, and security flow. Use when creating or repairing a Qt LIN upper-computer from slave firmware, checking why diagnostics or signals fail, or replacing LDF-based inference with direct C-code analysis."
+description: "Read a LIN slave C project without an LDF, extract an evidence-backed LIN contract, and generate or repair an independent mother-Seed Qt host. Covers NAD/address ranges and mappings, application frame/signal bit layout, feedback PID mapping, diagnostic NAD rules, SID/DID services, lengths, byte order, security, and optional reusable signal presets. Use when the only variable input is slave C firmware, when diagnostics/signals fail, or when replacing LDF inference with direct code analysis."
 ---
 
 # Analyze LIN Slave Contract
@@ -37,11 +37,20 @@ evidence instead of guessing.
    python scripts/validate_lin_contract.py lin_contract.json --source-root SLAVE_SOURCE_ROOT
    ```
 
-6. Use the confirmed contract as the only variable input for the fixed mother
-   Seed. Do not change scheduler, worker thread, UI navigation, debug panel, or
-   synchronization architecture. If the current generator has no code-contract
-   renderer, add or reuse one; never fall back to guessed LDF semantics or
-   unvalidated manual C++ edits.
+6. Put the reviewed runtime profile in the contract's `host_profile`, then
+   create a new project with the repository renderer:
+
+   ```text
+   python tools/create_qt_host_from_contract.py --project-name NAME --contract lin_contract.json --presets OPTIONAL_PRESETS.json --destination OUTPUT_PARENT
+   ```
+
+   Omit `--presets` when no combinations were supplied. The command validates
+   the source evidence, copies the fixed mother Seed, emits the profile, uses
+   readable `.cc` compiler sources, and runs static acceptance. Never overwrite
+   an existing destination and never compile Qt on the local machine.
+7. Keep scheduler, worker thread, queued synchronization, UI navigation, debug
+   panel, feedback-gated diagnostics, and paged preset UI fixed. Never fall
+   back to guessed LDF semantics or unvalidated manual generated C++ edits.
 
 ## Reliability gates
 
@@ -54,6 +63,9 @@ evidence instead of guessing.
 - Trace diagnostics end to end: receive acceptance -> NAD rule ->
   transport/PCI -> SID dispatcher -> DID table -> response builder ->
   response NAD.
+- Keep transport acknowledgement separate from persistence verification. For a
+  bulk configuration write, finish every write first, wait the confirmed flash
+  completion window once, then perform one unified read-back pass.
 - Treat inactive `#if` branches, examples, commented code, and generic stack
   capabilities as candidates only.
 - Cross-check every contract decision against at least one cited source line;

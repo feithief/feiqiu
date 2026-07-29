@@ -1,7 +1,7 @@
 #include "slaveframeconfig.h"
 
 #include "adialog.h"
-#include "ambientlinscheduler.h"
+#include "linruntime.h"
 #include "keyboard.h"
 #include "linlayout.h"
 #include "ui_slavenodeframe.h"
@@ -72,10 +72,10 @@ void setStatusLabel(QLabel *label, SlaveErrorFlag status)
 
 } // namespace
 
-SlaveFrameConfig::SlaveFrameConfig(AmbientLinScheduler *scheduler,
+SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
                                    QWidget *parent)
   : QWidget(parent),
-    linScheduler(scheduler),
+    linRuntime(runtime),
     currentNode(0),
     nodeType(ENodeTypeRGB),
     configurationAvailable(false),
@@ -87,6 +87,7 @@ SlaveFrameConfig::SlaveFrameConfig(AmbientLinScheduler *scheduler,
     writeRequestId(0),
     calibrationRequestId(0)
 {
+  Q_ASSERT(linRuntime != 0);
   backgroundframe = new QFrame(this);
   backgroundframe->setStyleSheet(kFrameStyle);
   backgroundframe->setGeometry(0, 0, 1366, 768);
@@ -94,7 +95,7 @@ SlaveFrameConfig::SlaveFrameConfig(AmbientLinScheduler *scheduler,
 
   ui->setupUi(this);
 
-  const LinLayout &profile = linScheduler->layout();
+  const LinLayout &profile = linRuntime->layout();
   const LinServiceLayout *partNumberService = findLinService(
     profile, EOperationTypePartNO);
   const LinServiceLayout *serialNumberService = findLinService(
@@ -136,17 +137,17 @@ SlaveFrameConfig::SlaveFrameConfig(AmbientLinScheduler *scheduler,
   connect(ui->spinBoxSA, SIGNAL(valueChanged(int)),
           this, SLOT(singleAddressChanged(int)));
 
-  connect(linScheduler, SIGNAL(SlaveStatusChanged(SlaveStatus)),
+  connect(linRuntime, SIGNAL(SlaveStatusChanged(SlaveStatus)),
           this, SLOT(updateNodeState(SlaveStatus)));
-  connect(linScheduler,
+  connect(linRuntime,
           SIGNAL(nodeConfigurationRead(quint32,SlaveConfigInfo,bool,QString)),
           this,
           SLOT(handleReadResult(quint32,SlaveConfigInfo,bool,QString)));
-  connect(linScheduler,
+  connect(linRuntime,
           SIGNAL(nodeConfigurationWritten(quint32,quint8,bool,QString)),
           this,
           SLOT(handleWriteResult(quint32,quint8,bool,QString)));
-  connect(linScheduler,
+  connect(linRuntime,
           SIGNAL(calibrationFinished(quint32,quint8,bool,QString)),
           this,
           SLOT(handleCalibrationResult(quint32,quint8,bool,QString)));
@@ -208,7 +209,7 @@ void SlaveFrameConfig::setConfigurationControlsEnabled(bool enabled)
 
 void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
 {
-  const LinLayout &profile = linScheduler->layout();
+  const LinLayout &profile = linRuntime->layout();
   const LinNodeLayout *node = findLinNode(
     profile, static_cast<quint8>(slaveNode));
   if (node == 0)
@@ -219,11 +220,11 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
   }
 
   if (readRequestId != 0)
-    linScheduler->cancel(readRequestId);
+    linRuntime->cancel(readRequestId);
   if (writeRequestId != 0)
-    linScheduler->cancel(writeRequestId);
+    linRuntime->cancel(writeRequestId);
   if (calibrationRequestId != 0)
-    linScheduler->cancel(calibrationRequestId);
+    linRuntime->cancel(calibrationRequestId);
 
   readRequestId = 0;
   writeRequestId = 0;
@@ -248,7 +249,7 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
     return;
 
   /* Diagnostic progress is intentionally silent; only read/write OK is shown. */
-  readRequestId = linScheduler->readNodeConfiguration(
+  readRequestId = linRuntime->readNodeConfiguration(
     static_cast<quint8>(currentNode));
   if (readRequestId == 0)
     dialog->hide();
@@ -281,11 +282,11 @@ void SlaveFrameConfig::updateNodeState(SlaveStatus status)
 void SlaveFrameConfig::exitSlaveConfig()
 {
   if (readRequestId != 0)
-    linScheduler->cancel(readRequestId);
+    linRuntime->cancel(readRequestId);
   if (writeRequestId != 0)
-    linScheduler->cancel(writeRequestId);
+    linRuntime->cancel(writeRequestId);
   if (calibrationRequestId != 0)
-    linScheduler->cancel(calibrationRequestId);
+    linRuntime->cancel(calibrationRequestId);
 
   readRequestId = 0;
   writeRequestId = 0;
@@ -314,7 +315,7 @@ void SlaveFrameConfig::changeConfigs()
   }
 
   const int requestedNad = ui->spinBoxSA->value();
-  const LinLayout &profile = linScheduler->layout();
+  const LinLayout &profile = linRuntime->layout();
   const LinNodeLayout *requestedNode = findLinNode(
     profile, static_cast<quint8>(requestedNad));
   if (requestedNode == 0)
@@ -355,9 +356,9 @@ void SlaveFrameConfig::changeConfigs()
   dialog->hide();
   ui->pushButtonAccept->setText("Writing...");
   ui->pushButtonAccept->setToolTip(
-    "Writing and reading back all configuration values.");
+    "Writing all values, waiting 1 second for flash, then reading them back.");
   ui->pushButtonAccept->setEnabled(false);
-  writeRequestId = linScheduler->writeNodeConfiguration(info);
+  writeRequestId = linRuntime->writeNodeConfiguration(info);
   if (writeRequestId == 0)
   {
     ui->pushButtonAccept->setEnabled(true);
@@ -370,7 +371,7 @@ void SlaveFrameConfig::changeConfigs()
 void SlaveFrameConfig::singleAddressChanged(int value)
 {
   const LinNodeLayout *node = findLinNode(
-    linScheduler->layout(), static_cast<quint8>(value));
+    linRuntime->layout(), static_cast<quint8>(value));
   if (node != 0)
     ui->spinBoxGA->setValue(node->controlAddressMask);
 }
@@ -468,7 +469,7 @@ void SlaveFrameConfig::requestCalibration(quint8 mode)
     return;
 
   dialog->hide();
-  calibrationRequestId = linScheduler->calibrateNode(
+  calibrationRequestId = linRuntime->calibrateNode(
     static_cast<quint8>(currentNode), mode);
   if (calibrationRequestId == 0)
     dialog->hide();
@@ -484,7 +485,7 @@ void SlaveFrameConfig::displayConfiguration(const SlaveConfigInfo &info)
   ui->labelVariantVer->setText(info.variantId);
   ui->spinBoxSA->setValue(info.SA);
   const LinNodeLayout *addressNode = findLinNode(
-    linScheduler->layout(), static_cast<quint8>(info.SA));
+    linRuntime->layout(), static_cast<quint8>(info.SA));
   ui->spinBoxGA->setValue(addressNode != 0
     ? addressNode->controlAddressMask
     : info.GA);
@@ -592,10 +593,10 @@ void SlaveFrameConfig::showInputKeyBoard(bool show)
 
 void SlaveFrameConfig::on_SleepButton_clicked()
 {
-  linScheduler->sleepBus();
+  linRuntime->sleepBus();
 }
 
 void SlaveFrameConfig::on_AwakeButton_clicked()
 {
-  linScheduler->wakeBus();
+  linRuntime->wakeBus();
 }

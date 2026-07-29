@@ -5,8 +5,10 @@ generated project.
 
 Reusable parts:
 
-- `AmbientDevice/`: Qt UI, scheduler, one LIN worker thread, diagnostics, debug
-  panel, and reusable 30-button paged shortcut palette.
+- `AmbientDevice/`: Qt UI behind `LinRuntime`, scheduler facade, one LIN worker
+  thread, replaceable `LinTransport`, write-only `DebugSink`, read-only
+  `DebugSnapshotSource`, diagnostics, debug panel, and reusable 30-button
+  paged shortcut palette.
 - `tools/ldf_profile_gen.py`: LDF plus ordered JSON overlays to fixed generated
   `LinLayout` C++.
 - `profiles/`: reviewed application-semantic overlays.
@@ -32,3 +34,11 @@ Do not run qmake, make, or a compiler in this workflow. Keep shortcut sends on
 the queued Scheduler-to-Worker path. `LIN.ActiveSignalPreset` records the active
 shortcut, while `Reserved.01` through `Reserved.10` remain available for future
 features.
+
+The dependency direction is fixed:
+
+`QWidget -> LinRuntime -> AmbientLinScheduler -> LinBusWorker -> LinTransport`.
+
+Only `main.cpp` knows concrete scheduler and transport types. UI modules must
+not include `ambientlinscheduler.h`. All serial access is Worker-owned; only
+`DebugStore` may contain a mutex, and its values are observability-only.

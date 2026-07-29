@@ -5,24 +5,9 @@
 #include <QString>
 #include <QtGlobal>
 
-#include "lin_types.h"
+#include "lintransport.h"
 
-enum LinIoError
-{
-  ELinIoNoError = 0,
-  ELinIoNotOpen,
-  ELinIoInvalidArgument,
-  ELinIoUnsupportedBaud,
-  ELinIoOpenFailed,
-  ELinIoConfigureFailed,
-  ELinIoWriteFailed,
-  ELinIoReadFailed,
-  ELinIoTimeout,
-  ELinIoEchoMismatch,
-  ELinIoFrameIdMismatch,
-  ELinIoDriverError,
-  ELinIoChecksumError
-};
+class QThread;
 
 /*
  * Low-level LIN/UART transport.
@@ -31,29 +16,29 @@ enum LinIoError
  * LinBusWorker creates and owns it, so the file descriptor has exactly one
  * execution context.
  */
-class AmbientLinComm
+class AmbientLinComm : public LinTransport
 {
 public:
   AmbientLinComm(const QString &deviceName,
                  quint32 baudRate,
                  int ioTimeoutMs);
-  ~AmbientLinComm();
+  ~AmbientLinComm() override;
 
-  bool openDevice();
-  void closeDevice();
-  bool isDeviceReady() const;
+  bool openDevice() override;
+  void closeDevice() override;
+  bool isDeviceReady() const override;
 
   bool sendFrame(quint8 frameId,
                  const QByteArray &payload,
-                 LinChecksumMode checksumMode);
-  bool sendHeader(quint8 frameId);
+                 LinChecksumMode checksumMode) override;
+  bool sendHeader(quint8 frameId) override;
   bool readResponse(quint8 expectedFrameId,
                     int expectedDataLength,
                     LinChecksumMode checksumMode,
-                    QByteArray *payload);
+                    QByteArray *payload) override;
 
-  LinIoError lastError() const;
-  QString lastErrorText() const;
+  LinIoError lastError() const override;
+  QString lastErrorText() const override;
 
 private:
   Q_DISABLE_COPY(AmbientLinComm)
@@ -64,7 +49,9 @@ private:
   int ioDeadlineMs;
   LinIoError currentError;
   QString currentErrorText;
+  QThread *ownerThread;
 
+  void assertOwnerThread() const;
   void setError(LinIoError error, const QString &message);
   quint8 calculateParityPid(quint8 frameId) const;
   quint8 calculateChecksum(quint8 parityPid,
@@ -80,6 +67,14 @@ private:
                        int expectedLength,
                        const QString &operation);
   bool writeAndReadEcho(const QByteArray &data);
+};
+
+class AmbientLinCommFactory : public LinTransportFactory
+{
+public:
+  LinTransport *create(const QString &deviceName,
+                       quint32 baudRate,
+                       int ioTimeoutMs) const override;
 };
 
 #endif // AMBIENTLINCOMM_H

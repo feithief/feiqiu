@@ -1,6 +1,6 @@
 #include "debugpanel.h"
 
-#include "debugstore.h"
+#include "debugsnapshot.h"
 
 #include <QBrush>
 #include <QColor>
@@ -13,10 +13,12 @@
 #include <QTableWidgetItem>
 #include <QTimer>
 
-DebugPanel::DebugPanel(DebugStore *store, QWidget *parent)
+DebugPanel::DebugPanel(DebugSnapshotSource *source, QWidget *parent)
   : QWidget(parent),
-    debugStore(store)
+    debugSource(source)
 {
+  Q_ASSERT(debugSource != 0);
+
   setGeometry(0, 0, 1366, 768);
   setStyleSheet("DebugPanel { background-color: rgba(0, 0, 0, 235); }"
                 "QLabel { color: #0fbacd; font-size: 28px; }"
@@ -92,7 +94,7 @@ void DebugPanel::refreshValues()
   if (debugStore == 0)
     return;
 
-  const QVector<DebugSnapshotItem> values = debugStore->snapshot();
+  const QVector<DebugSnapshotItem> values = debugSource->snapshot();
   for (int row = 0; row < values.size(); ++row)
   {
     const DebugSnapshotItem &value = values[row];

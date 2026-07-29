@@ -52,6 +52,10 @@ HEADERS += \
     application_config.h \
     ambientlincomm.h \
     ambientlinscheduler.h \
+    linruntime.h \
+    lintransport.h \
+    debugsink.h \
+    debugsnapshot.h \
     bcmmasterbutton.h \
     slavebutton.h \
     bcmmasterframe.h \

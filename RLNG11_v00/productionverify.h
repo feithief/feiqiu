@@ -7,7 +7,7 @@
 #include <QSignalMapper>
 #include <QTimer>
 #include "keyboard.h"
-#include "ambientlinscheduler.h"
+#include "linruntime.h"
 
 namespace Ui {
   class ProductionVerify;
@@ -21,7 +21,7 @@ class ProductionVerify : public QWidget
   Q_OBJECT
 
 public:
-  explicit ProductionVerify(AmbientLinScheduler *scheduler,
+  explicit ProductionVerify(LinRuntime *runtime,
                             QWidget *parent = 0);
   ~ProductionVerify();
   void init(void);
@@ -42,7 +42,7 @@ private:
   Ui::ProductionVerify *ui;
 
   QFrame *backgroundframe;
-  AmbientLinScheduler *linScheduler;
+  LinRuntime *linRuntime;
   BCMSignal masterSignals;
   QSignalMapper *nodeMapper;
   QMap<int, QPushButton *> nodeButtons;

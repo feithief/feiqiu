@@ -93,6 +93,9 @@ def copy_seed_project(source: Path, target: Path) -> None:
 
 
 def require_profile(profile: Dict[str, Any], emitter: Any) -> None:
+    # Older reviewed contracts used per-DID settling.  New hosts always wait
+    # once after the complete bulk write before unified read-back.
+    profile.setdefault("bulk_write_readback_delay_ms", 1000)
     required = (
         "source",
         "layout_name",
@@ -113,6 +116,7 @@ def require_profile(profile: Dict[str, Any], emitter: Any) -> None:
         "diagnostic_inter_frame_delay_ms",
         "response_delay_ms",
         "post_write_settle_ms",
+        "bulk_write_readback_delay_ms",
         "maximum_diagnostic_queue_depth",
     )
     missing = [name for name in required if name not in profile]

@@ -196,6 +196,164 @@ def validate(project_root: Path) -> None:
                 )
             )
 
+    architecture_files = {
+        "linruntime.h": ("linruntime.h",),
+        "lintransport.h": ("lintransport.h",),
+        "debugsink.h": ("debugsink.h",),
+        "debugsnapshot.h": ("debugsnapshot.h",),
+        "debugstore.h": ("debugstore.h",),
+        "ambientlinscheduler.h": ("ambientlinscheduler.h",),
+        "ambientlinscheduler.cpp": (
+            "ambientlinscheduler.cc",
+            "ambientlinscheduler.cpp",
+            "ambientlinscheduler.cpp.txt",
+        ),
+        "linbusworker.h": ("linbusworker.h",),
+        "linbusworker.cpp": (
+            "linbusworker.cc",
+            "linbusworker.cpp",
+            "linbusworker.cpp.txt",
+        ),
+        "ambientlincomm.h": ("ambientlincomm.h",),
+        "ambientlincomm.cpp": (
+            "ambientlincomm.cc",
+            "ambientlincomm.cpp",
+            "ambientlincomm.cpp.txt",
+        ),
+        "main.cpp": ("main.cc", "main.cpp", "main.cpp.txt"),
+        "ARCHITECTURE.md": ("ARCHITECTURE.md", "ARCHITECTURE.md.txt"),
+    }
+    architecture_texts: Dict[str, str] = {}
+    for name, candidates in architecture_files.items():
+        failures: List[str] = []
+        for candidate in candidates:
+            path = project_root / candidate
+            if not path.is_file():
+                continue
+            try:
+                architecture_texts[name] = read_text(path)
+                break
+            except ValidationError as exc:
+                failures.append(str(exc))
+        if name not in architecture_texts:
+            errors.append(
+                "missing readable modular architecture file: {0}{1}".format(
+                    name,
+                    ("; " + "; ".join(failures)) if failures else "",
+                )
+            )
+
+    require_marker(
+        errors,
+        architecture_texts.get("ambientlinscheduler.h"),
+        "public LinRuntime",
+        "runtime facade must implement the stable LinRuntime UI boundary",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("ambientlinscheduler.cpp"),
+        "Qt::QueuedConnection",
+        "GUI-to-worker commands must use queued value delivery",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("ambientlinscheduler.cpp"),
+        "assertFacadeThread()",
+        "runtime facade must assert GUI-thread ownership",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("linbusworker.cpp"),
+        "assertWorkerThread()",
+        "LIN worker must assert its single-thread execution context",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("linbusworker.cpp"),
+        "DebugDiagnosticQueueDepth",
+        "diagnostic queue depth must be visible in F12 debug data",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("linbusworker.h"),
+        "LinTransport *comm",
+        "worker must depend on the replaceable LinTransport port",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("ambientlincomm.cpp"),
+        "assertOwnerThread()",
+        "LIN file descriptor must enforce worker-thread ownership",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("main.cpp"),
+        "AmbientLinCommFactory transportFactory",
+        "main.cpp must remain the concrete transport composition root",
+    )
+    require_marker(
+        errors,
+        architecture_texts.get("debugstore.h"),
+        "public DebugSink, public DebugSnapshotSource",
+        "DebugStore must implement separate write and read observability ports",
+    )
+
+    debug_panel_header = project_root / "debugpanel.h"
+    if not debug_panel_header.is_file():
+        errors.append("missing debugpanel.h")
+    else:
+        debug_panel_text = read_text(debug_panel_header)
+        if "DebugSnapshotSource" not in debug_panel_text:
+            errors.append("F12 panel must depend on read-only DebugSnapshotSource")
+
+    for ui_header in (
+        "mainwindow.h",
+        "bcmmasterframe.h",
+        "productionverify.h",
+        "slaveframeconfig.h",
+    ):
+        path = project_root / ui_header
+        if not path.is_file():
+            errors.append("missing UI boundary header: " + ui_header)
+            continue
+        text = read_text(path)
+        if "AmbientLinScheduler" in text or "ambientlinscheduler.h" in text:
+            errors.append(
+                "{0}: UI feature depends on concrete scheduler".format(ui_header)
+            )
+        if "LinRuntime" not in text:
+            errors.append(
+                "{0}: UI feature is not injected through LinRuntime".format(
+                    ui_header
+                )
+            )
+        if ui_header == "mainwindow.h" and "DebugStore" in text:
+            errors.append(
+                "mainwindow.h: UI must use debug ports, not concrete DebugStore"
+            )
+
+    scheduler_text = (
+        architecture_texts.get("ambientlinscheduler.h", "")
+        + architecture_texts.get("ambientlinscheduler.cpp", "")
+    )
+    if "QMutex" in scheduler_text or "QMutexLocker" in scheduler_text:
+        errors.append("runtime facade must not share mutable state through a mutex")
+
+    mutex_candidates: List[tuple[str, str]] = []
+    for path in project_root.glob("*.h"):
+        mutex_candidates.append((path.name, read_text(path)))
+    mutex_candidates.extend(source_texts.items())
+    for relative, text in mutex_candidates:
+        path = Path(relative)
+        if path.stem.lower() == "debugstore":
+            continue
+        if "QMutex" in text or "QMutexLocker" in text:
+            errors.append(
+                "{0}: only DebugStore may own a cross-thread mutex".format(
+                    relative
+                )
+            )
+
     report = load_report(project_root)
     generated = report.get("generated_profile", {})
     if not isinstance(generated, dict):
@@ -216,6 +374,24 @@ def validate(project_root: Path) -> None:
         else []
     )
     service_count = len(services) if isinstance(services, list) else 0
+    bulk_write = (
+        diagnostics.get("bulk_write", [])
+        if isinstance(diagnostics, dict)
+        else []
+    )
+    signal_presets = generated.get("signal_presets", [])
+    signal_preset_count = (
+        len(signal_presets) if isinstance(signal_presets, list) else 0
+    )
+
+    if signal_preset_count > 30:
+        linlayout = find_source(source_texts, "linlayout")
+        require_marker(
+            errors,
+            linlayout,
+            "(layout.signalPresetCount > 512)",
+            "runtime layout validator still rejects paged preset tables above 30",
+        )
 
     if node_count > 0 and diagnostic_model != "none":
         mainwindow = find_source(source_texts, "mainwindow")
@@ -270,6 +446,57 @@ def validate(project_root: Path) -> None:
         ):
             errors.append(
                 "diagnostic page still hides itself when proprietary DID services are absent"
+            )
+
+        if isinstance(bulk_write, list) and bulk_write:
+            readback_delay = generated.get("bulk_write_readback_delay_ms")
+            if (
+                not isinstance(readback_delay, int)
+                or isinstance(readback_delay, bool)
+                or readback_delay < 0
+                or readback_delay > 10000
+            ):
+                errors.append(
+                    "bulk-write read-back delay is missing or outside 0..10000 ms"
+                )
+            worker = find_source(source_texts, "linbusworker")
+            require_marker(
+                errors,
+                worker,
+                "EWriteTaskPhaseWaitForFlash",
+                "bulk writes must have a separate flash-wait phase",
+            )
+            require_marker(
+                errors,
+                worker,
+                "QTimer::singleShot(linLayout->bulkWriteReadBackDelayMs",
+                "bulk flash wait must use the configured non-blocking timer",
+            )
+            require_marker(
+                errors,
+                worker,
+                "Read-back %1 failed after flash wait",
+                "bulk writes must perform one unified read-back pass after flash wait",
+            )
+            if worker:
+                write_service = re.search(
+                    r"bool\s+LinBusWorker::writeServiceValue\s*\("
+                    r"[\s\S]*?(?=\nSlaveConfigInfo\s+LinBusWorker::)",
+                    worker,
+                )
+                if (
+                    write_service
+                    and "readServiceValue(" in write_service.group(0)
+                ):
+                    errors.append(
+                        "writeServiceValue still performs speculative per-DID read-back"
+                    )
+            debugstore = find_source(source_texts, "debugstore")
+            require_marker(
+                errors,
+                debugstore,
+                '"Diagnostic.LastError"',
+                "dedicated diagnostic error must not be overwritten by normal I/O",
             )
 
     if errors:

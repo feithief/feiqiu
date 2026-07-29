@@ -168,6 +168,89 @@ def validate(contract: Dict[str, object], source_root: Path) -> None:
             diagnostics.get("evidence"),
             "protocol_contract.diagnostics.evidence",
         )
+        readback_delay = diagnostics.get("bulk_write_readback_delay_ms")
+        if (
+            not isinstance(readback_delay, int)
+            or isinstance(readback_delay, bool)
+            or readback_delay < 0
+            or readback_delay > 10000
+        ):
+            errors.append(
+                "protocol_contract.diagnostics."
+                "bulk_write_readback_delay_ms must be 0..10000"
+            )
+        security = diagnostics.get("security")
+        if isinstance(security, dict):
+            key_length = security.get("key_length")
+            if (
+                not isinstance(key_length, int)
+                or isinstance(key_length, bool)
+                or key_length < 1
+                or key_length > 4
+            ):
+                errors.append(
+                    "protocol_contract.diagnostics.security.key_length "
+                    "must be 1..4"
+                )
+            if security.get("seed_byte_order") not in (
+                "little_endian_u32",
+                "big_endian_u32",
+            ):
+                errors.append(
+                    "protocol_contract.diagnostics.security.seed_byte_order "
+                    "is unresolved"
+                )
+
+    host_profile = contract.get("host_profile")
+    if isinstance(host_profile, dict):
+        host_diagnostics = host_profile.get("diagnostics")
+        if isinstance(host_diagnostics, dict):
+            host_security = host_diagnostics.get("security")
+            if isinstance(host_security, dict) and host_security.get("enabled") is True:
+                host_key_length = host_security.get("key_length")
+                if (
+                    not isinstance(host_key_length, int)
+                    or isinstance(host_key_length, bool)
+                    or host_key_length < 1
+                    or host_key_length > 4
+                ):
+                    errors.append(
+                        "host_profile.diagnostics.security.key_length "
+                        "must be 1..4"
+                    )
+                protocol_security = diagnostics.get("security") if isinstance(
+                    diagnostics, dict
+                ) else None
+                if (
+                    isinstance(protocol_security, dict)
+                    and host_key_length != protocol_security.get("key_length")
+                ):
+                    errors.append(
+                        "host/profile SecurityAccess key lengths do not match"
+                    )
+            host_readback_delay = host_profile.get(
+                "bulk_write_readback_delay_ms"
+            )
+            protocol_readback_delay = diagnostics.get(
+                "bulk_write_readback_delay_ms"
+            ) if isinstance(diagnostics, dict) else None
+            if (
+                not isinstance(host_readback_delay, int)
+                or isinstance(host_readback_delay, bool)
+                or host_readback_delay < 0
+                or host_readback_delay > 10000
+            ):
+                errors.append(
+                    "host_profile.bulk_write_readback_delay_ms "
+                    "must be 0..10000"
+                )
+            elif (
+                isinstance(protocol_readback_delay, int)
+                and host_readback_delay != protocol_readback_delay
+            ):
+                errors.append(
+                    "host/profile bulk-write read-back delays do not match"
+                )
 
     if errors:
         raise ContractError("\n- ".join(["contract validation failed"] + errors))

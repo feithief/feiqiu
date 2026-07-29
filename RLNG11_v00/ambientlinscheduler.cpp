@@ -1,24 +1,26 @@
 #include "ambientlinscheduler.h"
 
-#include "debugstore.h"
+#include "debugsink.h"
 #include "linbusworker.h"
 #include "linlayout.h"
 
-#include <QMutexLocker>
 #include <QThread>
 #include <QTimer>
 #include <QVariant>
 
 AmbientLinScheduler::AmbientLinScheduler(const LinLayout &layout,
-                                         DebugStore *debugStore,
+                                         const LinTransportFactory *factory,
+                                         DebugSink *debugSink,
                                          QObject *parent)
-  : QObject(parent),
+  : LinRuntime(parent),
     linLayout(&layout),
-    debug(debugStore),
+    transportFactory(factory),
+    debug(debugSink),
     workerThread(new QThread(this)),
     worker(0),
     controlCoalesceTimer(new QTimer(this)),
     startedOnce(false),
+    workerReady(false),
     validLayout(false),
     desiredControlSignal(),
     requestSequence(0)
@@ -36,6 +38,11 @@ AmbientLinScheduler::AmbientLinScheduler(const LinLayout &layout,
 
   QStringList errors;
   validLayout = validateLinLayout(layout, &errors);
+  if (transportFactory == 0)
+  {
+    errors.append(QString("LIN transport factory is null"));
+    validLayout = false;
+  }
   if (validLayout)
     desiredControlSignal = createDefaultBCMSignal(layout);
   else
@@ -64,9 +71,13 @@ AmbientLinScheduler::~AmbientLinScheduler()
 
 void AmbientLinScheduler::createWorker()
 {
+  assertFacadeThread();
   Q_ASSERT(worker.isNull());
 
-  worker = new LinBusWorker(linLayout, desiredControlSignal, debug);
+  worker = new LinBusWorker(linLayout,
+                            desiredControlSignal,
+                            transportFactory,
+                            debug);
   worker->moveToThread(workerThread);
 
   connect(workerThread, &QThread::started,
@@ -95,18 +106,19 @@ void AmbientLinScheduler::createWorker()
           worker.data(), &LinBusWorker::setBusEnabled, Qt::QueuedConnection);
 
   connect(worker.data(), &LinBusWorker::slaveStatusChanged,
-          this, &AmbientLinScheduler::SlaveStatusChanged, Qt::QueuedConnection);
+          this, &LinRuntime::SlaveStatusChanged, Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::nodeConfigurationRead,
-          this, &AmbientLinScheduler::nodeConfigurationRead,
+          this, &LinRuntime::nodeConfigurationRead,
           Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::nodeConfigurationWritten,
-          this, &AmbientLinScheduler::nodeConfigurationWritten,
+          this, &LinRuntime::nodeConfigurationWritten,
           Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::calibrationFinished,
-          this, &AmbientLinScheduler::calibrationFinished,
+          this, &LinRuntime::calibrationFinished,
           Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::busStateChanged,
-          this, &AmbientLinScheduler::busStateChanged, Qt::QueuedConnection);
+          this, &AmbientLinScheduler::handleWorkerBusStateChanged,
+          Qt::QueuedConnection);
 
   /* quit() is thread-safe; direct connection also works while GUI waits. */
   connect(worker.data(), &LinBusWorker::stopped,
@@ -117,7 +129,7 @@ void AmbientLinScheduler::createWorker()
 
 void AmbientLinScheduler::start()
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   if (workerThread->isRunning())
     return;
@@ -134,6 +146,7 @@ void AmbientLinScheduler::start()
   }
 
   startedOnce = true;
+  workerReady = false;
 
   if (debug != 0)
     debug->setValue(DebugSchedulerState, QString("Starting"));
@@ -144,7 +157,8 @@ void AmbientLinScheduler::start()
 
 bool AmbientLinScheduler::stop(unsigned long timeoutMs)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
+  workerReady = false;
 
   if (!workerThread->isRunning())
     return true;
@@ -166,32 +180,38 @@ bool AmbientLinScheduler::stop(unsigned long timeoutMs)
 
 bool AmbientLinScheduler::isRunning() const
 {
+  assertFacadeThread();
   return workerThread->isRunning();
+}
+
+bool AmbientLinScheduler::isReady() const
+{
+  assertFacadeThread();
+  return workerReady && workerThread->isRunning();
 }
 
 const LinLayout &AmbientLinScheduler::layout() const
 {
+  assertFacadeThread();
   return *linLayout;
 }
 
 bool AmbientLinScheduler::isLayoutValid() const
 {
+  assertFacadeThread();
   return validLayout;
 }
 
 QString AmbientLinScheduler::layoutErrorText() const
 {
+  assertFacadeThread();
   return validationError;
 }
 
 void AmbientLinScheduler::setBCMSignal(const BCMSignal &signal)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
-
-  {
-    QMutexLocker locker(&controlMutex);
-    desiredControlSignal = signal;
-  }
+  assertFacadeThread();
+  desiredControlSignal = signal;
 
   /* UI sliders may emit rapidly; only the latest value is sent every 20 ms. */
   if (!controlCoalesceTimer->isActive())
@@ -200,25 +220,22 @@ void AmbientLinScheduler::setBCMSignal(const BCMSignal &signal)
 
 void AmbientLinScheduler::switchBCMSignal(const BCMSignal &signal)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   controlCoalesceTimer->stop();
-  {
-    QMutexLocker locker(&controlMutex);
-    desiredControlSignal = signal;
-  }
+  desiredControlSignal = signal;
   emit switchControlSignalRequested(signal);
 }
 
 BCMSignal AmbientLinScheduler::getBCMSignal() const
 {
-  QMutexLocker locker(&controlMutex);
+  assertFacadeThread();
   return desiredControlSignal;
 }
 
 void AmbientLinScheduler::applySignalPreset(int presetIndex)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   if (!validLayout || (linLayout == 0) ||
       (presetIndex < 0) || (presetIndex >= linLayout->signalPresetCount))
@@ -232,12 +249,13 @@ void AmbientLinScheduler::applySignalPreset(int presetIndex)
 
 void AmbientLinScheduler::flushControlSignal()
 {
-  emit controlSignalRequested(getBCMSignal());
+  assertFacadeThread();
+  emit controlSignalRequested(desiredControlSignal);
 }
 
 quint32 AmbientLinScheduler::nextRequestId()
 {
-  QMutexLocker locker(&controlMutex);
+  assertFacadeThread();
   ++requestSequence;
   if (requestSequence == 0)
     ++requestSequence;
@@ -246,17 +264,19 @@ quint32 AmbientLinScheduler::nextRequestId()
 
 bool AmbientLinScheduler::canSubmitDiagnosticRequest() const
 {
+  assertFacadeThread();
   return validLayout &&
          (linLayout != 0) &&
          (linLayout->diagnosticModel == ELinDiagnosticModelCustomDid) &&
          (linLayout->serviceCount > 0) &&
+         workerReady &&
          workerThread->isRunning() &&
          !worker.isNull();
 }
 
 quint32 AmbientLinScheduler::readNodeConfiguration(quint8 node)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   if (!canSubmitDiagnosticRequest())
   {
@@ -273,7 +293,7 @@ quint32 AmbientLinScheduler::readNodeConfiguration(quint8 node)
 
 quint32 AmbientLinScheduler::writeNodeConfiguration(const SlaveConfigInfo &info)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   if (!canSubmitDiagnosticRequest())
   {
@@ -290,7 +310,7 @@ quint32 AmbientLinScheduler::writeNodeConfiguration(const SlaveConfigInfo &info)
 
 quint32 AmbientLinScheduler::calibrateNode(quint8 node, quint8 mode)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
 
   if (!canSubmitDiagnosticRequest())
   {
@@ -307,7 +327,7 @@ quint32 AmbientLinScheduler::calibrateNode(quint8 node, quint8 mode)
 
 void AmbientLinScheduler::cancel(quint32 requestId)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
   emit cancelRequested(requestId);
 }
 
@@ -315,24 +335,41 @@ void AmbientLinScheduler::setReservedDebugValue(int reservedIndex,
                                                 const QString &name,
                                                 const QVariant &value)
 {
+  assertFacadeThread();
   if (debug != 0)
     debug->setReserved(reservedIndex, name, value);
 }
 
 void AmbientLinScheduler::sleepBus()
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
   emit sleepRequested();
 }
 
 void AmbientLinScheduler::wakeBus()
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
   emit wakeRequested();
 }
 
 void AmbientLinScheduler::setBusEnabled(bool enabled)
 {
-  Q_ASSERT(QThread::currentThread() == thread());
+  assertFacadeThread();
   emit busEnabledRequested(enabled);
+}
+
+void AmbientLinScheduler::handleWorkerBusStateChanged(bool ready,
+                                                      QString message)
+{
+  assertFacadeThread();
+  workerReady = ready;
+  if (debug != 0)
+    debug->setValue(DebugSchedulerState,
+                    ready ? QString("Ready") : QString("Not ready"));
+  emit busStateChanged(ready, message);
+}
+
+void AmbientLinScheduler::assertFacadeThread() const
+{
+  Q_ASSERT(QThread::currentThread() == thread());
 }

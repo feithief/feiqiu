@@ -5,10 +5,12 @@ description: Create a new independent Qt LIN upper-computer from the mother Seed
 
 # Generate Qt LDF Host
 
-Generate from the current mother Seed. Keep its UI, scheduler, single LIN worker
-thread, queued synchronization, diagnostics, debug panel, and generated
-`LinLayout` architecture. Keep LDF-specific facts in JSON overlays and generated
-files.
+Generate from the current mother Seed. Keep its injected `LinRuntime` UI
+boundary, scheduler facade, single LIN worker thread, replaceable
+`LinTransport`, write-only `DebugSink`, read-only `DebugSnapshotSource`,
+queued value synchronization,
+diagnostics, debug panel, and generated `LinLayout` architecture. Keep
+LDF-specific facts in JSON overlays and generated files.
 
 ## Inputs
 
@@ -80,6 +82,13 @@ files.
 - Never copy `.pro.user`, build directories, version-control data, caches, or
   temporary files.
 - Keep device I/O in `LinBusWorker`; UI-to-worker calls remain queued.
+- Keep concrete construction in `main.cpp`. UI feature modules may depend only
+  on `LinRuntime`, never `AmbientLinScheduler` or the transport.
+- Keep the serial descriptor in one `LinTransport` created, used, and destroyed
+  by the Worker thread. Preserve facade, Worker, and transport thread assertions.
+- Do not add a business-state mutex. Only `DebugStore` may use `QMutex`, and
+  debug values must never control runtime behaviour.
+- Preserve F12 GUI/LIN thread IDs, diagnostic queue depth, and active request ID.
 - Reject missing signals, duplicate names, out-of-range values, and assignments
   outside the primary control frame.
 - Support up to 512 preset combinations with 30 buttons per page. Do not add
