@@ -760,7 +760,7 @@ void LinBusWorker::processTaskStep()
       if (!writeServiceValue(activeTask.node, *service, value))
       {
         finishActiveTask(false,
-                         QString("Write %1 failed: %2")
+                         QString::fromUtf8("写入 %1 失败：%2")
                          .arg(QString::fromLatin1(service->name))
                          .arg(transactionErrorText()));
         return;
@@ -1845,7 +1845,37 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
          (service.serviceId & 0xFF));
       if (!validResponse)
       {
-        protocolError = QString("Unexpected positive write response");
+        if ((response.size() == 8) &&
+            (static_cast<quint8>(response.at(2)) == 0x7F) &&
+            (static_cast<quint8>(response.at(3)) == 0x2E))
+        {
+          protocolError =
+            QString::fromUtf8(
+              "从机拒绝写入 DID 0x%1：NRC=0x%2，原始应答=[%3]")
+            .arg(static_cast<int>(service.serviceId),
+                 4, 16, QChar('0'))
+            .arg(static_cast<int>(
+                   static_cast<quint8>(response.at(4))),
+                 2, 16, QChar('0'))
+            .arg(toHexText(response))
+            .toUpper();
+        }
+        else
+        {
+          protocolError =
+            QString::fromUtf8(
+              "写入 DID 0x%1 的应答不匹配：标准应答应包含 "
+              "[%2 03 6E %3 %4]，实际=[%5]")
+            .arg(static_cast<int>(service.serviceId),
+                 4, 16, QChar('0'))
+            .arg(static_cast<int>(requestNad), 2, 16, QChar('0'))
+            .arg(static_cast<int>((service.serviceId >> 8) & 0xFF),
+                 2, 16, QChar('0'))
+            .arg(static_cast<int>(service.serviceId & 0xFF),
+                 2, 16, QChar('0'))
+            .arg(toHexText(response))
+            .toUpper();
+        }
         writeComplete = false;
       }
     }

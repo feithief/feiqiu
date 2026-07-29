@@ -1,0 +1,34 @@
+{
+  "signal_presets": {
+    "group_name": "RGB快捷颜色",
+    "items": [
+      {
+        "name": "红色",
+        "values": {
+          "CDCU_SigEnable_ColorProtocol_CLIN1": 1,
+          "CDCU_SigColorR_Predef_CLIN1": 255,
+          "CDCU_SigColorG_CLIN1": 0,
+          "CDCU_SigColorB_CLIN1": 0
+        }
+      },
+      {
+        "name": "绿色",
+        "values": {
+          "CDCU_SigEnable_ColorProtocol_CLIN1": 1,
+          "CDCU_SigColorR_Predef_CLIN1": 0,
+          "CDCU_SigColorG_CLIN1": 255,
+          "CDCU_SigColorB_CLIN1": 0
+        }
+      },
+      {
+        "name": "蓝色",
+        "values": {
+          "CDCU_SigEnable_ColorProtocol_CLIN1": 1,
+          "CDCU_SigColorR_Predef_CLIN1": 0,
+          "CDCU_SigColorG_CLIN1": 0,
+          "CDCU_SigColorB_CLIN1": 255
+        }
+      }
+    ]
+  }
+}

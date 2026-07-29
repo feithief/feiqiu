@@ -1,0 +1,4 @@
+interface:
+  display_name: "解析 LIN 从机协议契约"
+  short_description: "直接从从机 C 代码提取并校验 NAD、信号帧及诊断映射"
+  default_prompt: "使用 $analyze-lin-slave-contract 读取从机 C 工程，生成并验证母 Seed 所需的地址与协议契约。"

@@ -399,6 +399,34 @@ def validate(project_root: Path) -> None:
         if isinstance(diagnostics, dict)
         else []
     )
+    write_completion_policy = (
+        diagnostics.get("write_completion_policy", "positive_response")
+        if isinstance(diagnostics, dict)
+        else "positive_response"
+    )
+    if write_completion_policy not in (
+        "positive_response",
+        "send_only_then_delayed_0x22_readback",
+    ):
+        errors.append("unsupported diagnostic write-completion policy")
+    if (
+        write_completion_policy
+        == "send_only_then_delayed_0x22_readback"
+    ):
+        for index, service in enumerate(services):
+            if (
+                isinstance(service, dict)
+                and service.get("writable") is True
+                and service.get("expect_positive_write_response") is not False
+            ):
+                errors.append(
+                    "service {0} waits for 0x6E under send-only 0x2E policy"
+                    .format(index)
+                )
+        if generated.get("bulk_write_readback_delay_ms", 0) <= 0:
+            errors.append(
+                "send-only 0x2E policy requires delayed 0x22 read-back"
+            )
     signal_presets = generated.get("signal_presets", [])
     signal_preset_count = (
         len(signal_presets) if isinstance(signal_presets, list) else 0

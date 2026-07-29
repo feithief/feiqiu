@@ -310,7 +310,7 @@ void SlaveFrameConfig::changeConfigs()
 
   if (writeRequestId != 0)
   {
-    ui->pushButtonAccept->setText("Writing...");
+    ui->pushButtonAccept->setText(QString::fromUtf8("正在写入..."));
     return;
   }
 
@@ -354,17 +354,17 @@ void SlaveFrameConfig::changeConfigs()
    * OK.  The Apply button itself must still acknowledge the click immediately.
    */
   dialog->hide();
-  ui->pushButtonAccept->setText("Writing...");
+  ui->pushButtonAccept->setText(QString::fromUtf8("正在写入..."));
   ui->pushButtonAccept->setToolTip(
-    "Writing all values, waiting 1 second for flash, then reading them back.");
+    QString::fromUtf8("先写完全部参数，等待 Flash 1 秒，再用 0x22 统一回读校验。"));
   ui->pushButtonAccept->setEnabled(false);
   writeRequestId = linRuntime->writeNodeConfiguration(info);
   if (writeRequestId == 0)
   {
     ui->pushButtonAccept->setEnabled(true);
-    ui->pushButtonAccept->setText("Failed - F12");
+    ui->pushButtonAccept->setText(QString::fromUtf8("失败 - 按F12"));
     ui->pushButtonAccept->setToolTip(
-      "The diagnostic request was not queued. Open Debug F12 for details.");
+      QString::fromUtf8("诊断请求未进入队列，请按 F12 查看具体原因。"));
   }
 }
 
@@ -417,10 +417,10 @@ void SlaveFrameConfig::handleWriteResult(quint32 requestId,
   }
   else
   {
-    ui->pushButtonAccept->setText("Failed - F12");
+    ui->pushButtonAccept->setText(QString::fromUtf8("失败 - 按F12"));
     ui->pushButtonAccept->setToolTip(
       errorMessage.isEmpty()
-      ? QString("Configuration write failed. Open Debug F12 for details.")
+      ? QString::fromUtf8("配置写入或 0x22 回读校验失败，请按 F12 查看具体原因。")
       : errorMessage);
     dialog->hide();
   }
