@@ -7,10 +7,16 @@
 #include "ui_slavenodeframe.h"
 
 #include <QApplication>
+#include <QAbstractItemView>
+#include <QColor>
 #include <QEvent>
 #include <QFrame>
+#include <QHeaderView>
 #include <QLabel>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <QTimer>
+#include <QStringList>
 
 namespace {
 
@@ -38,10 +44,23 @@ static const QString kButtonDisabledStyle = "QPushButton{"
                                             "background:rgba(29,165,219,0.1);"
                                             "}";
 
-static const QString kRawStatusStyle = "QLabel{"
-                                       "font-size:22px;"
-                                       "color:rgb(255,251,240);"
-                                       "}";
+static QString compactStatusName(const QString &fullName)
+{
+  QString name = fullName.trimmed();
+  const QStringList removablePrefixes = QStringList()
+    << "CDCU_Sig" << "CDCU_" << "Sig";
+  for (int index = 0; index < removablePrefixes.size(); ++index)
+  {
+    if (name.startsWith(removablePrefixes[index], Qt::CaseInsensitive))
+    {
+      name.remove(0, removablePrefixes[index].size());
+      break;
+    }
+  }
+  while (name.startsWith('_'))
+    name.remove(0, 1);
+  return (name.size() <= 14) ? name : name.left(13) + QString("~");
+}
 
 } // namespace
 
@@ -104,6 +123,28 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
   connect(feedbackWatchdog, SIGNAL(timeout()),
           this, SLOT(handleFeedbackTimeout()));
 
+  ui->statusTable->setColumnCount(2);
+  ui->statusTable->horizontalHeader()->hide();
+  ui->statusTable->verticalHeader()->hide();
+  ui->statusTable->setShowGrid(false);
+  ui->statusTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui->statusTable->setSelectionMode(QAbstractItemView::NoSelection);
+  ui->statusTable->setFocusPolicy(Qt::NoFocus);
+  ui->statusTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  ui->statusTable->setColumnWidth(0, 142);
+  ui->statusTable->setColumnWidth(1, 70);
+  ui->statusTable->setStyleSheet(
+    "QTableWidget{border:0px;background:transparent;"
+    "color:rgb(255,251,240);font-size:18px;}"
+    "QTableWidget::item{border:0px;padding:1px;background:transparent;}"
+    "QScrollBar:vertical{width:7px;background:transparent;}"
+    "QScrollBar::handle:vertical{background:#0fbacd;border-radius:3px;}");
+
+  ui->pushButtonLock->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  ui->pushButtonUnlock->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  ui->pushButtonLock->setFocusPolicy(Qt::NoFocus);
+  ui->pushButtonUnlock->setFocusPolicy(Qt::NoFocus);
+
   connect(ui->pushButtonCancel, SIGNAL(clicked()),
           this, SLOT(exitSlaveConfig()));
   connect(ui->pushButtonNoCalibrate, SIGNAL(clicked()),
@@ -116,9 +157,9 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
           this, SLOT(buttonCalibrateB()));
   connect(ui->pushButtonAccept, SIGNAL(clicked()),
           this, SLOT(changeConfigs()));
-  connect(ui->pushButtonLock, SIGNAL(clicked()),
+  connect(ui->pushButtonLockAction, SIGNAL(clicked()),
           this, SLOT(requestLock()));
-  connect(ui->pushButtonUnlock, SIGNAL(clicked()),
+  connect(ui->pushButtonUnlockAction, SIGNAL(clicked()),
           this, SLOT(requestUnlock()));
   connect(ui->spinBoxSA, SIGNAL(valueChanged(int)),
           this, SLOT(singleAddressChanged(int)));
@@ -265,26 +306,42 @@ void SlaveFrameConfig::updateNodeState(SlaveStatus status)
     return;
 
   feedbackWatchdog->start();
-  QLabel *values[6] = {
-    ui->ROutput_Err, ui->GOutput_Err, ui->BOutput_Err,
-    ui->Temp_Err, ui->Voltage_Err, ui->Lin_Err
-  };
   if (statusUsesRawFrame)
   {
     const QByteArray rawText = status.rawFrame.toHex(' ').toUpper();
-    values[0]->setText(
-      rawText.isEmpty() ? QString("--") : QString::fromLatin1(rawText));
-    values[0]->setToolTip(values[0]->text());
+    if (ui->statusTable->rowCount() > 0)
+    {
+      const QString text = rawText.isEmpty()
+                           ? QString("--")
+                           : QString::fromLatin1(rawText);
+      ui->statusTable->item(0, 1)->setText(text);
+      ui->statusTable->item(0, 1)->setToolTip(text);
+    }
     return;
   }
 
-  for (int index = 0; index < 6; ++index)
+  const LinLayout &profile = linRuntime->layout();
+  const LinNodeLayout *node = findLinNode(
+    profile, static_cast<quint8>(currentNode));
+  if ((node == 0) || (node->statusLayoutIndex < 0) ||
+      (node->statusLayoutIndex >= profile.statusLayoutCount))
+    return;
+
+  const LinStatusLayout &layout =
+    profile.statusLayouts[node->statusLayoutIndex];
+  const int fieldCount = qMin(qMin(layout.fieldCount,
+                                  status.rawFieldCount),
+                              LinMaximumStatusFields);
+  for (int index = 0; index < fieldCount; ++index)
   {
-    if (values[index]->isHidden() || !status.rawValueValid[index])
+    if (!status.rawFieldValueValid[index] ||
+        (index >= ui->statusTable->rowCount()))
       continue;
-    values[index]->setText(
-      QString("0x%1").arg(status.rawValues[index], 0, 16).toUpper());
-    values[index]->setStyleSheet(kRawStatusStyle);
+    const int digits = qMax(1, (layout.fields[index].bitLength + 3) / 4);
+    ui->statusTable->item(index, 1)->setText(
+      QString("0x%1")
+      .arg(status.rawFieldValues[index], digits, 16, QChar('0'))
+      .toUpper());
   }
 }
 
@@ -493,7 +550,6 @@ void SlaveFrameConfig::handleLockStateResult(quint32 requestId,
                                              bool success,
                                              QString errorMessage)
 {
-  Q_UNUSED(errorMessage);
   if ((node != currentNode) ||
       ((requestId != lockRequestId) && (requestId != unlockRequestId)))
     return;
@@ -501,7 +557,7 @@ void SlaveFrameConfig::handleLockStateResult(quint32 requestId,
   lockRequestId = 0;
   unlockRequestId = 0;
   setLockButtonsBusy(false);
-  if (success)
+  if (success || errorMessage.contains("verification failed: DID 0002"))
     showLockState(locked);
 }
 
@@ -619,6 +675,12 @@ void SlaveFrameConfig::resetForm()
   ui->doubleSpinBoxBX->setValue(0);
   ui->doubleSpinBoxBY->setValue(0);
   ui->doubleSpinBoxBL->setValue(0);
+  ui->statusTable->clearContents();
+  ui->statusTable->setRowCount(0);
+  ui->pushButtonLock->setText("Locked");
+  ui->pushButtonUnlock->setText("Unlocked");
+  ui->pushButtonLock->setStyleSheet(kButtonDisabledStyle);
+  ui->pushButtonUnlock->setStyleSheet(kButtonDisabledStyle);
 }
 
 void SlaveFrameConfig::configureStatusRows(const LinNodeLayout &node)
@@ -641,6 +703,8 @@ void SlaveFrameConfig::configureStatusRows(const LinNodeLayout &node)
     values[index]->setToolTip(QString());
   }
   statusUsesRawFrame = false;
+  ui->statusTable->clearContents();
+  ui->statusTable->setRowCount(0);
 
   const LinLayout &profile = linRuntime->layout();
   if ((node.statusLayoutIndex < 0) ||
@@ -648,51 +712,49 @@ void SlaveFrameConfig::configureStatusRows(const LinNodeLayout &node)
       (profile.statusLayouts == 0))
   {
     statusUsesRawFrame = true;
-    titles[0]->setText("RAW");
-    values[0]->setText("--");
-    titles[0]->show();
-    values[0]->show();
+    ui->statusTable->setRowCount(1);
+    QTableWidgetItem *nameItem = new QTableWidgetItem("RAW");
+    QTableWidgetItem *valueItem = new QTableWidgetItem("--");
+    nameItem->setForeground(QColor(255, 153, 0));
+    valueItem->setForeground(QColor(255, 251, 240));
+    ui->statusTable->setItem(0, 0, nameItem);
+    ui->statusTable->setItem(0, 1, valueItem);
     return;
   }
 
   const LinStatusLayout &statusLayout =
     profile.statusLayouts[node.statusLayoutIndex];
-  bool configured[6] = {false, false, false, false, false, false};
-  int row = 0;
-  for (int index = 0; index < statusLayout.fieldCount; ++index)
+  const int rowCount = qMin(statusLayout.fieldCount,
+                            LinMaximumStatusFields);
+  ui->statusTable->setRowCount(rowCount);
+  for (int index = 0; index < rowCount; ++index)
   {
     const LinStatusFieldLayout &field = statusLayout.fields[index];
-    const int logicalIndex = static_cast<int>(field.field);
-    if ((logicalIndex < 0) || (logicalIndex >= 6) ||
-        configured[logicalIndex])
-      continue;
-
     const QString fullName = QString::fromLatin1(field.name);
-    const QString shortName = (fullName.size() <= 12)
-                              ? fullName
-                              : fullName.left(11) + QString("~");
-    const int rowY = 140 + (row * 40);
-    titles[logicalIndex]->setGeometry(70, rowY, 125, 42);
-    values[logicalIndex]->setGeometry(205, rowY, 80, 42);
-    titles[logicalIndex]->setText(shortName);
-    titles[logicalIndex]->setToolTip(fullName);
-    values[logicalIndex]->setText("--");
-    values[logicalIndex]->setStyleSheet(kRawStatusStyle);
-    titles[logicalIndex]->show();
-    values[logicalIndex]->show();
-    configured[logicalIndex] = true;
-    ++row;
+    QTableWidgetItem *nameItem =
+      new QTableWidgetItem(compactStatusName(fullName));
+    QTableWidgetItem *valueItem = new QTableWidgetItem("--");
+    nameItem->setToolTip(fullName);
+    valueItem->setToolTip(fullName);
+    nameItem->setForeground(QColor(255, 153, 0));
+    valueItem->setForeground(QColor(255, 251, 240));
+    nameItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    valueItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    ui->statusTable->setItem(index, 0, nameItem);
+    ui->statusTable->setItem(index, 1, valueItem);
+    ui->statusTable->setRowHeight(index, 34);
   }
 
-  if (row == 0)
+  if (rowCount == 0)
   {
     statusUsesRawFrame = true;
-    titles[0]->setGeometry(70, 140, 125, 42);
-    values[0]->setGeometry(205, 140, 80, 42);
-    titles[0]->setText("RAW");
-    values[0]->setText("--");
-    titles[0]->show();
-    values[0]->show();
+    ui->statusTable->setRowCount(1);
+    QTableWidgetItem *nameItem = new QTableWidgetItem("RAW");
+    QTableWidgetItem *valueItem = new QTableWidgetItem("--");
+    nameItem->setForeground(QColor(255, 153, 0));
+    valueItem->setForeground(QColor(255, 251, 240));
+    ui->statusTable->setItem(0, 0, nameItem);
+    ui->statusTable->setItem(0, 1, valueItem);
   }
 }
 
@@ -704,21 +766,25 @@ void SlaveFrameConfig::setLockButtonsBusy(bool busy)
   const bool lockAvailable =
     configurationAvailable &&
     (lockService != 0) &&
+    lockService->readable &&
     lockService->writable &&
     (lockService->serviceId == 0x0002) &&
     (lockService->dataLength == 2);
   const bool unlockAvailable =
-    configurationAvailable && profile.securityAccess.enabled;
-  ui->pushButtonLock->setEnabled(!busy && lockAvailable);
-  ui->pushButtonUnlock->setEnabled(!busy && unlockAvailable);
-  ui->pushButtonLock->setText(busy ? "Wait..." : "Lock");
-  ui->pushButtonUnlock->setText(busy ? "Wait..." : "Unlock");
+    configurationAvailable && profile.securityAccess.enabled &&
+    (lockService != 0) && lockService->readable &&
+    (lockService->serviceId == 0x0002) &&
+    (lockService->dataLength == 2);
+  ui->pushButtonLockAction->setEnabled(!busy && lockAvailable);
+  ui->pushButtonUnlockAction->setEnabled(!busy && unlockAvailable);
+  ui->pushButtonLockAction->setText(busy ? "Wait..." : "Lock");
+  ui->pushButtonUnlockAction->setText(busy ? "Wait..." : "Unlock");
 }
 
 void SlaveFrameConfig::showLockState(bool locked)
 {
-  ui->pushButtonLock->setText("Lock");
-  ui->pushButtonUnlock->setText("Unlock");
+  ui->pushButtonLock->setText("Locked");
+  ui->pushButtonUnlock->setText("Unlocked");
   ui->pushButtonLock->setStyleSheet(
     locked ? kButtonEnabledStyle : kButtonDisabledStyle);
   ui->pushButtonUnlock->setStyleSheet(

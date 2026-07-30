@@ -447,6 +447,10 @@ def validate(project_root: Path) -> None:
         slaveconfig = find_source(source_texts, "slaveframeconfig")
         worker = find_source(source_texts, "linbusworker")
         runtime_header = architecture_texts.get("linruntime.h")
+        slave_ui_path = project_root / "slavenodeframe.ui"
+        slave_ui = read_text(slave_ui_path) if slave_ui_path.is_file() else None
+        if slave_ui is None:
+            errors.append("diagnostic page UI is missing: slavenodeframe.ui")
         require_marker(
             errors,
             mainwindow,
@@ -504,8 +508,20 @@ def validate(project_root: Path) -> None:
         require_marker(
             errors,
             slaveconfig,
-            "status.rawValues[index]",
-            "status page must show raw signal values",
+            "status.rawFieldValues[index]",
+            "status page must show every layout field's raw signal value",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "status.rawFieldCount",
+            "status page must size itself from the active feedback layout",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "ui->statusTable->setRowCount(rowCount)",
+            "status page must create one row for every valid feedback signal",
         )
         require_marker(
             errors,
@@ -525,6 +541,49 @@ def validate(project_root: Path) -> None:
             "linRuntime->unlockNode",
             "Lock State must expose the manual Unlock command",
         )
+        require_marker(
+            errors,
+            slaveconfig,
+            "pushButtonLockAction",
+            "manual Lock must use a separate action button below Lock State",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "pushButtonUnlockAction",
+            "manual Unlock must use a separate action button below Lock State",
+        )
+        require_marker(
+            errors,
+            slave_ui,
+            'name="pushButtonLockAction"',
+            "diagnostic UI must contain a separate Lock action button",
+        )
+        require_marker(
+            errors,
+            slave_ui,
+            'name="pushButtonUnlockAction"',
+            "diagnostic UI must contain a separate Unlock action button",
+        )
+        require_marker(
+            errors,
+            slave_ui,
+            "<string>Locked</string>",
+            "Lock State must retain the read-only Locked indicator",
+        )
+        require_marker(
+            errors,
+            slave_ui,
+            "<string>Unlocked</string>",
+            "Lock State must retain the read-only Unlocked indicator",
+        )
+        if slaveconfig and (
+            "connect(ui->pushButtonLock, SIGNAL(clicked())" in slaveconfig
+            or "connect(ui->pushButtonUnlock, SIGNAL(clicked())" in slaveconfig
+        ):
+            errors.append(
+                "Lock State indicators must not be connected as action buttons"
+            )
         if slaveconfig and any(
             marker in slaveconfig for marker in (
                 'setText("Normal")',
@@ -554,6 +613,24 @@ def validate(project_root: Path) -> None:
                 worker,
                 "value.append(static_cast<char>(0x82))",
                 "manual Lock must write DID 0002 payload 82 00",
+            )
+            require_marker(
+                errors,
+                worker,
+                "QTimer::singleShot(1000, this, SLOT(processTaskStep()))",
+                "Lock/Unlock must wait 1000 ms before DID 0002 read-back",
+            )
+            require_marker(
+                errors,
+                worker,
+                "readServiceValue(activeInitialNad, *service, &readBack)",
+                "Lock/Unlock must verify state with a fresh 0x22 DID 0002 read",
+            )
+            require_marker(
+                errors,
+                worker,
+                "(flags & 0x0080u) != 0",
+                "Lock State must come from DID 0002 IsLocked bit7",
             )
             write_service = re.search(
                 r"bool\s+LinBusWorker::writeServiceValue\s*\("
@@ -596,6 +673,13 @@ def validate(project_root: Path) -> None:
                     errors.append(
                         "profile manual SecurityAccess/Lock contract is invalid"
                     )
+                if (
+                    security.get("lock_state_readback_delay_ms") != 1000
+                    or security.get("lock_state_readback_service") != 0x22
+                ):
+                    errors.append(
+                        "profile Lock/Unlock must read DID0002 with 0x22 after 1000 ms"
+                    )
         if slaveconfig and re.search(
             r"diagnosticModel\s*!=\s*ELinDiagnosticModelCustomDid[\s\S]{0,180}"
             r"\bhide\s*\(\s*\)\s*;\s*return\s*;",
@@ -634,6 +718,36 @@ def validate(project_root: Path) -> None:
                 "Read-back %1 failed after flash wait",
                 "bulk writes must perform one unified read-back pass after flash wait",
             )
+
+    if generated.get("startup_output_policy") != "visible_on_power_up":
+        errors.append("profile must publish a visible LED-on command at startup")
+    published_frames = generated.get("published_frames", [])
+    primary_index = generated.get("primary_control_frame_index", -1)
+    if (
+        isinstance(published_frames, list)
+        and isinstance(primary_index, int)
+        and 0 <= primary_index < len(published_frames)
+    ):
+        primary = published_frames[primary_index]
+        defaults = {
+            item.get("semantic"): item.get("default")
+            for item in primary.get("bindings", [])
+            if isinstance(item, dict)
+        }
+        if defaults.get("target_mask", 0) == 0:
+            errors.append("startup target mask must select at least one LED")
+        if defaults.get("intensity", 0) == 0:
+            errors.append("startup intensity must be non-zero")
+        if "led_enable" in defaults and defaults.get("led_enable") != 1:
+            errors.append("startup LED-enable signal must be one")
+        color_model = (
+            models.get("color") if isinstance(models, dict) else None
+        )
+        if color_model in ("direct_rgb_only", "selectable"):
+            if not any(defaults.get(name, 0) for name in (
+                "red_or_predefined", "green", "blue"
+            )):
+                errors.append("startup direct RGB values must be visible")
             if worker:
                 write_service = re.search(
                     r"bool\s+LinBusWorker::writeServiceValue\s*\("

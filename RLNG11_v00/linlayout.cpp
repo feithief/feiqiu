@@ -309,6 +309,7 @@ void setStatusField(SlaveStatus *status,
     case ELinStatusTemperatureError:   status->Temp_Err = value; break;
     case ELinStatusVoltageError:       status->Voltage_Err = value; break;
     case ELinStatusCommunicationError: status->Lin_Err = value; break;
+    case ELinStatusRawValue:            break;
   }
 }
 
@@ -325,12 +326,18 @@ void initializeStatusFields(SlaveStatus *status,
   status->Voltage_Err = value;
   status->Lin_Err = value;
   status->rawFrame.clear();
+  status->rawFieldCount = 0;
   for (int index = 0;
        index <= static_cast<int>(ELinStatusCommunicationError);
        ++index)
   {
     status->rawValues[index] = 0;
     status->rawValueValid[index] = false;
+  }
+  for (int index = 0; index < LinMaximumStatusFields; ++index)
+  {
+    status->rawFieldValues[index] = 0;
+    status->rawFieldValueValid[index] = false;
   }
 }
 
@@ -845,7 +852,7 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
       const LinStatusFieldLayout &field = statusLayout.fields[fieldIndex];
       if ((field.name == 0) || (field.name[0] == '\0') ||
           (field.field < ELinStatusRedOutputError) ||
-          (field.field > ELinStatusCommunicationError) ||
+          (field.field > ELinStatusRawValue) ||
           (field.bitLength == 0) || (field.bitLength > 32) ||
           (field.normalValue == field.errorValue))
       {
@@ -1223,6 +1230,8 @@ SlaveStatus decodeStatusFrame(const LinLayout &layout,
 
   const int logicalFieldCount =
     static_cast<int>(ELinStatusCommunicationError) + 1;
+  status.rawFieldCount = qMin(statusLayout.fieldCount,
+                              LinMaximumStatusFields);
   bool mapped[logicalFieldCount] = {false};
   bool allNormal[logicalFieldCount];
   bool anyError[logicalFieldCount] = {false};
@@ -1233,15 +1242,23 @@ SlaveStatus decodeStatusFrame(const LinLayout &layout,
   {
     const LinStatusFieldLayout &field = statusLayout.fields[index];
     if ((field.field < ELinStatusRedOutputError) ||
-        (field.field > ELinStatusCommunicationError) ||
+        (field.field > ELinStatusRawValue) ||
         (field.bitLength == 0) || (field.bitLength > 32) ||
         ((field.startBit + field.bitLength) > (node.statusLength * 8)) ||
         ((field.startBit + field.bitLength) > (frame.size() * 8)))
       continue;
 
-    const int logicalIndex = static_cast<int>(field.field);
     const quint32 rawValue = static_cast<quint32>(
       readBits(frame, field.startBit, field.bitLength));
+    if (index < LinMaximumStatusFields)
+    {
+      status.rawFieldValues[index] = rawValue;
+      status.rawFieldValueValid[index] = true;
+    }
+    if (field.field == ELinStatusRawValue)
+      continue;
+
+    const int logicalIndex = static_cast<int>(field.field);
     if (!status.rawValueValid[logicalIndex])
     {
       status.rawValues[logicalIndex] = rawValue;

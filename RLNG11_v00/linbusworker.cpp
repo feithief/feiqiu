@@ -38,6 +38,7 @@ LinBusWorker::LinBusWorker(const LinLayout *layout,
     activeInitialNad(0),
     activeStepIndex(0),
     activeWritePhase(EWriteTaskPhaseWrite),
+    activeLockPhase(ELockTaskPhaseCommand),
     activeNadChanged(false),
     pendingBusAction(EPendingBusActionNone),
     controlSwitchPending(false),
@@ -896,46 +897,102 @@ void LinBusWorker::processTaskStep()
     return;
   }
 
-  if (activeTask.kind == ETaskLockNode)
+  if ((activeTask.kind == ETaskLockNode) ||
+      (activeTask.kind == ETaskUnlockNode))
   {
     const LinServiceLayout *service = findLinService(
       *linLayout,
       EOperationTypeLock);
-    if ((service == 0) || !service->writable ||
+    const bool lockRequested = activeTask.kind == ETaskLockNode;
+    if ((service == 0) || !service->readable ||
         (service->serviceId != 0x0002) ||
-        (service->dataLength != 2))
+        (service->dataLength != 2) ||
+        (lockRequested && !service->writable))
     {
-      finishActiveTask(false, QString("Lock DID 0002 is missing or invalid"));
+      finishActiveTask(false,
+                       QString("Readable DID 0002 lock state is missing or invalid"));
       return;
     }
 
-    QByteArray value;
-    value.append(static_cast<char>(0x82));
-    value.append(static_cast<char>(0x00));
-    const bool success = writeServiceValue(activeTask.node, *service, value);
-    finishActiveTask(success,
-                     success ? QString() : transactionErrorText());
-    return;
-  }
-
-  if (activeTask.kind == ETaskUnlockNode)
-  {
-    const LinServiceLayout *service = findLinService(
-      *linLayout,
-      EOperationTypeLock);
-    if (service == 0)
+    if (activeLockPhase == ELockTaskPhaseCommand)
     {
-      finishActiveTask(false, QString("Lock DID 0002 is missing"));
+      bool commandSent = false;
+      if (lockRequested)
+      {
+        /* CtrlFlag is uint16 little-endian; 0x0082 sets IsLocked(bit7). */
+        QByteArray value;
+        value.append(static_cast<char>(0x82));
+        value.append(static_cast<char>(0x00));
+        commandSent = writeServiceValue(activeTask.node, *service, value);
+      }
+      else
+      {
+        quint8 requestNad = 0;
+        commandSent = selectServiceNad(activeTask.node,
+                                       *service,
+                                       &requestNad) &&
+                      unlockSecurity(requestNad);
+      }
+
+      if (!commandSent)
+      {
+        finishActiveTask(false, transactionErrorText());
+        return;
+      }
+
+      /*
+       * Both DID 0002 writes and SecurityAccess unlock save CtrlFlag to flash.
+       * Do not read while flash is still being programmed.  Exactly one
+       * second later, a fresh 0x22 request is the only authority for UI state.
+       */
+      activeLockPhase = ELockTaskPhaseWaitForFlash;
+      if (debug != 0)
+        debug->setValue(DebugDiagnosticState,
+                        QString("%1 sent; wait 1000 ms before DID 0002 read-back")
+                        .arg(lockRequested ? "Lock" : "Unlock"));
+      QTimer::singleShot(1000, this, SLOT(processTaskStep()));
       return;
     }
 
-    quint8 requestNad = 0;
-    const bool success = selectServiceNad(activeTask.node,
-                                          *service,
-                                          &requestNad) &&
-                         unlockSecurity(requestNad);
-    finishActiveTask(success,
-                     success ? QString() : transactionErrorText());
+    if (activeLockPhase == ELockTaskPhaseWaitForFlash)
+      activeLockPhase = ELockTaskPhaseReadBack;
+
+    QByteArray readBack;
+    if (!readServiceValue(activeInitialNad, *service, &readBack))
+    {
+      finishActiveTask(false,
+                       QString("%1 verification: DID 0002 read failed: %2")
+                       .arg(lockRequested ? "Lock" : "Unlock")
+                       .arg(transactionErrorText()));
+      return;
+    }
+    if (readBack.size() != 2)
+    {
+      finishActiveTask(false,
+                       QString("%1 verification: DID 0002 returned %2 bytes")
+                       .arg(lockRequested ? "Lock" : "Unlock")
+                       .arg(readBack.size()));
+      return;
+    }
+
+    const quint16 flags =
+      static_cast<quint8>(readBack.at(0)) |
+      (static_cast<quint16>(static_cast<quint8>(readBack.at(1))) << 8);
+    const bool actualLocked = (flags & 0x0080u) != 0;
+    activeReadResult.locked = actualLocked;
+    if (actualLocked != lockRequested)
+    {
+      finishActiveTask(
+        false,
+        QString("%1 verification failed: DID 0002 = 0x%2, IsLocked(bit7) is %3")
+        .arg(lockRequested ? "Lock" : "Unlock")
+        .arg(flags, 4, 16, QChar('0'))
+        .arg(actualLocked ? "1" : "0")
+        .toUpper());
+      return;
+    }
+
+    finishActiveTask(true, QString());
     return;
   }
 
@@ -975,6 +1032,7 @@ void LinBusWorker::startNextTask()
   activeInitialNad = activeTask.node;
   activeStepIndex = 0;
   activeWritePhase = EWriteTaskPhaseWrite;
+  activeLockPhase = ELockTaskPhaseCommand;
   activeNadChanged = false;
   diagnosticResponsePending = false;
   activeReadResult = createEmptyConfig(activeTask.node);
@@ -1026,6 +1084,7 @@ void LinBusWorker::finishActiveTask(bool success, const QString &errorMessage)
   activeSecurityUnlocked = false;
   activeInitialNad = 0;
   activeWritePhase = EWriteTaskPhaseWrite;
+  activeLockPhase = ELockTaskPhaseCommand;
   activeNadChanged = false;
   taskControlYieldPending = false;
   taskControlYieldServed = false;
@@ -1110,17 +1169,17 @@ void LinBusWorker::emitTaskResult(const PendingTask &task,
       break;
     case ETaskLockNode:
       emit nodeLockStateChanged(task.requestId,
-                                task.node,
-                                true,
-                                success,
-                                errorMessage);
+                                 task.node,
+                                 readResult.locked,
+                                 success,
+                                 errorMessage);
       break;
     case ETaskUnlockNode:
       emit nodeLockStateChanged(task.requestId,
-                                task.node,
-                                false,
-                                success,
-                                errorMessage);
+                                 task.node,
+                                 readResult.locked,
+                                 success,
+                                 errorMessage);
       break;
     case ETaskNone:
       break;
@@ -1681,13 +1740,8 @@ bool LinBusWorker::unlockSecurity(quint8 requestNad)
     return false;
   }
 
-  /* A successful 27/04 schedules a flash save in this slave. */
-  if (!waitInterruptibly(linLayout->postWriteSettleMs))
-  {
-    protocolError = QString("Request interrupted during SecurityAccess save");
-    return false;
-  }
-
+  /* The task state machine performs the mandatory 1000 ms flash wait and
+   * verifies DID 0002; SecurityAccess itself only sends the command. */
   activeSecurityUnlocked = true;
   return true;
 }

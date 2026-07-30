@@ -70,6 +70,13 @@ LDF-specific facts in JSON overlays and generated files.
   write/calibration controls and send no guessed proprietary request.
 - Do not close the page merely because a node becomes offline.
 - Show only read/write success popups. Route progress and failures to Debug.
+- Build Status Report rows from every signal in the active slave-published
+  frame. Show shortened source names and raw hexadecimal values; never collapse
+  fields into six fixed error slots or translate them to semantic text.
+- Treat `Locked` and `Unlocked` as non-clickable state indicators sourced only
+  from readable DID `0x0002` bit7. Put separate `Lock` and `Unlock` action
+  buttons below them. After either manual action, wait 1000 ms, issue `0x22`
+  for DID `0x0002`, and update/report success only from that read-back.
 - A host is incomplete if `validate_generated_host.py` fails any navigation,
   source, report, C++ literal, or Qt macro-collision check.
 
@@ -89,6 +96,10 @@ LDF-specific facts in JSON overlays and generated files.
 - Do not add a business-state mutex. Only `DebugStore` may use `QMutex`, and
   debug values must never control runtime behaviour.
 - Preserve F12 GUI/LIN thread IDs, diagnostic queue depth, and active request ID.
+- Generate a visible power-up payload through the extracted signal layout:
+  select all fixed-mask nodes (or the first value-addressed node), set available
+  LED/direct-RGB enable and validity bits, use non-zero confirmed intensity,
+  and use full-scale white for direct RGB. Reject zero target or intensity.
 - Reject missing signals, duplicate names, out-of-range values, and assignments
   outside the primary control frame.
 - Support up to 512 preset combinations with 30 buttons per page. Do not add
