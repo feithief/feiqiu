@@ -854,7 +854,8 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
           (field.field < ELinStatusRedOutputError) ||
           (field.field > ELinStatusRawValue) ||
           (field.bitLength == 0) || (field.bitLength > 32) ||
-          (field.normalValue == field.errorValue))
+          ((field.field != ELinStatusRawValue) &&
+           (field.normalValue == field.errorValue)))
       {
         localErrors.append(QString("Invalid status field in layout %1")
                            .arg(QString::fromLatin1(statusLayout.name)));
