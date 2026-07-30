@@ -331,7 +331,7 @@ void SlaveFrameConfig::updateNodeState(SlaveStatus status)
     profile.statusLayouts[node->statusLayoutIndex];
   const int fieldCount = qMin(qMin(layout.fieldCount,
                                   status.rawFieldCount),
-                              LinMaximumStatusFields);
+                              static_cast<int>(LinMaximumStatusFields));
   for (int index = 0; index < fieldCount; ++index)
   {
     if (!status.rawFieldValueValid[index] ||
@@ -725,7 +725,7 @@ void SlaveFrameConfig::configureStatusRows(const LinNodeLayout &node)
   const LinStatusLayout &statusLayout =
     profile.statusLayouts[node.statusLayoutIndex];
   const int rowCount = qMin(statusLayout.fieldCount,
-                            LinMaximumStatusFields);
+                            static_cast<int>(LinMaximumStatusFields));
   ui->statusTable->setRowCount(rowCount);
   for (int index = 0; index < rowCount; ++index)
   {

@@ -1231,7 +1231,7 @@ SlaveStatus decodeStatusFrame(const LinLayout &layout,
   const int logicalFieldCount =
     static_cast<int>(ELinStatusCommunicationError) + 1;
   status.rawFieldCount = qMin(statusLayout.fieldCount,
-                              LinMaximumStatusFields);
+                              static_cast<int>(LinMaximumStatusFields));
   bool mapped[logicalFieldCount] = {false};
   bool allNormal[logicalFieldCount];
   bool anyError[logicalFieldCount] = {false};

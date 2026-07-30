@@ -195,6 +195,17 @@ def validate(project_root: Path) -> None:
                     relative, line
                 )
             )
+        enum_minmax = re.search(
+            r"q(?:Min|Max)\s*\([\s\S]{0,240},\s*"
+            r"LinMaximumStatusFields\s*\)",
+            text,
+        )
+        if enum_minmax:
+            line = text.count("\n", 0, enum_minmax.start()) + 1
+            errors.append(
+                "{0}:{1}: qMin/qMax mixes int with anonymous enum; "
+                "cast LinMaximumStatusFields to int".format(relative, line)
+            )
 
     architecture_files = {
         "linruntime.h": ("linruntime.h",),

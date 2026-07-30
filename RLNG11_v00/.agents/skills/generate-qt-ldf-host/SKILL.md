@@ -107,3 +107,6 @@ LDF-specific facts in JSON overlays and generated files.
 - If DLP protection replaces a generated text file with a binary wrapper, use
   its executable/readable `.txt` companion and ensure the `.pro` file lists
   readable compiler sources.
+- Keep both arguments of Qt `qMin`/`qMax` the same C++ type. Cast anonymous
+  enum limits such as `LinMaximumStatusFields` to `int`; the Qt 5 ARM compiler
+  rejects mixed `int`/enum template deduction.
