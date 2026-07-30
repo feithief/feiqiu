@@ -9,6 +9,8 @@
 #include <QApplication>
 #include <QEvent>
 #include <QFrame>
+#include <QLabel>
+#include <QTimer>
 
 namespace {
 
@@ -36,39 +38,10 @@ static const QString kButtonDisabledStyle = "QPushButton{"
                                             "background:rgba(29,165,219,0.1);"
                                             "}";
 
-static const QString kNormalStatusStyle = "QLabel{"
-                                          "font-size:22px;"
-                                          "color:rgb(104,194,53);"
-                                          "}";
-
-static const QString kErrorStatusStyle = "QLabel{"
-                                         "font-size:22px;"
-                                         "color:rgb(254,67,101);"
-                                         "}";
-
-static const QString kUnknownStatusStyle = "QLabel{"
-                                           "font-size:22px;"
-                                           "color:rgb(160,160,160);"
-                                           "}";
-
-void setStatusLabel(QLabel *label, SlaveErrorFlag status)
-{
-  if (status == ESlaveErrorFlagError)
-  {
-    label->setText("Error");
-    label->setStyleSheet(kErrorStatusStyle);
-  }
-  else if (status == ESlaveErrorFlagNormal)
-  {
-    label->setText("Normal");
-    label->setStyleSheet(kNormalStatusStyle);
-  }
-  else
-  {
-    label->setText("Unknown");
-    label->setStyleSheet(kUnknownStatusStyle);
-  }
-}
+static const QString kRawStatusStyle = "QLabel{"
+                                       "font-size:22px;"
+                                       "color:rgb(255,251,240);"
+                                       "}";
 
 } // namespace
 
@@ -85,7 +58,11 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
     keys(0),
     readRequestId(0),
     writeRequestId(0),
-    calibrationRequestId(0)
+    calibrationRequestId(0),
+    feedbackWatchdog(new QTimer(this)),
+    lockRequestId(0),
+    unlockRequestId(0),
+    statusUsesRawFrame(false)
 {
   Q_ASSERT(linRuntime != 0);
   backgroundframe = new QFrame(this);
@@ -122,6 +99,11 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
   keys = new KeyBoard(this);
   keys->hide();
 
+  feedbackWatchdog->setSingleShot(true);
+  feedbackWatchdog->setInterval(5000);
+  connect(feedbackWatchdog, SIGNAL(timeout()),
+          this, SLOT(handleFeedbackTimeout()));
+
   connect(ui->pushButtonCancel, SIGNAL(clicked()),
           this, SLOT(exitSlaveConfig()));
   connect(ui->pushButtonNoCalibrate, SIGNAL(clicked()),
@@ -134,11 +116,17 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
           this, SLOT(buttonCalibrateB()));
   connect(ui->pushButtonAccept, SIGNAL(clicked()),
           this, SLOT(changeConfigs()));
+  connect(ui->pushButtonLock, SIGNAL(clicked()),
+          this, SLOT(requestLock()));
+  connect(ui->pushButtonUnlock, SIGNAL(clicked()),
+          this, SLOT(requestUnlock()));
   connect(ui->spinBoxSA, SIGNAL(valueChanged(int)),
           this, SLOT(singleAddressChanged(int)));
 
   connect(linRuntime, SIGNAL(SlaveStatusChanged(SlaveStatus)),
           this, SLOT(updateNodeState(SlaveStatus)));
+  connect(linRuntime, SIGNAL(nodeResponseObserved(quint8)),
+          this, SLOT(handleNodeResponse(quint8)));
   connect(linRuntime,
           SIGNAL(nodeConfigurationRead(quint32,SlaveConfigInfo,bool,QString)),
           this,
@@ -151,6 +139,10 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
           SIGNAL(calibrationFinished(quint32,quint8,bool,QString)),
           this,
           SLOT(handleCalibrationResult(quint32,quint8,bool,QString)));
+  connect(linRuntime,
+          SIGNAL(nodeLockStateChanged(quint32,quint8,bool,bool,QString)),
+          this,
+          SLOT(handleLockStateResult(quint32,quint8,bool,bool,QString)));
 
   ui->spinBoxGA->installEventFilter(this);
   ui->spinBoxSA->installEventFilter(this);
@@ -225,10 +217,16 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
     linRuntime->cancel(writeRequestId);
   if (calibrationRequestId != 0)
     linRuntime->cancel(calibrationRequestId);
+  if (lockRequestId != 0)
+    linRuntime->cancel(lockRequestId);
+  if (unlockRequestId != 0)
+    linRuntime->cancel(unlockRequestId);
 
   readRequestId = 0;
   writeRequestId = 0;
   calibrationRequestId = 0;
+  lockRequestId = 0;
+  unlockRequestId = 0;
 
   currentNode = slaveNode;
   nodeType = node->nodeType;
@@ -236,9 +234,12 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
     (profile.diagnosticModel == ELinDiagnosticModelCustomDid) &&
     (profile.serviceCount > 0);
   resetForm();
+  configureStatusRows(*node);
   ui->spinBoxSA->setValue(node->diagnosticNad);
   ui->spinBoxGA->setValue(node->controlAddressMask);
   setConfigurationControlsEnabled(configurationAvailable);
+  setLockButtonsBusy(false);
+  feedbackWatchdog->start();
 
   /*
    * LDF-only profiles still open this page in status-only mode.  Never guess
@@ -261,22 +262,36 @@ void SlaveFrameConfig::updateNodeState(SlaveStatus status)
     return;
 
   if (!status.isOnLine)
+    return;
+
+  feedbackWatchdog->start();
+  QLabel *values[6] = {
+    ui->ROutput_Err, ui->GOutput_Err, ui->BOutput_Err,
+    ui->Temp_Err, ui->Voltage_Err, ui->Lin_Err
+  };
+  if (statusUsesRawFrame)
   {
-    setStatusLabel(ui->ROutput_Err, ESlaveErrorFlagUnknown);
-    setStatusLabel(ui->GOutput_Err, ESlaveErrorFlagUnknown);
-    setStatusLabel(ui->BOutput_Err, ESlaveErrorFlagUnknown);
-    setStatusLabel(ui->Temp_Err, ESlaveErrorFlagUnknown);
-    setStatusLabel(ui->Voltage_Err, ESlaveErrorFlagUnknown);
-    setStatusLabel(ui->Lin_Err, ESlaveErrorFlagUnknown);
+    const QByteArray rawText = status.rawFrame.toHex(' ').toUpper();
+    values[0]->setText(
+      rawText.isEmpty() ? QString("--") : QString::fromLatin1(rawText));
+    values[0]->setToolTip(values[0]->text());
     return;
   }
 
-  setStatusLabel(ui->ROutput_Err, status.ROutput_Err);
-  setStatusLabel(ui->GOutput_Err, status.GOutput_Err);
-  setStatusLabel(ui->BOutput_Err, status.BOutput_Err);
-  setStatusLabel(ui->Temp_Err, status.Temp_Err);
-  setStatusLabel(ui->Voltage_Err, status.Voltage_Err);
-  setStatusLabel(ui->Lin_Err, status.Lin_Err);
+  for (int index = 0; index < 6; ++index)
+  {
+    if (values[index]->isHidden() || !status.rawValueValid[index])
+      continue;
+    values[index]->setText(
+      QString("0x%1").arg(status.rawValues[index], 0, 16).toUpper());
+    values[index]->setStyleSheet(kRawStatusStyle);
+  }
+}
+
+void SlaveFrameConfig::handleNodeResponse(quint8 node)
+{
+  if ((currentNode != 0) && (node == currentNode))
+    feedbackWatchdog->start();
 }
 
 void SlaveFrameConfig::exitSlaveConfig()
@@ -287,10 +302,17 @@ void SlaveFrameConfig::exitSlaveConfig()
     linRuntime->cancel(writeRequestId);
   if (calibrationRequestId != 0)
     linRuntime->cancel(calibrationRequestId);
+  if (lockRequestId != 0)
+    linRuntime->cancel(lockRequestId);
+  if (unlockRequestId != 0)
+    linRuntime->cancel(unlockRequestId);
 
+  feedbackWatchdog->stop();
   readRequestId = 0;
   writeRequestId = 0;
   calibrationRequestId = 0;
+  lockRequestId = 0;
+  unlockRequestId = 0;
   currentNode = 0;
   dialog->hide();
   keys->hide();
@@ -441,6 +463,61 @@ void SlaveFrameConfig::handleCalibrationResult(quint32 requestId,
   dialog->hide();
 }
 
+void SlaveFrameConfig::requestLock()
+{
+  if ((currentNode == 0) || (lockRequestId != 0) ||
+      (unlockRequestId != 0))
+    return;
+
+  setLockButtonsBusy(true);
+  lockRequestId = linRuntime->lockNode(static_cast<quint8>(currentNode));
+  if (lockRequestId == 0)
+    setLockButtonsBusy(false);
+}
+
+void SlaveFrameConfig::requestUnlock()
+{
+  if ((currentNode == 0) || (lockRequestId != 0) ||
+      (unlockRequestId != 0))
+    return;
+
+  setLockButtonsBusy(true);
+  unlockRequestId = linRuntime->unlockNode(static_cast<quint8>(currentNode));
+  if (unlockRequestId == 0)
+    setLockButtonsBusy(false);
+}
+
+void SlaveFrameConfig::handleLockStateResult(quint32 requestId,
+                                             quint8 node,
+                                             bool locked,
+                                             bool success,
+                                             QString errorMessage)
+{
+  Q_UNUSED(errorMessage);
+  if ((node != currentNode) ||
+      ((requestId != lockRequestId) && (requestId != unlockRequestId)))
+    return;
+
+  lockRequestId = 0;
+  unlockRequestId = 0;
+  setLockButtonsBusy(false);
+  if (success)
+    showLockState(locked);
+}
+
+void SlaveFrameConfig::handleFeedbackTimeout()
+{
+  if (currentNode != 0)
+  {
+    linRuntime->setReservedDebugValue(
+      0,
+      QString("Diag.FeedbackWatchdog"),
+      QString("NAD %1: no response for 5000 ms; page closed")
+      .arg(currentNode));
+    exitSlaveConfig();
+  }
+}
+
 void SlaveFrameConfig::buttonCalibrateNormal()
 {
   requestCalibration(0);
@@ -503,16 +580,7 @@ void SlaveFrameConfig::displayConfiguration(const SlaveConfigInfo &info)
   ui->doubleSpinBoxBY->setValue(info.b.y);
   ui->doubleSpinBoxBL->setValue(info.b.Y);
 
-  if (info.locked)
-  {
-    ui->pushButtonLock->setStyleSheet(kButtonEnabledStyle);
-    ui->pushButtonUnlock->setStyleSheet(kButtonDisabledStyle);
-  }
-  else
-  {
-    ui->pushButtonLock->setStyleSheet(kButtonDisabledStyle);
-    ui->pushButtonUnlock->setStyleSheet(kButtonEnabledStyle);
-  }
+  showLockState(info.locked);
 }
 
 void SlaveFrameConfig::showReadWriteOk()
@@ -551,6 +619,110 @@ void SlaveFrameConfig::resetForm()
   ui->doubleSpinBoxBX->setValue(0);
   ui->doubleSpinBoxBY->setValue(0);
   ui->doubleSpinBoxBL->setValue(0);
+}
+
+void SlaveFrameConfig::configureStatusRows(const LinNodeLayout &node)
+{
+  QLabel *titles[6] = {
+    ui->labelRedOpenTitle, ui->labelGreenOpenTitle,
+    ui->labelBlueOpenTitle, ui->labelRedShortTitle,
+    ui->labelGreenShortTitle, ui->labelBlueShortTitle
+  };
+  QLabel *values[6] = {
+    ui->ROutput_Err, ui->GOutput_Err, ui->BOutput_Err,
+    ui->Temp_Err, ui->Voltage_Err, ui->Lin_Err
+  };
+
+  for (int index = 0; index < 6; ++index)
+  {
+    titles[index]->hide();
+    values[index]->hide();
+    titles[index]->setToolTip(QString());
+    values[index]->setToolTip(QString());
+  }
+  statusUsesRawFrame = false;
+
+  const LinLayout &profile = linRuntime->layout();
+  if ((node.statusLayoutIndex < 0) ||
+      (node.statusLayoutIndex >= profile.statusLayoutCount) ||
+      (profile.statusLayouts == 0))
+  {
+    statusUsesRawFrame = true;
+    titles[0]->setText("RAW");
+    values[0]->setText("--");
+    titles[0]->show();
+    values[0]->show();
+    return;
+  }
+
+  const LinStatusLayout &statusLayout =
+    profile.statusLayouts[node.statusLayoutIndex];
+  bool configured[6] = {false, false, false, false, false, false};
+  int row = 0;
+  for (int index = 0; index < statusLayout.fieldCount; ++index)
+  {
+    const LinStatusFieldLayout &field = statusLayout.fields[index];
+    const int logicalIndex = static_cast<int>(field.field);
+    if ((logicalIndex < 0) || (logicalIndex >= 6) ||
+        configured[logicalIndex])
+      continue;
+
+    const QString fullName = QString::fromLatin1(field.name);
+    const QString shortName = (fullName.size() <= 12)
+                              ? fullName
+                              : fullName.left(11) + QString("~");
+    const int rowY = 140 + (row * 40);
+    titles[logicalIndex]->setGeometry(70, rowY, 125, 42);
+    values[logicalIndex]->setGeometry(205, rowY, 80, 42);
+    titles[logicalIndex]->setText(shortName);
+    titles[logicalIndex]->setToolTip(fullName);
+    values[logicalIndex]->setText("--");
+    values[logicalIndex]->setStyleSheet(kRawStatusStyle);
+    titles[logicalIndex]->show();
+    values[logicalIndex]->show();
+    configured[logicalIndex] = true;
+    ++row;
+  }
+
+  if (row == 0)
+  {
+    statusUsesRawFrame = true;
+    titles[0]->setGeometry(70, 140, 125, 42);
+    values[0]->setGeometry(205, 140, 80, 42);
+    titles[0]->setText("RAW");
+    values[0]->setText("--");
+    titles[0]->show();
+    values[0]->show();
+  }
+}
+
+void SlaveFrameConfig::setLockButtonsBusy(bool busy)
+{
+  const LinLayout &profile = linRuntime->layout();
+  const LinServiceLayout *lockService = findLinService(
+    profile, EOperationTypeLock);
+  const bool lockAvailable =
+    configurationAvailable &&
+    (lockService != 0) &&
+    lockService->writable &&
+    (lockService->serviceId == 0x0002) &&
+    (lockService->dataLength == 2);
+  const bool unlockAvailable =
+    configurationAvailable && profile.securityAccess.enabled;
+  ui->pushButtonLock->setEnabled(!busy && lockAvailable);
+  ui->pushButtonUnlock->setEnabled(!busy && unlockAvailable);
+  ui->pushButtonLock->setText(busy ? "Wait..." : "Lock");
+  ui->pushButtonUnlock->setText(busy ? "Wait..." : "Unlock");
+}
+
+void SlaveFrameConfig::showLockState(bool locked)
+{
+  ui->pushButtonLock->setText("Lock");
+  ui->pushButtonUnlock->setText("Unlock");
+  ui->pushButtonLock->setStyleSheet(
+    locked ? kButtonEnabledStyle : kButtonDisabledStyle);
+  ui->pushButtonUnlock->setStyleSheet(
+    locked ? kButtonDisabledStyle : kButtonEnabledStyle);
 }
 
 bool SlaveFrameConfig::eventFilter(QObject *watched, QEvent *event)

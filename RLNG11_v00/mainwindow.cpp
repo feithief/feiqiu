@@ -12,7 +12,6 @@
 #include "slavebutton.h"
 #include "slaveframeconfig.h"
 #include "ui_mainwindow.h"
-#include "unlockfrom.h"
 
 #include <QCloseEvent>
 #include <QFont>
@@ -71,12 +70,10 @@ MainWindow::MainWindow(LinRuntime *runtime,
     linRuntime(runtime),
     masterButton(0),
     exitButton(0),
-    settingButton(0),
     debugQuickButton(0),
     slaveFrame(0),
     productVerifyFrame(0),
     masterFrame(0),
-    lockFrame(0),
     debugPanel(0)
 {
   Q_ASSERT(linRuntime != 0);
@@ -152,17 +149,7 @@ MainWindow::MainWindow(LinRuntime *runtime,
   connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
   exitButton->show();
 
-  settingButton = new BCMMasterButton(this);
-  settingButton->setText("Unlock");
-  settingButton->setGeometry(1150, 390, 155, 155);
-  settingButton->setFont(controlFont);
-  settingButton->setButtonMode(EButtonModeSetting);
-  connect(settingButton, SIGNAL(clicked()), this, SLOT(unlockFeature()));
-  settingButton->show();
-
   /* One scheduler is explicitly injected into every feature page. */
-  lockFrame = new unlockFrom(this);
-  lockFrame->hide();
   if (layoutValid)
   {
     masterFrame = new BCMMasterFrame(linRuntime, this);
@@ -283,17 +270,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
   else
   {
     debugPanel->openPanel();
-  }
-}
-
-void MainWindow::unlockFeature()
-{
-  if ((lockFrame != 0) && lockFrame->isHidden())
-  {
-    lockFrame->setGeometry(0, 0, 1366, 768);
-    lockFrame->init();
-    lockFrame->show();
-    keepDebugAccessVisible();
   }
 }
 

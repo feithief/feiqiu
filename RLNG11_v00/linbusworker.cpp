@@ -419,6 +419,85 @@ void LinBusWorker::enqueueCalibration(quint32 requestId,
   startNextTask();
 }
 
+void LinBusWorker::enqueueLockNode(quint32 requestId, quint8 node)
+{
+  assertWorkerThread();
+
+  PendingTask task;
+  task.kind = ETaskLockNode;
+  task.requestId = requestId;
+  task.node = node;
+  task.calibrationMode = 0;
+  task.config = createEmptyConfig(node);
+
+  const LinServiceLayout *service = (linLayout == 0)
+                                    ? 0
+                                    : findLinService(*linLayout,
+                                                     EOperationTypeLock);
+  QString rejection;
+  if (requestId == 0)
+    rejection = QString("Invalid diagnostic request ID");
+  else if (stopping)
+    rejection = QString("Application is stopping");
+  else if (!initialized || (comm == 0) || !busEnabled)
+    rejection = QString("LIN device is not ready");
+  else if ((linLayout == 0) || (findLinNode(*linLayout, node) == 0))
+    rejection = QString("Node is not present in the active LIN layout");
+  else if ((service == 0) || !service->writable ||
+           (service->serviceId != 0x0002) || (service->dataLength != 2))
+    rejection = QString("Lock DID 0002 is missing or invalid");
+  else if (taskQueue.size() >= linLayout->maximumDiagnosticQueueDepth)
+    rejection = QString("Diagnostic request queue is full");
+
+  if (!rejection.isEmpty())
+  {
+    emitTaskResult(task, task.config, false, rejection);
+    updateTaskQueueDebug();
+    return;
+  }
+
+  taskQueue.enqueue(task);
+  updateTaskQueueDebug();
+  startNextTask();
+}
+
+void LinBusWorker::enqueueUnlockNode(quint32 requestId, quint8 node)
+{
+  assertWorkerThread();
+
+  PendingTask task;
+  task.kind = ETaskUnlockNode;
+  task.requestId = requestId;
+  task.node = node;
+  task.calibrationMode = 0;
+  task.config = createEmptyConfig(node);
+
+  QString rejection;
+  if (requestId == 0)
+    rejection = QString("Invalid diagnostic request ID");
+  else if (stopping)
+    rejection = QString("Application is stopping");
+  else if (!initialized || (comm == 0) || !busEnabled)
+    rejection = QString("LIN device is not ready");
+  else if ((linLayout == 0) || (findLinNode(*linLayout, node) == 0))
+    rejection = QString("Node is not present in the active LIN layout");
+  else if (!linLayout->securityAccess.enabled)
+    rejection = QString("SecurityAccess is not configured");
+  else if (taskQueue.size() >= linLayout->maximumDiagnosticQueueDepth)
+    rejection = QString("Diagnostic request queue is full");
+
+  if (!rejection.isEmpty())
+  {
+    emitTaskResult(task, task.config, false, rejection);
+    updateTaskQueueDebug();
+    return;
+  }
+
+  taskQueue.enqueue(task);
+  updateTaskQueueDebug();
+  startNextTask();
+}
+
 void LinBusWorker::cancelRequest(quint32 requestId)
 {
   assertWorkerThread();
@@ -581,6 +660,8 @@ void LinBusWorker::processScheduleSlot()
                                    node.checksumMode,
                                    &response);
       recordReceive(node.statusFrameId, response, success);
+      if (success)
+        emit nodeResponseObserved(node.diagnosticNad);
     }
     else
     {
@@ -815,6 +896,49 @@ void LinBusWorker::processTaskStep()
     return;
   }
 
+  if (activeTask.kind == ETaskLockNode)
+  {
+    const LinServiceLayout *service = findLinService(
+      *linLayout,
+      EOperationTypeLock);
+    if ((service == 0) || !service->writable ||
+        (service->serviceId != 0x0002) ||
+        (service->dataLength != 2))
+    {
+      finishActiveTask(false, QString("Lock DID 0002 is missing or invalid"));
+      return;
+    }
+
+    QByteArray value;
+    value.append(static_cast<char>(0x82));
+    value.append(static_cast<char>(0x00));
+    const bool success = writeServiceValue(activeTask.node, *service, value);
+    finishActiveTask(success,
+                     success ? QString() : transactionErrorText());
+    return;
+  }
+
+  if (activeTask.kind == ETaskUnlockNode)
+  {
+    const LinServiceLayout *service = findLinService(
+      *linLayout,
+      EOperationTypeLock);
+    if (service == 0)
+    {
+      finishActiveTask(false, QString("Lock DID 0002 is missing"));
+      return;
+    }
+
+    quint8 requestNad = 0;
+    const bool success = selectServiceNad(activeTask.node,
+                                          *service,
+                                          &requestNad) &&
+                         unlockSecurity(requestNad);
+    finishActiveTask(success,
+                     success ? QString() : transactionErrorText());
+    return;
+  }
+
   finishActiveTask(false, QString("Unknown worker task"));
 }
 
@@ -983,6 +1107,20 @@ void LinBusWorker::emitTaskResult(const PendingTask &task,
                                task.node,
                                success,
                                errorMessage);
+      break;
+    case ETaskLockNode:
+      emit nodeLockStateChanged(task.requestId,
+                                task.node,
+                                true,
+                                success,
+                                errorMessage);
+      break;
+    case ETaskUnlockNode:
+      emit nodeLockStateChanged(task.requestId,
+                                task.node,
+                                false,
+                                success,
+                                errorMessage);
       break;
     case ETaskNone:
       break;
@@ -1330,6 +1468,8 @@ bool LinBusWorker::receiveDiagnosticFrame(QByteArray *payload,
     protocolError = comm->lastErrorText();
     return false;
   }
+  if (taskActive)
+    emit nodeResponseObserved(activeTask.node);
 
   /* Give the slave main loop time to prepare the next transport frame. */
   if (!waitInterruptibly(linLayout->diagnosticInterFrameDelayMs,
@@ -1509,13 +1649,9 @@ bool LinBusWorker::unlockSecurity(quint8 requestNad)
     (static_cast<quint32>(static_cast<quint8>(seedResponse.at(5))) << 8) |
     (static_cast<quint32>(static_cast<quint8>(seedResponse.at(6))) << 16) |
     (static_cast<quint32>(static_cast<quint8>(seedResponse.at(7))) << 24);
-  const quint32 key = seed + linLayout->securityAccess.keyAddend;
-  const int configuredKeyLength = linLayout->securityAccess.keyLength;
-  /* Zero preserves compatibility with profiles generated before keyLength. */
-  const int keyLength = (configuredKeyLength >= 1 &&
-                         configuredKeyLength <= 4)
-                        ? configuredKeyLength
-                        : 2;
+  /* Mother-Seed contract: uint32 little-endian key = seed + 0x0C04. */
+  const quint32 key = seed + 0x00000C04u;
+  const int keyLength = 4;
 
   QByteArray keyRequest(8, static_cast<char>(0xFF));
   keyRequest[0] = static_cast<char>(requestNad);
@@ -1750,10 +1886,6 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
   quint8 requestNad = 0;
   bool success = selectServiceNad(nad, service, &requestNad);
 
-  /* DID 000A is the slave's explicit lock-bypass calibration command. */
-  if (success && (service.serviceId != 0x000A))
-    success = unlockSecurity(requestNad);
-
   if (success && (debug != 0))
     debug->setValue(DebugDiagnosticState,
                     QString("2E DID 0x%1 NAD 0x%2")
@@ -1827,59 +1959,7 @@ bool LinBusWorker::writeServiceValue(quint8 nad,
     return false;
   }
 
-  if (service.expectPositiveWriteResponse)
-  {
-    QByteArray response;
-    writeComplete = receiveDiagnosticFrame(&response);
-    if (writeComplete)
-    {
-      const bool validResponse =
-        (response.size() == 8) &&
-        (static_cast<quint8>(response.at(0)) == requestNad) &&
-        ((static_cast<quint8>(response.at(1)) & 0xF0) == 0x00) &&
-        ((static_cast<quint8>(response.at(1)) & 0x0F) >= 3) &&
-        (static_cast<quint8>(response.at(2)) == 0x6E) &&
-        (static_cast<quint8>(response.at(3)) ==
-         ((service.serviceId >> 8) & 0xFF)) &&
-        (static_cast<quint8>(response.at(4)) ==
-         (service.serviceId & 0xFF));
-      if (!validResponse)
-      {
-        if ((response.size() == 8) &&
-            (static_cast<quint8>(response.at(2)) == 0x7F) &&
-            (static_cast<quint8>(response.at(3)) == 0x2E))
-        {
-          protocolError =
-            QString::fromUtf8(
-              "从机拒绝写入 DID 0x%1：NRC=0x%2，原始应答=[%3]")
-            .arg(static_cast<int>(service.serviceId),
-                 4, 16, QChar('0'))
-            .arg(static_cast<int>(
-                   static_cast<quint8>(response.at(4))),
-                 2, 16, QChar('0'))
-            .arg(toHexText(response))
-            .toUpper();
-        }
-        else
-        {
-          protocolError =
-            QString::fromUtf8(
-              "写入 DID 0x%1 的应答不匹配：标准应答应包含 "
-              "[%2 03 6E %3 %4]，实际=[%5]")
-            .arg(static_cast<int>(service.serviceId),
-                 4, 16, QChar('0'))
-            .arg(static_cast<int>(requestNad), 2, 16, QChar('0'))
-            .arg(static_cast<int>((service.serviceId >> 8) & 0xFF),
-                 2, 16, QChar('0'))
-            .arg(static_cast<int>(service.serviceId & 0xFF),
-                 2, 16, QChar('0'))
-            .arg(toHexText(response))
-            .toUpper();
-        }
-        writeComplete = false;
-      }
-    }
-  }
+  /* 0x2E is send-only; the unified 0x22 pass verifies persisted data. */
 
   /*
    * DID 0003 changes savedConfig.singleAddr immediately.  The slave's B0

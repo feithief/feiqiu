@@ -445,6 +445,8 @@ def validate(project_root: Path) -> None:
         mainwindow = find_source(source_texts, "mainwindow")
         slavebutton = find_source(source_texts, "slavebutton")
         slaveconfig = find_source(source_texts, "slaveframeconfig")
+        worker = find_source(source_texts, "linbusworker")
+        runtime_header = architecture_texts.get("linruntime.h")
         require_marker(
             errors,
             mainwindow,
@@ -487,6 +489,113 @@ def validate(project_root: Path) -> None:
             "if (!configurationAvailable)",
             "status-only guard missing: do not send guessed proprietary DID requests",
         )
+        require_marker(
+            errors,
+            runtime_header,
+            "nodeResponseObserved(quint8 node)",
+            "the diagnostic watchdog must observe every valid node response",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "feedbackWatchdog->setInterval(5000)",
+            "diagnostic page must close after 5000 ms without node feedback",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "status.rawValues[index]",
+            "status page must show raw signal values",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "status.rawFrame.toHex",
+            "status page must retain a raw-frame fallback",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "linRuntime->lockNode",
+            "Lock State must expose the manual Lock command",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "linRuntime->unlockNode",
+            "Lock State must expose the manual Unlock command",
+        )
+        if slaveconfig and any(
+            marker in slaveconfig for marker in (
+                'setText("Normal")',
+                'setText("Error")',
+                'setText("Unknown")',
+            )
+        ):
+            errors.append(
+                "status page still translates raw values to Normal/Error/Unknown"
+            )
+        if mainwindow and (
+            "unlockfrom" in mainwindow.lower()
+            or "unlockFeature" in mainwindow
+        ):
+            errors.append("standalone Unlock page/button must not exist")
+        if "unlockfrom" in project_text.lower():
+            errors.append("qmake project still includes standalone Unlock sources")
+        if worker:
+            require_marker(
+                errors,
+                worker,
+                "seed + 0x00000C04u",
+                "manual Unlock must use uint32 little-endian seed + 0x0C04",
+            )
+            require_marker(
+                errors,
+                worker,
+                "value.append(static_cast<char>(0x82))",
+                "manual Lock must write DID 0002 payload 82 00",
+            )
+            write_service = re.search(
+                r"bool\s+LinBusWorker::writeServiceValue\s*\("
+                r"[\s\S]*?(?=\nSlaveConfigInfo\s+LinBusWorker::)",
+                worker,
+            )
+            if write_service and "unlockSecurity(" in write_service.group(0):
+                errors.append(
+                    "ordinary 0x2E write still triggers automatic SecurityAccess"
+                )
+            if write_service and (
+                "receiveDiagnosticFrame(" in write_service.group(0)
+                or "0x6E" in write_service.group(0)
+            ):
+                errors.append("0x2E write still waits for a 0x6E response")
+            require_marker(
+                errors,
+                write_service.group(0) if write_service else None,
+                "0x2E is send-only",
+                "0x2E send-only policy is missing from writeServiceValue",
+            )
+        if isinstance(diagnostics, dict):
+            if diagnostics.get(
+                "diagnostic_page_response_watchdog_ms"
+            ) != 5000:
+                errors.append("profile watchdog must be 5000 ms")
+            if diagnostics.get(
+                "status_display"
+            ) != "short_signal_name_and_raw_hex":
+                errors.append("profile status display must be raw hexadecimal")
+            security = diagnostics.get("security")
+            if isinstance(security, dict) and security.get("enabled") is True:
+                if (
+                    security.get("key_addend") != 0x0C04
+                    or security.get("key_length") != 4
+                    or security.get("manual_trigger_only") is not True
+                    or security.get("lock_service_id") != 0x0002
+                    or security.get("lock_payload") != [0x82, 0x00]
+                ):
+                    errors.append(
+                        "profile manual SecurityAccess/Lock contract is invalid"
+                    )
         if slaveconfig and re.search(
             r"diagnosticModel\s*!=\s*ELinDiagnosticModelCustomDid[\s\S]{0,180}"
             r"\bhide\s*\(\s*\)\s*;\s*return\s*;",
@@ -507,7 +616,6 @@ def validate(project_root: Path) -> None:
                 errors.append(
                     "bulk-write read-back delay is missing or outside 0..10000 ms"
                 )
-            worker = find_source(source_texts, "linbusworker")
             require_marker(
                 errors,
                 worker,

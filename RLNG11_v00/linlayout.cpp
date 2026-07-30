@@ -324,6 +324,14 @@ void initializeStatusFields(SlaveStatus *status,
   status->Temp_Err = value;
   status->Voltage_Err = value;
   status->Lin_Err = value;
+  status->rawFrame.clear();
+  for (int index = 0;
+       index <= static_cast<int>(ELinStatusCommunicationError);
+       ++index)
+  {
+    status->rawValues[index] = 0;
+    status->rawValueValid[index] = false;
+  }
 }
 
 } // namespace
@@ -1201,6 +1209,8 @@ SlaveStatus decodeStatusFrame(const LinLayout &layout,
   if (!online || (frame.size() < node.statusLength))
     return status;
 
+  status.rawFrame = frame.left(node.statusLength);
+
   if ((node.statusLayoutIndex < 0) ||
       (node.statusLayoutIndex >= layout.statusLayoutCount) ||
       (layout.statusLayouts == 0))
@@ -1232,6 +1242,11 @@ SlaveStatus decodeStatusFrame(const LinLayout &layout,
     const int logicalIndex = static_cast<int>(field.field);
     const quint32 rawValue = static_cast<quint32>(
       readBits(frame, field.startBit, field.bitLength));
+    if (!status.rawValueValid[logicalIndex])
+    {
+      status.rawValues[logicalIndex] = rawValue;
+      status.rawValueValid[logicalIndex] = true;
+    }
     const bool isNormal = (rawValue == field.normalValue);
     const bool isError = (rawValue == field.errorValue) ||
                          (field.anyNonNormalIsError && !isNormal);

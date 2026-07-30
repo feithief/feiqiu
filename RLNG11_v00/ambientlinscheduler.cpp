@@ -96,6 +96,10 @@ void AmbientLinScheduler::createWorker()
           worker.data(), &LinBusWorker::enqueueWriteNode, Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::calibrationRequested,
           worker.data(), &LinBusWorker::enqueueCalibration, Qt::QueuedConnection);
+  connect(this, &AmbientLinScheduler::lockNodeRequested,
+          worker.data(), &LinBusWorker::enqueueLockNode, Qt::QueuedConnection);
+  connect(this, &AmbientLinScheduler::unlockNodeRequested,
+          worker.data(), &LinBusWorker::enqueueUnlockNode, Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::cancelRequested,
           worker.data(), &LinBusWorker::cancelRequest, Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::sleepRequested,
@@ -107,6 +111,8 @@ void AmbientLinScheduler::createWorker()
 
   connect(worker.data(), &LinBusWorker::slaveStatusChanged,
           this, &LinRuntime::SlaveStatusChanged, Qt::QueuedConnection);
+  connect(worker.data(), &LinBusWorker::nodeResponseObserved,
+          this, &LinRuntime::nodeResponseObserved, Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::nodeConfigurationRead,
           this, &LinRuntime::nodeConfigurationRead,
           Qt::QueuedConnection);
@@ -115,6 +121,9 @@ void AmbientLinScheduler::createWorker()
           Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::calibrationFinished,
           this, &LinRuntime::calibrationFinished,
+          Qt::QueuedConnection);
+  connect(worker.data(), &LinBusWorker::nodeLockStateChanged,
+          this, &LinRuntime::nodeLockStateChanged,
           Qt::QueuedConnection);
   connect(worker.data(), &LinBusWorker::busStateChanged,
           this, &AmbientLinScheduler::handleWorkerBusStateChanged,
@@ -322,6 +331,28 @@ quint32 AmbientLinScheduler::calibrateNode(quint8 node, quint8 mode)
 
   const quint32 requestId = nextRequestId();
   emit calibrationRequested(requestId, node, mode);
+  return requestId;
+}
+
+quint32 AmbientLinScheduler::lockNode(quint8 node)
+{
+  assertFacadeThread();
+  if (!canSubmitDiagnosticRequest())
+    return 0;
+
+  const quint32 requestId = nextRequestId();
+  emit lockNodeRequested(requestId, node);
+  return requestId;
+}
+
+quint32 AmbientLinScheduler::unlockNode(quint8 node)
+{
+  assertFacadeThread();
+  if (!canSubmitDiagnosticRequest())
+    return 0;
+
+  const quint32 requestId = nextRequestId();
+  emit unlockNodeRequested(requestId, node);
   return requestId;
 }
 
