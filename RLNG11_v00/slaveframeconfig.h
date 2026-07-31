@@ -27,6 +27,9 @@ public:
 
   void SlaveFrameConfigInit(int slaveNode);
 
+signals:
+  void configurationReady(int nodeAddress);
+
 private slots:
   void buttonCalibrateNormal();
   void buttonCalibrateR();
@@ -40,6 +43,7 @@ private slots:
   void requestUnlock();
   void handleNodeResponse(quint8 node);
   void handleFeedbackTimeout();
+  void retryConfigurationRead();
 
   void handleReadResult(quint32 requestId,
                         SlaveConfigInfo info,
@@ -76,6 +80,7 @@ private:
   quint32 writeRequestId;
   quint32 calibrationRequestId;
   QTimer *feedbackWatchdog;
+  QTimer *configurationRetryTimer;
   quint32 lockRequestId;
   quint32 unlockRequestId;
   bool statusUsesRawFrame;

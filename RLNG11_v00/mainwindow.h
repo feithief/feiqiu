@@ -38,6 +38,7 @@ protected:
 
 private slots:
   void slaveConfig(int nodeAddress);
+  void showSlaveConfig(int nodeAddress);
   void enterMasterConfigMode();
   void slaveStatusHandle(SlaveStatus status);
 

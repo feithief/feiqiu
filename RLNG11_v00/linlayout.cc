@@ -229,9 +229,10 @@ QByteArray encodeCalibration(const CalibrationInfo &calibration)
     0.0,
     calibration.Y * 10000.0,
     static_cast<double>(0xFFFFFFFFU));
-  const quint16 x = static_cast<quint16>(scaledX);
-  const quint16 y = static_cast<quint16>(scaledY);
-  const quint32 luminance = static_cast<quint32>(scaledLuminance);
+  const quint16 x = static_cast<quint16>(qRound64(scaledX));
+  const quint16 y = static_cast<quint16>(qRound64(scaledY));
+  const quint32 luminance =
+    static_cast<quint32>(qRound64(scaledLuminance));
 
   appendLittleEndian16(&value, x);
   appendLittleEndian16(&value, y);

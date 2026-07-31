@@ -79,6 +79,7 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
     writeRequestId(0),
     calibrationRequestId(0),
     feedbackWatchdog(new QTimer(this)),
+    configurationRetryTimer(new QTimer(this)),
     lockRequestId(0),
     unlockRequestId(0),
     statusUsesRawFrame(false)
@@ -122,6 +123,11 @@ SlaveFrameConfig::SlaveFrameConfig(LinRuntime *runtime,
   feedbackWatchdog->setInterval(5000);
   connect(feedbackWatchdog, SIGNAL(timeout()),
           this, SLOT(handleFeedbackTimeout()));
+
+  configurationRetryTimer->setSingleShot(true);
+  configurationRetryTimer->setInterval(250);
+  connect(configurationRetryTimer, SIGNAL(timeout()),
+          this, SLOT(retryConfigurationRead()));
 
   ui->statusTable->setColumnCount(2);
   ui->statusTable->horizontalHeader()->hide();
@@ -242,6 +248,9 @@ void SlaveFrameConfig::setConfigurationControlsEnabled(bool enabled)
 
 void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
 {
+  configurationRetryTimer->stop();
+  hide();
+
   const LinLayout &profile = linRuntime->layout();
   const LinNodeLayout *node = findLinNode(
     profile, static_cast<quint8>(slaveNode));
@@ -288,13 +297,13 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
    */
   dialog->hide();
   if (!configurationAvailable)
+  {
+    emit configurationReady(currentNode);
     return;
+  }
 
-  /* Diagnostic progress is intentionally silent; only read/write OK is shown. */
-  readRequestId = linRuntime->readNodeConfiguration(
-    static_cast<quint8>(currentNode));
-  if (readRequestId == 0)
-    dialog->hide();
+  /* Stay on the main page until every configured DID has been read. */
+  retryConfigurationRead();
 }
 
 void SlaveFrameConfig::updateNodeState(SlaveStatus status)
@@ -353,6 +362,7 @@ void SlaveFrameConfig::handleNodeResponse(quint8 node)
 
 void SlaveFrameConfig::exitSlaveConfig()
 {
+  configurationRetryTimer->stop();
   if (readRequestId != 0)
     linRuntime->cancel(readRequestId);
   if (writeRequestId != 0)
@@ -392,6 +402,25 @@ void SlaveFrameConfig::changeConfigs()
     ui->pushButtonAccept->setText(QString::fromUtf8("正在写入..."));
     return;
   }
+
+  /*
+   * The on-screen keyboard can leave the last edited spin box in text-edit
+   * state. Commit every editor before taking the immutable write snapshot.
+   * This matters most for Blue Y because it is normally edited last.
+   */
+  ui->spinBoxSA->interpretText();
+  ui->spinBoxPlatform->interpretText();
+  ui->spinBoxIntensity->interpretText();
+  ui->doubleSpinBoxRX->interpretText();
+  ui->doubleSpinBoxRY->interpretText();
+  ui->doubleSpinBoxRL->interpretText();
+  ui->doubleSpinBoxGX->interpretText();
+  ui->doubleSpinBoxGY->interpretText();
+  ui->doubleSpinBoxGL->interpretText();
+  ui->doubleSpinBoxBX->interpretText();
+  ui->doubleSpinBoxBY->interpretText();
+  ui->doubleSpinBoxBL->interpretText();
+  keys->hide();
 
   const int requestedNad = ui->spinBoxSA->value();
   const LinLayout &profile = linRuntime->layout();
@@ -469,12 +498,27 @@ void SlaveFrameConfig::handleReadResult(quint32 requestId,
   if (success)
   {
     displayConfiguration(info);
+    emit configurationReady(currentNode);
     showReadWriteOk();
   }
   else
   {
     dialog->hide();
+    if ((currentNode != 0) && configurationAvailable)
+      configurationRetryTimer->start();
   }
+}
+
+void SlaveFrameConfig::retryConfigurationRead()
+{
+  if (!configurationAvailable || (currentNode == 0) ||
+      (readRequestId != 0))
+    return;
+
+  readRequestId = linRuntime->readNodeConfiguration(
+    static_cast<quint8>(currentNode));
+  if (readRequestId == 0)
+    configurationRetryTimer->start();
 }
 
 void SlaveFrameConfig::handleWriteResult(quint32 requestId,

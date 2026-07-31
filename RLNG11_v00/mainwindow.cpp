@@ -155,6 +155,8 @@ MainWindow::MainWindow(LinRuntime *runtime,
     masterFrame = new BCMMasterFrame(linRuntime, this);
     productVerifyFrame = new ProductionVerify(linRuntime, this);
     slaveFrame = new SlaveFrameConfig(linRuntime, this);
+    connect(slaveFrame, SIGNAL(configurationReady(int)),
+            this, SLOT(showSlaveConfig(int)));
   }
 
   debugPanel = new DebugPanel(debugSource, this);
@@ -249,10 +251,22 @@ void MainWindow::slaveConfig(int nodeAddress)
   if ((slaveFrame != 0) && slaveFrame->isHidden())
   {
     slaveFrame->setGeometry(0, 0, 1366, 768);
-    slaveFrame->show();
     slaveFrame->SlaveFrameConfigInit(nodeAddress);
-    keepDebugAccessVisible();
   }
+}
+
+void MainWindow::showSlaveConfig(int nodeAddress)
+{
+  SlaveButton *button = slaveButtons.value(
+    static_cast<quint8>(nodeAddress), 0);
+  if ((slaveFrame == 0) || (button == 0) ||
+      !button->hasValidFeedback())
+    return;
+
+  slaveFrame->setGeometry(0, 0, 1366, 768);
+  slaveFrame->show();
+  slaveFrame->raise();
+  keepDebugAccessVisible();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
