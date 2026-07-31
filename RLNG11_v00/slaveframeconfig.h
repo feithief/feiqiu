@@ -93,6 +93,7 @@ private:
   void setLockButtonsBusy(bool busy);
   void showLockState(bool locked);
   void displayConfiguration(const SlaveConfigInfo &info);
+  void showConfigurationLoading();
   void showReadWriteOk();
   void requestCalibration(quint8 mode);
 };
