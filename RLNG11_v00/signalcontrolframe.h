@@ -6,6 +6,7 @@
 
 class LinRuntime;
 struct LinFrameLayout;
+struct LinSignalLayout;
 
 namespace Ui {
 class SignalControlFrame;
@@ -34,6 +35,7 @@ private:
   Ui::SignalControlFrame *ui;
   LinRuntime *linRuntime;
   const LinFrameLayout *frameLayout;
+  QList<const LinSignalLayout *> controlledSignals;
   QList<QWidget *> valueEditors;
 
   void buildSignalRows();

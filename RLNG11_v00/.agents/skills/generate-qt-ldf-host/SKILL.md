@@ -1,6 +1,6 @@
 ---
 name: generate-qt-ldf-host
-description: Create a new independent Qt LIN upper-computer from the mother Seed using an LDF, a project name, and optional named combinations of exact LDF signal values. Use for quickly generating or regenerating an LDF-based host, adding paged multi-signal shortcut buttons such as RGB colors, and statically accepting diagnostics, UI navigation, generated sources, and Qt-macro safety without compiling Qt.
+description: Create a new independent Qt LIN upper-computer from the mother Seed using an LDF, a project name, and optional named combinations of exact LDF signal values. Preserves every active master-control and slave-feedback signal, including raw fields without known lighting semantics. Use for quickly generating or regenerating an LDF-based host, adding paged multi-signal shortcuts, and statically accepting diagnostics, UI navigation, generated sources, and Qt-macro safety without compiling Qt.
 ---
 
 # Generate Qt LDF Host
@@ -63,6 +63,15 @@ LDF-specific facts in JSON overlays and generated files.
   status response. Do not treat a transmitted header as feedback.
 - Gate navigation twice: disable the button in `SlaveButton`, and recheck the
   latest feedback state in `MainWindow::slaveConfig` before opening the page.
+- For custom-DID profiles, keep the page hidden and retry the complete initial
+  configuration read until it succeeds. Show the page only from a
+  `configurationReady` signal after all required values are populated; never
+  expose reset zeros. The 5000 ms valid-node-response watchdog remains active
+  during retries. Status-only profiles may signal ready immediately.
+- Before encoding editable diagnostic values, call `interpretText()` on every
+  `QSpinBox` and `QDoubleSpinBox`, including the last field touched by the
+  on-screen keyboard. Round scaled fixed-point values before little-endian
+  encoding instead of truncating them.
 - When the profile defines reviewed custom-DID services, enable read/write and
   calibration controls.
 - When the LDF defines only standard LIN node configuration or no proprietary
@@ -73,12 +82,35 @@ LDF-specific facts in JSON overlays and generated files.
 - Build Status Report rows from every signal in the active slave-published
   frame. Show shortened source names and raw hexadecimal values; never collapse
   fields into six fixed error slots or translate them to semantic text.
+- Accept raw status fields that have no normal/error semantics. The runtime
+  validator must exempt `ELinStatusRawValue` from the
+  `normalValue != errorValue` rule while retaining name, enum, bit-width, and
+  payload-range checks. Repeated raw fields are valid and must not block startup.
 - Treat `Locked` and `Unlocked` as non-clickable state indicators sourced only
   from readable DID `0x0002` bit7. Put separate `Lock` and `Unlock` action
   buttons below them. After either manual action, wait 1000 ms, issue `0x22`
   for DID `0x0002`, and update/report success only from that read-back.
 - A host is incomplete if `validate_generated_host.py` fails any navigation,
   source, report, C++ literal, or Qt macro-collision check.
+
+## Mandatory complete-signal contract
+
+- Preserve every signal in every selected master-published LDF frame. Keep
+  recognized lighting controls as typed bindings; automatically emit every
+  unrecognized field as `ELinSignalRawValue` with its exact LDF name, start bit,
+  width, and initial value. Never turn an unknown field into an invisible static
+  payload bit.
+- Generate an editable, scrollable all-signal page grouped by frame. Enumerate
+  `publishedFrames[0..n]` and each frame's `signalLayouts[0..n]`; never hard-code
+  RGB, brightness, one primary-frame-only list, or a maximum visible row count.
+- Store raw master values by exact source signal name in the shared immutable
+  `BCMSignal` snapshot. Encode them only inside the layout/Worker path, and keep
+  the original RGB page synchronized after an all-signal apply.
+- Preserve every signal in every active slave-published frame as raw status
+  rows. Exclude only frames proven inactive by the chosen build/profile.
+- Statically compare source LDF/contract signal sets with generated bindings and
+  status layouts. Missing, duplicated, overlapping, wider-than-32-bit, or
+  out-of-payload signals fail generation; they must never be silently skipped.
 
 ## Speed and safety rules
 
@@ -101,7 +133,8 @@ LDF-specific facts in JSON overlays and generated files.
   LED/direct-RGB enable and validity bits, use non-zero confirmed intensity,
   and use full-scale white for direct RGB. Reject zero target or intensity.
 - Reject missing signals, duplicate names, out-of-range values, and assignments
-  outside the primary control frame.
+  outside the primary control frame. This preset rule does not permit omitting
+  non-preset signals from the generated layout or all-signal page.
 - Support up to 512 preset combinations with 30 buttons per page. Do not add
   fixed buttons to `.ui` for every combination.
 - If DLP protection replaces a generated text file with a binary wrapper, use
@@ -110,3 +143,6 @@ LDF-specific facts in JSON overlays and generated files.
 - Keep both arguments of Qt `qMin`/`qMax` the same C++ type. Cast anonymous
   enum limits such as `LinMaximumStatusFields` to `int`; the Qt 5 ARM compiler
   rejects mixed `int`/enum template deduction.
+- Statically reject a Seed/host whose generated profile can emit
+  `ELinStatusRawValue` but whose runtime layout validation still applies the
+  semantic normal/error inequality to that raw field.

@@ -25,6 +25,14 @@ Creation is complete only after:
 3. profile `check` passes;
 4. `validate_generated_host.py` passes.
 
+The generated layout must contain every active master-published signal and
+every active slave-published feedback signal. Known lighting semantics use the
+typed `BCMSignal` members; all remaining master fields use
+`ELinSignalRawValue` indexed by exact source name. The reusable all-signal page
+groups every published frame and creates one editor for every layout entry.
+Unknown semantics are displayed raw, never omitted or frozen invisibly in the
+default payload.
+
 Diagnostic navigation is feedback-gated. A node starts disabled and becomes
 clickable only after a fully validated status-frame response. A timeout, PID
 mismatch, checksum failure, driver error, or malformed payload disables it

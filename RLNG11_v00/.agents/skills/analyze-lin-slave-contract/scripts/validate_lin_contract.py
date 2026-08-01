@@ -405,8 +405,93 @@ def validate(contract: Dict[str, object], source_root: Path) -> None:
                                 .format(index)
                             )
 
-        feedback_names = set()
+        # Every active master-to-slave source signal must survive into the
+        # host profile.  Business-semantic bindings may combine contiguous
+        # source fields, so compare the flattened source_signals list rather
+        # than only the semantic binding names.  This prevents a valid but
+        # UI-unknown field from silently becoming an uneditable static bit.
         frames = protocol.get("frames")
+        published = host_profile.get("published_frames")
+        published_by_name = {
+            item.get("name"): item
+            for item in published
+            if isinstance(item, dict) and isinstance(item.get("name"), str)
+        } if isinstance(published, list) else {}
+        if isinstance(frames, list):
+            for frame in frames:
+                if (
+                    not isinstance(frame, dict)
+                    or frame.get("direction") != "master_to_slave"
+                ):
+                    continue
+                frame_name = frame.get("name")
+                host_frame = published_by_name.get(frame_name)
+                if not isinstance(host_frame, dict):
+                    errors.append(
+                        "host_profile.published_frames omit active master frame: "
+                        + str(frame_name)
+                    )
+                    continue
+                bound_source_names = set()
+                bindings = host_frame.get("bindings")
+                if isinstance(bindings, list):
+                    for binding in bindings:
+                        if not isinstance(binding, dict):
+                            continue
+                        source_names = binding.get("source_signals")
+                        if isinstance(source_names, list):
+                            bound_source_names.update(
+                                item for item in source_names
+                                if isinstance(item, str)
+                            )
+                        elif isinstance(binding.get("name"), str):
+                            bound_source_names.add(binding["name"])
+                contract_names = {
+                    item.get("signal")
+                    for item in frame.get("signals", [])
+                    if isinstance(item, dict)
+                    and isinstance(item.get("signal"), str)
+                }
+                missing_control = contract_names - bound_source_names
+                if missing_control:
+                    errors.append(
+                        "host_profile frame {0} omits active control signals: {1}"
+                        .format(frame_name, ", ".join(sorted(missing_control)))
+                    )
+                contract_signal_by_name = {
+                    item.get("signal"): item
+                    for item in frame.get("signals", [])
+                    if isinstance(item, dict)
+                    and isinstance(item.get("signal"), str)
+                }
+                if isinstance(bindings, list):
+                    for binding in bindings:
+                        if not isinstance(binding, dict):
+                            continue
+                        if (
+                            binding.get("semantic") == "raw"
+                            and binding.get("enum") != "ELinSignalRawValue"
+                        ):
+                            errors.append(
+                                "raw control binding must use ELinSignalRawValue: "
+                                + str(binding.get("name"))
+                            )
+                        source_names = binding.get("source_signals")
+                        if not isinstance(source_names, list) or len(source_names) != 1:
+                            continue
+                        source_signal = contract_signal_by_name.get(source_names[0])
+                        if not isinstance(source_signal, dict):
+                            continue
+                        if (
+                            binding.get("start_bit") != source_signal.get("start_bit")
+                            or binding.get("bit_length") != source_signal.get("bit_length")
+                        ):
+                            errors.append(
+                                "host binding geometry differs from confirmed signal: "
+                                + source_names[0]
+                            )
+
+        feedback_names = set()
         if isinstance(frames, list):
             for frame in frames:
                 if not isinstance(frame, dict):

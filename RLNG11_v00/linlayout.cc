@@ -17,8 +17,10 @@ static const quint8 kNormalAndCalibrationNad = static_cast<quint8>(
 const int kMaximumSerialIoTimeoutMs = 1000;
 const int kMaximumBlockingLinDelayMs = 1000;
 
-quint64 logicalSignalValue(const BCMSignal &values, LinLogicalSignal signal)
+quint64 logicalSignalValue(const BCMSignal &values,
+                           const LinSignalLayout &layout)
 {
+  const LinLogicalSignal signal = layout.signal;
   switch (signal)
   {
     case ELinSignalTargetMask:           return values.targetMask;
@@ -39,6 +41,9 @@ quint64 logicalSignalValue(const BCMSignal &values, LinLogicalSignal signal)
       return values.dimmingTimeBase250ms ? 1 : 0;
     case ELinSignalSpecialFunction:      return values.specialFunction;
     case ELinSignalCommandValidity:      return values.commandValidity ? 1 : 0;
+    case ELinSignalRawValue:
+      return values.rawSignalValues.value(
+        QString::fromLatin1(layout.name), layout.defaultValue);
   }
 
   return 0;
@@ -57,6 +62,8 @@ bool isBooleanLogicalSignal(LinLogicalSignal signal)
     case ELinSignalDimmingTimeBase250ms:
     case ELinSignalCommandValidity:
       return true;
+    case ELinSignalRawValue:
+      return false;
     default:
       return false;
   }
@@ -84,15 +91,18 @@ quint8 logicalSignalStorageBits(LinLogicalSignal signal)
     case ELinSignalDimmingTimeBase250ms:
     case ELinSignalCommandValidity:
       return 1;
+    case ELinSignalRawValue:
+      return 32;
   }
 
   return 0;
 }
 
 void assignLogicalSignal(BCMSignal *values,
-                         LinLogicalSignal signal,
+                         const LinSignalLayout &layout,
                          quint64 value)
 {
+  const LinLogicalSignal signal = layout.signal;
   switch (signal)
   {
     case ELinSignalTargetMask:           values->targetMask = static_cast<quint16>(value); break;
@@ -119,6 +129,10 @@ void assignLogicalSignal(BCMSignal *values,
       break;
     case ELinSignalCommandValidity:
       values->commandValidity = (value != 0);
+      break;
+    case ELinSignalRawValue:
+      values->rawSignalValues.insert(
+        QString::fromLatin1(layout.name), static_cast<quint32>(value));
       break;
   }
 }
@@ -632,7 +646,7 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
       const LinSignalLayout &signal = frame.signalLayouts[index];
       if ((signal.name == 0) || (signal.name[0] == '\0') ||
           (signal.signal < ELinSignalTargetMask) ||
-          (signal.signal > ELinSignalCommandValidity) ||
+          (signal.signal > ELinSignalRawValue) ||
           (signal.bitLength == 0) || (signal.bitLength > 32) ||
           ((signal.startBit + signal.bitLength) > (frame.length * 8)))
       {
@@ -689,7 +703,15 @@ bool validateLinLayout(const LinLayout &layout, QStringList *errors)
       for (int other = index + 1; other < frame.signalCount; ++other)
       {
         const LinSignalLayout &otherSignal = frame.signalLayouts[other];
-        if (otherSignal.signal == signal.signal)
+        const bool duplicateTypedSignal =
+          (signal.signal != ELinSignalRawValue) &&
+          (otherSignal.signal == signal.signal);
+        const bool duplicateRawName =
+          (signal.signal == ELinSignalRawValue) &&
+          (otherSignal.signal == ELinSignalRawValue) &&
+          (signal.name != 0) && (otherSignal.name != 0) &&
+          (std::strcmp(signal.name, otherSignal.name) == 0);
+        if (duplicateTypedSignal || duplicateRawName)
           localErrors.append(QString("Duplicate signal in frame %1: %2")
                              .arg(frame.name == 0
                                   ? QString("<unnamed>")
@@ -1103,8 +1125,7 @@ const LinServiceLayout *findLinServiceById(const LinLayout &layout,
 
 BCMSignal createDefaultBCMSignal(const LinLayout &layout)
 {
-  BCMSignal values;
-  std::memset(&values, 0, sizeof(values));
+  BCMSignal values = BCMSignal();
 
   if ((layout.publishedFrameCount <= 0) || (layout.publishedFrames == 0))
     return values;
@@ -1121,7 +1142,7 @@ BCMSignal createDefaultBCMSignal(const LinLayout &layout)
          ++signalIndex)
     {
       const LinSignalLayout &signal = frame.signalLayouts[signalIndex];
-      assignLogicalSignal(&values, signal.signal, signal.defaultValue);
+      assignLogicalSignal(&values, signal, signal.defaultValue);
     }
   }
 
@@ -1155,7 +1176,7 @@ bool encodePublishedFrame(const LinFrameLayout &frameLayout,
     if (!writeBits(frame,
                    signal.startBit,
                    signal.bitLength,
-                   logicalSignalValue(values, signal.signal)))
+                   logicalSignalValue(values, signal)))
     {
       if (errorMessage != 0)
         *errorMessage = QString("Signal '%1' is outside the control frame")

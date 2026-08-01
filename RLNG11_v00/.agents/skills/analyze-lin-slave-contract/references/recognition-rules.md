@@ -107,6 +107,15 @@ and compare; all values must match before reporting success. Keep the default
 positive-response evidence in the reviewed contract when useful, but the
 mother-Seed host must not wait for `0x6E`.
 
+Before a Qt write snapshot, force every spin-box editor to interpret its current
+text. This is mandatory for the final field edited with an on-screen keyboard.
+Convert decimal fixed-point values by rounding after scaling; do not truncate.
+
+For custom-DID page entry, do not show reset/default fields. Keep the page
+hidden, retry the complete configuration read, and reveal it only after every
+required DID has succeeded. Continue applying the 5000 ms valid-node-response
+watchdog while retrying; a status-only page may open from validated feedback.
+
 ## Stop conditions
 
 Leave the contract unconfirmed when:

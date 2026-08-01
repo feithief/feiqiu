@@ -104,3 +104,10 @@ number of key bytes consumed by the active handler. The host renderer accepts
 only the fixed mother-Seed manual rule: four little-endian key bytes from
 `seed + 0x0C04`, Lock DID `0x0002` payload `82 00`, and a 5000 ms page
 response watchdog.
+
+For each confirmed `master_to_slave` frame, the flattened union of
+`host_profile.published_frames[].bindings[].source_signals` must equal the
+complete active source-signal set. Use typed semantics for recognized controls;
+use `{"semantic":"raw","enum":"ELinSignalRawValue"}` for every remaining
+field while preserving its exact name, bit position, width, and default. Apply
+the same completeness rule to slave feedback fields through `status_layouts`.

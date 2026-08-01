@@ -207,6 +207,18 @@ def validate(project_root: Path) -> None:
                 "cast LinMaximumStatusFields to int".format(relative, line)
             )
 
+    linlayout_runtime = find_source(source_texts, "linlayout")
+    raw_status_semantic_guard = re.search(
+        r"\(\s*field\.field\s*!=\s*ELinStatusRawValue\s*\)\s*&&\s*"
+        r"\(\s*field\.normalValue\s*==\s*field\.errorValue\s*\)",
+        linlayout_runtime or "",
+    )
+    if raw_status_semantic_guard is None:
+        errors.append(
+            "runtime layout validator must allow raw status fields without "
+            "normal/error semantics"
+        )
+
     architecture_files = {
         "linruntime.h": ("linruntime.h",),
         "lintransport.h": ("lintransport.h",),
@@ -390,6 +402,52 @@ def validate(project_root: Path) -> None:
     if not isinstance(generated, dict):
         errors.append("profile report has no generated_profile object")
         generated = {}
+
+    # Complete-signal architecture is a Seed invariant, even when the current
+    # profile happens to contain only the legacy RGB fields.  Future profiles
+    # must not require another UI/runtime rewrite for an unknown source signal.
+    lin_types_path = project_root / "lin_types.h"
+    lin_types_text = read_text(lin_types_path) if lin_types_path.is_file() else ""
+    layout_text = find_source(source_texts, "linlayout")
+    signal_control_text = find_source(source_texts, "signalcontrolframe")
+    require_marker(
+        errors,
+        lin_types_text,
+        "ELinSignalRawValue",
+        "LinLogicalSignal must preserve layout-specific raw control signals",
+    )
+    require_marker(
+        errors,
+        lin_types_text,
+        "rawSignalValues",
+        "BCMSignal must store raw control values by exact source name",
+    )
+    require_marker(
+        errors,
+        layout_text,
+        "case ELinSignalRawValue:",
+        "LinLayout encode/default logic must handle raw control signals",
+    )
+    require_marker(
+        errors,
+        signal_control_text,
+        "layout.publishedFrameCount",
+        "all-signal page must enumerate every master-published frame",
+    )
+    require_marker(
+        errors,
+        signal_control_text,
+        "controlledSignals.append(&signal)",
+        "all-signal page must create one editor per generated layout entry",
+    )
+    if "signalcontrolframe.ui" not in project_text:
+        errors.append("project does not register the all-signal Designer page")
+    master_ui = project_root / "masterframe.ui"
+    if (
+        not master_ui.is_file()
+        or "pushButtonAllSignals" not in read_text(master_ui)
+    ):
+        errors.append("master page has no visible all-signal navigation button")
     nodes = generated.get("nodes", [])
     models = generated.get("models", {})
     diagnostics = generated.get("diagnostics", {})
@@ -494,6 +552,18 @@ def validate(project_root: Path) -> None:
         )
         require_marker(
             errors,
+            mainwindow,
+            "SIGNAL(configurationReady(int))",
+            "custom-DID page must wait for a configuration-ready signal",
+        )
+        require_marker(
+            errors,
+            mainwindow,
+            "void MainWindow::showSlaveConfig",
+            "diagnostic page reveal must be separated from its read request",
+        )
+        require_marker(
+            errors,
             slaveconfig,
             "configurationAvailable",
             "diagnostic mode split missing: status-only/custom-DID state is required",
@@ -515,6 +585,46 @@ def validate(project_root: Path) -> None:
             slaveconfig,
             "feedbackWatchdog->setInterval(5000)",
             "diagnostic page must close after 5000 ms without node feedback",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "configurationRetryTimer->setInterval(250)",
+            "failed initial configuration reads must retry while the page stays hidden",
+        )
+        require_marker(
+            errors,
+            slaveconfig,
+            "emit configurationReady(currentNode)",
+            "diagnostic page must be released only after configuration is ready",
+        )
+        for editor_name in (
+            "spinBoxSA",
+            "spinBoxPlatform",
+            "spinBoxIntensity",
+            "doubleSpinBoxRX",
+            "doubleSpinBoxRY",
+            "doubleSpinBoxRL",
+            "doubleSpinBoxGX",
+            "doubleSpinBoxGY",
+            "doubleSpinBoxGL",
+            "doubleSpinBoxBX",
+            "doubleSpinBoxBY",
+            "doubleSpinBoxBL",
+        ):
+            require_marker(
+                errors,
+                slaveconfig,
+                "ui->{0}->interpretText();".format(editor_name),
+                "diagnostic write must commit editor {0} before snapshotting".format(
+                    editor_name
+                ),
+            )
+        require_marker(
+            errors,
+            linlayout_runtime,
+            "qRound64(scaledLuminance)",
+            "fixed-point diagnostic luminance must be rounded before encoding",
         )
         require_marker(
             errors,
@@ -733,6 +843,36 @@ def validate(project_root: Path) -> None:
     if generated.get("startup_output_policy") != "visible_on_power_up":
         errors.append("profile must publish a visible LED-on command at startup")
     published_frames = generated.get("published_frames", [])
+    if isinstance(published_frames, list):
+        for frame in published_frames:
+            if not isinstance(frame, dict):
+                continue
+            seen_source_names = set()
+            bindings = frame.get("bindings", [])
+            if not isinstance(bindings, list):
+                errors.append("published frame bindings must be a list")
+                continue
+            for binding in bindings:
+                if not isinstance(binding, dict):
+                    errors.append("published frame contains an invalid binding")
+                    continue
+                source_names = binding.get("source_signals")
+                if not isinstance(source_names, list) or not source_names:
+                    errors.append(
+                        "published binding has no source_signals: "
+                        + str(binding.get("name"))
+                    )
+                    continue
+                for source_name in source_names:
+                    if not isinstance(source_name, str) or not source_name:
+                        errors.append("published binding has an invalid source name")
+                    elif source_name in seen_source_names:
+                        errors.append(
+                            "published frame duplicates source signal: "
+                            + source_name
+                        )
+                    else:
+                        seen_source_names.add(source_name)
     primary_index = generated.get("primary_control_frame_index", -1)
     if (
         isinstance(published_frames, list)

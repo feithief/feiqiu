@@ -494,6 +494,24 @@
             "start_bit": 40,
             "bit_length": 8,
             "default": 255
+          },
+          {
+            "semantic": "raw",
+            "enum": "ELinSignalRawValue",
+            "name": "DoorInterColour",
+            "source_signals": ["DoorInterColour"],
+            "start_bit": 49,
+            "bit_length": 5,
+            "default": 0
+          },
+          {
+            "semantic": "raw",
+            "enum": "ELinSignalRawValue",
+            "name": "VehicleTypeInfo",
+            "source_signals": ["VehicleTypeInfo"],
+            "start_bit": 56,
+            "bit_length": 8,
+            "default": 4
           }
         ],
         "static": false

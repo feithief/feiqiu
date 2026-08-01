@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, MutableMapping, Optional, Sequence, Tuple
 
 
-GENERATOR_VERSION = "1.1"
+GENERATOR_VERSION = "1.2"
 OUTPUT_HEADER = "linprofile_generated.h"
 OUTPUT_SOURCE = "linprofile_generated.cpp"
 OUTPUT_REPORT = "linprofile_report.json"
@@ -856,6 +856,7 @@ LOGICAL_SIGNAL_ENUMS = {
     "dimming_time_base_250ms": "ELinSignalDimmingTimeBase250ms",
     "special_function": "ELinSignalSpecialFunction",
     "command_validity": "ELinSignalCommandValidity",
+    "raw": "ELinSignalRawValue",
 }
 
 STATUS_FIELD_ENUMS = {
@@ -931,7 +932,12 @@ BOOLEAN_LOGICAL_SIGNALS = {
 }
 
 LOGICAL_STORAGE_BITS = {
-    key: (16 if key == "target_mask" else 1 if key in BOOLEAN_LOGICAL_SIGNALS else 8)
+    key: (
+        32 if key == "raw"
+        else 16 if key == "target_mask"
+        else 1 if key in BOOLEAN_LOGICAL_SIGNALS
+        else 8
+    )
     for key in LOGICAL_SIGNAL_ENUMS
 }
 
@@ -1542,6 +1548,38 @@ def build_profile(network: LdfNetwork, overlay: Dict[str, Any], overlay_sha256: 
                 "default": default_value,
             }
         )
+
+    # Preserve every remaining signal in every selected master-published
+    # frame. Unknown business meaning is not permission to discard a field:
+    # generic raw bindings keep it editable by exact source name.
+    for frame_name in published_names:
+        frame = network.frames[frame_name]
+        bound_sources = {
+            source_name
+            for binding in bindings_by_frame[frame_name]
+            for source_name in binding.get("source_signals", [])
+        }
+        for placement in frame.signals:
+            if placement.signal in bound_sources:
+                continue
+            signal = network.signals[placement.signal]
+            if signal.size <= 0 or signal.size > 32:
+                raise ProfileError(
+                    "master signal {0}.{1} has unsupported width {2}; "
+                    "all active signals must be represented"
+                    .format(frame_name, placement.signal, signal.size)
+                )
+            bindings_by_frame[frame_name].append(
+                {
+                    "semantic": "raw",
+                    "enum": LOGICAL_SIGNAL_ENUMS["raw"],
+                    "name": placement.signal,
+                    "source_signals": [placement.signal],
+                    "start_bit": placement.start_bit,
+                    "bit_length": signal.size,
+                    "default": signal.initial,
+                }
+            )
 
     payload_overrides = config_object(overlay.get("frame_default_payloads", {}), "frame_default_payloads")
     published_frames: List[Dict[str, Any]] = []

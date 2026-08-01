@@ -31,7 +31,10 @@ enum LinLogicalSignal
   ELinSignalDimmingTimeRelative,
   ELinSignalDimmingTimeBase250ms,
   ELinSignalSpecialFunction,
-  ELinSignalCommandValidity
+  ELinSignalCommandValidity,
+  /* A source signal without a reusable lighting semantic.  Keep it by name
+   * so a layout never loses fields merely because the RGB page ignores it. */
+  ELinSignalRawValue
 };
 
 enum LinColorModel
@@ -113,6 +116,8 @@ struct BCMSignal
   bool dimmingTimeBase250ms;
   quint8 specialFunction;
   bool commandValidity;
+  /* Complete storage for layout-specific master-published signals. */
+  QMap<QString, quint32> rawSignalValues;
 };
 
 struct SlaveStatus
