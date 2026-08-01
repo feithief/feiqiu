@@ -40,6 +40,7 @@ SOURCES += \
     adialog.cc \
     keyboard.cc \
     productionverify.cc \
+    signalcontrolframe.cc \
      linlayout.cc \
      generated/linprofile_generated.cc \
      linbusworker.cc \
@@ -60,6 +61,7 @@ HEADERS += \
     adialog.h \
     keyboard.h \
     productionverify.h \
+    signalcontrolframe.h \
      lin_types.h \
      linlayout.h \
      generated/linprofile_generated.h \
@@ -75,7 +77,8 @@ FORMS += \
     slavenodeframe.ui \
     deviceDialog.ui \
     amkeyboard.ui \
-    productionverify.ui
+    productionverify.ui \
+    signalcontrolframe.ui
 
 RESOURCES += \
     ambinetdevideres.qrc

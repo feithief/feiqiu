@@ -1,4 +1,5 @@
 #include "bcmmasterframe.h"
+#include "signalcontrolframe.h"
 #include "application_config.h"
 #include "linlayout.h"
 #include <QString>
@@ -138,6 +139,26 @@ BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
 
   ui->setupUi(this);
   ui->frameCIE->installEventFilter(this);
+
+  SignalControlFrame *allSignalPage =
+    new SignalControlFrame(linRuntime, this);
+  connect(ui->pushButtonAllSignals, &QPushButton::clicked, this,
+          [allSignalPage]()
+          {
+            allSignalPage->init();
+            allSignalPage->show();
+            allSignalPage->raise();
+          });
+  connect(allSignalPage, &SignalControlFrame::valuesApplied, this,
+          [this]()
+          {
+            /*
+             * Keep the original RGB/brightness page synchronized so a later
+             * slider operation cannot overwrite values set in the generic
+             * signal page with a stale BCMSignal snapshot.
+             */
+            this->init();
+          });
 
   const LinLayout &layout = linRuntime->layout();
 

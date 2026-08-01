@@ -556,6 +556,34 @@ color:rgb(29, 165, 219);
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButtonAllSignals">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>650</y>
+     <width>131</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+border:2px solid #0fbacd;
+border-top-right-radius: 15px;
+border-bottom-left-radius: 15px;
+color:rgb(255,251,240);
+background:rgba(29, 165, 219, 0.3);
+font-size:22px;
+}</string>
+   </property>
+   <property name="text">
+    <string>全部信号</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="pushButtonAccept">
    <property name="geometry">
     <rect>
