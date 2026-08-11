@@ -1,0 +1,4 @@
+interface:
+  display_name: "生成 Qt LIN 上位机"
+  short_description: "从 LDF 生成支持任意信号与跨帧组合的 Qt LIN 上位机"
+  default_prompt: "使用 $generate-qt-ldf-host 从 LDF 生成包含全部信号、动态界面和跨帧组合预设的 Qt 上位机。"

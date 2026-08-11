@@ -1,0 +1,10 @@
+# Local generator checks and Python bytecode. Keep the reusable project Skill
+# with the mother Seed while ignoring all other local .agents artifacts.
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/generate-qt-ldf-host/
+!.agents/skills/generate-qt-ldf-host/**
+tools/__pycache__/
+tools/tests/_probe*.json
+profiles/*_generated/

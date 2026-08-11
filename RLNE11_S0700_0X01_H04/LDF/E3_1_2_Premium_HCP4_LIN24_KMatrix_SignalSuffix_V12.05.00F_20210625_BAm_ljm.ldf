@@ -1,0 +1,2812 @@
+/* ***********************************************************************/
+/*                                                                       */
+/*  LIN DESCRIPTION FILE                                                 */
+/*                                                                       */
+/*  Date:          xx.xx.xxxx                                            */
+/*  Project:       E3_1_2_Premium                                        */
+/*  Version:       V12.05.00F                                            */
+/*                                                                       */
+/*  Network:       HCP4_LIN24                                            */
+/*  Slave(s):      AM_RGB_Slave_01a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_02a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_03a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_04a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_05a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_06a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_07a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_08a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_09a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_10a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_11a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_12a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_13a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 AM_RGB_Slave_14a    Ambiente Licht Modul 1 bis n      */
+/*                                     (Maximal 15 Pro Bus)              */
+/*                 Virtual_AM_RGB_Slave_16a                              */
+/*  Master:        HCP4_uC1_1          Bordnetzsteuerger?? / Body and    */
+/*                                     Energy                            */
+/*                                                                       */
+/*  Ersteller:     DFL@Audi.de VAG                                       */
+/*                                                                       */
+/* ***********************************************************************/
+/*                                                                       */
+/*  SYSTEMPARAMETER                                                      */
+/*                                                                       */
+/*  Spannungsversorgung:       HCP4_uC1_1          Kl.30                 */
+/*                             AM_RGB_Slave_01a    Kl.30                 */
+/*                             AM_RGB_Slave_02a    Kl.30                 */
+/*                             AM_RGB_Slave_03a    Kl.30                 */
+/*                             AM_RGB_Slave_04a    Kl.30                 */
+/*                             AM_RGB_Slave_05a    Kl.30                 */
+/*                             AM_RGB_Slave_06a    Kl.30                 */
+/*                             AM_RGB_Slave_07a    Kl.30                 */
+/*                             AM_RGB_Slave_08a    Kl.30                 */
+/*                             AM_RGB_Slave_09a    Kl.30                 */
+/*                             AM_RGB_Slave_10a    Kl.30                 */
+/*                             AM_RGB_Slave_11a    Kl.30                 */
+/*                             AM_RGB_Slave_12a    Kl.30                 */
+/*                             AM_RGB_Slave_13a    Kl.30                 */
+/*                             AM_RGB_Slave_14a    Kl.30                 */
+/*                             Virtual_AM_RGB_Slave_16a Kl.30            */
+/*                                                                       */
+/*  Sleep / WakeUp:            HCP4_uC1_1          Nein                  */
+/*                             AM_RGB_Slave_01a    Nein                  */
+/*                             AM_RGB_Slave_02a    Nein                  */
+/*                             AM_RGB_Slave_03a    Nein                  */
+/*                             AM_RGB_Slave_04a    Nein                  */
+/*                             AM_RGB_Slave_05a    Nein                  */
+/*                             AM_RGB_Slave_06a    Nein                  */
+/*                             AM_RGB_Slave_07a    Nein                  */
+/*                             AM_RGB_Slave_08a    Nein                  */
+/*                             AM_RGB_Slave_09a    Nein                  */
+/*                             AM_RGB_Slave_10a    Nein                  */
+/*                             AM_RGB_Slave_11a    Nein                  */
+/*                             AM_RGB_Slave_12a    Nein                  */
+/*                             AM_RGB_Slave_13a    Nein                  */
+/*                             AM_RGB_Slave_14a    Nein                  */
+/*                             Virtual_AM_RGB_Slave_16a Nein             */
+/*                                                                       */
+/*  Diagnoseklasse/Adresse:    HCP4_uC1_1          4     0x0009          */
+/*                             AM_RGB_Slave_01a    0                     */
+/*                             AM_RGB_Slave_02a    0                     */
+/*                             AM_RGB_Slave_03a    0                     */
+/*                             AM_RGB_Slave_04a    0                     */
+/*                             AM_RGB_Slave_05a    0                     */
+/*                             AM_RGB_Slave_06a    0                     */
+/*                             AM_RGB_Slave_07a    0                     */
+/*                             AM_RGB_Slave_08a    0                     */
+/*                             AM_RGB_Slave_09a    0                     */
+/*                             AM_RGB_Slave_10a    0                     */
+/*                             AM_RGB_Slave_11a    0                     */
+/*                             AM_RGB_Slave_12a    0                     */
+/*                             AM_RGB_Slave_13a    0                     */
+/*                             AM_RGB_Slave_14a    0                     */
+/*                             Virtual_AM_RGB_Slave_16a                  */
+/*                                                                       */
+/*  ScheduleTable:             ST1                                       */
+/*                             SWrite                                    */
+/*                             Sync_All                                  */
+/*                             DiagRequest                               */
+/*                             DiagResponse                              */
+/*                                                                       */
+/* ***********************************************************************/
+
+LIN_description_file;
+LIN_protocol_version = "2.0";
+LIN_language_version = "2.0";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: HCP4_uC1_1, 10 ms, 0.9 ms ;
+  Slaves: AM_RGB_Slave_01a, AM_RGB_Slave_02a, AM_RGB_Slave_03a, AM_RGB_Slave_04a, AM_RGB_Slave_05a, AM_RGB_Slave_06a, AM_RGB_Slave_07a, AM_RGB_Slave_08a, AM_RGB_Slave_09a, AM_RGB_Slave_10a, AM_RGB_Slave_11a, AM_RGB_Slave_12a, AM_RGB_Slave_13a, AM_RGB_Slave_14a, Virtual_AM_RGB_Slave_16a ;
+}
+
+Signals {
+  BCM_RGB_Color_u_01: 7, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  BCM_RGB_Color_u_02: 7, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  BCM_RGB_Color_u_03: 7, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  BCM_RGB_Color_u_04: 7, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  BCM_RGB_Color_u_05: 7, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  BCM_RGB_Color_u_06: 7, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  BCM_RGB_Color_u_07: 7, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Color_u_08: 7, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Color_u_09: 7, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  BCM_RGB_Color_u_10: 7, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  BCM_RGB_Color_u_11: 7, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  BCM_RGB_Color_u_12: 7, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  BCM_RGB_Color_u_13: 7, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  BCM_RGB_Color_u_14: 7, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  BCM_RGB_Color_v_01: 7, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  BCM_RGB_Color_v_02: 7, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  BCM_RGB_Color_v_03: 7, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  BCM_RGB_Color_v_04: 7, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  BCM_RGB_Color_v_05: 7, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  BCM_RGB_Color_v_06: 7, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  BCM_RGB_Color_v_07: 7, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Color_v_08: 7, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Color_v_09: 7, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  BCM_RGB_Color_v_10: 7, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  BCM_RGB_Color_v_11: 7, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  BCM_RGB_Color_v_12: 7, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  BCM_RGB_Color_v_13: 7, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  BCM_RGB_Color_v_14: 7, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  BCM_RGB_Dimmrampe_01: 6, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  BCM_RGB_Dimmrampe_02: 6, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  BCM_RGB_Dimmrampe_03: 6, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  BCM_RGB_Dimmrampe_04: 6, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  BCM_RGB_Dimmrampe_05: 6, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  BCM_RGB_Dimmrampe_06: 6, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  BCM_RGB_Dimmrampe_07: 6, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Dimmrampe_08: 6, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Dimmrampe_09: 6, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  BCM_RGB_Dimmrampe_10: 6, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  BCM_RGB_Dimmrampe_11: 6, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  BCM_RGB_Dimmrampe_12: 6, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  BCM_RGB_Dimmrampe_13: 6, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  BCM_RGB_Dimmrampe_14: 6, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  BCM_RGB_GlobalSync: 1, 0, HCP4_uC1_1, AM_RGB_Slave_01a;
+  BCM_RGB_GlobalSync_01: 1, 0, HCP4_uC1_1, AM_RGB_Slave_01a, AM_RGB_Slave_02a;
+  BCM_RGB_GlobalSync_03: 1, 0, HCP4_uC1_1, AM_RGB_Slave_03a, AM_RGB_Slave_04a;
+  BCM_RGB_GlobalSync_05: 1, 0, HCP4_uC1_1, AM_RGB_Slave_05a, AM_RGB_Slave_06a;
+  BCM_RGB_GlobalSync_07: 1, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a;
+  BCM_RGB_GlobalSync_09: 1, 0, HCP4_uC1_1, AM_RGB_Slave_09a, AM_RGB_Slave_10a;
+  BCM_RGB_GlobalSync_11: 1, 0, HCP4_uC1_1, AM_RGB_Slave_11a, AM_RGB_Slave_12a;
+  BCM_RGB_GlobalSync_13: 1, 0, HCP4_uC1_1, AM_RGB_Slave_13a, AM_RGB_Slave_14a;
+  BCM_RGB_Intensitaet_01: 7, 127, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  BCM_RGB_Intensitaet_02: 7, 127, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  BCM_RGB_Intensitaet_03: 7, 127, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  BCM_RGB_Intensitaet_04: 7, 127, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  BCM_RGB_Intensitaet_05: 7, 127, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  BCM_RGB_Intensitaet_06: 7, 127, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  BCM_RGB_Intensitaet_07: 7, 127, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Intensitaet_08: 7, 127, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Intensitaet_09: 7, 127, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  BCM_RGB_Intensitaet_10: 7, 127, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  BCM_RGB_Intensitaet_11: 7, 127, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  BCM_RGB_Intensitaet_12: 7, 127, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  BCM_RGB_Intensitaet_13: 7, 127, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  BCM_RGB_Intensitaet_14: 7, 127, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  BCM_RGB_Sonderfunktion_01: 4, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  BCM_RGB_Sonderfunktion_02: 4, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  BCM_RGB_Sonderfunktion_03: 4, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  BCM_RGB_Sonderfunktion_04: 4, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  BCM_RGB_Sonderfunktion_05: 4, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  BCM_RGB_Sonderfunktion_06: 4, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  BCM_RGB_Sonderfunktion_07: 4, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Sonderfunktion_08: 4, 0, HCP4_uC1_1, AM_RGB_Slave_07a, AM_RGB_Slave_08a ;
+  BCM_RGB_Sonderfunktion_09: 4, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  BCM_RGB_Sonderfunktion_10: 4, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  BCM_RGB_Sonderfunktion_11: 4, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  BCM_RGB_Sonderfunktion_12: 4, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  BCM_RGB_Sonderfunktion_13: 4, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  BCM_RGB_Sonderfunktion_14: 4, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  RGB_Slave_01a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_HW_Version: 8, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_IntError: 2, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_ResponseError: 1, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_StoredNAD: 8, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_SW_Version: 8, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_01a_TempState: 3, 0, AM_RGB_Slave_01a, HCP4_uC1_1 ;
+  RGB_Slave_02a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_HW_Version: 8, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_IntError: 2, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_ResponseError: 1, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_StoredNAD: 8, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_SW_Version: 8, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_02a_TempState: 3, 0, AM_RGB_Slave_02a, HCP4_uC1_1 ;
+  RGB_Slave_03a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_HW_Version: 8, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_IntError: 2, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_ResponseError: 1, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_StoredNAD: 8, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_SW_Version: 8, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_03a_TempState: 3, 0, AM_RGB_Slave_03a, HCP4_uC1_1 ;
+  RGB_Slave_04a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_HW_Version: 8, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_IntError: 2, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_ResponseError: 1, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_StoredNAD: 8, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_SW_Version: 8, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_04a_TempState: 3, 0, AM_RGB_Slave_04a, HCP4_uC1_1 ;
+  RGB_Slave_05a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_HW_Version: 8, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_IntError: 2, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_ResponseError: 1, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_StoredNAD: 8, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_SW_Version: 8, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_05a_TempState: 3, 0, AM_RGB_Slave_05a, HCP4_uC1_1 ;
+  RGB_Slave_06a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_HW_Version: 8, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_IntError: 2, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_ResponseError: 1, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_StoredNAD: 8, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_SW_Version: 8, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_06a_TempState: 3, 0, AM_RGB_Slave_06a, HCP4_uC1_1 ;
+  RGB_Slave_07a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_HW_Version: 8, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_IntError: 2, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_ResponseError: 1, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_StoredNAD: 8, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_SW_Version: 8, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_07a_TempState: 3, 0, AM_RGB_Slave_07a, HCP4_uC1_1 ;
+  RGB_Slave_08a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_HW_Version: 8, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_IntError: 2, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_ResponseError: 1, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_StoredNAD: 8, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_SW_Version: 8, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_08a_TempState: 3, 0, AM_RGB_Slave_08a, HCP4_uC1_1 ;
+  RGB_Slave_09a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_HW_Version: 8, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_IntError: 2, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_ResponseError: 1, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_StoredNAD: 8, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_SW_Version: 8, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_09a_TempState: 3, 0, AM_RGB_Slave_09a, HCP4_uC1_1 ;
+  RGB_Slave_10a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_HW_Version: 8, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_IntError: 2, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_ResponseError: 1, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_StoredNAD: 8, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_SW_Version: 8, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_10a_TempState: 3, 0, AM_RGB_Slave_10a, HCP4_uC1_1 ;
+  RGB_Slave_11a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_HW_Version: 8, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_IntError: 2, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_ResponseError: 1, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_StoredNAD: 8, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_SW_Version: 8, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_11a_TempState: 3, 0, AM_RGB_Slave_11a, HCP4_uC1_1 ;
+  RGB_Slave_12a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_HW_Version: 8, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_IntError: 2, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_ResponseError: 1, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_StoredNAD: 8, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_SW_Version: 8, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_12a_TempState: 3, 0, AM_RGB_Slave_12a, HCP4_uC1_1 ;
+  RGB_Slave_13a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_HW_Version: 8, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_IntError: 2, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_ResponseError: 1, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_StoredNAD: 8, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_SW_Version: 8, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_13a_TempState: 3, 0, AM_RGB_Slave_13a, HCP4_uC1_1 ;
+  RGB_Slave_14a_HelligkeitsFaktor: 7, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_HW_Version: 8, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_IntError: 2, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_ResponseError: 1, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_StoredNAD: 8, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_SW_Version: 8, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_14a_TempState: 3, 0, AM_RGB_Slave_14a, HCP4_uC1_1 ;
+  RGB_Slave_16a_ResponseError: 1, 0, Virtual_AM_RGB_Slave_16a, HCP4_uC1_1 ;
+  SWrite_CRC_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_CRC_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_CRC_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_CRC_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_CRC_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_CRC_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_CRC_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_CRC_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_CRC_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_CRC_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_CRC_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_CRC_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_CRC_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_CRC_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Data_B1_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Data_B1_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Data_B1_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Data_B1_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Data_B1_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Data_B1_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Data_B1_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Data_B1_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Data_B1_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Data_B1_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Data_B1_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Data_B1_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Data_B1_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Data_B1_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Data_B2_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Data_B2_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Data_B2_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Data_B2_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Data_B2_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Data_B2_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Data_B2_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Data_B2_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Data_B2_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Data_B2_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Data_B2_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Data_B2_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Data_B2_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Data_B2_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Data_B3_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Data_B3_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Data_B3_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Data_B3_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Data_B3_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Data_B3_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Data_B3_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Data_B3_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Data_B3_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Data_B3_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Data_B3_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Data_B3_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Data_B3_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Data_B3_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Data_B4_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Data_B4_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Data_B4_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Data_B4_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Data_B4_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Data_B4_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Data_B4_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Data_B4_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Data_B4_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Data_B4_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Data_B4_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Data_B4_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Data_B4_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Data_B4_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Data_B5_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Data_B5_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Data_B5_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Data_B5_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Data_B5_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Data_B5_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Data_B5_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Data_B5_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Data_B5_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Data_B5_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Data_B5_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Data_B5_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Data_B5_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Data_B5_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Dummy_01: 5, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Dummy_02: 5, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Dummy_03: 5, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Dummy_04: 5, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Dummy_05: 5, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Dummy_06: 5, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Dummy_07: 5, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Dummy_08: 5, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Dummy_09: 5, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Dummy_10: 5, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Dummy_11: 5, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Dummy_12: 5, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Dummy_13: 5, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Dummy_14: 5, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_Len_01: 3, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_Len_02: 3, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_Len_03: 3, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_Len_04: 3, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_Len_05: 3, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_Len_06: 3, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_Len_07: 3, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_Len_08: 3, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_Len_09: 3, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_Len_10: 3, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_Len_11: 3, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_Len_12: 3, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_Len_13: 3, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_Len_14: 3, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+  SWrite_MemAddress_01: 8, 0, HCP4_uC1_1, AM_RGB_Slave_01a ;
+  SWrite_MemAddress_02: 8, 0, HCP4_uC1_1, AM_RGB_Slave_02a ;
+  SWrite_MemAddress_03: 8, 0, HCP4_uC1_1, AM_RGB_Slave_03a ;
+  SWrite_MemAddress_04: 8, 0, HCP4_uC1_1, AM_RGB_Slave_04a ;
+  SWrite_MemAddress_05: 8, 0, HCP4_uC1_1, AM_RGB_Slave_05a ;
+  SWrite_MemAddress_06: 8, 0, HCP4_uC1_1, AM_RGB_Slave_06a ;
+  SWrite_MemAddress_07: 8, 0, HCP4_uC1_1, AM_RGB_Slave_07a ;
+  SWrite_MemAddress_08: 8, 0, HCP4_uC1_1, AM_RGB_Slave_08a ;
+  SWrite_MemAddress_09: 8, 0, HCP4_uC1_1, AM_RGB_Slave_09a ;
+  SWrite_MemAddress_10: 8, 0, HCP4_uC1_1, AM_RGB_Slave_10a ;
+  SWrite_MemAddress_11: 8, 0, HCP4_uC1_1, AM_RGB_Slave_11a ;
+  SWrite_MemAddress_12: 8, 0, HCP4_uC1_1, AM_RGB_Slave_12a ;
+  SWrite_MemAddress_13: 8, 0, HCP4_uC1_1, AM_RGB_Slave_13a ;
+  SWrite_MemAddress_14: 8, 0, HCP4_uC1_1, AM_RGB_Slave_14a ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+Frames {
+  RGBe_Slave_a_01_02: 26, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_01, 0 ;
+    BCM_RGB_Color_v_01, 7 ;
+    BCM_RGB_Dimmrampe_01, 14 ;
+    BCM_RGB_Sonderfunktion_01, 20 ;
+    BCM_RGB_Intensitaet_01, 24 ;
+    BCM_RGB_Color_u_02, 32 ;
+    BCM_RGB_Color_v_02, 39 ;
+    BCM_RGB_Dimmrampe_02, 46 ;
+    BCM_RGB_Sonderfunktion_02, 52 ;
+    BCM_RGB_Intensitaet_02, 56 ;
+    BCM_RGB_GlobalSync_01, 63 ;
+  }
+  RGBe_Slave_a_03_04: 27, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_03, 0 ;
+    BCM_RGB_Color_v_03, 7 ;
+    BCM_RGB_Dimmrampe_03, 14 ;
+    BCM_RGB_Sonderfunktion_03, 20 ;
+    BCM_RGB_Intensitaet_03, 24 ;
+    BCM_RGB_Color_u_04, 32 ;
+    BCM_RGB_Color_v_04, 39 ;
+    BCM_RGB_Dimmrampe_04, 46 ;
+    BCM_RGB_Sonderfunktion_04, 52 ;
+    BCM_RGB_Intensitaet_04, 56 ;
+    BCM_RGB_GlobalSync_03, 63 ;
+  }
+  RGBe_Slave_a_05_06: 28, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_05, 0 ;
+    BCM_RGB_Color_v_05, 7 ;
+    BCM_RGB_Dimmrampe_05, 14 ;
+    BCM_RGB_Sonderfunktion_05, 20 ;
+    BCM_RGB_Intensitaet_05, 24 ;
+    BCM_RGB_Color_u_06, 32 ;
+    BCM_RGB_Color_v_06, 39 ;
+    BCM_RGB_Dimmrampe_06, 46 ;
+    BCM_RGB_Sonderfunktion_06, 52 ;
+    BCM_RGB_Intensitaet_06, 56 ;
+    BCM_RGB_GlobalSync_05, 63 ;
+  }
+  RGBe_Slave_a_07_08: 29, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_07, 0 ;
+    BCM_RGB_Color_v_07, 7 ;
+    BCM_RGB_Dimmrampe_07, 14 ;
+    BCM_RGB_Sonderfunktion_07, 20 ;
+    BCM_RGB_Intensitaet_07, 24 ;
+    BCM_RGB_Color_u_08, 32 ;
+    BCM_RGB_Color_v_08, 39 ;
+    BCM_RGB_Dimmrampe_08, 46 ;
+    BCM_RGB_Sonderfunktion_08, 52 ;
+    BCM_RGB_Intensitaet_08, 56 ;
+    BCM_RGB_GlobalSync_07, 63 ;
+  }
+  RGBe_Slave_a_09_10: 30, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_09, 0 ;
+    BCM_RGB_Color_v_09, 7 ;
+    BCM_RGB_Dimmrampe_09, 14 ;
+    BCM_RGB_Sonderfunktion_09, 20 ;
+    BCM_RGB_Intensitaet_09, 24 ;
+    BCM_RGB_Color_u_10, 32 ;
+    BCM_RGB_Color_v_10, 39 ;
+    BCM_RGB_Dimmrampe_10, 46 ;
+    BCM_RGB_Sonderfunktion_10, 52 ;
+    BCM_RGB_Intensitaet_10, 56 ;
+    BCM_RGB_GlobalSync_09, 63 ;
+  }
+  RGBe_Slave_a_11_12: 32, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_11, 0 ;
+    BCM_RGB_Color_v_11, 7 ;
+    BCM_RGB_Dimmrampe_11, 14 ;
+    BCM_RGB_Sonderfunktion_11, 20 ;
+    BCM_RGB_Intensitaet_11, 24 ;
+    BCM_RGB_Color_u_12, 32 ;
+    BCM_RGB_Color_v_12, 39 ;
+    BCM_RGB_Dimmrampe_12, 46 ;
+    BCM_RGB_Sonderfunktion_12, 52 ;
+    BCM_RGB_Intensitaet_12, 56 ;
+    BCM_RGB_GlobalSync_11, 63 ;
+  }
+  RGBe_Slave_a_13_14: 33, HCP4_uC1_1, 8 {
+    BCM_RGB_Color_u_13, 0 ;
+    BCM_RGB_Color_v_13, 7 ;
+    BCM_RGB_Dimmrampe_13, 14 ;
+    BCM_RGB_Sonderfunktion_13, 20 ;
+    BCM_RGB_Intensitaet_13, 24 ;
+    BCM_RGB_Color_u_14, 32 ;
+    BCM_RGB_Color_v_14, 39 ;
+    BCM_RGB_Dimmrampe_14, 46 ;
+    BCM_RGB_Sonderfunktion_14, 52 ;
+    BCM_RGB_Intensitaet_14, 56 ;
+    BCM_RGB_GlobalSync_13, 63 ;
+  }
+  RGBe_Sync_abcd: 31, HCP4_uC1_1, 1 {
+    BCM_RGB_GlobalSync, 0 ;
+  }
+  RGBe_Write_a_01: 35, HCP4_uC1_1, 8 {
+    SWrite_Dummy_01, 0 ;
+    SWrite_Len_01, 5 ;
+    SWrite_MemAddress_01, 8 ;
+    SWrite_Data_B1_01, 16 ;
+    SWrite_Data_B2_01, 24 ;
+    SWrite_Data_B3_01, 32 ;
+    SWrite_Data_B4_01, 40 ;
+    SWrite_Data_B5_01, 48 ;
+    SWrite_CRC_01, 56 ;
+  }
+  RGBe_Write_a_02: 36, HCP4_uC1_1, 8 {
+    SWrite_Dummy_02, 0 ;
+    SWrite_Len_02, 5 ;
+    SWrite_MemAddress_02, 8 ;
+    SWrite_Data_B1_02, 16 ;
+    SWrite_Data_B2_02, 24 ;
+    SWrite_Data_B3_02, 32 ;
+    SWrite_Data_B4_02, 40 ;
+    SWrite_Data_B5_02, 48 ;
+    SWrite_CRC_02, 56 ;
+  }
+  RGBe_Write_a_03: 37, HCP4_uC1_1, 8 {
+    SWrite_Dummy_03, 0 ;
+    SWrite_Len_03, 5 ;
+    SWrite_MemAddress_03, 8 ;
+    SWrite_Data_B1_03, 16 ;
+    SWrite_Data_B2_03, 24 ;
+    SWrite_Data_B3_03, 32 ;
+    SWrite_Data_B4_03, 40 ;
+    SWrite_Data_B5_03, 48 ;
+    SWrite_CRC_03, 56 ;
+  }
+  RGBe_Write_a_04: 38, HCP4_uC1_1, 8 {
+    SWrite_Dummy_04, 0 ;
+    SWrite_Len_04, 5 ;
+    SWrite_MemAddress_04, 8 ;
+    SWrite_Data_B1_04, 16 ;
+    SWrite_Data_B2_04, 24 ;
+    SWrite_Data_B3_04, 32 ;
+    SWrite_Data_B4_04, 40 ;
+    SWrite_Data_B5_04, 48 ;
+    SWrite_CRC_04, 56 ;
+  }
+  RGBe_Write_a_05: 39, HCP4_uC1_1, 8 {
+    SWrite_Dummy_05, 0 ;
+    SWrite_Len_05, 5 ;
+    SWrite_MemAddress_05, 8 ;
+    SWrite_Data_B1_05, 16 ;
+    SWrite_Data_B2_05, 24 ;
+    SWrite_Data_B3_05, 32 ;
+    SWrite_Data_B4_05, 40 ;
+    SWrite_Data_B5_05, 48 ;
+    SWrite_CRC_05, 56 ;
+  }
+  RGBe_Write_a_06: 40, HCP4_uC1_1, 8 {
+    SWrite_Dummy_06, 0 ;
+    SWrite_Len_06, 5 ;
+    SWrite_MemAddress_06, 8 ;
+    SWrite_Data_B1_06, 16 ;
+    SWrite_Data_B2_06, 24 ;
+    SWrite_Data_B3_06, 32 ;
+    SWrite_Data_B4_06, 40 ;
+    SWrite_Data_B5_06, 48 ;
+    SWrite_CRC_06, 56 ;
+  }
+  RGBe_Write_a_07: 41, HCP4_uC1_1, 8 {
+    SWrite_Dummy_07, 0 ;
+    SWrite_Len_07, 5 ;
+    SWrite_MemAddress_07, 8 ;
+    SWrite_Data_B1_07, 16 ;
+    SWrite_Data_B2_07, 24 ;
+    SWrite_Data_B3_07, 32 ;
+    SWrite_Data_B4_07, 40 ;
+    SWrite_Data_B5_07, 48 ;
+    SWrite_CRC_07, 56 ;
+  }
+	RGBe_Write_a_08: 42, HCP4_uC1_1, 8 {
+		SWrite_Dummy_08, 0;
+		SWrite_Len_08, 5;
+		SWrite_MemAddress_08, 8;
+		SWrite_Data_B1_08, 16;
+		SWrite_Data_B2_08, 24;
+		SWrite_Data_B3_08, 32;
+		SWrite_Data_B4_08, 40;
+		SWrite_Data_B5_08, 48;
+		SWrite_CRC_08, 56;
+}
+  RGBe_Write_a_09: 43, HCP4_uC1_1, 8 {
+    SWrite_Dummy_09, 0 ;
+    SWrite_Len_09, 5 ;
+    SWrite_MemAddress_09, 8 ;
+    SWrite_Data_B1_09, 16 ;
+    SWrite_Data_B2_09, 24 ;
+    SWrite_Data_B3_09, 32 ;
+    SWrite_Data_B4_09, 40 ;
+    SWrite_Data_B5_09, 48 ;
+    SWrite_CRC_09, 56 ;
+  }
+  RGBe_Write_a_10: 44, HCP4_uC1_1, 8 {
+    SWrite_Dummy_10, 0 ;
+    SWrite_Len_10, 5 ;
+    SWrite_MemAddress_10, 8 ;
+    SWrite_Data_B1_10, 16 ;
+    SWrite_Data_B2_10, 24 ;
+    SWrite_Data_B3_10, 32 ;
+    SWrite_Data_B4_10, 40 ;
+    SWrite_Data_B5_10, 48 ;
+    SWrite_CRC_10, 56 ;
+  }
+  RGBe_Write_a_11: 45, HCP4_uC1_1, 8 {
+    SWrite_Dummy_11, 0 ;
+    SWrite_Len_11, 5 ;
+    SWrite_MemAddress_11, 8 ;
+    SWrite_Data_B1_11, 16 ;
+    SWrite_Data_B2_11, 24 ;
+    SWrite_Data_B3_11, 32 ;
+    SWrite_Data_B4_11, 40 ;
+    SWrite_Data_B5_11, 48 ;
+    SWrite_CRC_11, 56 ;
+  }
+  RGBe_Write_a_12: 46, HCP4_uC1_1, 8 {
+    SWrite_Dummy_12, 0 ;
+    SWrite_Len_12, 5 ;
+    SWrite_MemAddress_12, 8 ;
+    SWrite_Data_B1_12, 16 ;
+    SWrite_Data_B2_12, 24 ;
+    SWrite_Data_B3_12, 32 ;
+    SWrite_Data_B4_12, 40 ;
+    SWrite_Data_B5_12, 48 ;
+    SWrite_CRC_12, 56 ;
+  }
+  RGBe_Write_a_13: 47, HCP4_uC1_1, 8 {
+    SWrite_Dummy_13, 0 ;
+    SWrite_Len_13, 5 ;
+    SWrite_MemAddress_13, 8 ;
+    SWrite_Data_B1_13, 16 ;
+    SWrite_Data_B2_13, 24 ;
+    SWrite_Data_B3_13, 32 ;
+    SWrite_Data_B4_13, 40 ;
+    SWrite_Data_B5_13, 48 ;
+    SWrite_CRC_13, 56 ;
+  }
+  RGBe_Write_a_14: 48, HCP4_uC1_1, 8 {
+    SWrite_Dummy_14, 0 ;
+    SWrite_Len_14, 5 ;
+    SWrite_MemAddress_14, 8 ;
+    SWrite_Data_B1_14, 16 ;
+    SWrite_Data_B2_14, 24 ;
+    SWrite_Data_B3_14, 32 ;
+    SWrite_Data_B4_14, 40 ;
+    SWrite_Data_B5_14, 48 ;
+    SWrite_CRC_14, 56 ;
+  }
+  RGBs_Slave_01a: 1, AM_RGB_Slave_01a, 8 {
+    RGB_Slave_01a_IntError, 0 ;
+    RGB_Slave_01a_TempState, 4 ;
+    RGB_Slave_01a_ResponseError, 7 ;
+    RGB_Slave_01a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_01a_HW_Version, 16 ;
+    RGB_Slave_01a_SW_Version, 24 ;
+    RGB_Slave_01a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_02a: 2, AM_RGB_Slave_02a, 8 {
+    RGB_Slave_02a_IntError, 0 ;
+    RGB_Slave_02a_TempState, 4 ;
+    RGB_Slave_02a_ResponseError, 7 ;
+    RGB_Slave_02a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_02a_HW_Version, 16 ;
+    RGB_Slave_02a_SW_Version, 24 ;
+    RGB_Slave_02a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_03a: 3, AM_RGB_Slave_03a, 8 {
+    RGB_Slave_03a_IntError, 0 ;
+    RGB_Slave_03a_TempState, 4 ;
+    RGB_Slave_03a_ResponseError, 7 ;
+    RGB_Slave_03a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_03a_HW_Version, 16 ;
+    RGB_Slave_03a_SW_Version, 24 ;
+    RGB_Slave_03a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_04a: 4, AM_RGB_Slave_04a, 8 {
+    RGB_Slave_04a_IntError, 0 ;
+    RGB_Slave_04a_TempState, 4 ;
+    RGB_Slave_04a_ResponseError, 7 ;
+    RGB_Slave_04a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_04a_HW_Version, 16 ;
+    RGB_Slave_04a_SW_Version, 24 ;
+    RGB_Slave_04a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_05a: 5, AM_RGB_Slave_05a, 8 {
+    RGB_Slave_05a_IntError, 0 ;
+    RGB_Slave_05a_TempState, 4 ;
+    RGB_Slave_05a_ResponseError, 7 ;
+    RGB_Slave_05a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_05a_HW_Version, 16 ;
+    RGB_Slave_05a_SW_Version, 24 ;
+    RGB_Slave_05a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_06a: 6, AM_RGB_Slave_06a, 8 {
+    RGB_Slave_06a_IntError, 0 ;
+    RGB_Slave_06a_TempState, 4 ;
+    RGB_Slave_06a_ResponseError, 7 ;
+    RGB_Slave_06a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_06a_HW_Version, 16 ;
+    RGB_Slave_06a_SW_Version, 24 ;
+    RGB_Slave_06a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_07a: 7, AM_RGB_Slave_07a, 8 {
+    RGB_Slave_07a_IntError, 0 ;
+    RGB_Slave_07a_TempState, 4 ;
+    RGB_Slave_07a_ResponseError, 7 ;
+    RGB_Slave_07a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_07a_HW_Version, 16 ;
+    RGB_Slave_07a_SW_Version, 24 ;
+    RGB_Slave_07a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_08a: 8, AM_RGB_Slave_08a, 8 {
+    RGB_Slave_08a_IntError, 0 ;
+    RGB_Slave_08a_TempState, 4 ;
+    RGB_Slave_08a_ResponseError, 7 ;
+    RGB_Slave_08a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_08a_HW_Version, 16 ;
+    RGB_Slave_08a_SW_Version, 24 ;
+    RGB_Slave_08a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_09a: 9, AM_RGB_Slave_09a, 8 {
+    RGB_Slave_09a_IntError, 0 ;
+    RGB_Slave_09a_TempState, 4 ;
+    RGB_Slave_09a_ResponseError, 7 ;
+    RGB_Slave_09a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_09a_HW_Version, 16 ;
+    RGB_Slave_09a_SW_Version, 24 ;
+    RGB_Slave_09a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_10a: 10, AM_RGB_Slave_10a, 8 {
+    RGB_Slave_10a_IntError, 0 ;
+    RGB_Slave_10a_TempState, 4 ;
+    RGB_Slave_10a_ResponseError, 7 ;
+    RGB_Slave_10a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_10a_HW_Version, 16 ;
+    RGB_Slave_10a_SW_Version, 24 ;
+    RGB_Slave_10a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_11a: 11, AM_RGB_Slave_11a, 8 {
+    RGB_Slave_11a_IntError, 0 ;
+    RGB_Slave_11a_TempState, 4 ;
+    RGB_Slave_11a_ResponseError, 7 ;
+    RGB_Slave_11a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_11a_HW_Version, 16 ;
+    RGB_Slave_11a_SW_Version, 24 ;
+    RGB_Slave_11a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_12a: 12, AM_RGB_Slave_12a, 8 {
+    RGB_Slave_12a_IntError, 0 ;
+    RGB_Slave_12a_TempState, 4 ;
+    RGB_Slave_12a_ResponseError, 7 ;
+    RGB_Slave_12a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_12a_HW_Version, 16 ;
+    RGB_Slave_12a_SW_Version, 24 ;
+    RGB_Slave_12a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_13a: 13, AM_RGB_Slave_13a, 8 {
+    RGB_Slave_13a_IntError, 0 ;
+    RGB_Slave_13a_TempState, 4 ;
+    RGB_Slave_13a_ResponseError, 7 ;
+    RGB_Slave_13a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_13a_HW_Version, 16 ;
+    RGB_Slave_13a_SW_Version, 24 ;
+    RGB_Slave_13a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_14a: 14, AM_RGB_Slave_14a, 8 {
+    RGB_Slave_14a_IntError, 0 ;
+    RGB_Slave_14a_TempState, 4 ;
+    RGB_Slave_14a_ResponseError, 7 ;
+    RGB_Slave_14a_HelligkeitsFaktor, 8 ;
+    RGB_Slave_14a_HW_Version, 16 ;
+    RGB_Slave_14a_SW_Version, 24 ;
+    RGB_Slave_14a_StoredNAD, 32 ;
+  }
+  RGBs_Slave_16a: 16, Virtual_AM_RGB_Slave_16a, 8 {
+    RGB_Slave_16a_ResponseError, 7 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  AM_RGB_Slave_01a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x1 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_01a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_01_02 = 0x401A ;
+      RGBe_Write_a_01 = 0x4023 ;
+      RGBs_Slave_01a = 0x4001 ;
+    }
+  }
+  AM_RGB_Slave_02a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x2 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_02a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_01_02 = 0x401A ;
+      RGBe_Write_a_02 = 0x4024 ;
+      RGBs_Slave_02a = 0x4002 ;
+    }
+  }
+  AM_RGB_Slave_03a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x3 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_03a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_03_04 = 0x401B ;
+      RGBe_Write_a_03 = 0x4025 ;
+      RGBs_Slave_03a = 0x4003 ;
+    }
+  }
+  AM_RGB_Slave_04a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x4 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_04a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_03_04 = 0x401B ;
+      RGBe_Write_a_04 = 0x4026 ;
+      RGBs_Slave_04a = 0x4004 ;
+    }
+  }
+  AM_RGB_Slave_05a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x5 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_05a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_05_06 = 0x401C ;
+      RGBe_Write_a_05 = 0x4027 ;
+      RGBs_Slave_05a = 0x4005 ;
+    }
+  }
+  AM_RGB_Slave_06a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x6 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_06a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_05_06 = 0x401C ;
+      RGBe_Write_a_06 = 0x4028 ;
+      RGBs_Slave_06a = 0x4006 ;
+    }
+  }
+  AM_RGB_Slave_07a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x7 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_07a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_07_08 = 0x401D ;
+      RGBe_Write_a_07 = 0x4029 ;
+      RGBs_Slave_07a = 0x4007 ;
+    }
+  }
+  AM_RGB_Slave_08a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x8 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_08a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_07_08 = 0x401D ;
+      RGBe_Write_a_08 = 0x402A;
+      RGBs_Slave_08a = 0x4008 ;
+    }
+  }
+  AM_RGB_Slave_09a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x9 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_09a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_09_10 = 0x401E ;
+      RGBe_Write_a_09 = 0x402B ;
+      RGBs_Slave_09a = 0x4009 ;
+    }
+  }
+  AM_RGB_Slave_10a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0xA ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_10a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_09_10 = 0x401E ;
+      RGBe_Write_a_10 = 0x402C ;
+      RGBs_Slave_10a = 0x400A ;
+    }
+  }
+  AM_RGB_Slave_11a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0xB ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_11a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_11_12 = 0x4020 ;
+      RGBe_Write_a_11 = 0x402D ;
+      RGBs_Slave_11a = 0x400B ;
+    }
+  }
+  AM_RGB_Slave_12a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0xC ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_12a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_11_12 = 0x4020 ;
+      RGBe_Write_a_12 = 0x402E ;
+      RGBs_Slave_12a = 0x400C ;
+    }
+  }
+  AM_RGB_Slave_13a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0xD ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_13a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_13_14 = 0x4021 ;
+      RGBe_Write_a_13 = 0x402F ;
+      RGBs_Slave_13a = 0x400D ;
+    }
+  }
+  AM_RGB_Slave_14a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0xE ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_14a_ResponseError ;
+    P2_min = 10 ms ;
+    ST_min = 10 ms ;
+    configurable_frames {
+      RGBe_Slave_a_13_14 = 0x4021 ;
+      RGBe_Write_a_14 = 0x4030 ;
+      RGBs_Slave_14a = 0x400E ;
+    }
+  }
+  Virtual_AM_RGB_Slave_16a{
+    LIN_protocol = "2.0" ;
+    configured_NAD = 0x10 ;
+    product_id = 0x0, 0x0, 0 ;
+    response_error = RGB_Slave_16a_ResponseError ;
+    P2_min = 0 ms ;
+    ST_min = 0 ms ;
+    configurable_frames {
+      RGBs_Slave_16a = 0x4010 ;
+    }
+  }
+}
+
+Schedule_tables {
+ ST1 {
+    RGBs_Slave_01a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_02a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_03a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_04a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_05a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_06a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_07a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_08a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_09a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_10a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_11a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_12a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_13a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_14a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+    RGBs_Slave_16a delay 10 ms ;
+    RGBe_Slave_a_01_02 delay 10 ms ;
+    RGBe_Slave_a_03_04 delay 10 ms ;
+    RGBe_Slave_a_05_06 delay 10 ms ;
+    RGBe_Slave_a_07_08 delay 10 ms ;
+    RGBe_Slave_a_09_10 delay 10 ms ;
+    RGBe_Slave_a_11_12 delay 10 ms ;
+    RGBe_Slave_a_13_14 delay 10 ms ;
+  }
+ SWrite {
+    RGBe_Write_a_01 delay 10 ms ;
+    RGBe_Write_a_02 delay 10 ms ;
+    RGBe_Write_a_03 delay 10 ms ;
+    RGBe_Write_a_04 delay 10 ms ;
+    RGBe_Write_a_05 delay 10 ms ;
+    RGBe_Write_a_06 delay 10 ms ;
+    RGBe_Write_a_07 delay 10 ms ;
+    RGBe_Write_a_08 delay 10 ms;
+    RGBe_Write_a_09 delay 10 ms ;
+    RGBe_Write_a_10 delay 10 ms ;
+    RGBe_Write_a_11 delay 10 ms ;
+    RGBe_Write_a_12 delay 10 ms ;
+    RGBe_Write_a_13 delay 10 ms ;
+    RGBe_Write_a_14 delay 10 ms ;
+  }
+ Sync_All {
+    RGBe_Sync_abcd delay 10 ms ;
+  }
+ DiagRequest {
+    MasterReq delay 10 ms ;
+  }
+ DiagResponse {
+    SlaveResp delay 10 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  BCM_RGB_Color_u_01_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_02_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_03_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_04_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_05_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_06_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_07_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_08_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_09_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_10_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_11_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_12_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_13_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_u_14_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_01_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_02_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_03_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_04_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_05_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_06_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_07_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_08_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_09_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_10_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_11_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_12_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_13_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Color_v_14_encoding {
+    physical_value, 0, 127, 0.005, 0, "Unit_None" ;
+  }
+  BCM_RGB_Dimmrampe_01_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_02_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_03_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_04_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_05_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_06_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_07_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_08_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_09_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_10_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_11_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_12_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_13_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_Dimmrampe_14_encoding {
+    physical_value, 0, 63, 0.05, 0, "Unit_Secon" ;
+  }
+  BCM_RGB_GlobalSync_01_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_03_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_05_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_07_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_09_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_11_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_13_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_GlobalSync_encoding {
+    logical_value, 0, "deferred_sync" ;
+    logical_value, 1, "sync_immediately" ;
+  }
+  BCM_RGB_Intensitaet_01_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_02_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_03_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_04_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_05_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_06_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_07_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_08_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_09_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_10_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_11_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_12_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_13_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Intensitaet_14_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+    logical_value, 127, "Init_no_Intensity" ;
+  }
+  BCM_RGB_Sonderfunktion_01_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_02_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_03_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_04_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_05_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_06_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_07_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_08_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_09_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_10_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_11_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_12_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_13_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  BCM_RGB_Sonderfunktion_14_encoding {
+    logical_value, 0, "keine_Sonderfunktion" ;
+    logical_value, 1, "Fn1" ;
+    logical_value, 2, "Fn2" ;
+    logical_value, 3, "Fn3" ;
+    logical_value, 4, "Fn4" ;
+    logical_value, 5, "Fn5" ;
+    logical_value, 6, "Fn6" ;
+    logical_value, 7, "Fn7" ;
+    logical_value, 8, "Fn8" ;
+    logical_value, 9, "Fn9" ;
+    logical_value, 10, "Fn10" ;
+    logical_value, 11, "Fn11" ;
+    logical_value, 12, "Fn12" ;
+    logical_value, 13, "Fn13" ;
+    logical_value, 14, "Fn14" ;
+    logical_value, 15, "Fn15" ;
+  }
+  RGB_Slave_01a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_01a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_01a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_01a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_01a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_01a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_01a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_02a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_02a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_02a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_02a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_02a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_02a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_02a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_03a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_03a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_03a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_03a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_03a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_03a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_03a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_04a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_04a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_04a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_04a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_04a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_04a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_04a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_05a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_05a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_05a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_05a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_05a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_05a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_05a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_06a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_06a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_06a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_06a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_06a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_06a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_06a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_07a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_07a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_07a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_07a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_07a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_07a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_07a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_08a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_08a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_08a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_08a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_08a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_08a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_08a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_09a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_09a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_09a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_09a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_09a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_09a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_09a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_10a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_10a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_10a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_10a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_10a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_10a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_10a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_11a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_11a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_11a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_11a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_11a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_11a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_11a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_12a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_12a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_12a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_12a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_12a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_12a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_12a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_13a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_13a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_13a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_13a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_13a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_13a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_13a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  RGB_Slave_14a_HW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_14a_HelligkeitsFaktor_encoding {
+    physical_value, 0, 100, 1, 0, "Unit_PerCent" ;
+  }
+  RGB_Slave_14a_IntError_encoding {
+    logical_value, 0, "Init" ;
+    logical_value, 1, "nicht_erlaubt" ;
+    logical_value, 2, "kein_Fehler" ;
+    logical_value, 3, "Fehler" ;
+  }
+  RGB_Slave_14a_ResponseError_encoding {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  RGB_Slave_14a_SW_Version_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_14a_StoredNAD_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  RGB_Slave_14a_TempState_encoding {
+    logical_value, 0, "keine_Temperaturregelung" ;
+    logical_value, 1, "Regelstufe_1" ;
+    logical_value, 2, "Regelstufe_2" ;
+    logical_value, 3, "Regelstufe_3" ;
+    logical_value, 4, "Regelstufe_4" ;
+    logical_value, 5, "Regelstufe_5" ;
+    logical_value, 6, "Regelstufe_6" ;
+    logical_value, 7, "Regelstufe_7" ;
+  }
+  SC_normal_Fehler {
+    logical_value, 0, "normal" ;
+    logical_value, 1, "Fehler" ;
+  }
+  SWrite_CRC_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_CRC_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B1_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B2_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B3_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B4_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Data_B5_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_Dummy_01_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_02_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_03_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_04_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_05_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_06_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_07_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_08_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_09_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_10_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_11_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_12_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_13_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Dummy_14_encoding {
+    physical_value, 1, 31, 1, -1, "Unit_None" ;
+    logical_value, 0, "Init" ;
+  }
+  SWrite_Len_01_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_02_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_03_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_04_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_05_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_06_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_07_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_08_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_09_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_10_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_11_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_12_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_13_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_Len_14_encoding {
+    physical_value, 0, 6, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_01_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_02_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_03_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_04_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_05_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_06_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_07_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_08_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_09_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_10_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_11_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_12_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_13_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+  SWrite_MemAddress_14_encoding {
+    physical_value, 0, 255, 1, 0, "Unit_None" ;
+  }
+}
+
+Signal_representation {
+  BCM_RGB_Color_u_01_encoding: BCM_RGB_Color_u_01 ;
+  BCM_RGB_Color_u_02_encoding: BCM_RGB_Color_u_02 ;
+  BCM_RGB_Color_u_03_encoding: BCM_RGB_Color_u_03 ;
+  BCM_RGB_Color_u_04_encoding: BCM_RGB_Color_u_04 ;
+  BCM_RGB_Color_u_05_encoding: BCM_RGB_Color_u_05 ;
+  BCM_RGB_Color_u_06_encoding: BCM_RGB_Color_u_06 ;
+  BCM_RGB_Color_u_07_encoding: BCM_RGB_Color_u_07 ;
+  BCM_RGB_Color_u_08_encoding: BCM_RGB_Color_u_08 ;
+  BCM_RGB_Color_u_09_encoding: BCM_RGB_Color_u_09 ;
+  BCM_RGB_Color_u_10_encoding: BCM_RGB_Color_u_10 ;
+  BCM_RGB_Color_u_11_encoding: BCM_RGB_Color_u_11 ;
+  BCM_RGB_Color_u_12_encoding: BCM_RGB_Color_u_12 ;
+  BCM_RGB_Color_u_13_encoding: BCM_RGB_Color_u_13 ;
+  BCM_RGB_Color_u_14_encoding: BCM_RGB_Color_u_14 ;
+  BCM_RGB_Color_v_01_encoding: BCM_RGB_Color_v_01 ;
+  BCM_RGB_Color_v_02_encoding: BCM_RGB_Color_v_02 ;
+  BCM_RGB_Color_v_03_encoding: BCM_RGB_Color_v_03 ;
+  BCM_RGB_Color_v_04_encoding: BCM_RGB_Color_v_04 ;
+  BCM_RGB_Color_v_05_encoding: BCM_RGB_Color_v_05 ;
+  BCM_RGB_Color_v_06_encoding: BCM_RGB_Color_v_06 ;
+  BCM_RGB_Color_v_07_encoding: BCM_RGB_Color_v_07 ;
+  BCM_RGB_Color_v_08_encoding: BCM_RGB_Color_v_08 ;
+  BCM_RGB_Color_v_09_encoding: BCM_RGB_Color_v_09 ;
+  BCM_RGB_Color_v_10_encoding: BCM_RGB_Color_v_10 ;
+  BCM_RGB_Color_v_11_encoding: BCM_RGB_Color_v_11 ;
+  BCM_RGB_Color_v_12_encoding: BCM_RGB_Color_v_12 ;
+  BCM_RGB_Color_v_13_encoding: BCM_RGB_Color_v_13 ;
+  BCM_RGB_Color_v_14_encoding: BCM_RGB_Color_v_14 ;
+  BCM_RGB_Dimmrampe_01_encoding: BCM_RGB_Dimmrampe_01 ;
+  BCM_RGB_Dimmrampe_02_encoding: BCM_RGB_Dimmrampe_02 ;
+  BCM_RGB_Dimmrampe_03_encoding: BCM_RGB_Dimmrampe_03 ;
+  BCM_RGB_Dimmrampe_04_encoding: BCM_RGB_Dimmrampe_04 ;
+  BCM_RGB_Dimmrampe_05_encoding: BCM_RGB_Dimmrampe_05 ;
+  BCM_RGB_Dimmrampe_06_encoding: BCM_RGB_Dimmrampe_06 ;
+  BCM_RGB_Dimmrampe_07_encoding: BCM_RGB_Dimmrampe_07 ;
+  BCM_RGB_Dimmrampe_08_encoding: BCM_RGB_Dimmrampe_08 ;
+  BCM_RGB_Dimmrampe_09_encoding: BCM_RGB_Dimmrampe_09 ;
+  BCM_RGB_Dimmrampe_10_encoding: BCM_RGB_Dimmrampe_10 ;
+  BCM_RGB_Dimmrampe_11_encoding: BCM_RGB_Dimmrampe_11 ;
+  BCM_RGB_Dimmrampe_12_encoding: BCM_RGB_Dimmrampe_12 ;
+  BCM_RGB_Dimmrampe_13_encoding: BCM_RGB_Dimmrampe_13 ;
+  BCM_RGB_Dimmrampe_14_encoding: BCM_RGB_Dimmrampe_14 ;
+  BCM_RGB_GlobalSync_01_encoding: BCM_RGB_GlobalSync_01 ;
+  BCM_RGB_GlobalSync_03_encoding: BCM_RGB_GlobalSync_03 ;
+  BCM_RGB_GlobalSync_05_encoding: BCM_RGB_GlobalSync_05 ;
+  BCM_RGB_GlobalSync_07_encoding: BCM_RGB_GlobalSync_07 ;
+  BCM_RGB_GlobalSync_09_encoding: BCM_RGB_GlobalSync_09 ;
+  BCM_RGB_GlobalSync_11_encoding: BCM_RGB_GlobalSync_11 ;
+  BCM_RGB_GlobalSync_13_encoding: BCM_RGB_GlobalSync_13 ;
+  BCM_RGB_GlobalSync_encoding: BCM_RGB_GlobalSync ;
+  BCM_RGB_Intensitaet_01_encoding: BCM_RGB_Intensitaet_01 ;
+  BCM_RGB_Intensitaet_02_encoding: BCM_RGB_Intensitaet_02 ;
+  BCM_RGB_Intensitaet_03_encoding: BCM_RGB_Intensitaet_03 ;
+  BCM_RGB_Intensitaet_04_encoding: BCM_RGB_Intensitaet_04 ;
+  BCM_RGB_Intensitaet_05_encoding: BCM_RGB_Intensitaet_05 ;
+  BCM_RGB_Intensitaet_06_encoding: BCM_RGB_Intensitaet_06 ;
+  BCM_RGB_Intensitaet_07_encoding: BCM_RGB_Intensitaet_07 ;
+  BCM_RGB_Intensitaet_08_encoding: BCM_RGB_Intensitaet_08 ;
+  BCM_RGB_Intensitaet_09_encoding: BCM_RGB_Intensitaet_09 ;
+  BCM_RGB_Intensitaet_10_encoding: BCM_RGB_Intensitaet_10 ;
+  BCM_RGB_Intensitaet_11_encoding: BCM_RGB_Intensitaet_11 ;
+  BCM_RGB_Intensitaet_12_encoding: BCM_RGB_Intensitaet_12 ;
+  BCM_RGB_Intensitaet_13_encoding: BCM_RGB_Intensitaet_13 ;
+  BCM_RGB_Intensitaet_14_encoding: BCM_RGB_Intensitaet_14 ;
+  BCM_RGB_Sonderfunktion_01_encoding: BCM_RGB_Sonderfunktion_01 ;
+  BCM_RGB_Sonderfunktion_02_encoding: BCM_RGB_Sonderfunktion_02 ;
+  BCM_RGB_Sonderfunktion_03_encoding: BCM_RGB_Sonderfunktion_03 ;
+  BCM_RGB_Sonderfunktion_04_encoding: BCM_RGB_Sonderfunktion_04 ;
+  BCM_RGB_Sonderfunktion_05_encoding: BCM_RGB_Sonderfunktion_05 ;
+  BCM_RGB_Sonderfunktion_06_encoding: BCM_RGB_Sonderfunktion_06 ;
+  BCM_RGB_Sonderfunktion_07_encoding: BCM_RGB_Sonderfunktion_07 ;
+  BCM_RGB_Sonderfunktion_08_encoding: BCM_RGB_Sonderfunktion_08 ;
+  BCM_RGB_Sonderfunktion_09_encoding: BCM_RGB_Sonderfunktion_09 ;
+  BCM_RGB_Sonderfunktion_10_encoding: BCM_RGB_Sonderfunktion_10 ;
+  BCM_RGB_Sonderfunktion_11_encoding: BCM_RGB_Sonderfunktion_11 ;
+  BCM_RGB_Sonderfunktion_12_encoding: BCM_RGB_Sonderfunktion_12 ;
+  BCM_RGB_Sonderfunktion_13_encoding: BCM_RGB_Sonderfunktion_13 ;
+  BCM_RGB_Sonderfunktion_14_encoding: BCM_RGB_Sonderfunktion_14 ;
+  RGB_Slave_01a_HW_Version_encoding: RGB_Slave_01a_HW_Version ;
+  RGB_Slave_01a_HelligkeitsFaktor_encoding: RGB_Slave_01a_HelligkeitsFaktor ;
+  RGB_Slave_01a_IntError_encoding: RGB_Slave_01a_IntError ;
+  RGB_Slave_01a_ResponseError_encoding: RGB_Slave_01a_ResponseError ;
+  RGB_Slave_01a_SW_Version_encoding: RGB_Slave_01a_SW_Version ;
+  RGB_Slave_01a_StoredNAD_encoding: RGB_Slave_01a_StoredNAD ;
+  RGB_Slave_01a_TempState_encoding: RGB_Slave_01a_TempState ;
+  RGB_Slave_02a_HW_Version_encoding: RGB_Slave_02a_HW_Version ;
+  RGB_Slave_02a_HelligkeitsFaktor_encoding: RGB_Slave_02a_HelligkeitsFaktor ;
+  RGB_Slave_02a_IntError_encoding: RGB_Slave_02a_IntError ;
+  RGB_Slave_02a_ResponseError_encoding: RGB_Slave_02a_ResponseError ;
+  RGB_Slave_02a_SW_Version_encoding: RGB_Slave_02a_SW_Version ;
+  RGB_Slave_02a_StoredNAD_encoding: RGB_Slave_02a_StoredNAD ;
+  RGB_Slave_02a_TempState_encoding: RGB_Slave_02a_TempState ;
+  RGB_Slave_03a_HW_Version_encoding: RGB_Slave_03a_HW_Version ;
+  RGB_Slave_03a_HelligkeitsFaktor_encoding: RGB_Slave_03a_HelligkeitsFaktor ;
+  RGB_Slave_03a_IntError_encoding: RGB_Slave_03a_IntError ;
+  RGB_Slave_03a_ResponseError_encoding: RGB_Slave_03a_ResponseError ;
+  RGB_Slave_03a_SW_Version_encoding: RGB_Slave_03a_SW_Version ;
+  RGB_Slave_03a_StoredNAD_encoding: RGB_Slave_03a_StoredNAD ;
+  RGB_Slave_03a_TempState_encoding: RGB_Slave_03a_TempState ;
+  RGB_Slave_04a_HW_Version_encoding: RGB_Slave_04a_HW_Version ;
+  RGB_Slave_04a_HelligkeitsFaktor_encoding: RGB_Slave_04a_HelligkeitsFaktor ;
+  RGB_Slave_04a_IntError_encoding: RGB_Slave_04a_IntError ;
+  RGB_Slave_04a_ResponseError_encoding: RGB_Slave_04a_ResponseError ;
+  RGB_Slave_04a_SW_Version_encoding: RGB_Slave_04a_SW_Version ;
+  RGB_Slave_04a_StoredNAD_encoding: RGB_Slave_04a_StoredNAD ;
+  RGB_Slave_04a_TempState_encoding: RGB_Slave_04a_TempState ;
+  RGB_Slave_05a_HW_Version_encoding: RGB_Slave_05a_HW_Version ;
+  RGB_Slave_05a_HelligkeitsFaktor_encoding: RGB_Slave_05a_HelligkeitsFaktor ;
+  RGB_Slave_05a_IntError_encoding: RGB_Slave_05a_IntError ;
+  RGB_Slave_05a_ResponseError_encoding: RGB_Slave_05a_ResponseError ;
+  RGB_Slave_05a_SW_Version_encoding: RGB_Slave_05a_SW_Version ;
+  RGB_Slave_05a_StoredNAD_encoding: RGB_Slave_05a_StoredNAD ;
+  RGB_Slave_05a_TempState_encoding: RGB_Slave_05a_TempState ;
+  RGB_Slave_06a_HW_Version_encoding: RGB_Slave_06a_HW_Version ;
+  RGB_Slave_06a_HelligkeitsFaktor_encoding: RGB_Slave_06a_HelligkeitsFaktor ;
+  RGB_Slave_06a_IntError_encoding: RGB_Slave_06a_IntError ;
+  RGB_Slave_06a_ResponseError_encoding: RGB_Slave_06a_ResponseError ;
+  RGB_Slave_06a_SW_Version_encoding: RGB_Slave_06a_SW_Version ;
+  RGB_Slave_06a_StoredNAD_encoding: RGB_Slave_06a_StoredNAD ;
+  RGB_Slave_06a_TempState_encoding: RGB_Slave_06a_TempState ;
+  RGB_Slave_07a_HW_Version_encoding: RGB_Slave_07a_HW_Version ;
+  RGB_Slave_07a_HelligkeitsFaktor_encoding: RGB_Slave_07a_HelligkeitsFaktor ;
+  RGB_Slave_07a_IntError_encoding: RGB_Slave_07a_IntError ;
+  RGB_Slave_07a_ResponseError_encoding: RGB_Slave_07a_ResponseError ;
+  RGB_Slave_07a_SW_Version_encoding: RGB_Slave_07a_SW_Version ;
+  RGB_Slave_07a_StoredNAD_encoding: RGB_Slave_07a_StoredNAD ;
+  RGB_Slave_07a_TempState_encoding: RGB_Slave_07a_TempState ;
+  RGB_Slave_08a_HW_Version_encoding: RGB_Slave_08a_HW_Version ;
+  RGB_Slave_08a_HelligkeitsFaktor_encoding: RGB_Slave_08a_HelligkeitsFaktor ;
+  RGB_Slave_08a_IntError_encoding: RGB_Slave_08a_IntError ;
+  RGB_Slave_08a_ResponseError_encoding: RGB_Slave_08a_ResponseError ;
+  RGB_Slave_08a_SW_Version_encoding: RGB_Slave_08a_SW_Version ;
+  RGB_Slave_08a_StoredNAD_encoding: RGB_Slave_08a_StoredNAD ;
+  RGB_Slave_08a_TempState_encoding: RGB_Slave_08a_TempState ;
+  RGB_Slave_09a_HW_Version_encoding: RGB_Slave_09a_HW_Version ;
+  RGB_Slave_09a_HelligkeitsFaktor_encoding: RGB_Slave_09a_HelligkeitsFaktor ;
+  RGB_Slave_09a_IntError_encoding: RGB_Slave_09a_IntError ;
+  RGB_Slave_09a_ResponseError_encoding: RGB_Slave_09a_ResponseError ;
+  RGB_Slave_09a_SW_Version_encoding: RGB_Slave_09a_SW_Version ;
+  RGB_Slave_09a_StoredNAD_encoding: RGB_Slave_09a_StoredNAD ;
+  RGB_Slave_09a_TempState_encoding: RGB_Slave_09a_TempState ;
+  RGB_Slave_10a_HW_Version_encoding: RGB_Slave_10a_HW_Version ;
+  RGB_Slave_10a_HelligkeitsFaktor_encoding: RGB_Slave_10a_HelligkeitsFaktor ;
+  RGB_Slave_10a_IntError_encoding: RGB_Slave_10a_IntError ;
+  RGB_Slave_10a_ResponseError_encoding: RGB_Slave_10a_ResponseError ;
+  RGB_Slave_10a_SW_Version_encoding: RGB_Slave_10a_SW_Version ;
+  RGB_Slave_10a_StoredNAD_encoding: RGB_Slave_10a_StoredNAD ;
+  RGB_Slave_10a_TempState_encoding: RGB_Slave_10a_TempState ;
+  RGB_Slave_11a_HW_Version_encoding: RGB_Slave_11a_HW_Version ;
+  RGB_Slave_11a_HelligkeitsFaktor_encoding: RGB_Slave_11a_HelligkeitsFaktor ;
+  RGB_Slave_11a_IntError_encoding: RGB_Slave_11a_IntError ;
+  RGB_Slave_11a_ResponseError_encoding: RGB_Slave_11a_ResponseError ;
+  RGB_Slave_11a_SW_Version_encoding: RGB_Slave_11a_SW_Version ;
+  RGB_Slave_11a_StoredNAD_encoding: RGB_Slave_11a_StoredNAD ;
+  RGB_Slave_11a_TempState_encoding: RGB_Slave_11a_TempState ;
+  RGB_Slave_12a_HW_Version_encoding: RGB_Slave_12a_HW_Version ;
+  RGB_Slave_12a_HelligkeitsFaktor_encoding: RGB_Slave_12a_HelligkeitsFaktor ;
+  RGB_Slave_12a_IntError_encoding: RGB_Slave_12a_IntError ;
+  RGB_Slave_12a_ResponseError_encoding: RGB_Slave_12a_ResponseError ;
+  RGB_Slave_12a_SW_Version_encoding: RGB_Slave_12a_SW_Version ;
+  RGB_Slave_12a_StoredNAD_encoding: RGB_Slave_12a_StoredNAD ;
+  RGB_Slave_12a_TempState_encoding: RGB_Slave_12a_TempState ;
+  RGB_Slave_13a_HW_Version_encoding: RGB_Slave_13a_HW_Version ;
+  RGB_Slave_13a_HelligkeitsFaktor_encoding: RGB_Slave_13a_HelligkeitsFaktor ;
+  RGB_Slave_13a_IntError_encoding: RGB_Slave_13a_IntError ;
+  RGB_Slave_13a_ResponseError_encoding: RGB_Slave_13a_ResponseError ;
+  RGB_Slave_13a_SW_Version_encoding: RGB_Slave_13a_SW_Version ;
+  RGB_Slave_13a_StoredNAD_encoding: RGB_Slave_13a_StoredNAD ;
+  RGB_Slave_13a_TempState_encoding: RGB_Slave_13a_TempState ;
+  RGB_Slave_14a_HW_Version_encoding: RGB_Slave_14a_HW_Version ;
+  RGB_Slave_14a_HelligkeitsFaktor_encoding: RGB_Slave_14a_HelligkeitsFaktor ;
+  RGB_Slave_14a_IntError_encoding: RGB_Slave_14a_IntError ;
+  RGB_Slave_14a_ResponseError_encoding: RGB_Slave_14a_ResponseError ;
+  RGB_Slave_14a_SW_Version_encoding: RGB_Slave_14a_SW_Version ;
+  RGB_Slave_14a_StoredNAD_encoding: RGB_Slave_14a_StoredNAD ;
+  RGB_Slave_14a_TempState_encoding: RGB_Slave_14a_TempState ;
+  SC_normal_Fehler: RGB_Slave_16a_ResponseError ;
+  SWrite_CRC_01_encoding: SWrite_CRC_01 ;
+  SWrite_CRC_02_encoding: SWrite_CRC_02 ;
+  SWrite_CRC_03_encoding: SWrite_CRC_03 ;
+  SWrite_CRC_04_encoding: SWrite_CRC_04 ;
+  SWrite_CRC_05_encoding: SWrite_CRC_05 ;
+  SWrite_CRC_06_encoding: SWrite_CRC_06 ;
+  SWrite_CRC_07_encoding: SWrite_CRC_07 ;
+  SWrite_CRC_08_encoding: SWrite_CRC_08 ;
+  SWrite_CRC_09_encoding: SWrite_CRC_09 ;
+  SWrite_CRC_10_encoding: SWrite_CRC_10 ;
+  SWrite_CRC_11_encoding: SWrite_CRC_11 ;
+  SWrite_CRC_12_encoding: SWrite_CRC_12 ;
+  SWrite_CRC_13_encoding: SWrite_CRC_13 ;
+  SWrite_CRC_14_encoding: SWrite_CRC_14 ;
+  SWrite_Data_B1_01_encoding: SWrite_Data_B1_01 ;
+  SWrite_Data_B1_02_encoding: SWrite_Data_B1_02 ;
+  SWrite_Data_B1_03_encoding: SWrite_Data_B1_03 ;
+  SWrite_Data_B1_04_encoding: SWrite_Data_B1_04 ;
+  SWrite_Data_B1_05_encoding: SWrite_Data_B1_05 ;
+  SWrite_Data_B1_06_encoding: SWrite_Data_B1_06 ;
+  SWrite_Data_B1_07_encoding: SWrite_Data_B1_07 ;
+  SWrite_Data_B1_08_encoding: SWrite_Data_B1_08 ;
+  SWrite_Data_B1_09_encoding: SWrite_Data_B1_09 ;
+  SWrite_Data_B1_10_encoding: SWrite_Data_B1_10 ;
+  SWrite_Data_B1_11_encoding: SWrite_Data_B1_11 ;
+  SWrite_Data_B1_12_encoding: SWrite_Data_B1_12 ;
+  SWrite_Data_B1_13_encoding: SWrite_Data_B1_13 ;
+  SWrite_Data_B1_14_encoding: SWrite_Data_B1_14 ;
+  SWrite_Data_B2_01_encoding: SWrite_Data_B2_01 ;
+  SWrite_Data_B2_02_encoding: SWrite_Data_B2_02 ;
+  SWrite_Data_B2_03_encoding: SWrite_Data_B2_03 ;
+  SWrite_Data_B2_04_encoding: SWrite_Data_B2_04 ;
+  SWrite_Data_B2_05_encoding: SWrite_Data_B2_05 ;
+  SWrite_Data_B2_06_encoding: SWrite_Data_B2_06 ;
+  SWrite_Data_B2_07_encoding: SWrite_Data_B2_07 ;
+  SWrite_Data_B2_08_encoding: SWrite_Data_B2_08 ;
+  SWrite_Data_B2_09_encoding: SWrite_Data_B2_09 ;
+  SWrite_Data_B2_10_encoding: SWrite_Data_B2_10 ;
+  SWrite_Data_B2_11_encoding: SWrite_Data_B2_11 ;
+  SWrite_Data_B2_12_encoding: SWrite_Data_B2_12 ;
+  SWrite_Data_B2_13_encoding: SWrite_Data_B2_13 ;
+  SWrite_Data_B2_14_encoding: SWrite_Data_B2_14 ;
+  SWrite_Data_B3_01_encoding: SWrite_Data_B3_01 ;
+  SWrite_Data_B3_02_encoding: SWrite_Data_B3_02 ;
+  SWrite_Data_B3_03_encoding: SWrite_Data_B3_03 ;
+  SWrite_Data_B3_04_encoding: SWrite_Data_B3_04 ;
+  SWrite_Data_B3_05_encoding: SWrite_Data_B3_05 ;
+  SWrite_Data_B3_06_encoding: SWrite_Data_B3_06 ;
+  SWrite_Data_B3_07_encoding: SWrite_Data_B3_07 ;
+  SWrite_Data_B3_08_encoding: SWrite_Data_B3_08 ;
+  SWrite_Data_B3_09_encoding: SWrite_Data_B3_09 ;
+  SWrite_Data_B3_10_encoding: SWrite_Data_B3_10 ;
+  SWrite_Data_B3_11_encoding: SWrite_Data_B3_11 ;
+  SWrite_Data_B3_12_encoding: SWrite_Data_B3_12 ;
+  SWrite_Data_B3_13_encoding: SWrite_Data_B3_13 ;
+  SWrite_Data_B3_14_encoding: SWrite_Data_B3_14 ;
+  SWrite_Data_B4_01_encoding: SWrite_Data_B4_01 ;
+  SWrite_Data_B4_02_encoding: SWrite_Data_B4_02 ;
+  SWrite_Data_B4_03_encoding: SWrite_Data_B4_03 ;
+  SWrite_Data_B4_04_encoding: SWrite_Data_B4_04 ;
+  SWrite_Data_B4_05_encoding: SWrite_Data_B4_05 ;
+  SWrite_Data_B4_06_encoding: SWrite_Data_B4_06 ;
+  SWrite_Data_B4_07_encoding: SWrite_Data_B4_07 ;
+  SWrite_Data_B4_08_encoding: SWrite_Data_B4_08 ;
+  SWrite_Data_B4_09_encoding: SWrite_Data_B4_09 ;
+  SWrite_Data_B4_10_encoding: SWrite_Data_B4_10 ;
+  SWrite_Data_B4_11_encoding: SWrite_Data_B4_11 ;
+  SWrite_Data_B4_12_encoding: SWrite_Data_B4_12 ;
+  SWrite_Data_B4_13_encoding: SWrite_Data_B4_13 ;
+  SWrite_Data_B4_14_encoding: SWrite_Data_B4_14 ;
+  SWrite_Data_B5_01_encoding: SWrite_Data_B5_01 ;
+  SWrite_Data_B5_02_encoding: SWrite_Data_B5_02 ;
+  SWrite_Data_B5_03_encoding: SWrite_Data_B5_03 ;
+  SWrite_Data_B5_04_encoding: SWrite_Data_B5_04 ;
+  SWrite_Data_B5_05_encoding: SWrite_Data_B5_05 ;
+  SWrite_Data_B5_06_encoding: SWrite_Data_B5_06 ;
+  SWrite_Data_B5_07_encoding: SWrite_Data_B5_07 ;
+  SWrite_Data_B5_08_encoding: SWrite_Data_B5_08 ;
+  SWrite_Data_B5_09_encoding: SWrite_Data_B5_09 ;
+  SWrite_Data_B5_10_encoding: SWrite_Data_B5_10 ;
+  SWrite_Data_B5_11_encoding: SWrite_Data_B5_11 ;
+  SWrite_Data_B5_12_encoding: SWrite_Data_B5_12 ;
+  SWrite_Data_B5_13_encoding: SWrite_Data_B5_13 ;
+  SWrite_Data_B5_14_encoding: SWrite_Data_B5_14 ;
+  SWrite_Dummy_01_encoding: SWrite_Dummy_01 ;
+  SWrite_Dummy_02_encoding: SWrite_Dummy_02 ;
+  SWrite_Dummy_03_encoding: SWrite_Dummy_03 ;
+  SWrite_Dummy_04_encoding: SWrite_Dummy_04 ;
+  SWrite_Dummy_05_encoding: SWrite_Dummy_05 ;
+  SWrite_Dummy_06_encoding: SWrite_Dummy_06 ;
+  SWrite_Dummy_07_encoding: SWrite_Dummy_07 ;
+  SWrite_Dummy_08_encoding: SWrite_Dummy_08 ;
+  SWrite_Dummy_09_encoding: SWrite_Dummy_09 ;
+  SWrite_Dummy_10_encoding: SWrite_Dummy_10 ;
+  SWrite_Dummy_11_encoding: SWrite_Dummy_11 ;
+  SWrite_Dummy_12_encoding: SWrite_Dummy_12 ;
+  SWrite_Dummy_13_encoding: SWrite_Dummy_13 ;
+  SWrite_Dummy_14_encoding: SWrite_Dummy_14 ;
+  SWrite_Len_01_encoding: SWrite_Len_01 ;
+  SWrite_Len_02_encoding: SWrite_Len_02 ;
+  SWrite_Len_03_encoding: SWrite_Len_03 ;
+  SWrite_Len_04_encoding: SWrite_Len_04 ;
+  SWrite_Len_05_encoding: SWrite_Len_05 ;
+  SWrite_Len_06_encoding: SWrite_Len_06 ;
+  SWrite_Len_07_encoding: SWrite_Len_07 ;
+  SWrite_Len_08_encoding: SWrite_Len_08 ;
+  SWrite_Len_09_encoding: SWrite_Len_09 ;
+  SWrite_Len_10_encoding: SWrite_Len_10 ;
+  SWrite_Len_11_encoding: SWrite_Len_11 ;
+  SWrite_Len_12_encoding: SWrite_Len_12 ;
+  SWrite_Len_13_encoding: SWrite_Len_13 ;
+  SWrite_Len_14_encoding: SWrite_Len_14 ;
+  SWrite_MemAddress_01_encoding: SWrite_MemAddress_01 ;
+  SWrite_MemAddress_02_encoding: SWrite_MemAddress_02 ;
+  SWrite_MemAddress_03_encoding: SWrite_MemAddress_03 ;
+  SWrite_MemAddress_04_encoding: SWrite_MemAddress_04 ;
+  SWrite_MemAddress_05_encoding: SWrite_MemAddress_05 ;
+  SWrite_MemAddress_06_encoding: SWrite_MemAddress_06 ;
+  SWrite_MemAddress_07_encoding: SWrite_MemAddress_07 ;
+  SWrite_MemAddress_08_encoding: SWrite_MemAddress_08 ;
+  SWrite_MemAddress_09_encoding: SWrite_MemAddress_09 ;
+  SWrite_MemAddress_10_encoding: SWrite_MemAddress_10 ;
+  SWrite_MemAddress_11_encoding: SWrite_MemAddress_11 ;
+  SWrite_MemAddress_12_encoding: SWrite_MemAddress_12 ;
+  SWrite_MemAddress_13_encoding: SWrite_MemAddress_13 ;
+  SWrite_MemAddress_14_encoding: SWrite_MemAddress_14 ;
+}
