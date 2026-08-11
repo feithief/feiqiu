@@ -196,7 +196,7 @@ void LinBusWorker::applySignalPreset(int presetIndex)
     return;
 
   QString error;
-  if (!applySignalPreset(*linLayout, presetIndex, &controlSignal, &error))
+  if (!::applySignalPreset(*linLayout, presetIndex, &controlSignal, &error))
   {
     if (debug != 0)
       debug->setValue(DebugLastError, error);
