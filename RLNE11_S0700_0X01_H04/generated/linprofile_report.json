@@ -2905,7 +2905,7 @@
       "name": "E3_1_2_Premium_HCP4_LIN24_KMatrix_SignalSuffix_V12.05.00F_20210625_BAm_ljm.ldf",
       "encoding": "utf-8-sig",
       "sha256": "b87c24fc18d75a52639718895d96c82aa95f3b238cc781f056b333c39681ed42",
-      "overlay_sha256": "dd336a13f9e988053641a3a7c91b39ff00dc3d5b2f52d124ef1ea04bcf8d580e"
+      "overlay_sha256": "fe5a4d51e716086595aa7706f1be86275ba0ca07e94e070dd5202b67d8ea3092"
     },
     "layout_name": "RLNE11_S0700_0X01_H04_LIN24",
     "device_name": "/dev/ttySAC3",
@@ -14818,10 +14818,6 @@
         {
           "operation": "part_number",
           "enum": "EOperationTypePartNO"
-        },
-        {
-          "operation": "hardware_version",
-          "enum": "EOperationTypeHardwareVer"
         },
         {
           "operation": "serial_number",

@@ -109,7 +109,7 @@
       {"operation":"raw","name":"PartBlock","service_id":"0x6F79","data_length":16,"nad_access":["calibration"],"readable":true,"writable":true,"read_on_configuration":true,"expect_positive_write_response":false},
       {"operation":"raw","name":"PartData","service_id":"0x1234","data_length":18,"nad_access":["calibration"],"readable":true,"writable":false,"read_on_configuration":true,"expect_positive_write_response":false}
     ],
-    "bulk_write":["single_address","intensity","red_calibration","green_calibration","blue_calibration","part_number","hardware_version","serial_number"],
+    "bulk_write":["single_address","intensity","red_calibration","green_calibration","blue_calibration","part_number","serial_number"],
     "security":{"enabled":true,"request_seed_sub_function":"0x03","send_key_sub_function":"0x04","key_addend":"0x0C04","key_length":4}
   }
 }

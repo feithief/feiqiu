@@ -889,6 +889,25 @@ OPERATION_ENUMS = {
     "raw": "EOperationTypeRaw",
 }
 
+# A writable DID is not automatically editable by the Qt configuration page.
+# Bulk Apply may contain only operations that have all three capabilities:
+# a visible editor, a SlaveConfigInfo field, and an encodeLinServiceValue()
+# branch in the mother Seed.  Keep this table exactly aligned with
+# linlayout.cc::hasConfigurationEncoder().
+CONFIGURATION_ENCODER_OPERATIONS = frozenset(
+    {
+        "single_address",
+        "group_address",
+        "platform",
+        "intensity",
+        "red_calibration",
+        "green_calibration",
+        "blue_calibration",
+        "part_number",
+        "serial_number",
+    }
+)
+
 PROTOCOL_ENUMS = {
     "read_by_identifier": "ELinDiagnosticReadByIdentifier",
     "product_identification": "ELinDiagnosticProductIdentification",
@@ -2038,6 +2057,14 @@ def build_profile(network: LdfNetwork, overlay: Dict[str, Any], overlay_sha256: 
                 "diagnostics.bulk_write operation must name a writable non-raw service: {0}".format(
                     operation
                 )
+            )
+        if operation not in CONFIGURATION_ENCODER_OPERATIONS:
+            raise ProfileError(
+                "diagnostics.bulk_write[{0}] operation '{1}' has no complete "
+                "Qt editor/runtime encoder contract; keep the service available "
+                "for direct diagnostics or add the editor, SlaveConfigInfo field, "
+                "encodeLinServiceValue branch, and runtime capability together"
+                .format(index, operation)
             )
         if operation in {item["operation"] for item in bulk_write}:
             raise ProfileError("diagnostics.bulk_write contains duplicate operation " + operation)
