@@ -11,6 +11,8 @@
 #include "linruntime.h"
 #include "keyboard.h"
 
+class SignalControlFrame;
+
 class BCMMasterFrame : public QWidget
 {
   Q_OBJECT
@@ -19,12 +21,14 @@ public:
                           QWidget *parent = 0);
   ~BCMMasterFrame();
   void init();
+  void showSignalControl();
 
 private:
   Ui::MasterFrame *ui;
   double colorX, colorY;
   QFrame *backgroundframe;
   LinRuntime *linRuntime;
+  SignalControlFrame *signalControlPage;
   BCMSignal masterSignals;
   bool groupTargetMode;
   bool signalPresetMode;

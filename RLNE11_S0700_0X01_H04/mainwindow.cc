@@ -228,6 +228,8 @@ void MainWindow::enterMasterConfigMode()
     masterFrame->setGeometry(0, 0, 1366, 768);
     masterFrame->init();
     masterFrame->show();
+    if (linRuntime->layout().colorModel == ELinColorModelGenericSignals)
+      masterFrame->showSignalControl();
     keepDebugAccessVisible();
   }
 }

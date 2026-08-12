@@ -50,6 +50,12 @@ QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
    <property name="text"><string>报文信号控制</string></property>
    <property name="alignment"><set>Qt::AlignCenter</set></property>
   </widget>
+  <widget class="QLabel" name="labelBuildVersion">
+   <property name="geometry"><rect><x>1080</x><y>20</y><width>240</width><height>32</height></rect></property>
+   <property name="styleSheet"><string notr="true">color:#22d39f;font-size:17px;font-weight:bold;</string></property>
+   <property name="text"><string>ALL FRAMES / SIGNALS V2</string></property>
+   <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+  </widget>
   <widget class="QLabel" name="labelFrameSelector">
    <property name="geometry"><rect><x>30</x><y>68</y><width>120</width><height>35</height></rect></property>
    <property name="text"><string>选择报文：</string></property>

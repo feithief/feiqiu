@@ -129,7 +129,11 @@ LDF-specific facts in JSON overlays and generated files.
   current raw value and an editor. Apply changes to that selected frame while
   retaining the stored values of all other frames. Never hard-code RGB, U/V,
   brightness, dimming, one primary-frame-only list, or a maximum row count.
-- The main page must expose this feature as a clearly visible `报文信号` button.
+- For `models.color=generic_signals`, entering master-control mode must open the
+  frame-signal page directly. Do not leave the user on the legacy RGB/U/V
+  shortcut page with only a navigation button; that makes a generated host look
+  unchanged and hides its actual LDF controls. Keep a clearly visible `报文信号`
+  button only as a way to return to this page after viewing convenience presets.
   Switching frames must immediately rebuild the rows and load the selected
   frame's current values; U/V, intensity, dimming and future unknown fields
   must appear automatically from the generated layout without a `.ui` edit.

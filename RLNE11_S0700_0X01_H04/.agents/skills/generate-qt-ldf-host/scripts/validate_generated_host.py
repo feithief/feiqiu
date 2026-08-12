@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
@@ -31,12 +32,34 @@ class ValidationError(Exception):
 def read_text(path: Path) -> str:
     try:
         return path.read_text(encoding="utf-8-sig")
-    except UnicodeDecodeError as exc:
-        raise ValidationError(
-            "{0} is not readable UTF-8 text (possibly DLP protected): {1}".format(
-                path, exc
+    except UnicodeDecodeError as utf8_error:
+        # Some Windows DLP clients expose otherwise readable C/C++ sources in
+        # the local ANSI/GB18030 encoding. Qt/qmake can consume those files, so
+        # acceptance must inspect the same visible text instead of reporting a
+        # false missing-source cascade.
+        try:
+            return path.read_text(encoding="gb18030")
+        except UnicodeDecodeError as ansi_error:
+            if sys.platform == "win32":
+                escaped_path = str(path.resolve()).replace("'", "''")
+                command = (
+                    "[Console]::OutputEncoding=[Text.Encoding]::UTF8; "
+                    "Get-Content -Raw -LiteralPath '{0}'"
+                ).format(escaped_path)
+                completed = subprocess.run(
+                    ["powershell.exe", "-NoProfile", "-Command", command],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    check=False,
+                )
+                if completed.returncode == 0:
+                    return completed.stdout.decode("utf-8-sig")
+            raise ValidationError(
+                "{0} is not readable source text (possibly DLP protected): "
+                "UTF-8={1}; GB18030={2}".format(
+                    path, utf8_error, ansi_error
+                )
             )
-        )
 
 
 def parse_qmake_list(project_text: str, variable: str) -> List[str]:
@@ -517,6 +540,14 @@ def validate(project_root: Path) -> None:
         or "pushButtonAllSignals" not in read_text(master_ui)
     ):
         errors.append("master page has no visible frame-signal navigation button")
+    main_window_text = find_source(source_texts, "mainwindow")
+    if (
+        "ELinColorModelGenericSignals" not in main_window_text
+        or "masterFrame->showSignalControl()" not in main_window_text
+    ):
+        errors.append(
+            "generic-signals master control does not open the frame-signal page by default"
+        )
     nodes = generated.get("nodes", [])
     models = generated.get("models", {})
     diagnostics = generated.get("diagnostics", {})

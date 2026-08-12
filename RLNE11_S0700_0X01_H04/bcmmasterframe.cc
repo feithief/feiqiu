@@ -123,6 +123,7 @@ BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
   QWidget(parent),
   ui(new Ui::MasterFrame),
   linRuntime(runtime),
+  signalControlPage(0),
   groupTargetMode(false),
   signalPresetMode(false),
   colorPage(0),
@@ -140,16 +141,13 @@ BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
   ui->setupUi(this);
   ui->frameCIE->installEventFilter(this);
 
-  SignalControlFrame *allSignalPage =
-    new SignalControlFrame(linRuntime, this);
+  signalControlPage = new SignalControlFrame(linRuntime, this);
   connect(ui->pushButtonAllSignals, &QPushButton::clicked, this,
-          [allSignalPage]()
+          [this]()
           {
-            allSignalPage->init();
-            allSignalPage->show();
-            allSignalPage->raise();
+            showSignalControl();
           });
-  connect(allSignalPage, &SignalControlFrame::valuesApplied, this,
+  connect(signalControlPage, &SignalControlFrame::valuesApplied, this,
           [this]()
           {
             /* Prevent the dedicated RGB view from retaining a stale copy. */
@@ -355,6 +353,17 @@ BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
 BCMMasterFrame::~BCMMasterFrame()
 {
   delete ui;
+}
+
+void BCMMasterFrame::showSignalControl()
+{
+  if (signalControlPage == 0)
+    return;
+
+  signalControlPage->setGeometry(rect());
+  signalControlPage->init();
+  signalControlPage->show();
+  signalControlPage->raise();
 }
 
 void BCMMasterFrame::init()
