@@ -473,6 +473,7 @@ def validate(project_root: Path) -> None:
     lin_types_text = read_text(lin_types_path) if lin_types_path.is_file() else ""
     layout_text = find_source(source_texts, "linlayout")
     signal_control_text = find_source(source_texts, "signalcontrolframe")
+    master_control_text = find_source(source_texts, "bcmmasterframe")
     worker = find_source(source_texts, "linbusworker")
     require_marker(
         errors,
@@ -541,8 +542,35 @@ def validate(project_root: Path) -> None:
             "QSlider::add-page:vertical",
             "selected-frame sliders must retain the mother-Seed progress style",
         ),
+        (
+            "shortSignalName(signal.name)",
+            "selected-frame cards must display concise names",
+        ),
+        (
+            "name->setToolTip(QString::fromLatin1(signal.name))",
+            "selected-frame cards must retain the exact LDF name in a tooltip",
+        ),
+        (
+            "assignment.frameIndex != selectedFrameIndex",
+            "palette input must filter assignments to the selected frame",
+        ),
+        (
+            "setPublishedFrameSignal(selectedFrameIndex, nextValues)",
+            "palette input must queue only the selected frame",
+        ),
     ):
         require_marker(errors, signal_control_text, marker, message)
+    for marker, message in (
+        (
+            "signalControlPage->setGeometry(20, 75, 650, 560)",
+            "frame-signal page must stay in the left region and expose palette buttons",
+        ),
+        (
+            "signalControlPage->applyPresetToCurrentFrame(i)",
+            "visible palette must control the currently selected frame",
+        ),
+    ):
+        require_marker(errors, master_control_text, marker, message)
     for forbidden, message in (
         (
             "setDisplayIntegerBase(16)",
@@ -579,6 +607,17 @@ def validate(project_root: Path) -> None:
     ):
         errors.append(
             "frame-signal page has no visible selector/current-frame Apply control"
+        )
+    root_geometry = re.search(
+        r'<widget class="QWidget" name="SignalControlFrame">.*?'
+        r'<property name="geometry">\s*<rect>.*?'
+        r'<width>(\d+)</width>',
+        signal_control_ui_text,
+        flags=re.DOTALL,
+    )
+    if (not root_geometry) or int(root_geometry.group(1)) > 650:
+        errors.append(
+            "frame-signal Designer root must be at most 650 px wide so the palette stays visible"
         )
     header_match = re.search(
         r'<widget class="QFrame" name="headerFrame">(.*?)</widget>',

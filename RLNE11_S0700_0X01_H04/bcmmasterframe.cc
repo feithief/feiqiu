@@ -369,7 +369,7 @@ void BCMMasterFrame::showSignalControl()
   if (signalControlPage == 0)
     return;
 
-  signalControlPage->setGeometry(20, 75, 1326, 560);
+  signalControlPage->setGeometry(20, 75, 650, 560);
   signalControlPage->init();
   ui->pushButtonAllSignals->setText(
     QString::fromUtf8("\xE5\xBF\xAB\xE6\x8D\xB7\xE7\xBB\x84\xE5\x90\x88"));
@@ -841,6 +841,11 @@ void BCMMasterFrame::changeColor(int i)
     }
     ui->PredefColor->setText(
       QString("Preset: %1").arg(visiblePresetName(preset)));
+    if ((signalControlPage != 0) && signalControlPage->isVisible())
+    {
+      signalControlPage->applyPresetToCurrentFrame(i);
+      return;
+    }
     linRuntime->applySignalPreset(i);
     return;
   }

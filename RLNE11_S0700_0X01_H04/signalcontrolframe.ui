@@ -3,7 +3,7 @@
  <class>SignalControlFrame</class>
  <widget class="QWidget" name="SignalControlFrame">
   <property name="geometry">
-   <rect><x>0</x><y>0</y><width>1326</width><height>560</height></rect>
+   <rect><x>0</x><y>0</y><width>650</width><height>560</height></rect>
   </property>
   <property name="windowTitle"><string>报文信号控制</string></property>
   <property name="styleSheet">
@@ -45,8 +45,8 @@ QPushButton {
 QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
   </property>
   <widget class="QLabel" name="labelTitle">
-   <property name="geometry"><rect><x>20</x><y>8</y><width>220</width><height>40</height></rect></property>
-   <property name="styleSheet"><string notr="true">color:#1dbce8;font-size:25px;font-weight:bold;</string></property>
+   <property name="geometry"><rect><x>10</x><y>8</y><width>145</width><height>40</height></rect></property>
+   <property name="styleSheet"><string notr="true">color:#1dbce8;font-size:21px;font-weight:bold;</string></property>
    <property name="text"><string>报文信号控制</string></property>
    <property name="alignment"><set>Qt::AlignLeft|Qt::AlignVCenter</set></property>
   </widget>
@@ -58,21 +58,22 @@ QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
    <property name="visible"><bool>false</bool></property>
   </widget>
   <widget class="QLabel" name="labelFrameSelector">
-   <property name="geometry"><rect><x>245</x><y>10</y><width>115</width><height>35</height></rect></property>
+   <property name="geometry"><rect><x>150</x><y>10</y><width>100</width><height>35</height></rect></property>
    <property name="text"><string>选择报文：</string></property>
    <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
   </widget>
   <widget class="QComboBox" name="frameSelector">
-   <property name="geometry"><rect><x>370</x><y>8</y><width>650</width><height>40</height></rect></property>
+   <property name="geometry"><rect><x>250</x><y>8</y><width>390</width><height>40</height></rect></property>
   </widget>
   <widget class="QLabel" name="frameInformation">
    <property name="geometry"><rect><x>1030</x><y>8</y><width>270</width><height>40</height></rect></property>
    <property name="styleSheet"><string notr="true">color:#70d9ee;font-size:19px;</string></property>
    <property name="text"><string>当前报文信息</string></property>
    <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+   <property name="visible"><bool>false</bool></property>
   </widget>
   <widget class="QFrame" name="headerFrame">
-   <property name="geometry"><rect><x>20</x><y>60</y><width>1286</width><height>44</height></rect></property>
+   <property name="geometry"><rect><x>10</x><y>60</y><width>630</width><height>44</height></rect></property>
    <property name="visible"><bool>false</bool></property>
    <property name="styleSheet"><string notr="true">QFrame{border:1px solid #0fbacd;background:rgba(15,186,205,45);}</string></property>
    <widget class="QLabel" name="labelSignalName">
@@ -93,12 +94,12 @@ QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
    </widget>
   </widget>
   <widget class="QScrollArea" name="signalScrollArea">
-   <property name="geometry"><rect><x>20</x><y>60</y><width>1286</width><height>420</height></rect></property>
+   <property name="geometry"><rect><x>10</x><y>60</y><width>630</width><height>420</height></rect></property>
    <property name="styleSheet"><string notr="true">QScrollArea{border:1px solid #0fbacd;background:rgb(0,8,14);} QScrollArea &gt; QWidget &gt; QWidget{background:rgb(0,8,14);} QScrollBar:vertical{background:#04131c;width:14px;} QScrollBar::handle:vertical{background:#0fbacd;min-height:48px;border-radius:7px;}</string></property>
    <property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
    <property name="widgetResizable"><bool>true</bool></property>
    <widget class="QWidget" name="signalScrollContent">
-    <property name="geometry"><rect><x>0</x><y>0</y><width>1264</width><height>418</height></rect></property>
+    <property name="geometry"><rect><x>0</x><y>0</y><width>608</width><height>418</height></rect></property>
     <layout class="QVBoxLayout" name="verticalLayoutSignals">
      <property name="spacing"><number>8</number></property>
      <property name="leftMargin"><number>8</number></property>
@@ -115,7 +116,7 @@ QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
    </widget>
   </widget>
   <widget class="QLabel" name="statusLabel">
-   <property name="geometry"><rect><x>20</x><y>490</y><width>1260</width><height>52</height></rect></property>
+   <property name="geometry"><rect><x>10</x><y>490</y><width>630</width><height>52</height></rect></property>
    <property name="styleSheet"><string notr="true">color:#7fdbef;font-size:18px;</string></property>
    <property name="text"><string>选择报文后，可用滑条调整该报文的全部信号；范围和数值均为十进制</string></property>
    <property name="alignment"><set>Qt::AlignLeft|Qt::AlignVCenter</set></property>

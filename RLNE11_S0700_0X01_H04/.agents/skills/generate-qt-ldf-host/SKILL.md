@@ -126,8 +126,8 @@ LDF-specific facts in JSON overlays and generated files.
 - Generate an editable, scrollable frame-signal page. Enumerate
   `publishedFrames[0..n]` into a visible frame selector. After the user selects
   one frame, show every `signalLayouts[0..n]` entry of that frame as a separate
-  visual slider card, matching the mother Seed RGB slider interaction: exact
-  signal name, decimal start bit/length/range, a draggable vertical progress
+  visual slider card, matching the mother Seed RGB slider interaction: a short
+  display name, decimal start bit/length/range, a draggable vertical progress
   column, and an exact decimal value editor below it. Lay cards left-to-right,
   then wrap and scroll when a frame contains more signals than fit. This is not
   a table and must not fall back to
@@ -143,6 +143,18 @@ LDF-specific facts in JSON overlays and generated files.
 - On this page display the selected frame ID, signal ranges, and current values
   in base 10 only. Reject `0x` prefixes, hexadecimal SpinBoxes, hexadecimal
   validators, and table-style column rows during static acceptance.
+- Derive a concise signal display name by removing common LDF/vendor prefixes
+  and shortening long tokens. Preserve the complete exact LDF name only in the
+  tooltip and internal layout binding. Never use the shortened label as a key.
+- Reserve the mother-Seed palette region while the frame-signal page is open.
+  The dynamic page must occupy only the left control region and must not cover,
+  disable, reparent, or intercept the palette buttons on the right. Treat named
+  color buttons as an additional input surface, not as a replacement page.
+- While the frame-signal page is visible, clicking a named combination must
+  filter assignments by `assignment.frameIndex == selectedFrameIndex`, update
+  only those exact signals in the current frame, refresh the current sliders,
+  and queue only that selected frame. When the frame-signal page is closed,
+  preserve the normal cross-frame atomic preset behaviour.
 - Treat that page as a reusable control pool: create/show one row for every
   configured signal and create no row for unused capacity. Fixed convenience
   controls stay reserved in the mother Seed but hide automatically when their

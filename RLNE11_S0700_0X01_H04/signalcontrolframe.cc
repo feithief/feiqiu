@@ -217,6 +217,32 @@ void SignalControlFrame::selectFrame(int comboIndex)
   buildSignalRows();
 }
 
+QString SignalControlFrame::shortSignalName(const char *sourceName) const
+{
+  const QString fullName = QString::fromLatin1(sourceName != 0
+                                                ? sourceName : "");
+  QStringList parts = fullName.split('_', QString::SkipEmptyParts);
+  while (parts.size() > 3)
+    parts.removeFirst();
+  if ((parts.size() > 1) &&
+      (parts.first().compare(QString("RGB"), Qt::CaseInsensitive) == 0))
+  {
+    parts.removeFirst();
+  }
+
+  QString displayName = parts.join(QString(" "));
+  displayName.replace(QString("Dimmrampe"), QString("Dimming"),
+                      Qt::CaseInsensitive);
+  displayName.replace(QString("Sonderfunktion"), QString("Special"),
+                      Qt::CaseInsensitive);
+  displayName.replace(QString("Intensitaet"), QString("Intensity"),
+                      Qt::CaseInsensitive);
+  displayName.replace(QString("GlobalSync"), QString("Global Sync"),
+                      Qt::CaseInsensitive);
+  if (displayName.length() > 18)
+    displayName = displayName.left(16) + QString("..");
+  return displayName;
+}
 void SignalControlFrame::buildSignalRows()
 {
   const LinLayout &layout = linRuntime->layout();
@@ -262,7 +288,7 @@ void SignalControlFrame::buildSignalRows()
   gridLayout->setContentsMargins(2, 2, 2, 2);
   gridLayout->setHorizontalSpacing(7);
   gridLayout->setVerticalSpacing(10);
-  const int columnCount = qMax(1, qMin(11, frameLayout->signalCount));
+  const int columnCount = qMax(1, qMin(5, frameLayout->signalCount));
 
   for (int signalIndex = 0;
        signalIndex < frameLayout->signalCount;
@@ -286,7 +312,7 @@ void SignalControlFrame::buildSignalRows()
     cardLayout->setContentsMargins(4, 5, 4, 5);
     cardLayout->setSpacing(3);
 
-    QLabel *name = new QLabel(QString::fromLatin1(signal.name), card);
+    QLabel *name = new QLabel(shortSignalName(signal.name), card);
     name->setToolTip(QString::fromLatin1(signal.name));
     name->setWordWrap(true);
     name->setFixedHeight(60);
@@ -402,6 +428,63 @@ void SignalControlFrame::applyCurrentFrame()
   applyValues();
 }
 
+bool SignalControlFrame::applyPresetToCurrentFrame(int presetIndex)
+{
+  const LinLayout &layout = linRuntime->layout();
+  if ((frameLayout == 0) ||
+      (selectedFrameIndex < 0) ||
+      (presetIndex < 0) ||
+      (presetIndex >= layout.signalPresetCount) ||
+      (layout.signalPresets == 0))
+  {
+    return false;
+  }
+
+  BCMSignal nextValues = linRuntime->getBCMSignal();
+  const LinSignalPreset &preset = layout.signalPresets[presetIndex];
+  int appliedCount = 0;
+  for (int assignmentIndex = 0;
+       assignmentIndex < preset.assignmentCount;
+       ++assignmentIndex)
+  {
+    const LinSignalPresetAssignment &assignment =
+      preset.assignments[assignmentIndex];
+    if (assignment.frameIndex != selectedFrameIndex)
+      continue;
+
+    for (int signalIndex = 0;
+         signalIndex < frameLayout->signalCount;
+         ++signalIndex)
+    {
+      const LinSignalLayout &signal = frameLayout->signalLayouts[signalIndex];
+      if ((QString::fromLatin1(signal.name) ==
+           QString::fromLatin1(assignment.signalName)) &&
+          (signal.startBit == assignment.startBit) &&
+          (signal.bitLength == assignment.bitLength) &&
+          assignLogicalValue(&nextValues, signal, assignment.value))
+      {
+        ++appliedCount;
+        break;
+      }
+    }
+  }
+
+  if (appliedCount <= 0)
+  {
+    ui->statusLabel->setText(
+      QString::fromUtf8("当前颜色在所选报文中没有对应信号"));
+    return false;
+  }
+
+  linRuntime->setPublishedFrameSignal(selectedFrameIndex, nextValues);
+  loadCurrentValues();
+  ui->statusLabel->setText(
+    QString::fromUtf8("颜色 %1 已更新当前报文的 %2 个信号")
+      .arg(QString::fromUtf8(preset.name))
+      .arg(appliedCount));
+  emit valuesApplied();
+  return true;
+}
 void SignalControlFrame::loadCurrentValues()
 {
   if ((frameLayout == 0) ||

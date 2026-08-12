@@ -28,6 +28,7 @@ public:
 
   void init();
   void applyCurrentFrame();
+  bool applyPresetToCurrentFrame(int presetIndex);
 
 signals:
   void valuesApplied();
@@ -43,6 +44,7 @@ private:
   void populateFrameSelector();
   void selectFrame(int comboIndex);
   void buildSignalRows();
+  QString shortSignalName(const char *sourceName) const;
   void loadCurrentValues();
   void applyValues();
   void closePage();
