@@ -336,6 +336,11 @@ void SignalControlFrame::init()
   loadCurrentValues();
 }
 
+void SignalControlFrame::applyCurrentFrame()
+{
+  applyValues();
+}
+
 void SignalControlFrame::loadCurrentValues()
 {
   if ((frameLayout == 0) ||
@@ -410,7 +415,7 @@ void SignalControlFrame::applyValues()
     }
   }
 
-  linRuntime->setBCMSignal(nextValues);
+  linRuntime->setPublishedFrameSignal(selectedFrameIndex, nextValues);
   emit valuesApplied();
   ui->statusLabel->setText(
     QString::fromUtf8("已应用报文 %1 的 %2 个信号")

@@ -27,6 +27,7 @@ public:
   ~SignalControlFrame();
 
   void init();
+  void applyCurrentFrame();
 
 signals:
   void valuesApplied();

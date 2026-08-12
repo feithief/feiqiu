@@ -86,6 +86,9 @@ void AmbientLinScheduler::createWorker()
           worker.data(), &LinBusWorker::stopWorker, Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::controlSignalRequested,
           worker.data(), &LinBusWorker::updateControlSignal, Qt::QueuedConnection);
+  connect(this, &AmbientLinScheduler::publishedFrameSignalRequested,
+          worker.data(), &LinBusWorker::updatePublishedFrameSignal,
+          Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::switchControlSignalRequested,
           worker.data(), &LinBusWorker::switchControlSignal, Qt::QueuedConnection);
   connect(this, &AmbientLinScheduler::signalPresetRequested,
@@ -225,6 +228,16 @@ void AmbientLinScheduler::setBCMSignal(const BCMSignal &signal)
   /* UI sliders may emit rapidly; only the latest value is sent every 20 ms. */
   if (!controlCoalesceTimer->isActive())
     controlCoalesceTimer->start();
+}
+
+void AmbientLinScheduler::setPublishedFrameSignal(
+  int frameIndex,
+  const BCMSignal &signal)
+{
+  assertFacadeThread();
+  controlCoalesceTimer->stop();
+  desiredControlSignal = signal;
+  emit publishedFrameSignalRequested(frameIndex, signal);
 }
 
 void AmbientLinScheduler::switchBCMSignal(const BCMSignal &signal)

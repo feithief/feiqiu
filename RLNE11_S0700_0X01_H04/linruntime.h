@@ -41,6 +41,8 @@ public:
   virtual QString layoutErrorText() const = 0;
 
   virtual void setBCMSignal(const BCMSignal &signal) = 0;
+  virtual void setPublishedFrameSignal(int frameIndex,
+                                       const BCMSignal &signal) = 0;
   virtual void switchBCMSignal(const BCMSignal &signal) = 0;
   virtual BCMSignal getBCMSignal() const = 0;
   virtual void applySignalPreset(int presetIndex) = 0;

@@ -41,6 +41,8 @@ public:
   QString layoutErrorText() const override;
 
   void setBCMSignal(const BCMSignal &signal) override;
+  void setPublishedFrameSignal(int frameIndex,
+                               const BCMSignal &signal) override;
   void switchBCMSignal(const BCMSignal &signal) override;
   BCMSignal getBCMSignal() const override;
   void applySignalPreset(int presetIndex) override;
@@ -64,6 +66,7 @@ signals:
   /* Internal queued commands. */
   void stopRequested();
   void controlSignalRequested(BCMSignal signal);
+  void publishedFrameSignalRequested(int frameIndex, BCMSignal signal);
   void switchControlSignalRequested(BCMSignal signal);
   void signalPresetRequested(int presetIndex);
   void readNodeRequested(quint32 requestId, quint8 node);

@@ -51,6 +51,7 @@ public slots:
   void initialize();
   void stopWorker();
   void updateControlSignal(BCMSignal signal);
+  void updatePublishedFrameSignal(int frameIndex, BCMSignal signal);
   void switchControlSignal(BCMSignal signal);
   void applySignalPreset(int presetIndex);
   void enqueueReadNode(quint32 requestId, quint8 node);
@@ -166,6 +167,7 @@ private:
   bool transmitPrimaryControlFrame();
   bool refreshPrimaryControlPayload();
   void requestPriorityControlTransmission();
+  void requestPublishedFrameTransmission(int frameIndex);
   bool shouldAbortCurrentTransaction() const;
   bool waitInterruptibly(int delayMs,
                          bool allowDuringShutdown = false) const;

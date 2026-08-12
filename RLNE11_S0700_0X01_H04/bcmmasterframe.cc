@@ -145,7 +145,16 @@ BCMMasterFrame::BCMMasterFrame(LinRuntime *runtime,
   connect(ui->pushButtonAllSignals, &QPushButton::clicked, this,
           [this]()
           {
-            showSignalControl();
+            if ((signalControlPage != 0) && signalControlPage->isVisible())
+            {
+              signalControlPage->hide();
+              ui->pushButtonAllSignals->setText(
+                QString::fromUtf8("\xE6\x8A\xA5\xE6\x96\x87\xE4\xBF\xA1\xE5\x8F\xB7"));
+            }
+            else
+            {
+              showSignalControl();
+            }
           });
   connect(signalControlPage, &SignalControlFrame::valuesApplied, this,
           [this]()
@@ -360,8 +369,10 @@ void BCMMasterFrame::showSignalControl()
   if (signalControlPage == 0)
     return;
 
-  signalControlPage->setGeometry(rect());
+  signalControlPage->setGeometry(20, 75, 1326, 560);
   signalControlPage->init();
+  ui->pushButtonAllSignals->setText(
+    QString::fromUtf8("\xE5\xBF\xAB\xE6\x8D\xB7\xE7\xBB\x84\xE5\x90\x88"));
   signalControlPage->show();
   signalControlPage->raise();
 }
@@ -768,6 +779,12 @@ void BCMMasterFrame::changeDimRamp(int dimramp)
 
 void BCMMasterFrame::Accept()
 {
+  if ((signalControlPage != 0) && signalControlPage->isVisible())
+  {
+    signalControlPage->applyCurrentFrame();
+    return;
+  }
+
   updateSignals();
 }
 

@@ -129,14 +129,23 @@ LDF-specific facts in JSON overlays and generated files.
   current raw value and an editor. Apply changes to that selected frame while
   retaining the stored values of all other frames. Never hard-code RGB, U/V,
   brightness, dimming, one primary-frame-only list, or a maximum row count.
-- For `models.color=generic_signals`, entering master-control mode must open the
-  frame-signal page directly. Do not leave the user on the legacy RGB/U/V
-  shortcut page with only a navigation button; that makes a generated host look
-  unchanged and hides its actual LDF controls. Keep a clearly visible `报文信号`
-  button only as a way to return to this page after viewing convenience presets.
+- For `models.color=generic_signals`, keep the mother-Seed
+  `BCM Master Control Panel` as the visible page and embed the frame selector
+  plus dynamic signal editor inside its central control area. Never cover the
+  complete Seed page with another full-screen widget or duplicate its title and
+  bottom navigation. Entering master-control mode must show the embedded frame
+  editor by default; `报文信号` returns to it after viewing the named
+  combination palette, while the same button becomes `快捷组合` and returns
+  to that palette. Keep only the mother-Seed bottom `报文信号 / Apply / EXIT`
+  row; never create a second Apply/Exit row inside the embedded editor. The
+  mother-Seed `Apply` applies the selected frame while that editor is visible.
   Switching frames must immediately rebuild the rows and load the selected
   frame's current values; U/V, intensity, dimming and future unknown fields
   must appear automatically from the generated layout without a `.ui` edit.
+- Applying the frame editor must queue only the selected published frame. Pass
+  its `frameIndex` through `LinRuntime` and the queued scheduler/Worker boundary;
+  do not reuse the all-frame refresh intended for sliders and cross-frame
+  presets.
 - Treat that page as a reusable control pool: create/show one row for every
   configured signal and create no row for unused capacity. Fixed convenience
   controls stay reserved in the mother Seed but hide automatically when their

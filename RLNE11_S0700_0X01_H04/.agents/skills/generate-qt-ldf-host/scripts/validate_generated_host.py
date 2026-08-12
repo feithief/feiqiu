@@ -521,6 +521,12 @@ def validate(project_root: Path) -> None:
         "controlledSignals.append(&signal)",
         "all-signal page must create one editor per generated layout entry",
     )
+    require_marker(
+        errors,
+        signal_control_text,
+        "setPublishedFrameSignal(selectedFrameIndex, nextValues)",
+        "selected-frame Apply must send only the selected published frame",
+    )
     if "signalcontrolframe.ui" not in project_text:
         errors.append("project does not register the all-signal Designer page")
     signal_control_ui = project_root / "signalcontrolframe.ui"
@@ -534,19 +540,24 @@ def validate(project_root: Path) -> None:
         errors.append(
             "frame-signal page has no visible selector/current-frame Apply control"
         )
+    if signal_control_ui_text.count("<property name=\"visible\"><bool>false</bool></property>") < 3:
+        errors.append(
+            "embedded frame editor still exposes a duplicate bottom button row"
+        )
     master_ui = project_root / "masterframe.ui"
     if (
         not master_ui.is_file()
         or "pushButtonAllSignals" not in read_text(master_ui)
     ):
         errors.append("master page has no visible frame-signal navigation button")
-    main_window_text = find_source(source_texts, "mainwindow")
+    master_frame_text = find_source(source_texts, "bcmmasterframe")
     if (
-        "ELinColorModelGenericSignals" not in main_window_text
-        or "masterFrame->showSignalControl()" not in main_window_text
+        "signalControlPage->setGeometry(20, 75, 1326, 560)"
+        not in master_frame_text
+        or "signalControlPage->applyCurrentFrame()" not in master_frame_text
     ):
         errors.append(
-            "generic-signals master control does not open the frame-signal page by default"
+            "frame-signal editor is not embedded in the mother-Seed master page"
         )
     nodes = generated.get("nodes", [])
     models = generated.get("models", {})

@@ -187,6 +187,23 @@ void LinBusWorker::updateControlSignal(BCMSignal signal)
   requestPriorityControlTransmission();
 }
 
+void LinBusWorker::updatePublishedFrameSignal(int frameIndex,
+                                              BCMSignal signal)
+{
+  assertWorkerThread();
+
+  controlSignal = signal;
+  if (!refreshPrimaryControlPayload())
+    return;
+  if (debug != 0)
+    debug->setValue(DebugActiveSignalPreset, QString("Manual frame UI"));
+
+  if (controlSwitchPending)
+    pendingControlSignal = signal;
+
+  requestPublishedFrameTransmission(frameIndex);
+}
+
 void LinBusWorker::applySignalPreset(int presetIndex)
 {
   assertWorkerThread();
@@ -255,6 +272,41 @@ void LinBusWorker::requestPriorityControlTransmission()
     scheduleTimer->start(0);
   }
 }
+void LinBusWorker::requestPublishedFrameTransmission(int frameIndex)
+{
+  assertWorkerThread();
+
+  priorityFrameQueue.clear();
+  if ((linLayout != 0) &&
+      (frameIndex >= 0) &&
+      (frameIndex < linLayout->publishedFrameCount) &&
+      (linLayout->publishedFrames[frameIndex].signalCount > 0) &&
+      (publishedFrameScheduleSlot(frameIndex) >= 0))
+  {
+    priorityFrameQueue.enqueue(frameIndex);
+  }
+  priorityControlPending = !priorityFrameQueue.isEmpty();
+  normalSlotRequiredAfterPriority = false;
+  if (!priorityControlPending)
+    return;
+
+  if (taskActive)
+  {
+    taskControlYieldPending = true;
+    return;
+  }
+
+  if ((scheduleTimer == 0) || stopping || !initialized ||
+      !busEnabled || (comm == 0))
+    return;
+
+  if (!scheduleTimer->isActive() || (scheduleTimer->remainingTime() > 0))
+  {
+    scheduleTimer->stop();
+    scheduleTimer->start(0);
+  }
+}
+
 void LinBusWorker::switchControlSignal(BCMSignal signal)
 {
   assertWorkerThread();
