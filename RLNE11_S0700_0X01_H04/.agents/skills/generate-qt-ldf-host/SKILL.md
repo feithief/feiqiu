@@ -125,27 +125,24 @@ LDF-specific facts in JSON overlays and generated files.
   payload bit.
 - Generate an editable, scrollable frame-signal page. Enumerate
   `publishedFrames[0..n]` into a visible frame selector. After the user selects
-  one frame, show every `signalLayouts[0..n]` entry of that frame with its exact
-  current raw value and an editor. Apply changes to that selected frame while
-  retaining the stored values of all other frames. Never hard-code RGB, U/V,
-  brightness, dimming, one primary-frame-only list, or a maximum row count.
-- For `models.color=generic_signals`, keep the mother-Seed
-  `BCM Master Control Panel` as the visible page and embed the frame selector
-  plus dynamic signal editor inside its central control area. Never cover the
-  complete Seed page with another full-screen widget or duplicate its title and
-  bottom navigation. Entering master-control mode must show the embedded frame
-  editor by default; `报文信号` returns to it after viewing the named
-  combination palette, while the same button becomes `快捷组合` and returns
-  to that palette. Keep only the mother-Seed bottom `报文信号 / Apply / EXIT`
-  row; never create a second Apply/Exit row inside the embedded editor. The
-  mother-Seed `Apply` applies the selected frame while that editor is visible.
+  one frame, show every `signalLayouts[0..n]` entry of that frame as a separate
+  visual slider card, matching the mother Seed RGB slider interaction: exact
+  signal name, decimal start bit/length/range, a draggable vertical progress
+  column, and an exact decimal value editor below it. Lay cards left-to-right,
+  then wrap and scroll when a frame contains more signals than fit. This is not
+  a table and must not fall back to
+  hexadecimal text. One-bit signals also use a 0/1 slider. Wider-than-30-bit
+  signals keep an exact decimal editor plus a normalized visual slider. Apply
+  changes to that selected frame while retaining the stored values of all other
+  frames. Never hard-code RGB, U/V, brightness, dimming, one primary-frame-only
+  list, or a maximum row count.
+- The main page must expose this feature as a clearly visible `报文信号` button.
   Switching frames must immediately rebuild the rows and load the selected
   frame's current values; U/V, intensity, dimming and future unknown fields
   must appear automatically from the generated layout without a `.ui` edit.
-- Applying the frame editor must queue only the selected published frame. Pass
-  its `frameIndex` through `LinRuntime` and the queued scheduler/Worker boundary;
-  do not reuse the all-frame refresh intended for sliders and cross-frame
-  presets.
+- On this page display the selected frame ID, signal ranges, and current values
+  in base 10 only. Reject `0x` prefixes, hexadecimal SpinBoxes, hexadecimal
+  validators, and table-style column rows during static acceptance.
 - Treat that page as a reusable control pool: create/show one row for every
   configured signal and create no row for unused capacity. Fixed convenience
   controls stay reserved in the mother Seed but hide automatically when their

@@ -8,13 +8,16 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QFrame>
+#include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLayoutItem>
 #include <QLineEdit>
 #include <QRegExp>
 #include <QRegExpValidator>
+#include <QSlider>
 #include <QSpinBox>
+#include <QVBoxLayout>
 
 namespace {
 
@@ -176,12 +179,11 @@ void SignalControlFrame::populateFrameSelector()
   {
     const LinFrameLayout &frame = layout.publishedFrames[frameIndex];
     ui->frameSelector->addItem(
-      QString::fromUtf8("%1  |  ID 0x%2  |  %3 字节  |  %4 个信号")
+      QString::fromUtf8("%1  |  ID %2  |  %3 字节  |  %4 个信号")
         .arg(QString::fromLatin1(frame.name))
-        .arg(static_cast<int>(frame.frameId), 2, 16, QChar('0'))
+        .arg(static_cast<int>(frame.frameId))
         .arg(static_cast<int>(frame.length))
-        .arg(frame.signalCount)
-        .toUpper(),
+        .arg(frame.signalCount),
       frameIndex);
   }
 
@@ -255,79 +257,138 @@ void SignalControlFrame::buildSignalRows()
     return;
   }
 
+  QWidget *gridHost = new QWidget(ui->signalScrollContent);
+  QGridLayout *gridLayout = new QGridLayout(gridHost);
+  gridLayout->setContentsMargins(2, 2, 2, 2);
+  gridLayout->setHorizontalSpacing(7);
+  gridLayout->setVerticalSpacing(10);
+  const int columnCount = qMax(1, qMin(11, frameLayout->signalCount));
+
   for (int signalIndex = 0;
        signalIndex < frameLayout->signalCount;
        ++signalIndex)
   {
     const LinSignalLayout &signal = frameLayout->signalLayouts[signalIndex];
-    QFrame *row = new QFrame(ui->signalScrollContent);
-    row->setFixedHeight(64);
-    row->setStyleSheet(
-      "QFrame{border:1px solid rgba(15,186,205,130);"
-      "background:rgba(2,22,31,190);}");
+    const quint64 signalMaximum = maximumValue(signal.bitLength);
 
-    QHBoxLayout *rowLayout = new QHBoxLayout(row);
-    rowLayout->setContentsMargins(18, 5, 18, 5);
-    rowLayout->setSpacing(12);
+    QFrame *card = new QFrame(gridHost);
+    card->setMinimumWidth(100);
+    card->setFixedHeight(390);
+    card->setStyleSheet(
+      "QFrame{border:1px solid rgba(15,186,205,165);"
+      "border-radius:8px;background:rgba(2,22,31,235);}"
+      "QLabel{border:0;background:transparent;color:rgb(166,231,247);"
+      "font-size:13px;}"
+      "QSpinBox,QLineEdit{border:1px solid #0fbacd;"
+      "background:rgb(2,22,31);color:white;font-size:18px;}");
 
-    QLabel *name = columnLabel(
-      QString::fromLatin1(signal.name), 360, row);
+    QVBoxLayout *cardLayout = new QVBoxLayout(card);
+    cardLayout->setContentsMargins(4, 5, 4, 5);
+    cardLayout->setSpacing(3);
+
+    QLabel *name = new QLabel(QString::fromLatin1(signal.name), card);
     name->setToolTip(QString::fromLatin1(signal.name));
-    rowLayout->addWidget(name);
-    rowLayout->addWidget(
-      columnLabel(QString::fromUtf8("起始 %1 / 长度 %2 bit")
-                    .arg(static_cast<int>(signal.startBit))
-                    .arg(static_cast<int>(signal.bitLength)),
-                  180,
-                  row));
-    rowLayout->addWidget(
-      columnLabel(QString("0x0 - 0x%1")
-                    .arg(maximumValue(signal.bitLength), 0, 16)
-                    .toUpper(),
-                  280,
-                  row));
+    name->setWordWrap(true);
+    name->setFixedHeight(60);
+    name->setAlignment(Qt::AlignCenter);
+    cardLayout->addWidget(name);
+
+    QLabel *details = new QLabel(
+      QString::fromUtf8("范围 0 - %1").arg(signalMaximum), card);
+    details->setToolTip(
+      QString::fromUtf8("起始位 %1 / 长度 %2 bit / 十进制范围 0 - %3")
+        .arg(static_cast<int>(signal.startBit))
+        .arg(static_cast<int>(signal.bitLength))
+        .arg(signalMaximum));
+    details->setFixedHeight(24);
+    details->setAlignment(Qt::AlignCenter);
+    cardLayout->addWidget(details);
 
     QWidget *editor = 0;
-    if (signal.bitLength == 1)
+    QSlider *slider = new QSlider(Qt::Vertical, card);
+    slider->setObjectName(
+      QString("signalSlider_%1").arg(valueEditors.size()));
+    slider->setFixedSize(46, 245);
+    slider->setSingleStep(1);
+    slider->setStyleSheet(
+      "QSlider{border:0;background:transparent;}"
+      "QSlider::sub-page:vertical{background-color:rgba(87,97,106,0);"
+      "width:40px;}"
+      "QSlider::add-page:vertical{"
+      "background-color:qlineargradient(spread:pad,x1:0,y1:1,x2:0,y2:0,"
+      "stop:0 rgba(29,165,219,140),stop:1 rgba(29,165,219,210));"
+      "width:40px;}"
+      "QSlider::groove:vertical{background:transparent;width:46px;}"
+      "QSlider::handle:vertical{background-color:rgb(29,165,219);"
+      "width:40px;height:30px;}");
+    cardLayout->addWidget(slider, 0, Qt::AlignHCenter);
+
+    if (signal.bitLength <= 30)
     {
-      QCheckBox *checkBox = new QCheckBox(
-        QString::fromUtf8("开 / 1"), row);
-      checkBox->setFixedWidth(250);
-      editor = checkBox;
-    }
-    else if (signal.bitLength <= 30)
-    {
-      QSpinBox *spinBox = new QSpinBox(row);
-      spinBox->setFixedWidth(250);
-      spinBox->setRange(
-        0, static_cast<int>(maximumValue(signal.bitLength)));
-      spinBox->setDisplayIntegerBase(16);
-      spinBox->setPrefix("0x");
+      const int maximum = static_cast<int>(signalMaximum);
+      QSpinBox *spinBox = new QSpinBox(card);
+      spinBox->setFixedSize(92, 38);
+      spinBox->setRange(0, maximum);
+      spinBox->setDisplayIntegerBase(10);
       spinBox->setAlignment(Qt::AlignCenter);
       spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
+      slider->setRange(0, maximum);
+      slider->setPageStep(qMax(1, maximum / 20));
+      connect(slider, &QSlider::valueChanged,
+              spinBox, &QSpinBox::setValue);
+      connect(spinBox,
+              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+              slider, &QSlider::setValue);
       editor = spinBox;
     }
     else
     {
-      QLineEdit *lineEdit = new QLineEdit(row);
-      lineEdit->setFixedWidth(250);
+      QLineEdit *lineEdit = new QLineEdit(card);
+      lineEdit->setFixedSize(92, 38);
       lineEdit->setAlignment(Qt::AlignCenter);
-      lineEdit->setMaxLength(8);
+      lineEdit->setMaxLength(10);
       lineEdit->setValidator(
-        new QRegExpValidator(QRegExp("[0-9A-Fa-f]{1,8}"), lineEdit));
+        new QRegExpValidator(QRegExp("[0-9]{1,10}"), lineEdit));
       lineEdit->setToolTip(
-        QString::fromUtf8("输入十六进制原值，不需要 0x 前缀"));
+        QString("Decimal range: 0 - %1").arg(signalMaximum));
+      slider->setRange(0, 1000);
+      slider->setPageStep(50);
+      connect(slider, &QSlider::sliderMoved, lineEdit,
+              [lineEdit, signalMaximum](int position) {
+        const quint64 value =
+          (signalMaximum * static_cast<quint64>(position)) / 1000ULL;
+        lineEdit->setText(QString::number(value));
+      });
+      connect(lineEdit, &QLineEdit::textChanged, slider,
+              [slider, signalMaximum](const QString &text) {
+        bool valid = false;
+        quint64 value = text.toULongLong(&valid, 10);
+        if (!valid)
+          return;
+        if (value > signalMaximum)
+          value = signalMaximum;
+        const int position = signalMaximum == 0
+          ? 0
+          : static_cast<int>((value * 1000ULL) / signalMaximum);
+        const bool wasBlocked = slider->blockSignals(true);
+        slider->setValue(position);
+        slider->blockSignals(wasBlocked);
+      });
       editor = lineEdit;
     }
 
     editor->setObjectName(
       QString("signalValue_%1").arg(valueEditors.size()));
-    rowLayout->addWidget(editor);
+    cardLayout->addWidget(editor, 0, Qt::AlignHCenter);
+
     controlledSignals.append(&signal);
     valueEditors.append(editor);
-    ui->verticalLayoutSignals->addWidget(row);
+    gridLayout->addWidget(card,
+                          signalIndex / columnCount,
+                          signalIndex % columnCount);
   }
 
+  ui->verticalLayoutSignals->addWidget(gridHost);
   ui->verticalLayoutSignals->addStretch();
   loadCurrentValues();
 }
@@ -361,7 +422,7 @@ void SignalControlFrame::loadCurrentValues()
     else if (QSpinBox *spinBox = qobject_cast<QSpinBox *>(editor))
       spinBox->setValue(static_cast<int>(value));
     else if (QLineEdit *lineEdit = qobject_cast<QLineEdit *>(editor))
-      lineEdit->setText(QString::number(value, 16).toUpper());
+      lineEdit->setText(QString::number(value));
   }
 
   ui->statusLabel->setText(
@@ -398,7 +459,7 @@ void SignalControlFrame::applyValues()
     }
     else if (QLineEdit *lineEdit = qobject_cast<QLineEdit *>(editor))
     {
-      value = lineEdit->text().toULongLong(&valid, 16);
+      value = lineEdit->text().toULongLong(&valid, 10);
     }
     else
     {

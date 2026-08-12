@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -32,34 +33,36 @@ class ValidationError(Exception):
 def read_text(path: Path) -> str:
     try:
         return path.read_text(encoding="utf-8-sig")
-    except UnicodeDecodeError as utf8_error:
-        # Some Windows DLP clients expose otherwise readable C/C++ sources in
-        # the local ANSI/GB18030 encoding. Qt/qmake can consume those files, so
-        # acceptance must inspect the same visible text instead of reporting a
-        # false missing-source cascade.
-        try:
-            return path.read_text(encoding="gb18030")
-        except UnicodeDecodeError as ansi_error:
-            if sys.platform == "win32":
-                escaped_path = str(path.resolve()).replace("'", "''")
-                command = (
-                    "[Console]::OutputEncoding=[Text.Encoding]::UTF8; "
-                    "Get-Content -Raw -LiteralPath '{0}'"
-                ).format(escaped_path)
-                completed = subprocess.run(
-                    ["powershell.exe", "-NoProfile", "-Command", command],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    check=False,
-                )
-                if completed.returncode == 0:
-                    return completed.stdout.decode("utf-8-sig")
-            raise ValidationError(
-                "{0} is not readable source text (possibly DLP protected): "
-                "UTF-8={1}; GB18030={2}".format(
-                    path, utf8_error, ansi_error
-                )
+    except UnicodeDecodeError as exc:
+        # Some Windows DLP clients expose protected source bytes to Python but
+        # transparently provide the original UTF-8 text to PowerShell.  Use the
+        # operating-system text path once before declaring the compiler source
+        # unreadable; this keeps validation deterministic without rewriting it.
+        if sys.platform == "win32":
+            command = (
+                "$OutputEncoding=[Console]::OutputEncoding="
+                "[Text.UTF8Encoding]::new($false);"
+                "[IO.File]::ReadAllText("
+                "$env:CODEX_VALIDATION_SOURCE,[Text.Encoding]::UTF8)"
             )
+            environment = dict(os.environ)
+            environment["CODEX_VALIDATION_SOURCE"] = str(path)
+            completed = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", command],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                encoding="utf-8",
+                errors="strict",
+                env=environment,
+                check=False,
+            )
+            if completed.returncode == 0:
+                return completed.stdout.lstrip("\ufeff")
+        raise ValidationError(
+            "{0} is not readable UTF-8 text (possibly DLP protected): {1}".format(
+                path, exc
+            )
+        )
 
 
 def parse_qmake_list(project_text: str, variable: str) -> List[str]:
@@ -521,12 +524,49 @@ def validate(project_root: Path) -> None:
         "controlledSignals.append(&signal)",
         "all-signal page must create one editor per generated layout entry",
     )
-    require_marker(
-        errors,
-        signal_control_text,
-        "setPublishedFrameSignal(selectedFrameIndex, nextValues)",
-        "selected-frame Apply must send only the selected published frame",
-    )
+    for marker, message in (
+        (
+            "new QSlider(Qt::Vertical",
+            "every selected-frame signal must have a visual vertical slider",
+        ),
+        (
+            "spinBox->setDisplayIntegerBase(10)",
+            "selected-frame signal values must use decimal editors",
+        ),
+        (
+            'QRegExp("[0-9]{1,10}")',
+            "wide selected-frame signals must use a decimal-only validator",
+        ),
+        (
+            "QSlider::add-page:vertical",
+            "selected-frame sliders must retain the mother-Seed progress style",
+        ),
+    ):
+        require_marker(errors, signal_control_text, marker, message)
+    for forbidden, message in (
+        (
+            "setDisplayIntegerBase(16)",
+            "selected-frame signal editors must not display hexadecimal values",
+        ),
+        (
+            "toULongLong(&valid, 16)",
+            "selected-frame signal editors must not parse hexadecimal values",
+        ),
+        (
+            "QString::number(value, 16)",
+            "selected-frame signal editors must not format hexadecimal values",
+        ),
+        (
+            "ID 0x%2",
+            "selected-frame selector must display frame IDs in decimal",
+        ),
+        (
+            'QString("0x0 - 0x%1")',
+            "selected-frame signal ranges must be decimal, not hexadecimal",
+        ),
+    ):
+        if forbidden in signal_control_text:
+            errors.append(message)
     if "signalcontrolframe.ui" not in project_text:
         errors.append("project does not register the all-signal Designer page")
     signal_control_ui = project_root / "signalcontrolframe.ui"
@@ -540,9 +580,17 @@ def validate(project_root: Path) -> None:
         errors.append(
             "frame-signal page has no visible selector/current-frame Apply control"
         )
-    if signal_control_ui_text.count("<property name=\"visible\"><bool>false</bool></property>") < 3:
+    header_match = re.search(
+        r'<widget class="QFrame" name="headerFrame">(.*?)</widget>',
+        signal_control_ui_text,
+        flags=re.DOTALL,
+    )
+    if header_match and not re.search(
+        r'<property name="visible">\s*<bool>false</bool>',
+        header_match.group(1),
+    ):
         errors.append(
-            "embedded frame editor still exposes a duplicate bottom button row"
+            "frame-signal page must hide the legacy table header and use slider cards"
         )
     master_ui = project_root / "masterframe.ui"
     if (
@@ -550,15 +598,6 @@ def validate(project_root: Path) -> None:
         or "pushButtonAllSignals" not in read_text(master_ui)
     ):
         errors.append("master page has no visible frame-signal navigation button")
-    master_frame_text = find_source(source_texts, "bcmmasterframe")
-    if (
-        "signalControlPage->setGeometry(20, 75, 1326, 560)"
-        not in master_frame_text
-        or "signalControlPage->applyCurrentFrame()" not in master_frame_text
-    ):
-        errors.append(
-            "frame-signal editor is not embedded in the mother-Seed master page"
-        )
     nodes = generated.get("nodes", [])
     models = generated.get("models", {})
     diagnostics = generated.get("diagnostics", {})
