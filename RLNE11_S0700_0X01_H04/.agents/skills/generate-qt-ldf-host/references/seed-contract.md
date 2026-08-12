@@ -29,10 +29,12 @@ The generated layout must contain every active master-published signal and
 every active slave-published feedback signal. Known optional convenience
 semantics may use typed `BCMSignal` members; all remaining master fields,
 including U/V and vendor-defined controls, use `ELinSignalRawValue` indexed by
-exact source name. RGB is not a required model. The reusable all-signal page
-groups every published frame and creates one editor for every layout entry.
-Unknown semantics are displayed raw, never omitted or frozen invisibly in the
-default payload.
+exact source name. RGB is not a required model. The reusable frame-signal page
+lists every published frame in a selector, then creates one raw-value editor
+for every layout entry in the selected frame. Switching frames rebuilds the
+rows from `LinLayout`; applying the selected frame retains every other frame's
+stored values. Unknown semantics are displayed raw, never omitted or frozen
+invisibly in the default payload.
 
 Named combinations may span multiple published frames. Each generated
 assignment stores its exact frame index, signal name, bit geometry and raw

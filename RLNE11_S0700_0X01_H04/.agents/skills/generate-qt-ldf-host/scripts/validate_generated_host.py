@@ -11,6 +11,19 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
 
 
+CONFIGURATION_ENCODER_ENUMS = {
+    "single_address": "EOperationTypeSingleAddr",
+    "group_address": "EOperationTypeGroupAddr",
+    "platform": "EOperationTypePlatform",
+    "intensity": "EOperationTypeIntensity",
+    "red_calibration": "EOperationTypeRValue",
+    "green_calibration": "EOperationTypeGValue",
+    "blue_calibration": "EOperationTypeBValue",
+    "part_number": "EOperationTypePartNO",
+    "serial_number": "EOperationTypeSerialNO",
+}
+
+
 class ValidationError(Exception):
     """One or more generated-host acceptance checks failed."""
 
@@ -219,6 +232,30 @@ def validate(project_root: Path) -> None:
             "normal/error semantics"
         )
 
+    encoder_match = re.search(
+        r"bool\s+hasConfigurationEncoder\s*\([^)]*\)\s*\{"
+        r"(?P<body>[\s\S]*?)\n\}",
+        linlayout_runtime or "",
+    )
+    if encoder_match is None:
+        errors.append("runtime has no readable hasConfigurationEncoder contract")
+    else:
+        runtime_encoder_enums = set(
+            re.findall(
+                r"case\s+(EOperationType\w+)\s*:",
+                encoder_match.group("body"),
+            )
+        )
+        expected_encoder_enums = set(CONFIGURATION_ENCODER_ENUMS.values())
+        if runtime_encoder_enums != expected_encoder_enums:
+            errors.append(
+                "runtime configuration encoders differ from the generator "
+                "capability contract: expected {0}, got {1}".format(
+                    sorted(expected_encoder_enums),
+                    sorted(runtime_encoder_enums),
+                )
+            )
+
     architecture_files = {
         "linruntime.h": ("linruntime.h",),
         "lintransport.h": ("lintransport.h",),
@@ -410,6 +447,7 @@ def validate(project_root: Path) -> None:
     lin_types_text = read_text(lin_types_path) if lin_types_path.is_file() else ""
     layout_text = find_source(source_texts, "linlayout")
     signal_control_text = find_source(source_texts, "signalcontrolframe")
+    worker = find_source(source_texts, "linbusworker")
     require_marker(
         errors,
         lin_types_text,
@@ -436,9 +474,23 @@ def validate(project_root: Path) -> None:
     )
     require_marker(
         errors,
+        worker,
+        "if (!::applySignalPreset(",
+        "Worker must qualify the global preset helper to avoid member-name hiding",
+    )
+    if re.search(r"\.arg\([^;\n]+\)\s*\n\s*return\s+false", layout_text):
+        errors.append("LinLayout has a missing semicolon before return false")
+    require_marker(
+        errors,
         signal_control_text,
         "layout.publishedFrameCount",
-        "all-signal page must enumerate every master-published frame",
+        "frame-signal page must enumerate every master-published frame",
+    )
+    require_marker(
+        errors,
+        signal_control_text,
+        "layout.publishedFrames[selectedFrameIndex]",
+        "frame-signal page must bind editors to the selected frame",
     )
     require_marker(
         errors,
@@ -448,12 +500,23 @@ def validate(project_root: Path) -> None:
     )
     if "signalcontrolframe.ui" not in project_text:
         errors.append("project does not register the all-signal Designer page")
+    signal_control_ui = project_root / "signalcontrolframe.ui"
+    signal_control_ui_text = (
+        read_text(signal_control_ui) if signal_control_ui.is_file() else ""
+    )
+    if (
+        "frameSelector" not in signal_control_ui_text
+        or "应用当前报文" not in signal_control_ui_text
+    ):
+        errors.append(
+            "frame-signal page has no visible selector/current-frame Apply control"
+        )
     master_ui = project_root / "masterframe.ui"
     if (
         not master_ui.is_file()
         or "pushButtonAllSignals" not in read_text(master_ui)
     ):
-        errors.append("master page has no visible all-signal navigation button")
+        errors.append("master page has no visible frame-signal navigation button")
     nodes = generated.get("nodes", [])
     models = generated.get("models", {})
     diagnostics = generated.get("diagnostics", {})
@@ -474,6 +537,25 @@ def validate(project_root: Path) -> None:
         if isinstance(diagnostics, dict)
         else []
     )
+    if isinstance(bulk_write, list):
+        service_by_operation = {
+            service.get("operation"): service
+            for service in services
+            if isinstance(service, dict)
+        }
+        for index, item in enumerate(bulk_write):
+            operation = item.get("operation") if isinstance(item, dict) else None
+            service = service_by_operation.get(operation)
+            if operation not in CONFIGURATION_ENCODER_ENUMS:
+                errors.append(
+                    "bulk-write operation {0} at index {1} has no complete "
+                    "Qt editor/runtime encoder contract".format(operation, index)
+                )
+            if not isinstance(service, dict) or service.get("writable") is not True:
+                errors.append(
+                    "bulk-write operation {0} at index {1} is not backed by a "
+                    "writable diagnostic service".format(operation, index)
+                )
     write_completion_policy = (
         diagnostics.get("write_completion_policy", "positive_response")
         if isinstance(diagnostics, dict)

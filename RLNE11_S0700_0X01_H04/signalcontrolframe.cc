@@ -6,6 +6,7 @@
 
 #include <QAbstractSpinBox>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -134,11 +135,18 @@ SignalControlFrame::SignalControlFrame(LinRuntime *runtime,
   : QWidget(parent),
     ui(new Ui::SignalControlFrame),
     linRuntime(runtime),
-    frameLayout(0)
+    frameLayout(0),
+    selectedFrameIndex(-1)
 {
   Q_ASSERT(linRuntime != 0);
 
   ui->setupUi(this);
+  connect(ui->frameSelector,
+          static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::currentIndexChanged),
+          this,
+          &SignalControlFrame::selectFrame);
+  populateFrameSelector();
   buildSignalRows();
 
   connect(ui->reloadButton, &QPushButton::clicked,
@@ -156,9 +164,64 @@ SignalControlFrame::~SignalControlFrame()
   delete ui;
 }
 
+void SignalControlFrame::populateFrameSelector()
+{
+  const LinLayout &layout = linRuntime->layout();
+  const bool wasBlocked = ui->frameSelector->blockSignals(true);
+  ui->frameSelector->clear();
+
+  for (int frameIndex = 0;
+       frameIndex < layout.publishedFrameCount;
+       ++frameIndex)
+  {
+    const LinFrameLayout &frame = layout.publishedFrames[frameIndex];
+    ui->frameSelector->addItem(
+      QString::fromUtf8("%1  |  ID 0x%2  |  %3 字节  |  %4 个信号")
+        .arg(QString::fromLatin1(frame.name))
+        .arg(static_cast<int>(frame.frameId), 2, 16, QChar('0'))
+        .arg(static_cast<int>(frame.length))
+        .arg(frame.signalCount)
+        .toUpper(),
+      frameIndex);
+  }
+
+  selectedFrameIndex = -1;
+  if (layout.publishedFrameCount > 0)
+  {
+    const int preferredFrame =
+      (layout.primaryControlFrameIndex >= 0) &&
+      (layout.primaryControlFrameIndex < layout.publishedFrameCount)
+        ? layout.primaryControlFrameIndex
+        : 0;
+    const int comboIndex = ui->frameSelector->findData(preferredFrame);
+    ui->frameSelector->setCurrentIndex(comboIndex >= 0 ? comboIndex : 0);
+    selectedFrameIndex = ui->frameSelector->currentData().toInt();
+  }
+
+  ui->frameSelector->blockSignals(wasBlocked);
+}
+
+void SignalControlFrame::selectFrame(int comboIndex)
+{
+  bool validIndex = false;
+  const int frameIndex = ui->frameSelector->itemData(comboIndex)
+                           .toInt(&validIndex);
+  const LinLayout &layout = linRuntime->layout();
+  selectedFrameIndex = validIndex &&
+                       (frameIndex >= 0) &&
+                       (frameIndex < layout.publishedFrameCount)
+                         ? frameIndex
+                         : -1;
+  buildSignalRows();
+}
+
 void SignalControlFrame::buildSignalRows()
 {
-  frameLayout = primaryControlFrame(linRuntime->layout());
+  const LinLayout &layout = linRuntime->layout();
+  frameLayout = (selectedFrameIndex >= 0) &&
+                (selectedFrameIndex < layout.publishedFrameCount)
+                  ? &layout.publishedFrames[selectedFrameIndex]
+                  : 0;
   controlledSignals.clear();
   valueEditors.clear();
 
@@ -168,32 +231,23 @@ void SignalControlFrame::buildSignalRows()
     delete item;
   }
 
-  const LinLayout &layout = linRuntime->layout();
-  int totalSignalCount = 0;
-  for (int frameIndex = 0;
-       frameIndex < layout.publishedFrameCount;
-       ++frameIndex)
-    totalSignalCount += layout.publishedFrames[frameIndex].signalCount;
-
   if (frameLayout != 0)
   {
     ui->frameInformation->setText(
-      QString::fromUtf8(
-        "主控制帧：%1    已发布帧：%2    全部信号：%3")
+      QString::fromUtf8("当前报文：%1    信号：%2")
         .arg(QString::fromLatin1(frameLayout->name))
-        .arg(layout.publishedFrameCount)
-        .arg(totalSignalCount));
+        .arg(frameLayout->signalCount));
   }
   else
   {
     ui->frameInformation->setText(
-      QString::fromUtf8("当前布局没有可控制的主帧"));
+      QString::fromUtf8("当前布局没有可控制的发送报文"));
   }
 
-  if ((frameLayout == 0) || (totalSignalCount <= 0))
+  if ((frameLayout == 0) || (frameLayout->signalCount <= 0))
   {
     QLabel *empty = new QLabel(
-      QString::fromUtf8("活动控制帧中没有信号。"),
+      QString::fromUtf8("当前报文中没有可控制信号。"),
       ui->signalScrollContent);
     empty->setAlignment(Qt::AlignCenter);
     ui->verticalLayoutSignals->addWidget(empty);
@@ -201,106 +255,82 @@ void SignalControlFrame::buildSignalRows()
     return;
   }
 
-  for (int frameIndex = 0;
-       frameIndex < layout.publishedFrameCount;
-       ++frameIndex)
+  for (int signalIndex = 0;
+       signalIndex < frameLayout->signalCount;
+       ++signalIndex)
   {
-    const LinFrameLayout &publishedFrame =
-      layout.publishedFrames[frameIndex];
-    QLabel *frameHeader = new QLabel(
-      QString::fromUtf8("帧：%1    ID：0x%2    长度：%3 字节")
-        .arg(QString::fromLatin1(publishedFrame.name))
-        .arg(static_cast<int>(publishedFrame.frameId),
-             2,
-             16,
-             QChar('0'))
-        .arg(static_cast<int>(publishedFrame.length))
-        .toUpper(),
-      ui->signalScrollContent);
-    frameHeader->setFixedHeight(44);
-    frameHeader->setStyleSheet(
-      "color:#33d7f3;font-size:20px;font-weight:bold;"
-      "background:rgba(15,186,205,35);padding-left:16px;");
-    ui->verticalLayoutSignals->addWidget(frameHeader);
+    const LinSignalLayout &signal = frameLayout->signalLayouts[signalIndex];
+    QFrame *row = new QFrame(ui->signalScrollContent);
+    row->setFixedHeight(64);
+    row->setStyleSheet(
+      "QFrame{border:1px solid rgba(15,186,205,130);"
+      "background:rgba(2,22,31,190);}");
 
-    for (int signalIndex = 0;
-         signalIndex < publishedFrame.signalCount;
-         ++signalIndex)
+    QHBoxLayout *rowLayout = new QHBoxLayout(row);
+    rowLayout->setContentsMargins(18, 5, 18, 5);
+    rowLayout->setSpacing(12);
+
+    QLabel *name = columnLabel(
+      QString::fromLatin1(signal.name), 360, row);
+    name->setToolTip(QString::fromLatin1(signal.name));
+    rowLayout->addWidget(name);
+    rowLayout->addWidget(
+      columnLabel(QString::fromUtf8("起始 %1 / 长度 %2 bit")
+                    .arg(static_cast<int>(signal.startBit))
+                    .arg(static_cast<int>(signal.bitLength)),
+                  180,
+                  row));
+    rowLayout->addWidget(
+      columnLabel(QString("0x0 - 0x%1")
+                    .arg(maximumValue(signal.bitLength), 0, 16)
+                    .toUpper(),
+                  280,
+                  row));
+
+    QWidget *editor = 0;
+    if (signal.bitLength == 1)
     {
-      const LinSignalLayout &signal =
-        publishedFrame.signalLayouts[signalIndex];
-      QFrame *row = new QFrame(ui->signalScrollContent);
-      row->setFixedHeight(64);
-      row->setStyleSheet(
-        "QFrame{border:1px solid rgba(15,186,205,130);"
-        "background:rgba(2,22,31,190);}");
-
-      QHBoxLayout *rowLayout = new QHBoxLayout(row);
-      rowLayout->setContentsMargins(18, 5, 18, 5);
-      rowLayout->setSpacing(12);
-
-      QLabel *name = columnLabel(
-        QString::fromLatin1(signal.name), 360, row);
-      name->setToolTip(QString::fromLatin1(signal.name));
-      rowLayout->addWidget(name);
-      rowLayout->addWidget(
-        columnLabel(QString::fromUtf8("起始 %1 / 长度 %2 bit")
-                      .arg(static_cast<int>(signal.startBit))
-                      .arg(static_cast<int>(signal.bitLength)),
-                    180,
-                    row));
-      rowLayout->addWidget(
-        columnLabel(QString("0x0 - 0x%1")
-                      .arg(maximumValue(signal.bitLength), 0, 16)
-                      .toUpper(),
-                    280,
-                    row));
-
-      QWidget *editor = 0;
-      if (signal.bitLength == 1)
-      {
-        QCheckBox *checkBox = new QCheckBox(
-          QString::fromUtf8("值为 1"), row);
-        checkBox->setFixedWidth(250);
-        editor = checkBox;
-      }
-      else if (signal.bitLength <= 30)
-      {
-        QSpinBox *spinBox = new QSpinBox(row);
-        spinBox->setFixedWidth(250);
-        spinBox->setRange(
-          0, static_cast<int>(maximumValue(signal.bitLength)));
-        spinBox->setDisplayIntegerBase(16);
-        spinBox->setPrefix("0x");
-        spinBox->setAlignment(Qt::AlignCenter);
-        spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        editor = spinBox;
-      }
-      else
-      {
-        QLineEdit *lineEdit = new QLineEdit(row);
-        lineEdit->setFixedWidth(250);
-        lineEdit->setAlignment(Qt::AlignCenter);
-        lineEdit->setMaxLength(8);
-        lineEdit->setValidator(
-          new QRegExpValidator(QRegExp("[0-9A-Fa-f]{1,8}"), lineEdit));
-        lineEdit->setToolTip(
-          QString::fromUtf8("输入十六进制值，不需要 0x 前缀"));
-        editor = lineEdit;
-      }
-
-      editor->setObjectName(
-        QString("signalValue_%1").arg(valueEditors.size()));
-      rowLayout->addWidget(editor);
-      controlledSignals.append(&signal);
-      valueEditors.append(editor);
-      ui->verticalLayoutSignals->addWidget(row);
+      QCheckBox *checkBox = new QCheckBox(
+        QString::fromUtf8("开 / 1"), row);
+      checkBox->setFixedWidth(250);
+      editor = checkBox;
     }
+    else if (signal.bitLength <= 30)
+    {
+      QSpinBox *spinBox = new QSpinBox(row);
+      spinBox->setFixedWidth(250);
+      spinBox->setRange(
+        0, static_cast<int>(maximumValue(signal.bitLength)));
+      spinBox->setDisplayIntegerBase(16);
+      spinBox->setPrefix("0x");
+      spinBox->setAlignment(Qt::AlignCenter);
+      spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
+      editor = spinBox;
+    }
+    else
+    {
+      QLineEdit *lineEdit = new QLineEdit(row);
+      lineEdit->setFixedWidth(250);
+      lineEdit->setAlignment(Qt::AlignCenter);
+      lineEdit->setMaxLength(8);
+      lineEdit->setValidator(
+        new QRegExpValidator(QRegExp("[0-9A-Fa-f]{1,8}"), lineEdit));
+      lineEdit->setToolTip(
+        QString::fromUtf8("输入十六进制原值，不需要 0x 前缀"));
+      editor = lineEdit;
+    }
+
+    editor->setObjectName(
+      QString("signalValue_%1").arg(valueEditors.size()));
+    rowLayout->addWidget(editor);
+    controlledSignals.append(&signal);
+    valueEditors.append(editor);
+    ui->verticalLayoutSignals->addWidget(row);
   }
 
   ui->verticalLayoutSignals->addStretch();
+  loadCurrentValues();
 }
-
 void SignalControlFrame::init()
 {
   loadCurrentValues();
@@ -312,7 +342,7 @@ void SignalControlFrame::loadCurrentValues()
       (valueEditors.size() != controlledSignals.size()))
   {
     ui->statusLabel->setText(
-      QString::fromUtf8("读取失败：控制帧布局无效"));
+      QString::fromUtf8("读取失败：当前报文布局无效"));
     return;
   }
 
@@ -330,7 +360,8 @@ void SignalControlFrame::loadCurrentValues()
   }
 
   ui->statusLabel->setText(
-    QString::fromUtf8("已同步当前发送值"));
+    QString::fromUtf8("已读取当前报文的 %1 个信号状态")
+      .arg(controlledSignals.size()));
 }
 
 void SignalControlFrame::applyValues()
@@ -339,7 +370,7 @@ void SignalControlFrame::applyValues()
       (valueEditors.size() != controlledSignals.size()))
   {
     ui->statusLabel->setText(
-      QString::fromUtf8("应用失败：控制帧布局无效"));
+      QString::fromUtf8("应用失败：当前报文布局无效"));
     return;
   }
 
@@ -382,10 +413,10 @@ void SignalControlFrame::applyValues()
   linRuntime->setBCMSignal(nextValues);
   emit valuesApplied();
   ui->statusLabel->setText(
-    QString::fromUtf8("已应用 %1 个信号，控制帧等待发送")
+    QString::fromUtf8("已应用报文 %1 的 %2 个信号")
+      .arg(QString::fromLatin1(frameLayout->name))
       .arg(controlledSignals.size()));
 }
-
 void SignalControlFrame::closePage()
 {
   hide();

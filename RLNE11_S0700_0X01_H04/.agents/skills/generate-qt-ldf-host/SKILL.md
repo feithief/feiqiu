@@ -77,6 +77,18 @@ LDF-specific facts in JSON overlays and generated files.
   `QSpinBox` and `QDoubleSpinBox`, including the last field touched by the
   on-screen keyboard. Round scaled fixed-point values before little-endian
   encoding instead of truncating them.
+- Keep three diagnostic capabilities separate: firmware `writable`, Qt
+  `editable`, and mother-Seed `encodable`. A service may enter
+  `diagnostics.bulk_write` only when all three are true: the page has a real
+  editor, `SlaveConfigInfo` stores that edited value, and
+  `encodeLinServiceValue()` plus `hasConfigurationEncoder()` support the same
+  operation. A read-only label such as software/hardware version must never be
+  added to Bulk Apply merely because the slave accepts a write to its DID.
+- Treat the generator capability table and
+  `linlayout.cc::hasConfigurationEncoder()` as one contract. Generation and
+  `validate_generated_host.py` must both fail before publication when they
+  differ, or when any bulk-write entry lacks that complete contract. Never
+  publish a host that can reach the runtime `LIN layout invalid` black screen.
 - When the profile defines reviewed custom-DID services, enable read/write and
   calibration controls.
 - When the LDF defines only standard LIN node configuration or no proprietary
@@ -111,9 +123,16 @@ LDF-specific facts in JSON overlays and generated files.
   unrecognized field as `ELinSignalRawValue` with its exact LDF name, start bit,
   width, and initial value. Never turn an unknown field into an invisible static
   payload bit.
-- Generate an editable, scrollable all-signal page grouped by frame. Enumerate
-  `publishedFrames[0..n]` and each frame's `signalLayouts[0..n]`; never hard-code
-  RGB, brightness, one primary-frame-only list, or a maximum visible row count.
+- Generate an editable, scrollable frame-signal page. Enumerate
+  `publishedFrames[0..n]` into a visible frame selector. After the user selects
+  one frame, show every `signalLayouts[0..n]` entry of that frame with its exact
+  current raw value and an editor. Apply changes to that selected frame while
+  retaining the stored values of all other frames. Never hard-code RGB, U/V,
+  brightness, dimming, one primary-frame-only list, or a maximum row count.
+- The main page must expose this feature as a clearly visible `报文信号` button.
+  Switching frames must immediately rebuild the rows and load the selected
+  frame's current values; U/V, intensity, dimming and future unknown fields
+  must appear automatically from the generated layout without a `.ui` edit.
 - Treat that page as a reusable control pool: create/show one row for every
   configured signal and create no row for unused capacity. Fixed convenience
   controls stay reserved in the mother Seed but hide automatically when their
@@ -124,8 +143,8 @@ LDF-specific facts in JSON overlays and generated files.
 - Preserve every signal in every active slave-published frame as raw status
   rows. Exclude only frames proven inactive by the chosen build/profile.
 - Do not deduplicate status layouts only by bit geometry. Include the exact
-  source signal name in the layout signature so one node never displays
-  another node's suffixed names merely because their bits are equal.
+  source signal name in the layout signature so Node 02 never displays Node
+  01's suffixed names merely because their bits are equal.
 - Statically compare source LDF/contract signal sets with generated bindings and
   status layouts. Missing, duplicated, overlapping, wider-than-32-bit, or
   out-of-payload signals fail generation; they must never be silently skipped.
@@ -156,6 +175,10 @@ LDF-specific facts in JSON overlays and generated files.
   store its generated frame index plus exact name/geometry and send every
   editable frame through the Worker priority path. Never restrict combinations
   to the primary frame.
+- Because the Worker slot and the global layout helper are both named
+  `applySignalPreset`, call the helper as `::applySignalPreset(...)`. An
+  unqualified call is rejected: C++ member-name hiding otherwise produces an
+  ARM compile error even though the function is declared in `linlayout.h`.
 - Support up to 512 preset combinations with 30 buttons per page. Do not add
   fixed buttons to `.ui` for every combination.
 - If DLP protection replaces a generated text file with a binary wrapper, use

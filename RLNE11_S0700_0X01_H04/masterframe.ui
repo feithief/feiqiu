@@ -581,7 +581,7 @@ font-size:22px;
 }</string>
    </property>
    <property name="text">
-    <string>全部信号</string>
+    <string>报文信号</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonAccept">

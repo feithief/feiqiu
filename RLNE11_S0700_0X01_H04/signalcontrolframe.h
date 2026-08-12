@@ -13,8 +13,8 @@ class SignalControlFrame;
 }
 
 /*
- * Generic editor for every signal declared in the active primary control
- * frame. The page is built from LinLayout at runtime; no LDF signal name is
+ * Generic frame-by-frame editor for every master-published LIN signal. The
+ * page is built from LinLayout at runtime; no frame or signal name is
  * hard-coded in this class.
  */
 class SignalControlFrame : public QWidget
@@ -35,9 +35,12 @@ private:
   Ui::SignalControlFrame *ui;
   LinRuntime *linRuntime;
   const LinFrameLayout *frameLayout;
+  int selectedFrameIndex;
   QList<const LinSignalLayout *> controlledSignals;
   QList<QWidget *> valueEditors;
 
+  void populateFrameSelector();
+  void selectFrame(int comboIndex);
   void buildSignalRows();
   void loadCurrentValues();
   void applyValues();
