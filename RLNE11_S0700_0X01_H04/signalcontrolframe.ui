@@ -97,6 +97,7 @@ QPushButton:pressed { background: rgba(34, 211, 159, 130); }</string>
    <property name="geometry"><rect><x>10</x><y>60</y><width>630</width><height>420</height></rect></property>
    <property name="styleSheet"><string notr="true">QScrollArea{border:1px solid #0fbacd;background:rgb(0,8,14);} QScrollArea &gt; QWidget &gt; QWidget{background:rgb(0,8,14);} QScrollBar:vertical{background:#04131c;width:14px;} QScrollBar::handle:vertical{background:#0fbacd;min-height:48px;border-radius:7px;}</string></property>
    <property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
+   <property name="verticalScrollBarPolicy"><enum>Qt::ScrollBarAsNeeded</enum></property>
    <property name="widgetResizable"><bool>true</bool></property>
    <widget class="QWidget" name="signalScrollContent">
     <property name="geometry"><rect><x>0</x><y>0</y><width>608</width><height>418</height></rect></property>

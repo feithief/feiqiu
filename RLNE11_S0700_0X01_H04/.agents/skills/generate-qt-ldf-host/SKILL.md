@@ -150,17 +150,16 @@ LDF-specific facts in JSON overlays and generated files.
   payload bit.
 - Generate an editable, scrollable frame-signal page. Enumerate
   `publishedFrames[0..n]` into a visible frame selector. After the user selects
-  one frame, show every `signalLayouts[0..n]` entry of that frame as a separate
-  visual slider card, matching the mother Seed RGB slider interaction: a short
-  display name, decimal start bit/length/range, a draggable vertical progress
-  column, and an exact decimal value editor below it. Lay cards left-to-right,
-  then wrap and scroll when a frame contains more signals than fit. This is not
-  a table and must not fall back to
-  hexadecimal text. One-bit signals also use a 0/1 slider. Wider-than-30-bit
-  signals keep an exact decimal editor plus a normalized visual slider. Apply
-  changes to that selected frame while retaining the stored values of all other
-  frames. Never hard-code RGB, U/V, brightness, dimming, one primary-frame-only
-  list, or a maximum row count.
+  one frame, show every `signalLayouts[0..n]` entry as one compact horizontal
+  row inside a vertically scrollable list. Every row contains only a concise
+  signal name, its exact decimal value editor, and one thin horizontal slider.
+  All sliders use the same fixed visual length regardless of signal range; do
+  not display start bit, bit length, minimum, maximum, or a range label in the
+  row. One-bit signals also use a 0/1 horizontal slider. Wider-than-30-bit
+  signals keep an exact decimal editor plus a normalized horizontal slider.
+  Apply changes to that selected frame while retaining the stored values of all
+  other frames. Never hard-code RGB, U/V, brightness, dimming, one
+  primary-frame-only list, or a maximum row count.
 - Slider and decimal-editor changes must take effect without the Apply button.
   Coalesce rapid editor changes with a short single-shot GUI timer (about
   20 ms), then queue only the currently selected frame through
@@ -171,9 +170,11 @@ LDF-specific facts in JSON overlays and generated files.
   Switching frames must immediately rebuild the rows and load the selected
   frame's current values; U/V, intensity, dimming and future unknown fields
   must appear automatically from the generated layout without a `.ui` edit.
-- On this page display the selected frame ID, signal ranges, and current values
-  in base 10 only. Reject `0x` prefixes, hexadecimal SpinBoxes, hexadecimal
-  validators, and table-style column rows during static acceptance.
+- On this page display the selected frame ID and current values in base 10 only.
+  Keep range/geometry metadata internal or in the exact-name tooltip; do not
+  render it in the signal row. Reject `0x` prefixes, hexadecimal SpinBoxes,
+  hexadecimal validators, vertical sliders, range labels, and multi-column
+  signal-card grids during static acceptance.
 - Derive a concise signal display name by removing common LDF/vendor prefixes
   and shortening long tokens. Preserve the complete exact LDF name only in the
   tooltip and internal layout binding. Never use the shortened label as a key.

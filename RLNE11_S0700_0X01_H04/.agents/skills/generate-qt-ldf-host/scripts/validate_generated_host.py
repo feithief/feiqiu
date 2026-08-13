@@ -528,8 +528,8 @@ def validate(project_root: Path) -> None:
     )
     for marker, message in (
         (
-            "new QSlider(Qt::Vertical",
-            "every selected-frame signal must have a visual vertical slider",
+            "new QSlider(Qt::Horizontal",
+            "every selected-frame signal must have a thin horizontal slider",
         ),
         (
             "spinBox->setDisplayIntegerBase(10)",
@@ -540,8 +540,8 @@ def validate(project_root: Path) -> None:
             "wide selected-frame signals must use a decimal-only validator",
         ),
         (
-            "QSlider::add-page:vertical",
-            "selected-frame sliders must retain the mother-Seed progress style",
+            "QSlider::groove:horizontal{height:4px",
+            "selected-frame sliders must use the fixed thin mother-Seed style",
         ),
         (
             "shortSignalName(signal.name)",
@@ -585,6 +585,18 @@ def validate(project_root: Path) -> None:
     ):
         require_marker(errors, master_control_text, marker, message)
     for forbidden, message in (
+        (
+            "new QSlider(Qt::Vertical",
+            "selected-frame signal rows must not use vertical sliders",
+        ),
+        (
+            "QGridLayout",
+            "selected-frame signals must be one vertical list, not a card grid",
+        ),
+        (
+            "QString::fromUtf8(\"范围 0 - %1\")",
+            "selected-frame rows must not display signal ranges",
+        ),
         (
             "setDisplayIntegerBase(16)",
             "selected-frame signal editors must not display hexadecimal values",

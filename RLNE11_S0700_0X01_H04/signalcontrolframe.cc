@@ -8,7 +8,6 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QFrame>
-#include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLayoutItem>
@@ -18,7 +17,6 @@
 #include <QSlider>
 #include <QSpinBox>
 #include <QTimer>
-#include <QVBoxLayout>
 
 namespace {
 
@@ -291,13 +289,6 @@ void SignalControlFrame::buildSignalRows()
     return;
   }
 
-  QWidget *gridHost = new QWidget(ui->signalScrollContent);
-  QGridLayout *gridLayout = new QGridLayout(gridHost);
-  gridLayout->setContentsMargins(2, 2, 2, 2);
-  gridLayout->setHorizontalSpacing(7);
-  gridLayout->setVerticalSpacing(10);
-  const int columnCount = qMax(1, qMin(5, frameLayout->signalCount));
-
   for (int signalIndex = 0;
        signalIndex < frameLayout->signalCount;
        ++signalIndex)
@@ -305,63 +296,48 @@ void SignalControlFrame::buildSignalRows()
     const LinSignalLayout &signal = frameLayout->signalLayouts[signalIndex];
     const quint64 signalMaximum = maximumValue(signal.bitLength);
 
-    QFrame *card = new QFrame(gridHost);
-    card->setMinimumWidth(100);
-    card->setFixedHeight(390);
-    card->setStyleSheet(
-      "QFrame{border:1px solid rgba(15,186,205,165);"
-      "border-radius:8px;background:rgba(2,22,31,235);}"
+    QFrame *row = new QFrame(ui->signalScrollContent);
+    row->setFixedHeight(54);
+    row->setStyleSheet(
+      "QFrame{border:1px solid rgba(15,186,205,150);"
+      "border-radius:7px;background:rgba(2,22,31,235);}"
       "QLabel{border:0;background:transparent;color:rgb(166,231,247);"
-      "font-size:13px;}"
-      "QSpinBox,QLineEdit{border:1px solid #0fbacd;"
-      "background:rgb(2,22,31);color:white;font-size:18px;}");
+      "font-size:14px;}"
+      "QSpinBox,QLineEdit{border:1px solid #0fbacd;border-radius:4px;"
+      "background:rgb(2,22,31);color:white;font-size:17px;}");
 
-    QVBoxLayout *cardLayout = new QVBoxLayout(card);
-    cardLayout->setContentsMargins(4, 5, 4, 5);
-    cardLayout->setSpacing(3);
+    QHBoxLayout *rowLayout = new QHBoxLayout(row);
+    rowLayout->setContentsMargins(5, 4, 5, 4);
+    rowLayout->setSpacing(8);
 
-    QLabel *name = new QLabel(shortSignalName(signal.name), card);
+    QLabel *name = new QLabel(shortSignalName(signal.name), row);
     name->setToolTip(QString::fromLatin1(signal.name));
-    name->setWordWrap(true);
-    name->setFixedHeight(60);
-    name->setAlignment(Qt::AlignCenter);
-    cardLayout->addWidget(name);
-
-    QLabel *details = new QLabel(
-      QString::fromUtf8("范围 0 - %1").arg(signalMaximum), card);
-    details->setToolTip(
-      QString::fromUtf8("起始位 %1 / 长度 %2 bit / 十进制范围 0 - %3")
-        .arg(static_cast<int>(signal.startBit))
-        .arg(static_cast<int>(signal.bitLength))
-        .arg(signalMaximum));
-    details->setFixedHeight(24);
-    details->setAlignment(Qt::AlignCenter);
-    cardLayout->addWidget(details);
+    name->setFixedWidth(145);
+    name->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    rowLayout->addWidget(name);
 
     QWidget *editor = 0;
-    QSlider *slider = new QSlider(Qt::Vertical, card);
+    QSlider *slider = new QSlider(Qt::Horizontal, row);
     slider->setObjectName(
       QString("signalSlider_%1").arg(valueEditors.size()));
-    slider->setFixedSize(46, 245);
+    slider->setFixedSize(325, 22);
     slider->setSingleStep(1);
     slider->setStyleSheet(
       "QSlider{border:0;background:transparent;}"
-      "QSlider::sub-page:vertical{background-color:rgba(87,97,106,0);"
-      "width:40px;}"
-      "QSlider::add-page:vertical{"
-      "background-color:qlineargradient(spread:pad,x1:0,y1:1,x2:0,y2:0,"
-      "stop:0 rgba(29,165,219,140),stop:1 rgba(29,165,219,210));"
-      "width:40px;}"
-      "QSlider::groove:vertical{background:transparent;width:46px;}"
-      "QSlider::handle:vertical{background-color:rgb(29,165,219);"
-      "width:40px;height:30px;}");
-    cardLayout->addWidget(slider, 0, Qt::AlignHCenter);
+      "QSlider::groove:horizontal{height:4px;background:rgba(42,78,92,210);"
+      "border-radius:2px;}"
+      "QSlider::sub-page:horizontal{height:4px;background:rgb(29,165,219);"
+      "border-radius:2px;}"
+      "QSlider::add-page:horizontal{height:4px;background:rgba(42,78,92,210);"
+      "border-radius:2px;}"
+      "QSlider::handle:horizontal{width:14px;height:14px;margin:-5px 0;"
+      "border-radius:7px;background:rgb(38,211,235);}");
 
     if (signal.bitLength <= 30)
     {
       const int maximum = static_cast<int>(signalMaximum);
-      QSpinBox *spinBox = new QSpinBox(card);
-      spinBox->setFixedSize(92, 38);
+      QSpinBox *spinBox = new QSpinBox(row);
+      spinBox->setFixedSize(80, 32);
       spinBox->setRange(0, maximum);
       spinBox->setDisplayIntegerBase(10);
       spinBox->setAlignment(Qt::AlignCenter);
@@ -380,14 +356,12 @@ void SignalControlFrame::buildSignalRows()
     }
     else
     {
-      QLineEdit *lineEdit = new QLineEdit(card);
-      lineEdit->setFixedSize(92, 38);
+      QLineEdit *lineEdit = new QLineEdit(row);
+      lineEdit->setFixedSize(80, 32);
       lineEdit->setAlignment(Qt::AlignCenter);
       lineEdit->setMaxLength(10);
       lineEdit->setValidator(
         new QRegExpValidator(QRegExp("[0-9]{1,10}"), lineEdit));
-      lineEdit->setToolTip(
-        QString("Decimal range: 0 - %1").arg(signalMaximum));
       slider->setRange(0, 1000);
       slider->setPageStep(50);
       connect(slider, &QSlider::sliderMoved, lineEdit,
@@ -397,9 +371,9 @@ void SignalControlFrame::buildSignalRows()
         lineEdit->setText(QString::number(value));
       });
       connect(lineEdit, &QLineEdit::textChanged, slider,
-              [slider, signalMaximum](const QString &text) {
+              [slider, signalMaximum](const QString &valueText) {
         bool valid = false;
-        quint64 value = text.toULongLong(&valid, 10);
+        quint64 value = valueText.toULongLong(&valid, 10);
         if (!valid)
           return;
         if (value > signalMaximum)
@@ -418,16 +392,14 @@ void SignalControlFrame::buildSignalRows()
 
     editor->setObjectName(
       QString("signalValue_%1").arg(valueEditors.size()));
-    cardLayout->addWidget(editor, 0, Qt::AlignHCenter);
+    rowLayout->addWidget(editor);
+    rowLayout->addWidget(slider);
 
     controlledSignals.append(&signal);
     valueEditors.append(editor);
-    gridLayout->addWidget(card,
-                          signalIndex / columnCount,
-                          signalIndex % columnCount);
+    ui->verticalLayoutSignals->addWidget(row);
   }
 
-  ui->verticalLayoutSignals->addWidget(gridHost);
   ui->verticalLayoutSignals->addStretch();
   loadCurrentValues();
 }
