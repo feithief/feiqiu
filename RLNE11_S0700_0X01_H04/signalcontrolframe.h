@@ -5,6 +5,7 @@
 #include <QWidget>
 
 class LinRuntime;
+class QTimer;
 struct LinFrameLayout;
 struct LinSignalLayout;
 
@@ -40,6 +41,8 @@ private:
   int selectedFrameIndex;
   QList<const LinSignalLayout *> controlledSignals;
   QList<QWidget *> valueEditors;
+  QTimer *immediateApplyTimer;
+  bool loadingValues;
 
   void populateFrameSelector();
   void selectFrame(int comboIndex);
@@ -47,6 +50,9 @@ private:
   QString shortSignalName(const char *sourceName) const;
   void loadCurrentValues();
   void applyValues();
+  void applyValuesWithoutNotification();
+  void writeEditorValues(bool notifyParent);
+  void scheduleImmediateApply();
   void closePage();
 };
 

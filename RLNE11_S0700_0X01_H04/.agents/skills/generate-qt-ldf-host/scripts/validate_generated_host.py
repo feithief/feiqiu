@@ -475,6 +475,7 @@ def validate(project_root: Path) -> None:
     signal_control_text = find_source(source_texts, "signalcontrolframe")
     master_control_text = find_source(source_texts, "bcmmasterframe")
     worker = find_source(source_texts, "linbusworker")
+    slave_config_text = find_source(source_texts, "slaveframeconfig")
     require_marker(
         errors,
         lin_types_text,
@@ -557,6 +558,18 @@ def validate(project_root: Path) -> None:
         (
             "setPublishedFrameSignal(selectedFrameIndex, nextValues)",
             "palette input must queue only the selected frame",
+        ),
+        (
+            "immediateApplyTimer->setInterval(20)",
+            "selected-frame signal changes must use the immediate coalescing timer",
+        ),
+        (
+            "scheduleImmediateApply()",
+            "selected-frame editors must schedule transmission without Apply",
+        ),
+        (
+            "if (!loadingValues && (frameLayout != 0))",
+            "loading runtime values must not transmit a frame accidentally",
         ),
     ):
         require_marker(errors, signal_control_text, marker, message)
@@ -652,17 +665,90 @@ def validate(project_root: Path) -> None:
         else []
     )
     service_count = len(services) if isinstance(services, list) else 0
+    service_by_operation = {
+        service.get("operation"): service
+        for service in services
+        if isinstance(service, dict)
+    }
+    if diagnostic_model == "custom_did":
+        for marker, message in (
+            (
+                'QString::fromUtf8("正在读取节点数据，请稍候...")',
+                "diagnostic entry must show the fixed loading prompt",
+            ),
+            (
+                "showConfigurationLoading();\n  retryConfigurationRead();",
+                "diagnostic entry must show loading before the initial read",
+            ),
+            (
+                "dialog->hide();\n    emit configurationReady(currentNode);",
+                "diagnostic page must hide loading only after a complete read",
+            ),
+        ):
+            require_marker(errors, slave_config_text, marker, message)
+        initial_read = re.search(
+            r"void SlaveFrameConfig::handleReadResult\(.*?\n}\n",
+            slave_config_text,
+            flags=re.DOTALL,
+        )
+        if initial_read and "showReadWriteOk();" in initial_read.group(0):
+            errors.append("initial diagnostic read must enter directly, without an OK popup")
+
+        product_service = service_by_operation.get("product_id")
+        if not (
+            isinstance(product_service, dict)
+            and product_service.get("protocol") == "product_identification"
+            and product_service.get("readable") is True
+            and product_service.get("read_on_configuration") is True
+            and product_service.get("data_length") == 5
+        ):
+            errors.append("custom-DID profile must preserve the reviewed B2 product-identification read")
+        for marker, message in (
+            (
+                "service.protocol == ELinDiagnosticProductIdentification",
+                "frozen diagnostic Worker lost product-identification dispatch",
+            ),
+            (
+                "request[2] = static_cast<char>(0xB2)",
+                "frozen diagnostic Worker lost the B2 request frame",
+            ),
+            (
+                "linLayout->services[activeStepIndex].readOnConfiguration",
+                "diagnostic initial-read state machine no longer enumerates configured services",
+            ),
+        ):
+            require_marker(errors, worker, marker, message)
+
+        calibration_service = service_by_operation.get("calibration_mode")
+        if not (
+            isinstance(calibration_service, dict)
+            and calibration_service.get("writable") is True
+        ):
+            errors.append("visible calibration buttons require a writable calibration_mode service")
+        for marker in (
+            "buttonCalibrateNormal()",
+            "buttonCalibrateR()",
+            "buttonCalibrateG()",
+            "buttonCalibrateB()",
+        ):
+            require_marker(
+                errors,
+                slave_config_text,
+                marker,
+                "frozen diagnostic UI lost calibration callback " + marker,
+            )
+        require_marker(
+            errors,
+            worker,
+            "EOperationTypeCalibration);",
+            "calibration queue must resolve the typed calibration service",
+        )
     bulk_write = (
         diagnostics.get("bulk_write", [])
         if isinstance(diagnostics, dict)
         else []
     )
     if isinstance(bulk_write, list):
-        service_by_operation = {
-            service.get("operation"): service
-            for service in services
-            if isinstance(service, dict)
-        }
         for index, item in enumerate(bulk_write):
             operation = item.get("operation") if isinstance(item, dict) else None
             service = service_by_operation.get(operation)

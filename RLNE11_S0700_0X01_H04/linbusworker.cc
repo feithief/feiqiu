@@ -941,8 +941,8 @@ void LinBusWorker::processTaskStep()
       return;
     }
 
-    QByteArray value;
-    value.append(static_cast<char>(activeTask.calibrationMode));
+    QByteArray value(service->dataLength, static_cast<char>(0x00));
+    value[0] = static_cast<char>(activeTask.calibrationMode);
     const bool success = writeServiceValue(activeTask.node, *service, value);
     finishActiveTask(success,
                      success ? QString() : transactionErrorText());

@@ -17,6 +17,7 @@
 #include <QRegExpValidator>
 #include <QSlider>
 #include <QSpinBox>
+#include <QTimer>
 #include <QVBoxLayout>
 
 namespace {
@@ -139,7 +140,9 @@ SignalControlFrame::SignalControlFrame(LinRuntime *runtime,
     ui(new Ui::SignalControlFrame),
     linRuntime(runtime),
     frameLayout(0),
-    selectedFrameIndex(-1)
+    selectedFrameIndex(-1),
+    immediateApplyTimer(new QTimer(this)),
+    loadingValues(false)
 {
   Q_ASSERT(linRuntime != 0);
 
@@ -158,6 +161,10 @@ SignalControlFrame::SignalControlFrame(LinRuntime *runtime,
           this, &SignalControlFrame::applyValues);
   connect(ui->exitButton, &QPushButton::clicked,
           this, &SignalControlFrame::closePage);
+  immediateApplyTimer->setSingleShot(true);
+  immediateApplyTimer->setInterval(20);
+  connect(immediateApplyTimer, &QTimer::timeout,
+          this, &SignalControlFrame::applyValuesWithoutNotification);
 
   hide();
 }
@@ -245,6 +252,7 @@ QString SignalControlFrame::shortSignalName(const char *sourceName) const
 }
 void SignalControlFrame::buildSignalRows()
 {
+  immediateApplyTimer->stop();
   const LinLayout &layout = linRuntime->layout();
   frameLayout = (selectedFrameIndex >= 0) &&
                 (selectedFrameIndex < layout.publishedFrameCount)
@@ -365,6 +373,9 @@ void SignalControlFrame::buildSignalRows()
       connect(spinBox,
               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
               slider, &QSlider::setValue);
+      connect(spinBox,
+              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+              this, [this](int) { scheduleImmediateApply(); });
       editor = spinBox;
     }
     else
@@ -400,6 +411,8 @@ void SignalControlFrame::buildSignalRows()
         slider->setValue(position);
         slider->blockSignals(wasBlocked);
       });
+      connect(lineEdit, &QLineEdit::textChanged,
+              this, [this](const QString &) { scheduleImmediateApply(); });
       editor = lineEdit;
     }
 
@@ -487,6 +500,7 @@ bool SignalControlFrame::applyPresetToCurrentFrame(int presetIndex)
 }
 void SignalControlFrame::loadCurrentValues()
 {
+  immediateApplyTimer->stop();
   if ((frameLayout == 0) ||
       (valueEditors.size() != controlledSignals.size()))
   {
@@ -495,6 +509,7 @@ void SignalControlFrame::loadCurrentValues()
     return;
   }
 
+  loadingValues = true;
   const BCMSignal values = linRuntime->getBCMSignal();
   for (int index = 0; index < controlledSignals.size(); ++index)
   {
@@ -507,6 +522,7 @@ void SignalControlFrame::loadCurrentValues()
     else if (QLineEdit *lineEdit = qobject_cast<QLineEdit *>(editor))
       lineEdit->setText(QString::number(value));
   }
+  loadingValues = false;
 
   ui->statusLabel->setText(
     QString::fromUtf8("已读取当前报文的 %1 个信号状态")
@@ -514,6 +530,22 @@ void SignalControlFrame::loadCurrentValues()
 }
 
 void SignalControlFrame::applyValues()
+{
+  writeEditorValues(true);
+}
+
+void SignalControlFrame::applyValuesWithoutNotification()
+{
+  writeEditorValues(false);
+}
+
+void SignalControlFrame::scheduleImmediateApply()
+{
+  if (!loadingValues && (frameLayout != 0))
+    immediateApplyTimer->start();
+}
+
+void SignalControlFrame::writeEditorValues(bool notifyParent)
 {
   if ((frameLayout == 0) ||
       (valueEditors.size() != controlledSignals.size()))
@@ -560,7 +592,8 @@ void SignalControlFrame::applyValues()
   }
 
   linRuntime->setPublishedFrameSignal(selectedFrameIndex, nextValues);
-  emit valuesApplied();
+  if (notifyParent)
+    emit valuesApplied();
   ui->statusLabel->setText(
     QString::fromUtf8("已应用报文 %1 的 %2 个信号")
       .arg(QString::fromLatin1(frameLayout->name))

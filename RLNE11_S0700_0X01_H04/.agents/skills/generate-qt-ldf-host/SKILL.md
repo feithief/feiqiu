@@ -61,6 +61,13 @@ LDF-specific facts in JSON overlays and generated files.
 
 ## Mandatory diagnostics contract
 
+- Treat the mother-Seed diagnostic engine as frozen infrastructure. Ordinary
+  LDF/frame/signal/UI regeneration may change only reviewed diagnostic profile
+  inputs; it must not delete, replace, simplify, or silently rewrite
+  `SlaveFrameConfig`, the diagnostic queue/state machine, transport framing,
+  B2/0x22/0x2E handling, lock/unlock, calibration callbacks, or their UI signal
+  connections. If a diagnostic-core change is genuinely required, stop and
+  report it as a separate explicit repair instead of mixing it into generation.
 - Initialize every generated node button disabled.
 - Enable a node button only after its configured status frame has been received
   with the expected PID, payload length, driver status, and checksum.
@@ -69,10 +76,19 @@ LDF-specific facts in JSON overlays and generated files.
 - Gate navigation twice: disable the button in `SlaveButton`, and recheck the
   latest feedback state in `MainWindow::slaveConfig` before opening the page.
 - For custom-DID profiles, keep the page hidden and retry the complete initial
-  configuration read until it succeeds. Show the page only from a
-  `configurationReady` signal after all required values are populated; never
-  expose reset zeros. The 5000 ms valid-node-response watchdog remains active
-  during retries. Status-only profiles may signal ready immediately.
+  configuration read until it succeeds. Immediately show the full-screen
+  `正在读取节点数据，请稍候...` wait layer after the node click; keep it visible
+  throughout retries, hide it only after all required values are populated,
+  then emit `configurationReady` and enter the page. Do not show a read-success
+  OK popup during this entry sequence and never expose reset zeros. The 5000 ms
+  valid-node-response watchdog remains active during retries. Status-only
+  profiles may signal ready immediately.
+- Preserve standard product identification when the slave C stack implements
+  SID `0xB2`: the reviewed profile must contain one readable
+  `product_id` service with `protocol: product_identification`, five response
+  data bytes, and `read_on_configuration: true`. Static acceptance must prove
+  that the generated service enters the initial-read loop and that the frozen
+  Worker still builds `request[2] = 0xB2`.
 - Before encoding editable diagnostic values, call `interpretText()` on every
   `QSpinBox` and `QDoubleSpinBox`, including the last field touched by the
   on-screen keyboard. Round scaled fixed-point values before little-endian
@@ -91,6 +107,15 @@ LDF-specific facts in JSON overlays and generated files.
   publish a host that can reach the runtime `LIN layout invalid` black screen.
 - When the profile defines reviewed custom-DID services, enable read/write and
   calibration controls.
+- The four calibration buttons are part of the frozen diagnostic UI. If they
+  are visible, all four signal connections and a writable
+  `calibration_mode` profile service must exist. Derive its DID and payload
+  width from the slave C service table; do not leave that DID typed as `raw`,
+  because `calibrateNode()` intentionally resolves
+  `EOperationTypeCalibration`. The generic Worker must encode the configured
+  width without changing the diagnostic page or button semantics: byte 0 is
+  the mode and any remaining configured bytes are zero-filled. Do not force
+  every firmware to the old one-byte assumption.
 - When the LDF defines only standard LIN node configuration or no proprietary
   services, an online node may open the same page in status-only mode. Disable
   write/calibration controls and send no guessed proprietary request.
@@ -136,6 +161,12 @@ LDF-specific facts in JSON overlays and generated files.
   changes to that selected frame while retaining the stored values of all other
   frames. Never hard-code RGB, U/V, brightness, dimming, one primary-frame-only
   list, or a maximum row count.
+- Slider and decimal-editor changes must take effect without the Apply button.
+  Coalesce rapid editor changes with a short single-shot GUI timer (about
+  20 ms), then queue only the currently selected frame through
+  `setPublishedFrameSignal`. Block/ignore editor notifications while loading
+  runtime values so opening or switching frames never transmits by accident.
+  Keep Apply only as an optional explicit resend/synchronization action.
 - The main page must expose this feature as a clearly visible `报文信号` button.
   Switching frames must immediately rebuild the rows and load the selected
   frame's current values; U/V, intensity, dimming and future unknown fields

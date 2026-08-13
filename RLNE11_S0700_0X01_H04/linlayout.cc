@@ -279,7 +279,8 @@ int fixedServiceLength(OperationType operation)
     case EOperationTypeBValue:
       return 8;
     case EOperationTypeCalibration:
-      return 1;
+      /* Firmware service tables may expose the mode as uint8 or uint16. */
+      return 0;
     case EOperationTypeID:
       return 5;
     case EOperationTypePartNO:

@@ -295,14 +295,17 @@ void SlaveFrameConfig::SlaveFrameConfigInit(int slaveNode)
    * LDF-only profiles still open this page in status-only mode.  Never guess
    * proprietary DIDs that are absent from the supplied protocol data.
    */
-  dialog->hide();
   if (!configurationAvailable)
   {
+    dialog->hide();
     emit configurationReady(currentNode);
     return;
   }
 
-  /* Stay on the main page until every configured DID has been read. */
+  /* Keep the covered page visible while the full-screen wait layer is up. */
+  show();
+  raise();
+  showConfigurationLoading();
   retryConfigurationRead();
 }
 
@@ -498,12 +501,11 @@ void SlaveFrameConfig::handleReadResult(quint32 requestId,
   if (success)
   {
     displayConfiguration(info);
+    dialog->hide();
     emit configurationReady(currentNode);
-    showReadWriteOk();
   }
   else
   {
-    dialog->hide();
     if ((currentNode != 0) && configurationAvailable)
       configurationRetryTimer->start();
   }
@@ -515,6 +517,7 @@ void SlaveFrameConfig::retryConfigurationRead()
       (readRequestId != 0))
     return;
 
+  showConfigurationLoading();
   readRequestId = linRuntime->readNodeConfiguration(
     static_cast<quint8>(currentNode));
   if (readRequestId == 0)
@@ -688,6 +691,14 @@ void SlaveFrameConfig::showReadWriteOk()
   dialog->setMode(EDialogTypeDone);
   dialog->setContent(QString("OK"));
   dialog->show();
+}
+
+void SlaveFrameConfig::showConfigurationLoading()
+{
+  dialog->setMode(EDialogTypeWaitting);
+  dialog->setContent(QString::fromUtf8("正在读取节点数据，请稍候..."));
+  dialog->show();
+  dialog->raise();
 }
 
 void SlaveFrameConfig::resetForm()

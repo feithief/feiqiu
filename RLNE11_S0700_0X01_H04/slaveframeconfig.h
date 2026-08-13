@@ -94,6 +94,7 @@ private:
   void showLockState(bool locked);
   void displayConfiguration(const SlaveConfigInfo &info);
   void showReadWriteOk();
+  void showConfigurationLoading();
   void requestCalibration(quint8 mode);
 };
 
