@@ -14,6 +14,7 @@
 #include <QLineEdit>
 #include <QRegExp>
 #include <QRegExpValidator>
+#include <QSizePolicy>
 #include <QSlider>
 #include <QSpinBox>
 #include <QTimer>
@@ -297,7 +298,9 @@ void SignalControlFrame::buildSignalRows()
     const quint64 signalMaximum = maximumValue(signal.bitLength);
 
     QFrame *row = new QFrame(ui->signalScrollContent);
-    row->setFixedHeight(54);
+    /* Every signal gets the same share of the complete control area. */
+    row->setMinimumHeight(0);
+    row->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     row->setStyleSheet(
       "QFrame{border:1px solid rgba(15,186,205,150);"
       "border-radius:7px;background:rgba(2,22,31,235);}"
@@ -307,7 +310,7 @@ void SignalControlFrame::buildSignalRows()
       "background:rgb(2,22,31);color:white;font-size:17px;}");
 
     QHBoxLayout *rowLayout = new QHBoxLayout(row);
-    rowLayout->setContentsMargins(5, 4, 5, 4);
+    rowLayout->setContentsMargins(5, 2, 5, 2);
     rowLayout->setSpacing(8);
 
     QLabel *name = new QLabel(shortSignalName(signal.name), row);
@@ -397,10 +400,9 @@ void SignalControlFrame::buildSignalRows()
 
     controlledSignals.append(&signal);
     valueEditors.append(editor);
-    ui->verticalLayoutSignals->addWidget(row);
+    ui->verticalLayoutSignals->addWidget(row, 1);
   }
 
-  ui->verticalLayoutSignals->addStretch();
   loadCurrentValues();
 }
 void SignalControlFrame::init()

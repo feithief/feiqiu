@@ -568,6 +568,14 @@ def validate(project_root: Path) -> None:
             "selected-frame editors must schedule transmission without Apply",
         ),
         (
+            "ui->verticalLayoutSignals->addWidget(row, 1)",
+            "every current-frame signal row must receive equal layout stretch",
+        ),
+        (
+            "row->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding)",
+            "signal rows must expand or shrink to evenly fill the available region",
+        ),
+        (
             "if (!loadingValues && (frameLayout != 0))",
             "loading runtime values must not transmit a frame accidentally",
         ),
@@ -617,15 +625,35 @@ def validate(project_root: Path) -> None:
             'QString("0x0 - 0x%1")',
             "selected-frame signal ranges must be decimal, not hexadecimal",
         ),
+        (
+            "row->setFixedHeight(",
+            "selected-frame rows must not have a fixed height",
+        ),
+        (
+            "ui->verticalLayoutSignals->addStretch();\n  loadCurrentValues();",
+            "selected-frame rows must not leave an unused trailing stretch",
+        ),
     ):
         if forbidden in signal_control_text:
             errors.append(message)
+
     if "signalcontrolframe.ui" not in project_text:
         errors.append("project does not register the all-signal Designer page")
     signal_control_ui = project_root / "signalcontrolframe.ui"
     signal_control_ui_text = (
         read_text(signal_control_ui) if signal_control_ui.is_file() else ""
     )
+    for marker, message in (
+        (
+            '<property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>',
+            "frame-signal page must hide its horizontal scrollbar",
+        ),
+        (
+            '<property name="verticalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>',
+            "frame-signal page must show all current-frame signals without vertical scrolling",
+        ),
+    ):
+        require_marker(errors, signal_control_ui_text, marker, message)
     if (
         "frameSelector" not in signal_control_ui_text
         or "应用当前报文" not in signal_control_ui_text

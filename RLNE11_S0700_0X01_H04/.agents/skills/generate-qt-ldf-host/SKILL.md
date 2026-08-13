@@ -148,15 +148,21 @@ LDF-specific facts in JSON overlays and generated files.
   unrecognized field as `ELinSignalRawValue` with its exact LDF name, start bit,
   width, and initial value. Never turn an unknown field into an invisible static
   payload bit.
-- Generate an editable, scrollable frame-signal page. Enumerate
+- Generate an editable frame-signal page. Enumerate
   `publishedFrames[0..n]` into a visible frame selector. After the user selects
   one frame, show every `signalLayouts[0..n]` entry as one compact horizontal
-  row inside a vertically scrollable list. Every row contains only a concise
+  row inside one fixed signal region. Every row contains only a concise
   signal name, its exact decimal value editor, and one thin horizontal slider.
   All sliders use the same fixed visual length regardless of signal range; do
   not display start bit, bit length, minimum, maximum, or a range label in the
   row. One-bit signals also use a 0/1 horizontal slider. Wider-than-30-bit
   signals keep an exact decimal editor plus a normalized horizontal slider.
+  Never show a horizontal or vertical scrollbar. Give every current-frame row
+  the same layout stretch factor and no fixed row height, so all signals are
+  visible at once and evenly divide the complete available signal region.
+  Do not append a bottom stretch or reserve an unused status strip beneath the
+  signal list. A frame with fewer signals must make each row taller; a frame
+  with more signals must make each row shorter while keeping all rows visible.
   Apply changes to that selected frame while retaining the stored values of all
   other frames. Never hard-code RGB, U/V, brightness, dimming, one
   primary-frame-only list, or a maximum row count.
@@ -173,8 +179,9 @@ LDF-specific facts in JSON overlays and generated files.
 - On this page display the selected frame ID and current values in base 10 only.
   Keep range/geometry metadata internal or in the exact-name tooltip; do not
   render it in the signal row. Reject `0x` prefixes, hexadecimal SpinBoxes,
-  hexadecimal validators, vertical sliders, range labels, and multi-column
-  signal-card grids during static acceptance.
+  hexadecimal validators, vertical sliders, range labels, multi-column
+  signal-card grids, scrollbars, fixed signal-row heights, and trailing list
+  stretches during static acceptance.
 - Derive a concise signal display name by removing common LDF/vendor prefixes
   and shortening long tokens. Preserve the complete exact LDF name only in the
   tooltip and internal layout binding. Never use the shortened label as a key.
