@@ -1,0 +1,886 @@
+Dependencies for Project 'tcpl04b_swsc_lean', Target 'swsc_match_boot': (DO NOT MODIFY !)
+CompilerVersion: 6210000::V6.21::ARMCLANG
+F (.\01_ASW\01_Integration\EcuM_Callout.c)(0x6A80DAAA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/ecum_callout.o -MD)
+I (12_Config\prj_board_cfg.hM2_Config\func_cfg_evk.h)(0x00000000)
+I (07_BSW_SYSTEM\BswM.hc7_BSW_SYSTEM\EcuM.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\Swc_Lighting.hM1_Vendor_SDK\pal_systick.h)(0x00000000)
+I (11_Vendor_SDK\pal_func_def.hi1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h)(0x6A6DA786)
+F (.\01_ASW\02_Swc_Lighting\Swc_LightControl.c)(0x6A80D857)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_lightcontrol.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemControl.hl1_ASW\04_Algorithm\Algorithm.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\SystemStatus.h)(0x6A80577F)
+I (01_ASW\02_Swc_Lighting\SystemLinComm.h)(0x6A80575E)
+I (01_ASW\02_Swc_Lighting\SystemMain.hm8_BSW_ECUAL\IoHwAb_Temperature.h)(0x00000000)
+I (12_Config\prj_color_cfg.hs8_BSW_ECUAL\IoHwAb_Time.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\Swc_PersistentData.h)(0x6A80D82D)
+I (01_ASW\02_Swc_Lighting\SystemDerating.h)(0x6A80574C)
+F (.\01_ASW\02_Swc_Lighting\Swc_Derating.c)(0x6A80D857)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_derating.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemDerating.h)(0x6A80574C)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\04_Algorithm\Algorithm.h\8_BSW_ECUAL\IoHwAb_Temperature.h)(0x00000000)
+I (12_Config\prj_color_cfg.h)(0x6A6E5F4F)
+F (.\01_ASW\02_Swc_Lighting\Swc_Communication.c)(0x6A80D95E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_communication.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemLinComm.h)(0x6A80575E)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h82_Config\prj_color_cfg.h)(0x00000000)
+I (02_RTE\Rte_Bsw.hR3_Common\ComStack_Types.h22_RTE\Rte_Com.h)(0x00000000)
+I (02_RTE\Rte_Types.h_1_ASW\02_Swc_Lighting\Swc_Communication.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\Swc_Types.h)(0x6A80DF8B)
+I (01_ASW\02_Swc_Lighting\Swc_PersistentData.h)(0x6A80D82D)
+I (01_ASW\02_Swc_Lighting\SystemDerating.h)(0x6A80574C)
+I (01_ASW\04_Algorithm\Algorithm.hr1_ASW\02_Swc_Lighting\SystemStatus.h)(0x00000000)
+F (.\01_ASW\02_Swc_Lighting\Swc_Lighting.c)(0x6A80DA13)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_lighting.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemMain.h.1_ASW\04_Algorithm\Algorithm.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\Swc_Lighting.hf8_BSW_ECUAL\IoHwAb_Wdg.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Time.h_:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Adc.hh1_ASW\02_Swc_Lighting\SystemStatus.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Temperature.h22_Config\prj_color_cfg.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\Swc_PersistentData.hp8_BSW_ECUAL\IoHwAb_Led.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Battery.hr1_ASW\02_Swc_Lighting\SystemControl.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemLinComm.h)(0x6A80575E)
+I (01_ASW\03_Swc_Diagnostic\Swc_Diagnostic.hc3_Common\ComStack_Types.h)(0x00000000)
+I (02_RTE\Rte_Types.h)(0x6A7F8F38)
+F (.\01_ASW\02_Swc_Lighting\Swc_Status.c)(0x6A80D857)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_status.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemStatus.hi1_ASW\04_Algorithm\Algorithm.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (08_BSW_ECUAL\IoHwAb_Temperature.ht2_Config\prj_color_cfg.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Battery.hr8_BSW_ECUAL\IoHwAb_Led.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\SystemLinComm.h)(0x6A80575E)
+F (.\01_ASW\02_Swc_Lighting\Swc_Types.c)(0x6A805783)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_types.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\01_ASW\03_Swc_Diagnostic\Swc_Diagnostic.c)(0x6A80DEE7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_diagnostic.o -MD)
+I (01_ASW\02_Swc_Lighting\SystemStatus.hi1_ASW\04_Algorithm\Algorithm.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\Swc_PersistentData.h)(0x6A80D82D)
+I (01_ASW\03_Swc_Diagnostic\Swc_Diagnostic.h.3_Common\ComStack_Types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h.2_RTE\Rte_Types.h)(0x00000000)
+I (01_ASW\03_Swc_Diagnostic\SystemLinDiag.h)(0x6A805769)
+I (08_BSW_ECUAL\IoHwAb_Temperature.hn2_Config\prj_color_cfg.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Led.hr8_BSW_ECUAL\IoHwAb_Battery.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Time.h82_RTE\Rte_Bsw.h)(0x00000000)
+F (.\01_ASW\04_Algorithm\Algorithm.c)(0x6A80DC68)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/algorithm.o -MD)
+I (01_ASW\04_Algorithm\Algorithm.h)(0x6A80B1D1)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\04_Algorithm\FloatLib.he8_BSW_ECUAL\IoHwAb_Led.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.hL2_Config\prj_color_cfg.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Temperature.h)(0x6A7E1435)
+F (.\01_ASW\04_Algorithm\FixedPoint.c)(0x6A80584F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/fixedpoint.o -MD)
+I (01_ASW\04_Algorithm\FloatLib.h.1_ASW\02_Swc_Lighting\SystemType.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\01_ASW\02_Swc_Lighting\Swc_PersistentData.c)(0x6A80D82D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/swc_persistentdata.o -MD)
+I (01_ASW\02_Swc_Lighting\Swc_PersistentData.h)(0x6A80D82D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
+I (13_Common\ComStack_Types.hc:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (02_RTE\Rte_Types.h)(0x6A7F8F38)
+F (.\02_RTE\Rte_Com.c)(0x6A80EC20)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/rte_com.o -MD)
+I (13_Common\ComStack_Types.h_:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (04_BSW_COM\genLinConfig.hn4_BSW_COM\lin_type.h\4_BSW_COM\lin_main.h)(0x00000000)
+F (.\02_RTE\Rte_Bsw.c)(0x6A80EC20)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/rte_bsw.o -MD)
+I (13_Common\ComStack_Types.h_:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (04_BSW_COM\lin_type.hN9_MCAL\Lin.hd4_BSW_COM\lin_main.h)(0x00000000)
+F (.\02_RTE\Rte_NvM.c)(0x6A7F8F38)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/rte_nvm.o -MD)
+I (13_Common\ComStack_Types.h_:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (05_BSW_NVM\NvM.h)(0x6A7E1114)
+F (.\02_RTE\Rte_Dem.c)(0x6A7E1572)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/rte_dem.o -MD)
+I (13_Common\ComStack_Types.h_:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\03_BSW_UDS\Dcm.c)(0x6A80B38E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/dcm.o -MD)
+I (01_ASW\03_Swc_Diagnostic\SystemLinDiag.h)(0x6A805769)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (03_BSW_UDS\lin_diag_tp.hi4_BSW_COM\genLinConfig.h)(0x00000000)
+I (04_BSW_COM\lin_type.hp4_BSW_COM\lin_driver_api.h)(0x00000000)
+I (04_BSW_COM\lin_main.hp9_MCAL\lin_hal.h)(0x00000000)
+F (.\03_BSW_UDS\Dcm_LinNodeConfig.c)(0x6A8057FA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/dcm_linnodeconfig.o -MD)
+I (04_BSW_COM\genLinConfig.hf4_BSW_COM\lin_type.h)(0x00000000)
+I (04_BSW_COM\lin_driver_api.h_4_BSW_COM\lin_main.h)(0x00000000)
+I (03_BSW_UDS\lin_diag_tp.hi3_BSW_UDS\lin_config.h)(0x00000000)
+F (.\03_BSW_UDS\LinTp.c)(0x6A805804)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/lintp.o -MD)
+I (04_BSW_COM\genLinConfig.ht4_BSW_COM\lin_type.h)(0x00000000)
+I (04_BSW_COM\lin_driver_api.h_4_BSW_COM\lin_main.h)(0x00000000)
+I (03_BSW_UDS\lin_diag_tp.hi3_BSW_UDS\lin_config.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemStatus.hn1_ASW\04_Algorithm\Algorithm.h)(0x00000000)
+I (01_ASW\02_Swc_Lighting\SystemType.h)(0x6A80578A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (01_ASW\03_Swc_Diagnostic\SystemLinDiag.h)(0x6A805769)
+F (.\04_BSW_COM\Com.c)(0x6A805814)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/com.o -MD)
+I (04_BSW_COM\lin_type.h)(0x6A805951)
+F (.\04_BSW_COM\LinIf.c)(0x6A80583C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/linif.o -MD)
+I (04_BSW_COM\genLinConfig.hi4_BSW_COM\lin_type.hm4_BSW_COM\lin_main.h)(0x00000000)
+I (04_BSW_COM\lin_driver_api.h_9_MCAL\lin_hal.h.3_BSW_UDS\lin_diag_tp.h)(0x00000000)
+I (04_BSW_COM\lin_slave_task.h)(0x6A8059A6)
+F (.\04_BSW_COM\LinIf_Init.c)(0x6A805834)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/linif_init.o -MD)
+I (04_BSW_COM\genLinConfig.hi4_BSW_COM\lin_type.h_9_MCAL\lin_hal.h)(0x00000000)
+I (04_BSW_COM\lin_slave_task.h_4_BSW_COM\lin_driver_api.h)(0x00000000)
+I (04_BSW_COM\lin_main.ht3_BSW_UDS\lin_diag_tp.hv3_Common\ModuleFlash.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\04_BSW_COM\LinIf_Compat.c)(0x6A80582F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/linif_compat.o -MD)
+I (04_BSW_COM\genLinConfig.h)(0x6A805819)
+I (04_BSW_COM\lin_slave_task.h_4_BSW_COM\lin_driver_api.h)(0x00000000)
+I (04_BSW_COM\lin_main.ht9_MCAL\lin_hal.hl3_BSW_UDS\lin_diag_tp.h)(0x00000000)
+F (.\04_BSW_COM\LinIf_Cfg.c)(0x6A80EAA8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/linif_cfg.o -MD)
+I (04_BSW_COM\genLinConfig.hi4_BSW_COM\lin_type.h)(0x00000000)
+F (.\05_BSW_NVM\NvM.c)(0x6A7E38B7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/nvm.o -MD)
+I (13_Common\ComStack_Types.h\:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (05_BSW_NVM\NvM_Cfg.hA2_RTE\Rte_Types.h)(0x00000000)
+F (.\05_BSW_NVM\NvM_Cfg.c)(0x6A7E38B7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/nvm_cfg.o -MD)
+I (05_BSW_NVM\NvM_Cfg.h)(0x6A7E1247)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\05_BSW_NVM\MemIf.c)(0x6A7E1114)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/memif.o -MD)
+I (05_BSW_NVM\NvM.h.3_Common\ComStack_Types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\05_BSW_NVM\Fee.c)(0x6A7E1114)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/fee.o -MD)
+I (05_BSW_NVM\NvM.h\3_Common\ComStack_Types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (12_Config\prj_board_cfg.hn2_Config\func_cfg_evk.h)(0x00000000)
+F (.\06_BSW_DEM\Dem.c)(0x6A7E1114)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/dem.o -MD)
+I (13_Common\ComStack_Types.h\:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\06_BSW_DEM\Dem_Cfg.c)(0x6A7E1114)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/dem_cfg.o -MD)
+I (06_BSW_DEM\Dem_Cfg.h)(0x6A7E1114)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+F (.\07_BSW_SYSTEM\EcuM.c)(0x6A80EAA8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/ecum.o -MD)
+I (06_BSW_DEM\Dem.hu3_Common\ComStack_Types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (04_BSW_COM\lin_type.hN9_MCAL\Lin.hd5_BSW_NVM\NvM.h)(0x00000000)
+I (05_BSW_NVM\NvM_Cfg.hh2_RTE\Rte_Types.h)(0x00000000)
+F (.\07_BSW_SYSTEM\BswM.c)(0x6A80EAA8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/bswm.o -MD)
+I (03_BSW_UDS\Dcm.hw6_BSW_DEM\Dem.hM3_Common\ComStack_Types.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (05_BSW_NVM\NvM.h)(0x6A7E1114)
+F (.\08_BSW_ECUAL\IoHwAb_Adc.c)(0x6A7E1435)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_adc.o -MD)
+I (08_BSW_ECUAL\IoHwAb_Adc.h)(0x6A7E1435)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hA9_MCAL\Adc.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+F (.\08_BSW_ECUAL\IoHwAb_Battery.c)(0x6A7E1435)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_battery.o -MD)
+I (08_BSW_ECUAL\IoHwAb_Battery.h)(0x6A7E1435)
+I (08_BSW_ECUAL\IoHwAb_Adc.hr:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+F (.\08_BSW_ECUAL\IoHwAb_Time.c)(0x6A80DF8B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_time.o -MD)
+I (08_BSW_ECUAL\IoHwAb_Time.h)(0x6A80DF8B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.hA1_Vendor_SDK\pal_systick.h)(0x00000000)
+I (11_Vendor_SDK\pal_func_def.hu1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hK0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\08_BSW_ECUAL\IoHwAb_Led.c)(0x6A80E005)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_led.o -MD)
+I (08_BSW_ECUAL\IoHwAb_Led.h)(0x6A7E1435)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hA2_Config\prj_color_cfg.h)(0x00000000)
+I (09_MCAL\Adc.hM1_Vendor_SDK\pal_led.hn1_Vendor_SDK\pal_func_def.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_def.h_:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h\0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+I (11_Vendor_SDK\pal_led_def.h)(0x6A30DBE5)
+F (.\08_BSW_ECUAL\IoHwAb_Temperature.c)(0x6A80DF8B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_temperature.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hE2_Config\prj_color_cfg.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Adc.hn:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Battery.he8_BSW_ECUAL\IoHwAb_Led.h)(0x00000000)
+I (08_BSW_ECUAL\IoHwAb_Time.h)(0x6A80DF8B)
+F (.\08_BSW_ECUAL\IoHwAb_Wdg.c)(0x6A7E1435)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/iohwab_wdg.o -MD)
+I (08_BSW_ECUAL\IoHwAb_Wdg.h)(0x6A7E1435)
+I (11_Vendor_SDK\pal_func_def.hV1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\09_MCAL\Lin.c)(0x6A80E095)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/lin.o -MD)
+I (13_Common\ComStack_Types.h)(0x6A7E1172)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (04_BSW_COM\lin_type.hN4_BSW_COM\lin_driver_api.h)(0x00000000)
+I (04_BSW_COM\lin_main.hN9_MCAL\lin_hal.hi3_BSW_UDS\lin_diag_tp.h)(0x00000000)
+F (.\09_MCAL\Lin_Hw.c)(0x6A80DD90)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/lin_hw.o -MD)
+I (04_BSW_COM\genLinConfig.hi4_BSW_COM\lin_type.h)(0x00000000)
+I (13_Common\lin_autoaddressing.h)(0x6A7E3309)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.ht4_BSW_COM\lin_driver_api.h)(0x00000000)
+I (04_BSW_COM\lin_main.hN3_BSW_UDS\lin_diag_tp.h)(0x00000000)
+I (04_BSW_COM\lin_slave_task.h_1_Vendor_SDK\pal_lin_comm.h)(0x00000000)
+I (11_Vendor_SDK\pal_func_def.h11_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\09_MCAL\Adc.c)(0x6A7FACD5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/adc.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.hh1_Vendor_SDK\pal_led.h)(0x00000000)
+I (11_Vendor_SDK\pal_func_def.hu1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hK0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\09_MCAL\Fls.c)(0x6A7E1406)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/fls.o -MD)
+I (13_Common\ComStack_Types.h)(0x6A7E1172)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (11_Vendor_SDK\pal_func_def.hu1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.hD0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\09_MCAL\Mcu.c)(0x6A7E1406)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/mcu.o -MD)
+I (11_Vendor_SDK\pal_func_def.ha1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\10_Device\system_tcpl04x.c)(0x6A30DBE4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/system_tcpl04x.o -MD)
+I (10_Device\device_registers.h_:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.hM0_Device\tcpl04x.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.hh0_Device\core_cm0.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h)(0x6A30DBE4)
+F (.\10_Device\startup_tcpl04x.s)(0x6A30DBE4)(--cpu Cortex-M0 -g --pd "__MICROLIB SETA 1" --diag_suppress=A1950W -I .\01_ASW\01_Integration -I .\01_ASW\02_Swc_Lighting -I .\01_ASW\03_Swc_Diagnostic -I .\01_ASW\04_Algorithm -I .\02_RTE -I .\03_BSW_UDS -I .\04_BSW_COM -I .\05_BSW_NVM -I .\06_BSW_DEM -I .\07_BSW_SYSTEM -I .\08_BSW_ECUAL -I .\09_MCAL -I .\10_Device -I .\11_Vendor_SDK -I .\12_Config -I .\13_Common-IC:\Users\GenhuaYang\AppData\Local\Arm\Packs\TinyChip\TCxx_DFP\1.2.1\Device\Include--pd "__UVISION_VERSION SETA 539"--list ..\build\listings\boot\startup_tcpl04x.lst--xref -o ..\build\objects\boot\startup_tcpl04x.o--depend ..\build\objects\boot\startup_tcpl04x.d)
+F (.\11_Vendor_SDK\tcpl04x_ll_adc.c)(0x6A7AD26C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_adc.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_adc.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_flash.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_gpio.h11_Vendor_SDK\tcpl04x_ll_lpm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.hh1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_cortex.c)(0x6A3248BC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_cortex.o -MD)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h)(0x6A6DA786)
+F (.\11_Vendor_SDK\tcpl04x_ll_flash.c)(0x6A6DAAD8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_flash.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_def.h.:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_gpio.h11_Vendor_SDK\tcpl04x_ll_lpm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.hh1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_flash_drv.c)(0x6A6DAAA5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_flash_drv.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_def.h_:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_gpio.h11_Vendor_SDK\tcpl04x_ll_lpm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.hh1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_gpio.c)(0x6A30DBE3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_gpio.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_gpio.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_lpm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.h.1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_led.c)(0x6A6DACEE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_led.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_led.h)(0x6A6DA786)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_pwm.c)(0x6A30DBE3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_pwm.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_sci.c)(0x6A6DA7FE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_sci.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_sys.c)(0x6A30DBE3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_sys.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_sys.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_adc.he1_Vendor_SDK\tcpl04x_ll_flash.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_gpio.h11_Vendor_SDK\tcpl04x_ll_lpm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_pwm.hh1_Vendor_SDK\tcpl04x_ll_sci.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_print.h_1_Vendor_SDK\tcpl04x_ll_timer.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h.1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\tcpl04x_ll_wdg.c)(0x6A30DBE3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/tcpl04x_ll_wdg.o -MD)
+I (11_Vendor_SDK\tcpl04x_ll_wdg.h)(0x6A30DBE3)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_led.h)(0x00000000)
+F (.\11_Vendor_SDK\pal_led.c)(0x6A30DBE5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/pal_led.o -MD)
+I (11_Vendor_SDK\pal_led.h)(0x6A30DBE5)
+I (11_Vendor_SDK\tcpl04x_ll_def.ho:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+I (11_Vendor_SDK\pal_led_def.h_2_Config\prj_led_pinmux_cfg.h)(0x00000000)
+I (12_Config\pinmux_cfg_evk.h)(0x6A30DBE5)
+F (.\11_Vendor_SDK\pal_lin_comm.c)(0x6A30DBE5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/pal_lin_comm.o -MD)
+I (11_Vendor_SDK\pal_func_def.h)(0x6A30DBE4)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+I (11_Vendor_SDK\pal_lin_comm.hC1_Vendor_SDK\utilities.h)(0x00000000)
+F (.\11_Vendor_SDK\pal_store.c)(0x6A6DABA3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/pal_store.o -MD)
+I (11_Vendor_SDK\pal_store.h)(0x6A30DBE5)
+I (11_Vendor_SDK\tcpl04x_ll_def.hn:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+I (11_Vendor_SDK\utilities.h)(0x6A30DBE5)
+F (.\11_Vendor_SDK\pal_wdg.c)(0x6A30DBE5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/pal_wdg.o -MD)
+I (11_Vendor_SDK\pal_wdg.h)(0x6A30DBE5)
+I (11_Vendor_SDK\tcpl04x_ll_def.ho:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)
+F (.\11_Vendor_SDK\utilities.c)(0x6A30DBE5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -fsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./01_ASW/01_Integration -I ./01_ASW/02_Swc_Lighting -I ./01_ASW/03_Swc_Diagnostic -I ./01_ASW/04_Algorithm -I ./02_RTE -I ./04_BSW_COM -I ./03_BSW_UDS -I ./11_Vendor_SDK/IHR/Generated -I ./11_Vendor_SDK/IHR/Protocol -I ./13_Common -I ./05_BSW_NVM -I ./06_BSW_DEM -I ./07_BSW_SYSTEM -I ./08_BSW_ECUAL -I ./09_MCAL -I ./10_Device -I ./11_Vendor_SDK -I ./12_Config-IC:/Users/GenhuaYang/AppData/Local/Arm/Packs/TinyChip/TCxx_DFP/1.2.1/Device/Include-D__UVISION_VERSION="539" -D__TCPL04X__ -D__TCPL04B__ -DAPP_MATCH_BOOT -DMULTI_BYTES_MODE-o ../build/objects/boot/utilities.o -MD)
+I (11_Vendor_SDK\utilities.h)(0x6A30DBE5)
+I (11_Vendor_SDK\pal_func_def.hK1_Vendor_SDK\tcpl04x_ll_def.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.hh0_Device\device_registers.h)(0x00000000)
+I (10_Device\tcpl04x.hL:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x00000000)
+I (10_Device\core_cm0.h)(0x6A30DBE3)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_version.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_compiler.h)(0x00000000)
+I (C:\baidunetdiskdownload\泰矽微\氛围灯\TCPL0X_AUTO_SDK_V2.0.0\TCPL0X_AUTO_SDK_V2.0.0\examples\tcpl04x\demo_apps\tcpl04b_swsc_lean_ihrLIN - 副本_RLNE1A_ASW\MDK\10_Device\cmsis_armclang.h)(0x00000000)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x64F9642C)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h.0_Device\register.h)(0x00000000)
+I (10_Device\eflash_reg_def.hc0_Device\syscfg_reg_def.h)(0x00000000)
+I (10_Device\crg_reg_def.hf0_Device\pinmux_reg_def.h)(0x00000000)
+I (10_Device\tim_lite_reg_def.hv0_Device\print_uart_reg_def.h)(0x00000000)
+I (10_Device\pwm_reg_def.hd0_Device\lin_sci_reg_def.h)(0x00000000)
+I (10_Device\adc_reg_def.hd0_Device\gpio_reg_def.h)(0x00000000)
+I (10_Device\iwdg_reg_def.h00_Device\lin_sci1_reg_def.h)(0x00000000)
+I (10_Device\asyscfg_reg_def.hD0_Device\test_reg_def.h)(0x00000000)
+I (10_Device\trim_reg_def.hf0_Device\register_map.h)(0x00000000)
+I (10_Device\system_tcpl04x.h_1_Vendor_SDK\tcpl04x_ll_cortex.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sys.he1_Vendor_SDK\tcpl04x_ll_adc.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_flash.h_1_Vendor_SDK\tcpl04x_ll_gpio.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_lpm.h.1_Vendor_SDK\tcpl04x_ll_pwm.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_sci.h.1_Vendor_SDK\tcpl04x_ll_print.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_timer.h_1_Vendor_SDK\tcpl04x_ll_wdg.h)(0x00000000)
+I (11_Vendor_SDK\tcpl04x_ll_led.h.1_ASW\01_Integration\app.h)(0x00000000)
+I (12_Config\prj_board_cfg.hl2_Config\func_cfg_evk.h)(0x00000000)

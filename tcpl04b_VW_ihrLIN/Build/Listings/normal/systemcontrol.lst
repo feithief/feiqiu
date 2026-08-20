@@ -1,0 +1,3823 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	cortex-m0
+	.eabi_attribute	6, 12	@ Tag_CPU_arch
+	.eabi_attribute	7, 77	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 0	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 1	@ Tag_THUMB_ISA_use
+	.eabi_attribute	34, 0	@ Tag_CPU_unaligned_access
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 2	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 1	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 2	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 1	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"SystemControl.c"
+	.file	1 "C:\\Keil_v5\\ARM\\ARMCLANG\\Bin\\..\\include" "stdint.h"
+	.file	2 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../02_System/SystemControl.h"
+	.file	3 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../02_System/SystemType.h"
+	.file	4 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../02_System/SystemControl.c"
+	.file	5 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../10_Common\\SwscTypes.h"
+	.file	6 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../02_System/SystemStatus.h"
+	.section	.text.systemControl_reInitDimmingStateMachine,"ax",%progbits
+	.hidden	systemControl_reInitDimmingStateMachine @ -- Begin function systemControl_reInitDimmingStateMachine
+	.globl	systemControl_reInitDimmingStateMachine
+	.p2align	2
+	.type	systemControl_reInitDimmingStateMachine,%function
+	.code	16                              @ @systemControl_reInitDimmingStateMachine
+	.thumb_func
+systemControl_reInitDimmingStateMachine:
+.Lfunc_begin0:
+	.loc	4 52 0                          @ ../02_System/SystemControl.c:52:0
+	.fnstart
+	.cfi_sections .debug_frame
+	.cfi_startproc
+@ %bb.0:
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r4, -8
+.Ltmp0:
+	.loc	4 54 40 prologue_end            @ ../02_System/SystemControl.c:54:40
+	ldr	r4, __arm_cp.0_0
+	mov	r0, r4
+	adds	r0, #16
+	movs	r1, #20
+	bl	__aeabi_memclr4
+.Ltmp1:
+	.loc	4 60 39                         @ ../02_System/SystemControl.c:60:39
+	bl	moduleClockGet
+.Ltmp2:
+	.loc	4 60 37 is_stmt 0               @ ../02_System/SystemControl.c:60:37
+	strh	r0, [r4, #36]
+	.loc	4 61 1 epilogue_begin is_stmt 1 @ ../02_System/SystemControl.c:61:1
+	pop	{r4, pc}
+.Ltmp3:
+	.p2align	2
+@ %bb.1:
+	.loc	4 0 1 is_stmt 0                 @ ../02_System/SystemControl.c:0:1
+__arm_cp.0_0:
+	.long	.L_MergedGlobals
+.Lcpi_end0:
+	.size	__arm_cp.0_0, .Lcpi_end0-__arm_cp.0_0
+.Lfunc_end0:
+	.size	systemControl_reInitDimmingStateMachine, .Lfunc_end0-systemControl_reInitDimmingStateMachine
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.__systemIntensityDimming,"ax",%progbits
+	.hidden	__systemIntensityDimming        @ -- Begin function __systemIntensityDimming
+	.globl	__systemIntensityDimming
+	.p2align	2
+	.type	__systemIntensityDimming,%function
+	.code	16                              @ @__systemIntensityDimming
+	.thumb_func
+__systemIntensityDimming:
+.Lfunc_begin1:
+	.loc	4 209 0 is_stmt 1               @ ../02_System/SystemControl.c:209:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r1
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r2
+	.save	{r4, r5, r6, r7, lr}
+	push	{r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 20
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	.pad	#20
+	sub	sp, #20
+	.cfi_def_cfa_offset 40
+	mov	r6, r2
+.Ltmp4:
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	mov	r5, r1
+.Ltmp5:
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	mov	r7, r0
+.Ltmp6:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	movs	r4, #38
+.Ltmp7:
+	.loc	4 214 24 prologue_end           @ ../02_System/SystemControl.c:214:24
+	ldr	r3, __arm_cp.1_0
+	ldrb	r0, [r3, r4]
+.Ltmp8:
+	.loc	4 214 5 is_stmt 0               @ ../02_System/SystemControl.c:214:5
+	cmp	r0, #0
+	bne	.LBB1_2
+.Ltmp9:
+@ %bb.1:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 5                           @ ../02_System/SystemControl.c:0:5
+	movs	r0, #1
+.Ltmp10:
+	.loc	4 216 46 is_stmt 1              @ ../02_System/SystemControl.c:216:46
+	strb	r0, [r3, r4]
+	.loc	4 217 3                         @ ../02_System/SystemControl.c:217:3
+	bl	systemControl_reInitDimmingStateMachine
+.Ltmp11:
+	.loc	4 0 3 is_stmt 0                 @ ../02_System/SystemControl.c:0:3
+	ldr	r3, __arm_cp.1_0
+.Ltmp12:
+.LBB1_2:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	str	r4, [sp, #16]                   @ 4-byte Spill
+	ldrb	r0, [r3, #17]
+	.loc	4 219 39 is_stmt 1              @ ../02_System/SystemControl.c:219:39
+	ldrh	r4, [r3, #36]
+.Ltmp13:
+	@DEBUG_VALUE: __systemIntensityDimming:lastLoopSysTick <- undef
+	.loc	4 220 16                        @ ../02_System/SystemControl.c:220:16
+	ldr	r1, __arm_cp.1_1
+	ldrb	r2, [r1]
+	.loc	4 220 52 is_stmt 0              @ ../02_System/SystemControl.c:220:52
+	cmp	r2, #3
+	bne	.LBB1_5
+.Ltmp14:
+@ %bb.3:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	cmp	r0, #2
+	bhi	.LBB1_5
+.Ltmp15:
+@ %bb.4:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 52                          @ ../02_System/SystemControl.c:0:52
+	movs	r0, #0
+.Ltmp16:
+	.loc	4 223 26 is_stmt 1              @ ../02_System/SystemControl.c:223:26
+	str	r0, [r5, #8]
+	.loc	4 224 4                         @ ../02_System/SystemControl.c:224:4
+	mov	r0, r5
+	mov	r1, r6
+	bl	IntensityDimminggetDimmingSpeed
+.Ltmp17:
+	.loc	4 0 4 is_stmt 0                 @ ../02_System/SystemControl.c:0:4
+	ldr	r3, __arm_cp.1_0
+	movs	r0, #3
+	b	.LBB1_11
+.Ltmp18:
+.LBB1_5:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 227 22 is_stmt 1              @ ../02_System/SystemControl.c:227:22
+	ldrb	r1, [r1, #3]
+	.loc	4 227 44 is_stmt 0              @ ../02_System/SystemControl.c:227:44
+	cmp	r1, #1
+	bne	.LBB1_12
+.Ltmp19:
+@ %bb.6:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	cmp	r0, #2
+	bhi	.LBB1_12
+.Ltmp20:
+@ %bb.7:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 229 4 is_stmt 1               @ ../02_System/SystemControl.c:229:4
+	mov	r0, r5
+	mov	r1, r6
+	bl	IntensityDimminggetDimmingSpeed
+.Ltmp21:
+	.loc	4 230 14                        @ ../02_System/SystemControl.c:230:14
+	ldr	r0, __arm_cp.1_2
+	ldrb	r0, [r0, #16]
+	cmp	r0, #2
+	beq	.LBB1_9
+.Ltmp22:
+@ %bb.8:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 14 is_stmt 0                @ ../02_System/SystemControl.c:0:14
+	movs	r0, #2
+	b	.LBB1_10
+.Ltmp23:
+.LBB1_9:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	movs	r0, #1
+.Ltmp24:
+.LBB1_10:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	ldr	r3, __arm_cp.1_0
+.Ltmp25:
+.LBB1_11:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	strb	r0, [r3, #17]
+.Ltmp26:
+.LBB1_12:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	.loc	4 241 26 is_stmt 1              @ ../02_System/SystemControl.c:241:26
+	ldrb	r1, [r3, #16]
+.Ltmp27:
+	.loc	4 241 7 is_stmt 0               @ ../02_System/SystemControl.c:241:7
+	cmp	r1, #0
+	beq	.LBB1_16
+.Ltmp28:
+@ %bb.13:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 0                           @ ../02_System/SystemControl.c:0:0
+	subs	r0, r7, r4
+	@DEBUG_VALUE: IntensityDimmingPropositionToFLUX:p_proposedCurrentIntensity <- undef
+.Ltmp29:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- undef
+	@DEBUG_VALUE: __systemIntensityDimming:intensityTickCount <- $r0
+	str	r1, [sp, #4]                    @ 4-byte Spill
+.Ltmp30:
+	.loc	4 257 8 is_stmt 1               @ ../02_System/SystemControl.c:257:8
+	cmp	r1, #1
+	@DEBUG_VALUE: IntensityDimmingPropositionToFLUX:currentState <- undef
+	str	r5, [sp, #12]                   @ 4-byte Spill
+.Ltmp31:
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	str	r7, [sp, #8]                    @ 4-byte Spill
+.Ltmp32:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	.loc	4 266 62                        @ ../02_System/SystemControl.c:266:62
+	uxth	r0, r0
+.Ltmp33:
+	.loc	4 257 8                         @ ../02_System/SystemControl.c:257:8
+	bne	.LBB1_17
+.Ltmp34:
+@ %bb.14:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 260 82                        @ ../02_System/SystemControl.c:260:82
+	ldr	r1, [r3, #20]
+	.loc	4 260 61 is_stmt 0              @ ../02_System/SystemControl.c:260:61
+	muls	r1, r0, r1
+	.loc	4 260 113                       @ ../02_System/SystemControl.c:260:113
+	ldr	r0, [r3, #28]
+	.loc	4 260 92                        @ ../02_System/SystemControl.c:260:92
+	adds	r4, r1, r0
+.Ltmp35:
+	.loc	4 165 7 is_stmt 1               @ ../02_System/SystemControl.c:165:7
+	lsrs	r0, r4, #19
+	cmp	r0, #124
+	bls	.LBB1_21
+.Ltmp36:
+@ %bb.15:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	ldr	r0, __arm_cp.1_3
+	adds	r0, r0, #1
+	b	.LBB1_20
+.Ltmp37:
+.LBB1_16:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 278 56 is_stmt 1              @ ../02_System/SystemControl.c:278:56
+	ldrh	r0, [r3, #18]
+	b	.LBB1_28
+.Ltmp38:
+.LBB1_17:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 266 112                       @ ../02_System/SystemControl.c:266:112
+	ldr	r1, [r3, #20]
+	.loc	4 266 91 is_stmt 0              @ ../02_System/SystemControl.c:266:91
+	muls	r1, r0, r1
+	.loc	4 266 51                        @ ../02_System/SystemControl.c:266:51
+	ldr	r2, [r3, #28]
+.Ltmp39:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- [DW_OP_LLVM_arg 0, DW_OP_LLVM_arg 1, DW_OP_minus, DW_OP_stack_value] $r2, $r1
+	.loc	4 267 9 is_stmt 1               @ ../02_System/SystemControl.c:267:9
+	subs	r4, r2, r1
+	movs	r0, #0
+	cmp	r2, r1
+	bhs	.LBB1_19
+.Ltmp40:
+@ %bb.18:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- [DW_OP_LLVM_arg 0, DW_OP_LLVM_arg 1, DW_OP_minus, DW_OP_stack_value] $r2, $r1
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 9 is_stmt 0                 @ ../02_System/SystemControl.c:0:9
+	mov	r4, r0
+.Ltmp41:
+.LBB1_19:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- [DW_OP_LLVM_arg 0, DW_OP_LLVM_arg 1, DW_OP_minus, DW_OP_stack_value] $r2, $r1
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 179 7 is_stmt 1               @ ../02_System/SystemControl.c:179:7
+	cmp	r2, r1
+	bhi	.LBB1_21
+.Ltmp42:
+.LBB1_20:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	movs	r1, #0
+	str	r1, [r3, #20]
+	strh	r1, [r3, #16]
+.Ltmp43:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- $r0
+	mov	r4, r0
+.Ltmp44:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- $r4
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- $r4
+.LBB1_21:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:dimRate <- $r6
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- $r4
+	.loc	4 187 30 is_stmt 1              @ ../02_System/SystemControl.c:187:30
+	str	r4, [sp]                        @ 4-byte Spill
+.Ltmp45:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- [$sp+0]
+	str	r4, [r3, #28]
+.Ltmp46:
+	@DEBUG_VALUE: unlinearize:section <- 0
+	.loc	4 113 57                        @ ../02_System/SystemControl.c:113:57
+	ldr	r5, __arm_cp.1_4
+	blx	r5
+.Ltmp47:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #34
+	.loc	4 113 69                        @ ../02_System/SystemControl.c:113:69
+	ldrb	r0, [r0, r1]
+	movs	r6, #40
+.Ltmp48:
+	.loc	4 113 45                        @ ../02_System/SystemControl.c:113:45
+	muls	r0, r6, r0
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- [$sp+0]
+	.loc	4 113 19                        @ ../02_System/SystemControl.c:113:19
+	ldr	r4, __arm_cp.1_5
+	str	r0, [r4, #8]
+	.loc	4 114 58 is_stmt 1              @ ../02_System/SystemControl.c:114:58
+	blx	r5
+.Ltmp49:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #36
+	.loc	4 114 70                        @ ../02_System/SystemControl.c:114:70
+	ldrb	r0, [r0, r1]
+	.loc	4 114 44                        @ ../02_System/SystemControl.c:114:44
+	lsls	r7, r0, #10
+	.loc	4 114 90                        @ ../02_System/SystemControl.c:114:90
+	blx	r5
+.Ltmp50:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #35
+	.loc	4 114 102                       @ ../02_System/SystemControl.c:114:102
+	ldrb	r0, [r0, r1]
+	.loc	4 114 44                        @ ../02_System/SystemControl.c:114:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 114 19                        @ ../02_System/SystemControl.c:114:19
+	str	r0, [r4, #12]
+	.loc	4 116 57 is_stmt 1              @ ../02_System/SystemControl.c:116:57
+	blx	r5
+.Ltmp51:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #37
+	.loc	4 116 69                        @ ../02_System/SystemControl.c:116:69
+	ldrb	r0, [r0, r1]
+	.loc	4 116 45                        @ ../02_System/SystemControl.c:116:45
+	muls	r0, r6, r0
+	.loc	4 116 19                        @ ../02_System/SystemControl.c:116:19
+	str	r0, [r4, #16]
+	.loc	4 117 58 is_stmt 1              @ ../02_System/SystemControl.c:117:58
+	blx	r5
+.Ltmp52:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #39
+	.loc	4 117 70                        @ ../02_System/SystemControl.c:117:70
+	ldrb	r0, [r0, r1]
+	.loc	4 117 44                        @ ../02_System/SystemControl.c:117:44
+	lsls	r7, r0, #10
+	.loc	4 117 90                        @ ../02_System/SystemControl.c:117:90
+	blx	r5
+.Ltmp53:
+	.loc	4 117 102                       @ ../02_System/SystemControl.c:117:102
+	ldr	r1, [sp, #16]                   @ 4-byte Reload
+	ldrb	r0, [r0, r1]
+	.loc	4 117 44                        @ ../02_System/SystemControl.c:117:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 117 19                        @ ../02_System/SystemControl.c:117:19
+	str	r0, [r4, #20]
+	.loc	4 119 57 is_stmt 1              @ ../02_System/SystemControl.c:119:57
+	blx	r5
+.Ltmp54:
+	.loc	4 119 69 is_stmt 0              @ ../02_System/SystemControl.c:119:69
+	ldrb	r0, [r0, r6]
+	.loc	4 119 45                        @ ../02_System/SystemControl.c:119:45
+	muls	r0, r6, r0
+	.loc	4 119 19                        @ ../02_System/SystemControl.c:119:19
+	str	r0, [r4, #24]
+	.loc	4 120 58 is_stmt 1              @ ../02_System/SystemControl.c:120:58
+	blx	r5
+.Ltmp55:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #42
+	.loc	4 120 70                        @ ../02_System/SystemControl.c:120:70
+	ldrb	r0, [r0, r1]
+	.loc	4 120 44                        @ ../02_System/SystemControl.c:120:44
+	lsls	r7, r0, #10
+	.loc	4 120 90                        @ ../02_System/SystemControl.c:120:90
+	blx	r5
+.Ltmp56:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #41
+	.loc	4 120 102                       @ ../02_System/SystemControl.c:120:102
+	ldrb	r0, [r0, r1]
+	.loc	4 120 44                        @ ../02_System/SystemControl.c:120:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 120 19                        @ ../02_System/SystemControl.c:120:19
+	str	r0, [r4, #28]
+	.loc	4 122 57 is_stmt 1              @ ../02_System/SystemControl.c:122:57
+	blx	r5
+.Ltmp57:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #43
+	.loc	4 122 69                        @ ../02_System/SystemControl.c:122:69
+	ldrb	r0, [r0, r1]
+	.loc	4 122 45                        @ ../02_System/SystemControl.c:122:45
+	muls	r0, r6, r0
+	.loc	4 122 19                        @ ../02_System/SystemControl.c:122:19
+	str	r0, [r4, #32]
+	.loc	4 123 58 is_stmt 1              @ ../02_System/SystemControl.c:123:58
+	blx	r5
+.Ltmp58:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #45
+	.loc	4 123 70                        @ ../02_System/SystemControl.c:123:70
+	ldrb	r0, [r0, r1]
+	.loc	4 123 44                        @ ../02_System/SystemControl.c:123:44
+	lsls	r7, r0, #10
+	.loc	4 123 90                        @ ../02_System/SystemControl.c:123:90
+	blx	r5
+.Ltmp59:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #44
+	.loc	4 123 102                       @ ../02_System/SystemControl.c:123:102
+	ldrb	r0, [r0, r1]
+	.loc	4 123 44                        @ ../02_System/SystemControl.c:123:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 123 19                        @ ../02_System/SystemControl.c:123:19
+	str	r0, [r4, #36]
+	.loc	4 125 57 is_stmt 1              @ ../02_System/SystemControl.c:125:57
+	blx	r5
+.Ltmp60:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #46
+	.loc	4 125 69                        @ ../02_System/SystemControl.c:125:69
+	ldrb	r0, [r0, r1]
+	.loc	4 125 45                        @ ../02_System/SystemControl.c:125:45
+	muls	r0, r6, r0
+	.loc	4 125 19                        @ ../02_System/SystemControl.c:125:19
+	str	r0, [r4, #40]
+	.loc	4 126 58 is_stmt 1              @ ../02_System/SystemControl.c:126:58
+	blx	r5
+.Ltmp61:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #48
+	.loc	4 126 70                        @ ../02_System/SystemControl.c:126:70
+	ldrb	r0, [r0, r1]
+	.loc	4 126 44                        @ ../02_System/SystemControl.c:126:44
+	lsls	r7, r0, #10
+	.loc	4 126 90                        @ ../02_System/SystemControl.c:126:90
+	blx	r5
+.Ltmp62:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #47
+	.loc	4 126 102                       @ ../02_System/SystemControl.c:126:102
+	ldrb	r0, [r0, r1]
+	.loc	4 126 44                        @ ../02_System/SystemControl.c:126:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 126 19                        @ ../02_System/SystemControl.c:126:19
+	str	r0, [r4, #44]
+	.loc	4 128 57 is_stmt 1              @ ../02_System/SystemControl.c:128:57
+	blx	r5
+.Ltmp63:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #49
+	.loc	4 128 69                        @ ../02_System/SystemControl.c:128:69
+	ldrb	r0, [r0, r1]
+	.loc	4 128 45                        @ ../02_System/SystemControl.c:128:45
+	muls	r0, r6, r0
+	.loc	4 128 19                        @ ../02_System/SystemControl.c:128:19
+	str	r0, [r4, #48]
+	.loc	4 129 58 is_stmt 1              @ ../02_System/SystemControl.c:129:58
+	blx	r5
+.Ltmp64:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #51
+	.loc	4 129 70                        @ ../02_System/SystemControl.c:129:70
+	ldrb	r0, [r0, r1]
+	.loc	4 129 44                        @ ../02_System/SystemControl.c:129:44
+	lsls	r7, r0, #10
+	.loc	4 129 90                        @ ../02_System/SystemControl.c:129:90
+	blx	r5
+.Ltmp65:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #50
+	.loc	4 129 102                       @ ../02_System/SystemControl.c:129:102
+	ldrb	r0, [r0, r1]
+	.loc	4 129 44                        @ ../02_System/SystemControl.c:129:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 129 19                        @ ../02_System/SystemControl.c:129:19
+	str	r0, [r4, #52]
+	.loc	4 131 57 is_stmt 1              @ ../02_System/SystemControl.c:131:57
+	blx	r5
+.Ltmp66:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #52
+	.loc	4 131 69                        @ ../02_System/SystemControl.c:131:69
+	ldrb	r0, [r0, r1]
+	.loc	4 131 45                        @ ../02_System/SystemControl.c:131:45
+	muls	r0, r6, r0
+	.loc	4 131 19                        @ ../02_System/SystemControl.c:131:19
+	str	r0, [r4, #56]
+	.loc	4 132 58 is_stmt 1              @ ../02_System/SystemControl.c:132:58
+	blx	r5
+.Ltmp67:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #54
+	.loc	4 132 70                        @ ../02_System/SystemControl.c:132:70
+	ldrb	r0, [r0, r1]
+	.loc	4 132 44                        @ ../02_System/SystemControl.c:132:44
+	lsls	r7, r0, #10
+	.loc	4 132 90                        @ ../02_System/SystemControl.c:132:90
+	blx	r5
+.Ltmp68:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #53
+	.loc	4 132 102                       @ ../02_System/SystemControl.c:132:102
+	ldrb	r0, [r0, r1]
+	.loc	4 132 44                        @ ../02_System/SystemControl.c:132:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 132 19                        @ ../02_System/SystemControl.c:132:19
+	str	r0, [r4, #60]
+	.loc	4 134 57 is_stmt 1              @ ../02_System/SystemControl.c:134:57
+	blx	r5
+.Ltmp69:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #55
+	.loc	4 134 69                        @ ../02_System/SystemControl.c:134:69
+	ldrb	r0, [r0, r1]
+	.loc	4 134 45                        @ ../02_System/SystemControl.c:134:45
+	muls	r0, r6, r0
+	.loc	4 134 19                        @ ../02_System/SystemControl.c:134:19
+	str	r0, [r4, #64]
+	.loc	4 135 58 is_stmt 1              @ ../02_System/SystemControl.c:135:58
+	blx	r5
+.Ltmp70:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #57
+	.loc	4 135 70                        @ ../02_System/SystemControl.c:135:70
+	ldrb	r0, [r0, r1]
+	.loc	4 135 44                        @ ../02_System/SystemControl.c:135:44
+	lsls	r7, r0, #10
+	.loc	4 135 90                        @ ../02_System/SystemControl.c:135:90
+	blx	r5
+.Ltmp71:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #56
+	.loc	4 135 102                       @ ../02_System/SystemControl.c:135:102
+	ldrb	r0, [r0, r1]
+	.loc	4 135 44                        @ ../02_System/SystemControl.c:135:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r7
+	.loc	4 135 19                        @ ../02_System/SystemControl.c:135:19
+	str	r0, [r4, #68]
+	.loc	4 137 57 is_stmt 1              @ ../02_System/SystemControl.c:137:57
+	blx	r5
+.Ltmp72:
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r1, #58
+	.loc	4 137 69                        @ ../02_System/SystemControl.c:137:69
+	ldrb	r0, [r0, r1]
+	.loc	4 137 45                        @ ../02_System/SystemControl.c:137:45
+	muls	r0, r6, r0
+	.loc	4 137 19                        @ ../02_System/SystemControl.c:137:19
+	str	r0, [r4, #72]
+	.loc	4 138 58 is_stmt 1              @ ../02_System/SystemControl.c:138:58
+	blx	r5
+.Ltmp73:
+	.loc	4 0 58 is_stmt 0                @ ../02_System/SystemControl.c:0:58
+	movs	r1, #60
+	.loc	4 138 70                        @ ../02_System/SystemControl.c:138:70
+	ldrb	r0, [r0, r1]
+	.loc	4 138 44                        @ ../02_System/SystemControl.c:138:44
+	lsls	r6, r0, #10
+	.loc	4 138 90                        @ ../02_System/SystemControl.c:138:90
+	blx	r5
+.Ltmp74:
+	.loc	4 0 90                          @ ../02_System/SystemControl.c:0:90
+	movs	r1, #59
+	.loc	4 138 102                       @ ../02_System/SystemControl.c:138:102
+	ldrb	r0, [r0, r1]
+	.loc	4 138 44                        @ ../02_System/SystemControl.c:138:44
+	lsls	r0, r0, #2
+	adds	r0, r0, r6
+	.loc	4 138 19                        @ ../02_System/SystemControl.c:138:19
+	str	r0, [r4, #76]
+.Ltmp75:
+	.loc	4 190 57 is_stmt 1              @ ../02_System/SystemControl.c:190:57
+	ldr	r0, [sp]                        @ 4-byte Reload
+.Ltmp76:
+	@DEBUG_VALUE: __systemIntensityDimming:proposedCurrentIntensity <- $r0
+	lsrs	r0, r0, #14
+.Ltmp77:
+	@DEBUG_VALUE: unlinearize:linearBrightness <- $r0
+	.loc	4 0 57 is_stmt 0                @ ../02_System/SystemControl.c:0:57
+	movs	r2, #0
+.Ltmp78:
+.LBB1_22:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: unlinearize:linearBrightness <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: unlinearize:section <- $r2
+	.loc	4 146 10 is_stmt 1              @ ../02_System/SystemControl.c:146:10
+	sxtb	r1, r2
+	lsls	r3, r1, #3
+	ldr	r3, [r4, r3]
+.Ltmp79:
+	.loc	4 148 11                        @ ../02_System/SystemControl.c:148:11
+	adds	r2, r2, #1
+.Ltmp80:
+	@DEBUG_VALUE: unlinearize:section <- $r2
+	.loc	4 146 3                         @ ../02_System/SystemControl.c:146:3
+	cmp	r3, r0
+	blo	.LBB1_22
+.Ltmp81:
+@ %bb.23:
+	@DEBUG_VALUE: unlinearize:section <- $r2
+	@DEBUG_VALUE: unlinearize:linearBrightness <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	.loc	4 150 7                         @ ../02_System/SystemControl.c:150:7
+	cmp	r1, #1
+	bgt	.LBB1_25
+.Ltmp82:
+@ %bb.24:
+	@DEBUG_VALUE: unlinearize:section <- $r2
+	@DEBUG_VALUE: unlinearize:linearBrightness <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	movs	r1, #1
+.Ltmp83:
+.LBB1_25:
+	@DEBUG_VALUE: unlinearize:section <- $r2
+	@DEBUG_VALUE: unlinearize:linearBrightness <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- [DW_OP_plus_uconst 8] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: unlinearize:section <- $r1
+	.loc	4 154 36 is_stmt 1              @ ../02_System/SystemControl.c:154:36
+	lsls	r1, r1, #3
+.Ltmp84:
+	.loc	4 154 107 is_stmt 0             @ ../02_System/SystemControl.c:154:107
+	ldr	r2, [r4, r1]
+	adds	r4, r4, r1
+	.loc	4 154 18                        @ ../02_System/SystemControl.c:154:18
+	mov	r5, r4
+	subs	r5, #8
+	.loc	4 154 68                        @ ../02_System/SystemControl.c:154:68
+	ldr	r3, [r5]
+	.loc	4 154 129                       @ ../02_System/SystemControl.c:154:129
+	subs	r1, r2, r3
+	.loc	4 154 66                        @ ../02_System/SystemControl.c:154:66
+	subs	r0, r0, r3
+.Ltmp85:
+	.loc	4 0 66                          @ ../02_System/SystemControl.c:0:66
+	ldr	r6, __arm_cp.1_6
+	.loc	4 154 95                        @ ../02_System/SystemControl.c:154:95
+	muls	r0, r6, r0
+	.loc	4 154 104                       @ ../02_System/SystemControl.c:154:104
+	bl	__aeabi_uidiv
+.Ltmp86:
+	.loc	4 154 161                       @ ../02_System/SystemControl.c:154:161
+	ldr	r1, [r4, #4]
+	.loc	4 154 18                        @ ../02_System/SystemControl.c:154:18
+	ldr	r4, [r5, #4]
+	.loc	4 154 183                       @ ../02_System/SystemControl.c:154:183
+	subs	r1, r1, r4
+	.loc	4 154 158                       @ ../02_System/SystemControl.c:154:158
+	muls	r0, r1, r0
+	.loc	4 154 213                       @ ../02_System/SystemControl.c:154:213
+	mov	r1, r6
+	bl	__aeabi_uidiv
+.Ltmp87:
+	.loc	4 154 44                        @ ../02_System/SystemControl.c:154:44
+	adds	r0, r0, r4
+.Ltmp88:
+	@DEBUG_VALUE: IntensityDimmingPropositionToFLUX:interpolateY <- $r0
+	@DEBUG_VALUE: unlinearize:interpolateY <- $r0
+	.loc	4 195 6 is_stmt 1               @ ../02_System/SystemControl.c:195:6
+	ldr	r1, [sp, #4]                    @ 4-byte Reload
+	cmp	r1, #1
+	ldr	r7, [sp, #8]                    @ 4-byte Reload
+.Ltmp89:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	beq	.LBB1_27
+.Ltmp90:
+@ %bb.26:
+	@DEBUG_VALUE: unlinearize:interpolateY <- $r0
+	@DEBUG_VALUE: IntensityDimmingPropositionToFLUX:interpolateY <- $r0
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	.loc	4 0 6 is_stmt 0                 @ ../02_System/SystemControl.c:0:6
+	ldr	r1, __arm_cp.1_7
+	adds	r0, r0, r1
+.Ltmp91:
+.LBB1_27:
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- [DW_OP_plus_uconst 12] [$sp+0]
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	ldr	r5, [sp, #12]                   @ 4-byte Reload
+.Ltmp92:
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	ldr	r3, __arm_cp.1_0
+.Ltmp93:
+	ldr	r1, [r3, #32]
+	muls	r1, r0, r1
+	ldr	r0, [r3, #24]
+	adds	r0, r1, r0
+	lsrs	r0, r0, #14
+	strh	r0, [r3, #18]
+.Ltmp94:
+.LBB1_28:
+	@DEBUG_VALUE: __systemIntensityDimming:currentTick <- $r7
+	@DEBUG_VALUE: __systemIntensityDimming:inputColor <- $r5
+	.loc	4 276 38 is_stmt 1              @ ../02_System/SystemControl.c:276:38
+	strh	r7, [r3, #36]
+	.loc	4 278 27                        @ ../02_System/SystemControl.c:278:27
+	uxth	r0, r0
+	.loc	4 278 25 is_stmt 0              @ ../02_System/SystemControl.c:278:25
+	str	r0, [r5, #8]
+	.loc	4 279 1 epilogue_begin is_stmt 1 @ ../02_System/SystemControl.c:279:1
+	add	sp, #20
+	pop	{r4, r5, r6, r7, pc}
+.Ltmp95:
+	.p2align	2
+@ %bb.29:
+	.loc	4 0 1 is_stmt 0                 @ ../02_System/SystemControl.c:0:1
+__arm_cp.1_0:
+	.long	.L_MergedGlobals
+.Lcpi_end1:
+	.size	__arm_cp.1_0, .Lcpi_end1-__arm_cp.1_0
+__arm_cp.1_1:
+	.long	sysStatus
+.Lcpi_end2:
+	.size	__arm_cp.1_1, .Lcpi_end2-__arm_cp.1_1
+__arm_cp.1_2:
+	.long	sysLin
+.Lcpi_end3:
+	.size	__arm_cp.1_2, .Lcpi_end3-__arm_cp.1_2
+__arm_cp.1_3:
+	.long	65535999                        @ 0x3e7ffff
+.Lcpi_end4:
+	.size	__arm_cp.1_3, .Lcpi_end4-__arm_cp.1_3
+__arm_cp.1_4:
+	.long	moduleFlashGetConfig
+.Lcpi_end5:
+	.size	__arm_cp.1_4, .Lcpi_end5-__arm_cp.1_4
+__arm_cp.1_5:
+	.long	dataPoint
+.Lcpi_end6:
+	.size	__arm_cp.1_5, .Lcpi_end6-__arm_cp.1_5
+__arm_cp.1_6:
+	.long	10000                           @ 0x2710
+.Lcpi_end7:
+	.size	__arm_cp.1_6, .Lcpi_end7-__arm_cp.1_6
+__arm_cp.1_7:
+	.long	1073737824                      @ 0x3ffff060
+.Lcpi_end8:
+	.size	__arm_cp.1_7, .Lcpi_end8-__arm_cp.1_7
+.Lfunc_end1:
+	.size	__systemIntensityDimming, .Lfunc_end1-__systemIntensityDimming
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.IntensityDimminggetDimmingSpeed,"ax",%progbits
+	.p2align	2                               @ -- Begin function IntensityDimminggetDimmingSpeed
+	.type	IntensityDimminggetDimmingSpeed,%function
+	.code	16                              @ @IntensityDimminggetDimmingSpeed
+	.thumb_func
+IntensityDimminggetDimmingSpeed:
+.Lfunc_begin2:
+	.loc	4 65 0 is_stmt 1                @ ../02_System/SystemControl.c:65:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r1
+	.save	{r4, r5, r6, r7, lr}
+	.pad	#4
+	push	{r3, r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 24
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	mov	r5, r1
+.Ltmp96:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r5
+	mov	r4, r0
+.Ltmp97:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- 0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	.loc	4 67 6 prologue_end             @ ../02_System/SystemControl.c:67:6
+	bl	moduleFlashGetConfig
+.Ltmp98:
+	.loc	4 0 6 is_stmt 0                 @ ../02_System/SystemControl.c:0:6
+	movs	r1, #7
+	.loc	4 67 18                         @ ../02_System/SystemControl.c:67:18
+	ldrsb	r0, [r0, r1]
+	.loc	4 67 49                         @ ../02_System/SystemControl.c:67:49
+	cmp	r0, #0
+	bpl	.LBB2_2
+.Ltmp99:
+@ %bb.1:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- 0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r5
+	.loc	4 67 62                         @ ../02_System/SystemControl.c:67:62
+	ldr	r0, __arm_cp.2_0
+	ldrb	r0, [r0]
+.Ltmp100:
+	.loc	4 67 5                          @ ../02_System/SystemControl.c:67:5
+	cmp	r0, #3
+	bne	.LBB2_3
+.Ltmp101:
+.LBB2_2:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- 0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r5
+	.loc	4 0 5                           @ ../02_System/SystemControl.c:0:5
+	movs	r1, #50
+.Ltmp102:
+	.loc	4 69 42 is_stmt 1               @ ../02_System/SystemControl.c:69:42
+	muls	r1, r5, r1
+.Ltmp103:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- $r1
+	.loc	4 0 42 is_stmt 0                @ ../02_System/SystemControl.c:0:42
+	b	.LBB2_4
+.Ltmp104:
+.LBB2_3:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- 0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r5
+	.loc	4 74 18 is_stmt 1               @ ../02_System/SystemControl.c:74:18
+	bl	GetBrightnessDiffForSpeedBasedDimming
+.Ltmp105:
+	@DEBUG_VALUE: diff <- undef
+	.loc	4 75 43                         @ ../02_System/SystemControl.c:75:43
+	muls	r0, r5, r0
+	movs	r1, #50
+	.loc	4 75 63 is_stmt 0               @ ../02_System/SystemControl.c:75:63
+	muls	r0, r1, r0
+	movs	r1, #100
+	.loc	4 75 81                         @ ../02_System/SystemControl.c:75:81
+	bl	__aeabi_uidiv
+.Ltmp106:
+	mov	r1, r0
+.Ltmp107:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- $r1
+.LBB2_4:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- $r1
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- $r5
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- undef
+	.loc	4 79 50 is_stmt 1               @ ../02_System/SystemControl.c:79:50
+	ldr	r5, __arm_cp.2_1
+.Ltmp108:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	ldrh	r0, [r5, #18]
+	.loc	4 79 66 is_stmt 0               @ ../02_System/SystemControl.c:79:66
+	lsls	r6, r0, #14
+.Ltmp109:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	.loc	4 78 33 is_stmt 1               @ ../02_System/SystemControl.c:78:33
+	ldr	r0, [r4, #8]
+	.loc	4 78 43 is_stmt 0               @ ../02_System/SystemControl.c:78:43
+	lsls	r7, r0, #14
+.Ltmp110:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	.loc	4 80 6 is_stmt 1                @ ../02_System/SystemControl.c:80:6
+	cmp	r6, r7
+	bne	.LBB2_6
+.Ltmp111:
+@ %bb.5:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	.loc	4 0 6 is_stmt 0                 @ ../02_System/SystemControl.c:0:6
+	movs	r0, #0
+.Ltmp112:
+	.loc	4 103 29 is_stmt 1              @ ../02_System/SystemControl.c:103:29
+	str	r0, [r5, #32]
+	.loc	4 102 32                        @ ../02_System/SystemControl.c:102:32
+	str	r0, [r5, #20]
+	.loc	4 101 32                        @ ../02_System/SystemControl.c:101:32
+	strb	r0, [r5, #16]
+.Ltmp113:
+	.loc	4 106 1 epilogue_begin          @ ../02_System/SystemControl.c:106:1
+	pop	{r3, r4, r5, r6, r7, pc}
+.Ltmp114:
+.LBB2_6:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	.loc	4 83 42                         @ ../02_System/SystemControl.c:83:42
+	str	r6, [r5, #24]
+.Ltmp115:
+	.loc	4 77 17                         @ ../02_System/SystemControl.c:77:17
+	cmp	r1, #100
+	bhi	.LBB2_8
+.Ltmp116:
+@ %bb.7:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	.loc	4 0 17 is_stmt 0                @ ../02_System/SystemControl.c:0:17
+	movs	r1, #100
+.Ltmp117:
+.LBB2_8:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- $r4
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:totalDimTime <- $r1
+	movs	r0, #125
+	str	r0, [sp]                        @ 4-byte Spill
+	lsls	r4, r0, #19
+.Ltmp118:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	4 84 80 is_stmt 1               @ ../02_System/SystemControl.c:84:80
+	mov	r0, r4
+	bl	__aeabi_uidiv
+.Ltmp119:
+	.loc	4 84 32 is_stmt 0               @ ../02_System/SystemControl.c:84:32
+	str	r0, [r5, #20]
+	.loc	4 86 7 is_stmt 1                @ ../02_System/SystemControl.c:86:7
+	cmp	r6, r7
+	bls	.LBB2_10
+.Ltmp120:
+@ %bb.9:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- [DW_OP_LLVM_entry_value 1] $r0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	movs	r0, #2
+.Ltmp121:
+	.loc	4 88 33 is_stmt 1               @ ../02_System/SystemControl.c:88:33
+	strb	r0, [r5, #16]
+	.loc	4 90 32                         @ ../02_System/SystemControl.c:90:32
+	str	r4, [r5, #28]
+	.loc	4 89 41                         @ ../02_System/SystemControl.c:89:41
+	subs	r0, r6, r7
+	b	.LBB2_11
+.Ltmp122:
+.LBB2_10:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- [DW_OP_LLVM_entry_value 1] $r0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	.loc	4 0 41 is_stmt 0                @ ../02_System/SystemControl.c:0:41
+	movs	r0, #1
+.Ltmp123:
+	.loc	4 94 33 is_stmt 1               @ ../02_System/SystemControl.c:94:33
+	strb	r0, [r5, #16]
+	movs	r0, #0
+	.loc	4 96 32                         @ ../02_System/SystemControl.c:96:32
+	str	r0, [r5, #28]
+	.loc	4 95 41                         @ ../02_System/SystemControl.c:95:41
+	subs	r0, r7, r6
+.Ltmp124:
+.LBB2_11:
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:inputColor <- [DW_OP_LLVM_entry_value 1] $r0
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:targetY <- $r7
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:actualY <- $r6
+	@DEBUG_VALUE: IntensityDimminggetDimmingSpeed:dimRate <- [DW_OP_LLVM_entry_value 1] $r1
+	.loc	4 0 41 is_stmt 0                @ ../02_System/SystemControl.c:0:41
+	ldr	r1, [sp]                        @ 4-byte Reload
+	lsls	r1, r1, #5
+	bl	__aeabi_uidiv
+.Ltmp125:
+	str	r0, [r5, #32]
+.Ltmp126:
+	.loc	4 106 1 epilogue_begin is_stmt 1 @ ../02_System/SystemControl.c:106:1
+	pop	{r3, r4, r5, r6, r7, pc}
+.Ltmp127:
+	.p2align	2
+@ %bb.12:
+	.loc	4 0 1 is_stmt 0                 @ ../02_System/SystemControl.c:0:1
+__arm_cp.2_0:
+	.long	sysStatus
+.Lcpi_end9:
+	.size	__arm_cp.2_0, .Lcpi_end9-__arm_cp.2_0
+__arm_cp.2_1:
+	.long	.L_MergedGlobals
+.Lcpi_end10:
+	.size	__arm_cp.2_1, .Lcpi_end10-__arm_cp.2_1
+.Lfunc_end2:
+	.size	IntensityDimminggetDimmingSpeed, .Lfunc_end2-IntensityDimminggetDimmingSpeed
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.reinitColorDimming,"ax",%progbits
+	.hidden	reinitColorDimming              @ -- Begin function reinitColorDimming
+	.globl	reinitColorDimming
+	.p2align	2
+	.type	reinitColorDimming,%function
+	.code	16                              @ @reinitColorDimming
+	.thumb_func
+reinitColorDimming:
+.Lfunc_begin3:
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.loc	4 301 12 prologue_end is_stmt 1 @ ../02_System/SystemControl.c:301:12
+	ldr	r0, __arm_cp.3_0
+	movs	r1, #0
+	.loc	4 304 11                        @ ../02_System/SystemControl.c:304:11
+	strh	r1, [r0, #8]
+	.loc	4 302 12                        @ ../02_System/SystemControl.c:302:12
+	str	r1, [r0, #4]
+	.loc	4 301 12                        @ ../02_System/SystemControl.c:301:12
+	strh	r1, [r0, #2]
+	.loc	4 305 17                        @ ../02_System/SystemControl.c:305:17
+	ldr	r2, __arm_cp.3_1
+	movs	r3, #1
+	str	r3, [r2]
+	.loc	4 306 20                        @ ../02_System/SystemControl.c:306:20
+	strb	r1, [r0]
+	.loc	4 307 2                         @ ../02_System/SystemControl.c:307:2
+	bx	lr
+.Ltmp128:
+	.p2align	2
+@ %bb.1:
+	.loc	4 0 2 is_stmt 0                 @ ../02_System/SystemControl.c:0:2
+__arm_cp.3_0:
+	.long	.L_MergedGlobals
+.Lcpi_end11:
+	.size	__arm_cp.3_0, .Lcpi_end11-__arm_cp.3_0
+__arm_cp.3_1:
+	.long	Lastintensity
+.Lcpi_end12:
+	.size	__arm_cp.3_1, .Lcpi_end12-__arm_cp.3_1
+.Lfunc_end3:
+	.size	reinitColorDimming, .Lfunc_end3-reinitColorDimming
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.systemControlSleep,"ax",%progbits
+	.hidden	systemControlSleep              @ -- Begin function systemControlSleep
+	.globl	systemControlSleep
+	.p2align	1
+	.type	systemControlSleep,%function
+	.code	16                              @ @systemControlSleep
+	.thumb_func
+systemControlSleep:
+.Lfunc_begin4:
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	.loc	4 410 1 prologue_end is_stmt 1  @ ../02_System/SystemControl.c:410:1
+	bx	lr
+.Ltmp129:
+.Lfunc_end4:
+	.size	systemControlSleep, .Lfunc_end4-systemControlSleep
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.section	.text.systemControl,"ax",%progbits
+	.hidden	systemControl                   @ -- Begin function systemControl
+	.globl	systemControl
+	.p2align	2
+	.type	systemControl,%function
+	.code	16                              @ @systemControl
+	.thumb_func
+systemControl:
+.Lfunc_begin5:
+	.loc	4 419 0                         @ ../02_System/SystemControl.c:419:0
+	.fnstart
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: systemControl:inputColor <- $r0
+	.save	{r4, r5, r6, r7, lr}
+	push	{r4, r5, r6, r7, lr}
+	.cfi_def_cfa_offset 20
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.cfi_offset r6, -12
+	.cfi_offset r5, -16
+	.cfi_offset r4, -20
+	.pad	#20
+	sub	sp, #20
+	.cfi_def_cfa_offset 40
+	mov	r4, r0
+.Ltmp130:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 420 25 prologue_end           @ ../02_System/SystemControl.c:420:25
+	bl	moduleClockGet
+.Ltmp131:
+	str	r0, [sp, #16]                   @ 4-byte Spill
+.Ltmp132:
+	@DEBUG_VALUE: systemControl:realIntensity <- 0
+	@DEBUG_VALUE: systemControl:realDimRate <- 0
+	@DEBUG_VALUE: systemControl:currentTick <- undef
+	.loc	4 425 29                        @ ../02_System/SystemControl.c:425:29
+	ldr	r1, __arm_cp.5_0
+.Ltmp133:
+	@DEBUG_VALUE: systemControl:realIntensity <- undef
+	ldrb	r0, [r1, #4]
+	movs	r6, #63
+	ands	r6, r0
+	.loc	4 425 18 is_stmt 0              @ ../02_System/SystemControl.c:425:18
+	cmp	r6, #2
+	bhi	.LBB5_2
+.Ltmp134:
+@ %bb.1:
+	@DEBUG_VALUE: systemControl:realDimRate <- 0
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 18                          @ ../02_System/SystemControl.c:0:18
+	movs	r6, #2
+.Ltmp135:
+.LBB5_2:
+	@DEBUG_VALUE: systemControl:realDimRate <- 0
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldrb	r7, [r1, #6]
+.Ltmp136:
+	@DEBUG_VALUE: systemControl:realIntensity <- undef
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	.loc	4 427 17 is_stmt 1              @ ../02_System/SystemControl.c:427:17
+	ldr	r2, __arm_cp.5_1
+	ldrb	r0, [r2, #3]
+.Ltmp137:
+	.loc	4 427 7 is_stmt 0               @ ../02_System/SystemControl.c:427:7
+	cmp	r0, #1
+	bne	.LBB5_5
+.Ltmp138:
+@ %bb.3:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 7                           @ ../02_System/SystemControl.c:0:7
+	ldrb	r0, [r1, #16]
+	.loc	4 427 7                         @ ../02_System/SystemControl.c:427:7
+	cmp	r0, #1
+	bne	.LBB5_5
+.Ltmp139:
+@ %bb.4:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 7                           @ ../02_System/SystemControl.c:0:7
+	movs	r0, #2
+.Ltmp140:
+	.loc	4 432 22 is_stmt 1              @ ../02_System/SystemControl.c:432:22
+	strb	r0, [r1, #16]
+.Ltmp141:
+.LBB5_5:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 22 is_stmt 0                @ ../02_System/SystemControl.c:0:22
+	movs	r5, #127
+.Ltmp142:
+	@DEBUG_VALUE: systemControl:realIntensity <- undef
+	.loc	4 436 18 is_stmt 1              @ ../02_System/SystemControl.c:436:18
+	ldrb	r0, [r2]
+.Ltmp143:
+	.loc	4 436 8 is_stmt 0               @ ../02_System/SystemControl.c:436:8
+	cmp	r0, #2
+	bne	.LBB5_8
+.Ltmp144:
+@ %bb.6:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 8                           @ ../02_System/SystemControl.c:0:8
+	movs	r0, #3
+.Ltmp145:
+	.loc	4 438 28 is_stmt 1              @ ../02_System/SystemControl.c:438:28
+	strb	r0, [r2]
+	movs	r0, #1
+.Ltmp146:
+	@DEBUG_VALUE: systemControl:realDimRate <- undef
+	.loc	4 446 31                        @ ../02_System/SystemControl.c:446:31
+	strb	r0, [r2, #3]
+.Ltmp147:
+	@DEBUG_VALUE: systemControl:realIntensity <- 0
+	.loc	4 441 22                        @ ../02_System/SystemControl.c:441:22
+	ldrb	r0, [r2, #1]
+	cmp	r0, #0
+	beq	.LBB5_9
+.Ltmp148:
+@ %bb.7:
+	@DEBUG_VALUE: systemControl:realIntensity <- 0
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 22 is_stmt 0                @ ../02_System/SystemControl.c:0:22
+	movs	r6, #2
+	b	.LBB5_10
+.Ltmp149:
+.LBB5_8:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ands	r7, r5
+.Ltmp150:
+	@DEBUG_VALUE: systemControl:realIntensity <- $r7
+	b	.LBB5_11
+.Ltmp151:
+.LBB5_9:
+	@DEBUG_VALUE: systemControl:realIntensity <- 0
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	movs	r6, #10
+.Ltmp152:
+.LBB5_10:
+	@DEBUG_VALUE: systemControl:realIntensity <- 0
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	movs	r7, #0
+.Ltmp153:
+.LBB5_11:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:realIntensity <- $r7
+	.loc	4 459 32 is_stmt 1              @ ../02_System/SystemControl.c:459:32
+	bl	moduleTempLedGet
+.Ltmp154:
+	.loc	4 0 32 is_stmt 0                @ ../02_System/SystemControl.c:0:32
+	ldr	r3, __arm_cp.5_0
+.Ltmp155:
+	.loc	4 462 37 is_stmt 1              @ ../02_System/SystemControl.c:462:37
+	ldrb	r2, [r3, #2]
+	ands	r2, r5
+	movs	r1, #5
+	.loc	4 462 52 is_stmt 0              @ ../02_System/SystemControl.c:462:52
+	muls	r2, r1, r2
+	.loc	4 462 23                        @ ../02_System/SystemControl.c:462:23
+	strh	r2, [r4]
+.Ltmp156:
+	.loc	4 459 30 is_stmt 1              @ ../02_System/SystemControl.c:459:30
+	strh	r0, [r4, #4]
+	.loc	4 466 7                         @ ../02_System/SystemControl.c:466:7
+	cmp	r7, #100
+	bhi	.LBB5_13
+.Ltmp157:
+@ %bb.12:
+	@DEBUG_VALUE: systemControl:realIntensity <- $r7
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	movs	r0, #40
+	muls	r0, r7, r0
+	b	.LBB5_14
+.Ltmp158:
+.LBB5_13:
+	@DEBUG_VALUE: systemControl:realIntensity <- $r7
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	movs	r0, #125
+	lsls	r0, r0, #5
+.Ltmp159:
+.LBB5_14:
+	@DEBUG_VALUE: systemControl:realIntensity <- $r7
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldr	r7, [sp, #16]                   @ 4-byte Reload
+.Ltmp160:
+	str	r0, [r4, #8]
+.Ltmp161:
+	.loc	4 463 36 is_stmt 1              @ ../02_System/SystemControl.c:463:36
+	ldrb	r0, [r3, #3]
+	ands	r0, r5
+	.loc	4 463 51 is_stmt 0              @ ../02_System/SystemControl.c:463:51
+	muls	r1, r0, r1
+	.loc	4 463 23                        @ ../02_System/SystemControl.c:463:23
+	strh	r1, [r4, #2]
+	movs	r0, #2
+	mvns	r0, r0
+.Ltmp162:
+	.loc	4 470 14 is_stmt 1              @ ../02_System/SystemControl.c:470:14
+	ldrb	r1, [r3, #16]
+	.loc	4 470 43 is_stmt 0              @ ../02_System/SystemControl.c:470:43
+	subs	r1, r1, #3
+	cmp	r1, r0
+	bhi	.LBB5_43
+.Ltmp163:
+@ %bb.15:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 0                           @ ../02_System/SystemControl.c:0:0
+	adds	r3, r4, #2
+.Ltmp164:
+	.loc	4 313 19 is_stmt 1              @ ../02_System/SystemControl.c:313:19
+	ldr	r0, __arm_cp.5_1
+.Ltmp165:
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	ldrb	r0, [r0, #3]
+.Ltmp166:
+	.loc	4 313 8 is_stmt 0               @ ../02_System/SystemControl.c:313:8
+	cmp	r0, #1
+	bne	.LBB5_20
+.Ltmp167:
+@ %bb.16:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 8                           @ ../02_System/SystemControl.c:0:8
+	str	r3, [sp, #12]                   @ 4-byte Spill
+.Ltmp168:
+	.loc	4 318 23 is_stmt 1              @ ../02_System/SystemControl.c:318:23
+	ldr	r5, __arm_cp.5_2
+	strh	r7, [r5, #10]
+.Ltmp169:
+	.loc	4 321 7                         @ ../02_System/SystemControl.c:321:7
+	bl	moduleFlashGetConfig
+.Ltmp170:
+	.loc	4 0 7 is_stmt 0                 @ ../02_System/SystemControl.c:0:7
+	ldr	r2, __arm_cp.5_1
+	movs	r1, #7
+	.loc	4 321 19                        @ ../02_System/SystemControl.c:321:19
+	ldrsb	r0, [r0, r1]
+	.loc	4 321 50                        @ ../02_System/SystemControl.c:321:50
+	cmp	r0, #0
+	bpl	.LBB5_21
+.Ltmp171:
+@ %bb.17:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 321 63                        @ ../02_System/SystemControl.c:321:63
+	ldrb	r0, [r2]
+.Ltmp172:
+	.loc	4 321 6                         @ ../02_System/SystemControl.c:321:6
+	cmp	r0, #3
+	beq	.LBB5_21
+.Ltmp173:
+@ %bb.18:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 328 19 is_stmt 1              @ ../02_System/SystemControl.c:328:19
+	bl	GetBrightnessDiffForSpeedBasedDimming
+.Ltmp174:
+	@DEBUG_VALUE: diff <- $r0
+	.loc	4 329 7                         @ ../02_System/SystemControl.c:329:7
+	cmp	r0, #0
+	beq	.LBB5_21
+.Ltmp175:
+@ %bb.19:
+	@DEBUG_VALUE: diff <- $r0
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 335 47                        @ ../02_System/SystemControl.c:335:47
+	muls	r0, r6, r0
+.Ltmp176:
+	.loc	4 0 47 is_stmt 0                @ ../02_System/SystemControl.c:0:47
+	movs	r2, #50
+	.loc	4 335 67                        @ ../02_System/SystemControl.c:335:67
+	muls	r2, r0, r2
+	movs	r1, #100
+	.loc	4 335 85                        @ ../02_System/SystemControl.c:335:85
+	mov	r0, r2
+	bl	__aeabi_uidiv
+.Ltmp177:
+	.loc	4 0 85                          @ ../02_System/SystemControl.c:0:85
+	b	.LBB5_22
+.Ltmp178:
+.LBB5_20:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 360 9 is_stmt 1               @ ../02_System/SystemControl.c:360:9
+	ldr	r0, __arm_cp.5_2
+	ldrh	r0, [r0, #12]
+	b	.LBB5_29
+.Ltmp179:
+.LBB5_21:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 9 is_stmt 0                 @ ../02_System/SystemControl.c:0:9
+	movs	r0, #50
+.Ltmp180:
+	muls	r0, r6, r0
+.Ltmp181:
+.LBB5_22:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldr	r3, [sp, #12]                   @ 4-byte Reload
+	.loc	4 338 20 is_stmt 1              @ ../02_System/SystemControl.c:338:20
+	cmp	r0, #100
+	bhi	.LBB5_24
+.Ltmp182:
+@ %bb.23:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 20 is_stmt 0                @ ../02_System/SystemControl.c:0:20
+	movs	r0, #100
+.Ltmp183:
+.LBB5_24:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 338 18                        @ ../02_System/SystemControl.c:338:18
+	strh	r0, [r5, #12]
+.Ltmp184:
+	.loc	4 347 11 is_stmt 1              @ ../02_System/SystemControl.c:347:11
+	ldr	r1, __arm_cp.5_3
+	ldr	r1, [r1]
+.Ltmp185:
+	.loc	4 347 11 is_stmt 0              @ ../02_System/SystemControl.c:347:11
+	cmp	r1, #0
+	mov	r2, r4
+	beq	.LBB5_26
+.Ltmp186:
+@ %bb.25:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 11                          @ ../02_System/SystemControl.c:0:11
+	adds	r2, r5, #2
+.Ltmp187:
+.LBB5_26:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldrh	r2, [r2]
+	strh	r2, [r5, #6]
+	movs	r2, #1
+.Ltmp188:
+	.loc	4 357 25 is_stmt 1              @ ../02_System/SystemControl.c:357:25
+	strb	r2, [r5]
+	.loc	4 347 11                        @ ../02_System/SystemControl.c:347:11
+	cmp	r1, #0
+	mov	r1, r3
+	beq	.LBB5_28
+.Ltmp189:
+@ %bb.27:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 11 is_stmt 0                @ ../02_System/SystemControl.c:0:11
+	adds	r1, r5, #4
+.Ltmp190:
+.LBB5_28:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldrh	r1, [r1]
+	strh	r1, [r5, #8]
+.Ltmp191:
+.LBB5_29:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 360 9 is_stmt 1               @ ../02_System/SystemControl.c:360:9
+	subs	r2, r0, r7
+	ldr	r1, __arm_cp.5_2
+	ldrh	r1, [r1, #10]
+	adds	r2, r2, r1
+	sxth	r2, r2
+	.loc	4 360 69 is_stmt 0              @ ../02_System/SystemControl.c:360:69
+	cmp	r2, #0
+	ble	.LBB5_34
+.Ltmp192:
+@ %bb.30:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 398 27 is_stmt 1              @ ../02_System/SystemControl.c:398:27
+	ldrh	r5, [r4]
+	.loc	4 360 8                         @ ../02_System/SystemControl.c:360:8
+	lsls	r2, r0, #16
+	beq	.LBB5_35
+.Ltmp193:
+@ %bb.31:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 8 is_stmt 0                 @ ../02_System/SystemControl.c:0:8
+	ldr	r2, __arm_cp.5_2
+.Ltmp194:
+	.loc	4 366 8 is_stmt 1               @ ../02_System/SystemControl.c:366:8
+	ldrb	r2, [r2]
+.Ltmp195:
+	.loc	4 366 8 is_stmt 0               @ ../02_System/SystemControl.c:366:8
+	cmp	r2, #1
+	bne	.LBB5_41
+.Ltmp196:
+@ %bb.32:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 8                           @ ../02_System/SystemControl.c:0:8
+	str	r3, [sp, #12]                   @ 4-byte Spill
+.Ltmp197:
+	subs	r1, r7, r1
+.Ltmp198:
+	uxth	r2, r1
+	uxth	r1, r0
+	subs	r2, r1, r2
+	.loc	4 373 10 is_stmt 1              @ ../02_System/SystemControl.c:373:10
+	ldr	r0, __arm_cp.5_2
+	ldrh	r0, [r0, #6]
+.Ltmp199:
+	.loc	4 373 10 is_stmt 0              @ ../02_System/SystemControl.c:373:10
+	cmp	r0, r5
+	str	r1, [sp, #8]                    @ 4-byte Spill
+	str	r2, [sp, #4]                    @ 4-byte Spill
+	bls	.LBB5_36
+.Ltmp200:
+@ %bb.33:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 375 34 is_stmt 1              @ ../02_System/SystemControl.c:375:34
+	subs	r0, r0, r5
+	.loc	4 375 55 is_stmt 0              @ ../02_System/SystemControl.c:375:55
+	muls	r0, r2, r0
+.Ltmp201:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 376 19 is_stmt 1              @ ../02_System/SystemControl.c:376:19
+	bl	__aeabi_uidiv
+.Ltmp202:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 377 27                        @ ../02_System/SystemControl.c:377:27
+	adds	r5, r5, r0
+	b	.LBB5_37
+.Ltmp203:
+.LBB5_34:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 398 27                        @ ../02_System/SystemControl.c:398:27
+	ldrh	r5, [r4]
+.Ltmp204:
+.LBB5_35:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 27 is_stmt 0                @ ../02_System/SystemControl.c:0:27
+	movs	r0, #0
+	ldr	r2, __arm_cp.5_2
+.Ltmp205:
+	.loc	4 363 23 is_stmt 1              @ ../02_System/SystemControl.c:363:23
+	strb	r0, [r2]
+	b	.LBB5_42
+.Ltmp206:
+.LBB5_36:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 381 45                        @ ../02_System/SystemControl.c:381:45
+	subs	r0, r5, r0
+	.loc	4 381 55 is_stmt 0              @ ../02_System/SystemControl.c:381:55
+	muls	r0, r2, r0
+.Ltmp207:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 382 19 is_stmt 1              @ ../02_System/SystemControl.c:382:19
+	bl	__aeabi_uidiv
+.Ltmp208:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 383 27                        @ ../02_System/SystemControl.c:383:27
+	subs	r5, r5, r0
+.Ltmp209:
+.LBB5_37:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 0 is_stmt 0                 @ ../02_System/SystemControl.c:0:0
+	strh	r5, [r4]
+.Ltmp210:
+	.loc	4 385 32 is_stmt 1              @ ../02_System/SystemControl.c:385:32
+	ldrh	r7, [r4, #2]
+	.loc	4 385 10 is_stmt 0              @ ../02_System/SystemControl.c:385:10
+	ldr	r0, __arm_cp.5_2
+.Ltmp211:
+	ldrh	r0, [r0, #8]
+.Ltmp212:
+	.loc	4 385 10                        @ ../02_System/SystemControl.c:385:10
+	cmp	r0, r7
+	bls	.LBB5_39
+.Ltmp213:
+@ %bb.38:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 387 34 is_stmt 1              @ ../02_System/SystemControl.c:387:34
+	subs	r1, r0, r7
+	ldr	r0, [sp, #4]                    @ 4-byte Reload
+	.loc	4 387 55 is_stmt 0              @ ../02_System/SystemControl.c:387:55
+	muls	r0, r1, r0
+.Ltmp214:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 388 19 is_stmt 1              @ ../02_System/SystemControl.c:388:19
+	ldr	r1, [sp, #8]                    @ 4-byte Reload
+	bl	__aeabi_uidiv
+.Ltmp215:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 389 27                        @ ../02_System/SystemControl.c:389:27
+	adds	r0, r7, r0
+.Ltmp216:
+	.loc	4 0 27 is_stmt 0                @ ../02_System/SystemControl.c:0:27
+	b	.LBB5_40
+.Ltmp217:
+.LBB5_39:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 393 45 is_stmt 1              @ ../02_System/SystemControl.c:393:45
+	subs	r1, r7, r0
+	ldr	r0, [sp, #4]                    @ 4-byte Reload
+	.loc	4 393 55 is_stmt 0              @ ../02_System/SystemControl.c:393:55
+	muls	r0, r1, r0
+.Ltmp218:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 394 19 is_stmt 1              @ ../02_System/SystemControl.c:394:19
+	ldr	r1, [sp, #8]                    @ 4-byte Reload
+	bl	__aeabi_uidiv
+.Ltmp219:
+	@DEBUG_VALUE: __systemColorDimming:temp <- $r0
+	.loc	4 395 27                        @ ../02_System/SystemControl.c:395:27
+	subs	r0, r7, r0
+.Ltmp220:
+.LBB5_40:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 0 is_stmt 0                 @ ../02_System/SystemControl.c:0:0
+	ldr	r1, [sp, #12]                   @ 4-byte Reload
+	strh	r0, [r1]
+	ldr	r7, [sp, #16]                   @ 4-byte Reload
+.Ltmp221:
+.LBB5_41:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	ldr	r2, __arm_cp.5_2
+.Ltmp222:
+.LBB5_42:
+	@DEBUG_VALUE: __systemColorDimming:currentTick <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: __systemColorDimming:inputColor <- $r4
+	@DEBUG_VALUE: __systemColorDimming:dimRate <- $r6
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 398 13 is_stmt 1              @ ../02_System/SystemControl.c:398:13
+	strh	r5, [r2, #2]
+	.loc	4 400 32                        @ ../02_System/SystemControl.c:400:32
+	ldr	r0, [r4, #8]
+	.loc	4 400 18 is_stmt 0              @ ../02_System/SystemControl.c:400:18
+	ldr	r1, __arm_cp.5_3
+	str	r0, [r1]
+	.loc	4 399 27 is_stmt 1              @ ../02_System/SystemControl.c:399:27
+	ldrh	r0, [r4, #2]
+	.loc	4 399 13 is_stmt 0              @ ../02_System/SystemControl.c:399:13
+	strh	r0, [r2, #4]
+.Ltmp223:
+.LBB5_43:
+	@DEBUG_VALUE: systemControl:realDimRate <- $r6
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 474 4 is_stmt 1               @ ../02_System/SystemControl.c:474:4
+	mov	r0, r7
+	mov	r1, r4
+	mov	r2, r6
+	bl	__systemIntensityDimming
+.Ltmp224:
+	.loc	4 0 4 is_stmt 0                 @ ../02_System/SystemControl.c:0:4
+	movs	r5, #0
+	ldr	r6, __arm_cp.5_1
+.Ltmp225:
+	.loc	4 475 27 is_stmt 1              @ ../02_System/SystemControl.c:475:27
+	strb	r5, [r6, #3]
+	.loc	4 477 4                         @ ../02_System/SystemControl.c:477:4
+	mov	r0, r4
+	bl	systemTempDerating
+.Ltmp226:
+	.loc	4 479 19                        @ ../02_System/SystemControl.c:479:19
+	ldrb	r0, [r6]
+	.loc	4 479 55 is_stmt 0              @ ../02_System/SystemControl.c:479:55
+	cmp	r0, #3
+	bne	.LBB5_45
+.Ltmp227:
+@ %bb.44:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 479 71                        @ ../02_System/SystemControl.c:479:71
+	ldr	r0, [r4, #8]
+.Ltmp228:
+	.loc	4 479 8                         @ ../02_System/SystemControl.c:479:8
+	cmp	r0, #0
+	beq	.LBB5_49
+.Ltmp229:
+.LBB5_45:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 8                           @ ../02_System/SystemControl.c:0:8
+	ldr	r1, __arm_cp.5_0
+.Ltmp230:
+	.loc	4 483 20 is_stmt 1              @ ../02_System/SystemControl.c:483:20
+	ldrb	r0, [r1, #16]
+	.loc	4 484 13                        @ ../02_System/SystemControl.c:484:13
+	cmp	r0, #2
+	bne	.LBB5_50
+.Ltmp231:
+@ %bb.46:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 13 is_stmt 0                @ ../02_System/SystemControl.c:0:13
+	ldr	r0, __arm_cp.5_2
+	ldrb	r0, [r0, #16]
+	.loc	4 484 13                        @ ../02_System/SystemControl.c:484:13
+	cmp	r0, #0
+	bne	.LBB5_50
+.Ltmp232:
+@ %bb.47:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 485 29 is_stmt 1              @ ../02_System/SystemControl.c:485:29
+	ldr	r0, [r4, #8]
+.Ltmp233:
+	.loc	4 483 12                        @ ../02_System/SystemControl.c:483:12
+	cmp	r0, #0
+	beq	.LBB5_50
+.Ltmp234:
+@ %bb.48:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 488 25                        @ ../02_System/SystemControl.c:488:25
+	strb	r5, [r1, #16]
+	b	.LBB5_50
+.Ltmp235:
+.LBB5_49:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 0 25 is_stmt 0                @ ../02_System/SystemControl.c:0:25
+	mov	r1, r6
+	movs	r0, #4
+.Ltmp236:
+	.loc	4 481 29 is_stmt 1              @ ../02_System/SystemControl.c:481:29
+	strb	r0, [r6]
+.Ltmp237:
+.LBB5_50:
+	@DEBUG_VALUE: systemControl:inputColor <- $r4
+	.loc	4 490 1 epilogue_begin          @ ../02_System/SystemControl.c:490:1
+	add	sp, #20
+	pop	{r4, r5, r6, r7, pc}
+.Ltmp238:
+	.p2align	2
+@ %bb.51:
+	.loc	4 0 1 is_stmt 0                 @ ../02_System/SystemControl.c:0:1
+__arm_cp.5_0:
+	.long	sysLin
+.Lcpi_end13:
+	.size	__arm_cp.5_0, .Lcpi_end13-__arm_cp.5_0
+__arm_cp.5_1:
+	.long	sysStatus
+.Lcpi_end14:
+	.size	__arm_cp.5_1, .Lcpi_end14-__arm_cp.5_1
+__arm_cp.5_2:
+	.long	.L_MergedGlobals
+.Lcpi_end15:
+	.size	__arm_cp.5_2, .Lcpi_end15-__arm_cp.5_2
+__arm_cp.5_3:
+	.long	Lastintensity
+.Lcpi_end16:
+	.size	__arm_cp.5_3, .Lcpi_end16-__arm_cp.5_3
+.Lfunc_end5:
+	.size	systemControl, .Lfunc_end5-systemControl
+	.cfi_endproc
+	.file	7 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../03_Algorithm_FixedPoint\\Algorithm.h"
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.type	Lastintensity,%object           @ @Lastintensity
+	.section	.data.Lastintensity,"aw",%progbits
+	.p2align	2, 0x0
+Lastintensity:
+	.long	1                               @ 0x1
+	.size	Lastintensity, 4
+
+	.type	dataPoint,%object               @ @dataPoint
+	.section	.data.dataPoint,"aw",%progbits
+	.p2align	2, 0x0
+dataPoint:
+	.zero	8
+	.long	400                             @ 0x190
+	.long	12                              @ 0xc
+	.long	800                             @ 0x320
+	.long	68                              @ 0x44
+	.long	1200                            @ 0x4b0
+	.long	200                             @ 0xc8
+	.long	1600                            @ 0x640
+	.long	400                             @ 0x190
+	.long	2000                            @ 0x7d0
+	.long	720                             @ 0x2d0
+	.long	2400                            @ 0x960
+	.long	1120                            @ 0x460
+	.long	2800                            @ 0xaf0
+	.long	1640                            @ 0x668
+	.long	3200                            @ 0xc80
+	.long	2280                            @ 0x8e8
+	.long	3600                            @ 0xe10
+	.long	3080                            @ 0xc08
+	.long	4000                            @ 0xfa0
+	.long	4000                            @ 0xfa0
+	.size	dataPoint, 88
+
+	.type	.L_MergedGlobals,%object        @ @_MergedGlobals
+	.section	.bss..L_MergedGlobals,"aw",%nobits
+	.p2align	2, 0x0
+.L_MergedGlobals:
+	.zero	40
+	.size	.L_MergedGlobals, 40
+
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Lfunc_begin1-.Lfunc_begin1
+	.long	.Ltmp6-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp6-.Lfunc_begin1
+	.long	.Ltmp32-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	.Ltmp32-.Lfunc_begin1
+	.long	.Ltmp37-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	8                               @ 8
+	.long	.Ltmp37-.Lfunc_begin1
+	.long	.Ltmp38-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	.Ltmp38-.Lfunc_begin1
+	.long	.Ltmp89-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	8                               @ 8
+	.long	.Ltmp89-.Lfunc_begin1
+	.long	.Ltmp95-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Lfunc_begin1-.Lfunc_begin1
+	.long	.Ltmp5-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	.Ltmp5-.Lfunc_begin1
+	.long	.Ltmp31-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	.Ltmp31-.Lfunc_begin1
+	.long	.Ltmp37-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	12                              @ 12
+	.long	.Ltmp37-.Lfunc_begin1
+	.long	.Ltmp38-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	.Ltmp38-.Lfunc_begin1
+	.long	.Ltmp92-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	12                              @ 12
+	.long	.Ltmp92-.Lfunc_begin1
+	.long	.Ltmp95-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Lfunc_begin1-.Lfunc_begin1
+	.long	.Ltmp4-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	82                              @ DW_OP_reg2
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp48-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp39-.Lfunc_begin1
+	.long	.Ltmp42-.Lfunc_begin1
+	.short	6                               @ Loc expr size
+	.byte	114                             @ DW_OP_breg2
+	.byte	0                               @ 0
+	.byte	113                             @ DW_OP_breg1
+	.byte	0                               @ 0
+	.byte	28                              @ DW_OP_minus
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp43-.Lfunc_begin1
+	.long	.Ltmp44-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp44-.Lfunc_begin1
+	.long	.Ltmp45-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	.Ltmp45-.Lfunc_begin1
+	.long	.Ltmp76-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	0                               @ 0
+	.long	.Ltmp76-.Lfunc_begin1
+	.long	.Ltmp77-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp29-.Lfunc_begin1
+	.long	.Ltmp33-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc5:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp46-.Lfunc_begin1
+	.long	.Ltmp78-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp78-.Lfunc_begin1
+	.long	.Ltmp83-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	82                              @ DW_OP_reg2
+	.long	.Ltmp83-.Lfunc_begin1
+	.long	.Ltmp84-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc6:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp78-.Lfunc_begin1
+	.long	.Ltmp85-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc7:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp88-.Lfunc_begin1
+	.long	.Ltmp91-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc8:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Lfunc_begin2-.Lfunc_begin2
+	.long	.Ltmp97-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp97-.Lfunc_begin2
+	.long	.Ltmp118-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	.Ltmp118-.Lfunc_begin2
+	.long	.Ltmp127-.Lfunc_begin2
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc9:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Lfunc_begin2-.Lfunc_begin2
+	.long	.Ltmp96-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	.Ltmp96-.Lfunc_begin2
+	.long	.Ltmp108-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	.Ltmp108-.Lfunc_begin2
+	.long	.Ltmp127-.Lfunc_begin2
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	81                              @ DW_OP_reg1
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc10:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Ltmp97-.Lfunc_begin2
+	.long	.Ltmp103-.Lfunc_begin2
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp103-.Lfunc_begin2
+	.long	.Ltmp104-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	.Ltmp104-.Lfunc_begin2
+	.long	.Ltmp107-.Lfunc_begin2
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp117-.Lfunc_begin2
+	.long	.Ltmp119-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	0
+	.long	0
+.Ldebug_loc11:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Ltmp109-.Lfunc_begin2
+	.long	.Ltmp127-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	0
+	.long	0
+.Ldebug_loc12:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Ltmp110-.Lfunc_begin2
+	.long	.Ltmp127-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	0
+	.long	0
+.Ldebug_loc13:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Lfunc_begin5-.Lfunc_begin5
+	.long	.Ltmp130-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp130-.Lfunc_begin5
+	.long	.Ltmp238-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc14:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp132-.Lfunc_begin5
+	.long	.Ltmp133-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp147-.Lfunc_begin5
+	.long	.Ltmp149-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp150-.Lfunc_begin5
+	.long	.Ltmp151-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	.Ltmp151-.Lfunc_begin5
+	.long	.Ltmp153-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp153-.Lfunc_begin5
+	.long	.Ltmp160-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	87                              @ DW_OP_reg7
+	.long	0
+	.long	0
+.Ldebug_loc15:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp132-.Lfunc_begin5
+	.long	.Ltmp136-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp136-.Lfunc_begin5
+	.long	.Ltmp146-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	.Ltmp149-.Lfunc_begin5
+	.long	.Ltmp151-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	.Ltmp153-.Lfunc_begin5
+	.long	.Ltmp225-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	0
+	.long	0
+.Ldebug_loc16:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp165-.Lfunc_begin5
+	.long	.Ltmp223-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	86                              @ DW_OP_reg6
+	.long	0
+	.long	0
+.Ldebug_loc17:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp165-.Lfunc_begin5
+	.long	.Ltmp223-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc18:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp165-.Lfunc_begin5
+	.long	.Ltmp223-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	125                             @ DW_OP_breg13
+	.byte	16                              @ 16
+	.long	0
+	.long	0
+.Ldebug_loc19:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp174-.Lfunc_begin5
+	.long	.Ltmp176-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc20:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp201-.Lfunc_begin5
+	.long	.Ltmp203-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp207-.Lfunc_begin5
+	.long	.Ltmp211-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp214-.Lfunc_begin5
+	.long	.Ltmp216-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp218-.Lfunc_begin5
+	.long	.Ltmp220-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+	.section	.debug_abbrev,"",%progbits
+	.byte	1                               @ Abbreviation Code
+	.byte	17                              @ DW_TAG_compile_unit
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	37                              @ DW_AT_producer
+	.byte	14                              @ DW_FORM_strp
+	.byte	19                              @ DW_AT_language
+	.byte	5                               @ DW_FORM_data2
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	16                              @ DW_AT_stmt_list
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	27                              @ DW_AT_comp_dir
+	.byte	14                              @ DW_FORM_strp
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	85                              @ DW_AT_ranges
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	2                               @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	3                               @ Abbreviation Code
+	.byte	22                              @ DW_TAG_typedef
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	4                               @ Abbreviation Code
+	.byte	19                              @ DW_TAG_structure_type
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	5                               @ Abbreviation Code
+	.byte	13                              @ DW_TAG_member
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	56                              @ DW_AT_data_member_location
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	6                               @ Abbreviation Code
+	.byte	36                              @ DW_TAG_base_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	62                              @ DW_AT_encoding
+	.byte	11                              @ DW_FORM_data1
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	7                               @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	8                               @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	28                              @ DW_AT_const_value
+	.byte	15                              @ DW_FORM_udata
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	9                               @ Abbreviation Code
+	.byte	38                              @ DW_TAG_const_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	10                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	11                              @ Abbreviation Code
+	.byte	1                               @ DW_TAG_array_type
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	12                              @ Abbreviation Code
+	.byte	33                              @ DW_TAG_subrange_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	55                              @ DW_AT_count
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	13                              @ Abbreviation Code
+	.byte	36                              @ DW_TAG_base_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	62                              @ DW_AT_encoding
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	14                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	15                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	16                              @ Abbreviation Code
+	.byte	4                               @ DW_TAG_enumeration_type
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	17                              @ Abbreviation Code
+	.byte	40                              @ DW_TAG_enumerator
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	28                              @ DW_AT_const_value
+	.byte	15                              @ DW_FORM_udata
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	18                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	19                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	32                              @ DW_AT_inline
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	20                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	21                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	22                              @ Abbreviation Code
+	.byte	15                              @ DW_TAG_pointer_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	23                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	32                              @ DW_AT_inline
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	24                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	32                              @ DW_AT_inline
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	25                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	26                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	27                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	28                              @ Abbreviation Code
+	.byte	29                              @ DW_TAG_inlined_subroutine
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	85                              @ DW_AT_ranges
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	88                              @ DW_AT_call_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	89                              @ DW_AT_call_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	87                              @ DW_AT_call_column
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	29                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	30                              @ Abbreviation Code
+	.byte	29                              @ DW_TAG_inlined_subroutine
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	85                              @ DW_AT_ranges
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	88                              @ DW_AT_call_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	89                              @ DW_AT_call_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	87                              @ DW_AT_call_column
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	31                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	32                              @ Abbreviation Code
+	.byte	29                              @ DW_TAG_inlined_subroutine
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	88                              @ DW_AT_call_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	89                              @ DW_AT_call_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	87                              @ DW_AT_call_column
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	33                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	34                              @ Abbreviation Code
+	.byte	11                              @ DW_TAG_lexical_block
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	35                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	36                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	32                              @ DW_AT_inline
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	37                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	38                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	39                              @ Abbreviation Code
+	.byte	11                              @ DW_TAG_lexical_block
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	40                              @ Abbreviation Code
+	.byte	19                              @ DW_TAG_structure_type
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	41                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	42                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	43                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	44                              @ Abbreviation Code
+	.byte	29                              @ DW_TAG_inlined_subroutine
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	88                              @ DW_AT_call_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	89                              @ DW_AT_call_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	87                              @ DW_AT_call_column
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	0                               @ EOM(3)
+	.section	.debug_info,"",%progbits
+.Lcu_begin0:
+	.long	.Ldebug_info_end0-.Ldebug_info_start0 @ Length of Unit
+.Ldebug_info_start0:
+	.short	4                               @ DWARF version number
+	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
+	.byte	4                               @ Address Size (in bytes)
+	.byte	1                               @ Abbrev [1] 0xb:0x574 DW_TAG_compile_unit
+	.long	.Linfo_string0                  @ DW_AT_producer
+	.short	12                              @ DW_AT_language
+	.long	.Linfo_string1                  @ DW_AT_name
+	.long	.Lline_table_start0             @ DW_AT_stmt_list
+	.long	.Linfo_string2                  @ DW_AT_comp_dir
+	.long	0                               @ DW_AT_low_pc
+	.long	.Ldebug_ranges2                 @ DW_AT_ranges
+	.byte	2                               @ Abbrev [2] 0x26:0x13 DW_TAG_variable
+	.long	.Linfo_string3                  @ DW_AT_name
+	.long	57                              @ DW_AT_type
+                                        @ DW_AT_external
+	.byte	4                               @ DW_AT_decl_file
+	.byte	39                              @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	16
+	.byte	3                               @ Abbrev [3] 0x39:0xb DW_TAG_typedef
+	.long	68                              @ DW_AT_type
+	.long	.Linfo_string20                 @ DW_AT_name
+	.byte	2                               @ DW_AT_decl_file
+	.byte	19                              @ DW_AT_decl_line
+	.byte	4                               @ Abbrev [4] 0x44:0x71 DW_TAG_structure_type
+	.byte	24                              @ DW_AT_byte_size
+	.byte	2                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_line
+	.byte	5                               @ Abbrev [5] 0x48:0xc DW_TAG_member
+	.long	.Linfo_string4                  @ DW_AT_name
+	.long	181                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	9                               @ DW_AT_decl_line
+	.byte	0                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x54:0xc DW_TAG_member
+	.long	.Linfo_string7                  @ DW_AT_name
+	.long	181                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	10                              @ DW_AT_decl_line
+	.byte	1                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x60:0xc DW_TAG_member
+	.long	.Linfo_string8                  @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	11                              @ DW_AT_decl_line
+	.byte	2                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x6c:0xc DW_TAG_member
+	.long	.Linfo_string11                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	12                              @ DW_AT_decl_line
+	.byte	4                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x78:0xc DW_TAG_member
+	.long	.Linfo_string14                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	14                              @ DW_AT_decl_line
+	.byte	8                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x84:0xc DW_TAG_member
+	.long	.Linfo_string15                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	15                              @ DW_AT_decl_line
+	.byte	12                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x90:0xc DW_TAG_member
+	.long	.Linfo_string16                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	16                              @ DW_AT_decl_line
+	.byte	16                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x9c:0xc DW_TAG_member
+	.long	.Linfo_string17                 @ DW_AT_name
+	.long	235                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	17                              @ DW_AT_decl_line
+	.byte	20                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0xa8:0xc DW_TAG_member
+	.long	.Linfo_string19                 @ DW_AT_name
+	.long	181                             @ DW_AT_type
+	.byte	2                               @ DW_AT_decl_file
+	.byte	18                              @ DW_AT_decl_line
+	.byte	22                              @ DW_AT_data_member_location
+	.byte	0                               @ End Of Children Mark
+	.byte	3                               @ Abbrev [3] 0xb5:0xb DW_TAG_typedef
+	.long	192                             @ DW_AT_type
+	.long	.Linfo_string6                  @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	62                              @ DW_AT_decl_line
+	.byte	6                               @ Abbrev [6] 0xc0:0x7 DW_TAG_base_type
+	.long	.Linfo_string5                  @ DW_AT_name
+	.byte	8                               @ DW_AT_encoding
+	.byte	1                               @ DW_AT_byte_size
+	.byte	3                               @ Abbrev [3] 0xc7:0xb DW_TAG_typedef
+	.long	210                             @ DW_AT_type
+	.long	.Linfo_string10                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	63                              @ DW_AT_decl_line
+	.byte	6                               @ Abbrev [6] 0xd2:0x7 DW_TAG_base_type
+	.long	.Linfo_string9                  @ DW_AT_name
+	.byte	7                               @ DW_AT_encoding
+	.byte	2                               @ DW_AT_byte_size
+	.byte	3                               @ Abbrev [3] 0xd9:0xb DW_TAG_typedef
+	.long	228                             @ DW_AT_type
+	.long	.Linfo_string13                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	64                              @ DW_AT_decl_line
+	.byte	6                               @ Abbrev [6] 0xe4:0x7 DW_TAG_base_type
+	.long	.Linfo_string12                 @ DW_AT_name
+	.byte	7                               @ DW_AT_encoding
+	.byte	4                               @ DW_AT_byte_size
+	.byte	3                               @ Abbrev [3] 0xeb:0xb DW_TAG_typedef
+	.long	199                             @ DW_AT_type
+	.long	.Linfo_string18                 @ DW_AT_name
+	.byte	3                               @ DW_AT_decl_file
+	.byte	6                               @ DW_AT_decl_line
+	.byte	7                               @ Abbrev [7] 0xf6:0x12 DW_TAG_variable
+	.long	.Linfo_string21                 @ DW_AT_name
+	.long	264                             @ DW_AT_type
+                                        @ DW_AT_external
+	.byte	4                               @ DW_AT_decl_file
+	.short	286                             @ DW_AT_decl_line
+	.byte	5                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	3                               @ Abbrev [3] 0x108:0xb DW_TAG_typedef
+	.long	181                             @ DW_AT_type
+	.long	.Linfo_string22                 @ DW_AT_name
+	.byte	5                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_line
+	.byte	8                               @ Abbrev [8] 0x113:0xc DW_TAG_variable
+	.long	.Linfo_string23                 @ DW_AT_name
+	.long	287                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.byte	37                              @ DW_AT_decl_line
+	.byte	50                              @ DW_AT_const_value
+	.byte	9                               @ Abbrev [9] 0x11f:0x5 DW_TAG_const_type
+	.long	217                             @ DW_AT_type
+	.byte	10                              @ Abbrev [10] 0x124:0x11 DW_TAG_variable
+	.long	.Linfo_string24                 @ DW_AT_name
+	.long	309                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.byte	109                             @ DW_AT_decl_line
+	.byte	5                               @ DW_AT_location
+	.byte	3
+	.long	dataPoint
+	.byte	11                              @ Abbrev [11] 0x135:0x12 DW_TAG_array_type
+	.long	217                             @ DW_AT_type
+	.byte	12                              @ Abbrev [12] 0x13a:0x6 DW_TAG_subrange_type
+	.long	327                             @ DW_AT_type
+	.byte	11                              @ DW_AT_count
+	.byte	12                              @ Abbrev [12] 0x140:0x6 DW_TAG_subrange_type
+	.long	327                             @ DW_AT_type
+	.byte	2                               @ DW_AT_count
+	.byte	0                               @ End Of Children Mark
+	.byte	13                              @ Abbrev [13] 0x147:0x7 DW_TAG_base_type
+	.long	.Linfo_string25                 @ DW_AT_name
+	.byte	8                               @ DW_AT_byte_size
+	.byte	7                               @ DW_AT_encoding
+	.byte	14                              @ Abbrev [14] 0x14e:0x14 DW_TAG_variable
+	.long	.Linfo_string26                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	281                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	2
+	.byte	14                              @ Abbrev [14] 0x162:0x14 DW_TAG_variable
+	.long	.Linfo_string27                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	281                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	4
+	.byte	14                              @ Abbrev [14] 0x176:0x14 DW_TAG_variable
+	.long	.Linfo_string28                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	282                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	6
+	.byte	14                              @ Abbrev [14] 0x18a:0x14 DW_TAG_variable
+	.long	.Linfo_string29                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	282                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	8
+	.byte	14                              @ Abbrev [14] 0x19e:0x12 DW_TAG_variable
+	.long	.Linfo_string30                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	283                             @ DW_AT_decl_line
+	.byte	5                               @ DW_AT_location
+	.byte	3
+	.long	Lastintensity
+	.byte	14                              @ Abbrev [14] 0x1b0:0x14 DW_TAG_variable
+	.long	.Linfo_string31                 @ DW_AT_name
+	.long	235                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	285                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	10
+	.byte	15                              @ Abbrev [15] 0x1c4:0xc DW_TAG_variable
+	.long	.Linfo_string32                 @ DW_AT_name
+	.long	235                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	285                             @ DW_AT_decl_line
+	.byte	14                              @ Abbrev [14] 0x1d0:0x14 DW_TAG_variable
+	.long	.Linfo_string33                 @ DW_AT_name
+	.long	235                             @ DW_AT_type
+	.byte	4                               @ DW_AT_decl_file
+	.short	284                             @ DW_AT_decl_line
+	.byte	7                               @ DW_AT_location
+	.byte	3
+	.long	.L_MergedGlobals
+	.byte	35
+	.byte	12
+	.byte	16                              @ Abbrev [16] 0x1e4:0x25 DW_TAG_enumeration_type
+	.long	192                             @ DW_AT_type
+	.long	.Linfo_string38                 @ DW_AT_name
+	.byte	1                               @ DW_AT_byte_size
+	.byte	6                               @ DW_AT_decl_file
+	.byte	40                              @ DW_AT_decl_line
+	.byte	17                              @ Abbrev [17] 0x1f0:0x6 DW_TAG_enumerator
+	.long	.Linfo_string34                 @ DW_AT_name
+	.byte	1                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x1f6:0x6 DW_TAG_enumerator
+	.long	.Linfo_string35                 @ DW_AT_name
+	.byte	2                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x1fc:0x6 DW_TAG_enumerator
+	.long	.Linfo_string36                 @ DW_AT_name
+	.byte	3                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x202:0x6 DW_TAG_enumerator
+	.long	.Linfo_string37                 @ DW_AT_name
+	.byte	4                               @ DW_AT_const_value
+	.byte	0                               @ End Of Children Mark
+	.byte	16                              @ Abbrev [16] 0x209:0x1f DW_TAG_enumeration_type
+	.long	192                             @ DW_AT_type
+	.long	.Linfo_string42                 @ DW_AT_name
+	.byte	1                               @ DW_AT_byte_size
+	.byte	6                               @ DW_AT_decl_file
+	.byte	32                              @ DW_AT_decl_line
+	.byte	17                              @ Abbrev [17] 0x215:0x6 DW_TAG_enumerator
+	.long	.Linfo_string39                 @ DW_AT_name
+	.byte	0                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x21b:0x6 DW_TAG_enumerator
+	.long	.Linfo_string40                 @ DW_AT_name
+	.byte	1                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x221:0x6 DW_TAG_enumerator
+	.long	.Linfo_string41                 @ DW_AT_name
+	.byte	2                               @ DW_AT_const_value
+	.byte	0                               @ End Of Children Mark
+	.byte	16                              @ Abbrev [16] 0x228:0x1f DW_TAG_enumeration_type
+	.long	192                             @ DW_AT_type
+	.long	.Linfo_string46                 @ DW_AT_name
+	.byte	1                               @ DW_AT_byte_size
+	.byte	6                               @ DW_AT_decl_file
+	.byte	25                              @ DW_AT_decl_line
+	.byte	17                              @ Abbrev [17] 0x234:0x6 DW_TAG_enumerator
+	.long	.Linfo_string43                 @ DW_AT_name
+	.byte	0                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x23a:0x6 DW_TAG_enumerator
+	.long	.Linfo_string44                 @ DW_AT_name
+	.byte	1                               @ DW_AT_const_value
+	.byte	17                              @ Abbrev [17] 0x240:0x6 DW_TAG_enumerator
+	.long	.Linfo_string45                 @ DW_AT_name
+	.byte	2                               @ DW_AT_const_value
+	.byte	0                               @ End Of Children Mark
+	.byte	3                               @ Abbrev [3] 0x247:0xb DW_TAG_typedef
+	.long	594                             @ DW_AT_type
+	.long	.Linfo_string48                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	57                              @ DW_AT_decl_line
+	.byte	6                               @ Abbrev [6] 0x252:0x7 DW_TAG_base_type
+	.long	.Linfo_string47                 @ DW_AT_name
+	.byte	5                               @ DW_AT_encoding
+	.byte	2                               @ DW_AT_byte_size
+	.byte	18                              @ Abbrev [18] 0x259:0x11 DW_TAG_subprogram
+	.long	.Lfunc_begin0                   @ DW_AT_low_pc
+	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string75                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	51                              @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	19                              @ Abbrev [19] 0x26a:0x2a DW_TAG_subprogram
+	.long	.Linfo_string49                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	158                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+	.byte	1                               @ DW_AT_inline
+	.byte	20                              @ Abbrev [20] 0x272:0xb DW_TAG_formal_parameter
+	.long	.Linfo_string50                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	158                             @ DW_AT_decl_line
+	.long	660                             @ DW_AT_type
+	.byte	21                              @ Abbrev [21] 0x27d:0xb DW_TAG_variable
+	.long	.Linfo_string51                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	160                             @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	21                              @ Abbrev [21] 0x288:0xb DW_TAG_variable
+	.long	.Linfo_string52                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	161                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	22                              @ Abbrev [22] 0x294:0x5 DW_TAG_pointer_type
+	.long	217                             @ DW_AT_type
+	.byte	23                              @ Abbrev [23] 0x299:0x8 DW_TAG_subprogram
+	.long	.Linfo_string53                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	111                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+	.byte	1                               @ DW_AT_inline
+	.byte	24                              @ Abbrev [24] 0x2a1:0x2e DW_TAG_subprogram
+	.long	.Linfo_string54                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	141                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+	.long	217                             @ DW_AT_type
+	.byte	1                               @ DW_AT_inline
+	.byte	20                              @ Abbrev [20] 0x2ad:0xb DW_TAG_formal_parameter
+	.long	.Linfo_string55                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	141                             @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	21                              @ Abbrev [21] 0x2b8:0xb DW_TAG_variable
+	.long	.Linfo_string56                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	143                             @ DW_AT_decl_line
+	.long	719                             @ DW_AT_type
+	.byte	21                              @ Abbrev [21] 0x2c3:0xb DW_TAG_variable
+	.long	.Linfo_string51                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	144                             @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	3                               @ Abbrev [3] 0x2cf:0xb DW_TAG_typedef
+	.long	730                             @ DW_AT_type
+	.long	.Linfo_string58                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	56                              @ DW_AT_decl_line
+	.byte	6                               @ Abbrev [6] 0x2da:0x7 DW_TAG_base_type
+	.long	.Linfo_string57                 @ DW_AT_name
+	.byte	6                               @ DW_AT_encoding
+	.byte	1                               @ DW_AT_byte_size
+	.byte	25                              @ Abbrev [25] 0x2e1:0xae DW_TAG_subprogram
+	.long	.Lfunc_begin1                   @ DW_AT_low_pc
+	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string76                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	208                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	26                              @ Abbrev [26] 0x2f2:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc0                    @ DW_AT_location
+	.long	.Linfo_string60                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	208                             @ DW_AT_decl_line
+	.long	235                             @ DW_AT_type
+	.byte	26                              @ Abbrev [26] 0x301:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc1                    @ DW_AT_location
+	.long	.Linfo_string61                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	208                             @ DW_AT_decl_line
+	.long	1133                            @ DW_AT_type
+	.byte	26                              @ Abbrev [26] 0x310:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc2                    @ DW_AT_location
+	.long	.Linfo_string72                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	208                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x31f:0xf DW_TAG_variable
+	.long	.Ldebug_loc3                    @ DW_AT_location
+	.long	.Linfo_string81                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	212                             @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x32e:0xf DW_TAG_variable
+	.long	.Ldebug_loc4                    @ DW_AT_location
+	.long	.Linfo_string82                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	211                             @ DW_AT_decl_line
+	.long	235                             @ DW_AT_type
+	.byte	21                              @ Abbrev [21] 0x33d:0xb DW_TAG_variable
+	.long	.Linfo_string17                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	210                             @ DW_AT_decl_line
+	.long	235                             @ DW_AT_type
+	.byte	28                              @ Abbrev [28] 0x348:0x46 DW_TAG_inlined_subroutine
+	.long	618                             @ DW_AT_abstract_origin
+	.long	.Ldebug_ranges0                 @ DW_AT_ranges
+	.byte	4                               @ DW_AT_call_file
+	.short	274                             @ DW_AT_call_line
+	.byte	4                               @ DW_AT_call_column
+	.byte	29                              @ Abbrev [29] 0x355:0x9 DW_TAG_variable
+	.long	.Ldebug_loc7                    @ DW_AT_location
+	.long	637                             @ DW_AT_abstract_origin
+	.byte	30                              @ Abbrev [30] 0x35e:0x2f DW_TAG_inlined_subroutine
+	.long	673                             @ DW_AT_abstract_origin
+	.long	.Ldebug_ranges1                 @ DW_AT_ranges
+	.byte	4                               @ DW_AT_call_file
+	.byte	190                             @ DW_AT_call_line
+	.byte	17                              @ DW_AT_call_column
+	.byte	31                              @ Abbrev [31] 0x36a:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc6                    @ DW_AT_location
+	.long	685                             @ DW_AT_abstract_origin
+	.byte	29                              @ Abbrev [29] 0x373:0x9 DW_TAG_variable
+	.long	.Ldebug_loc5                    @ DW_AT_location
+	.long	696                             @ DW_AT_abstract_origin
+	.byte	32                              @ Abbrev [32] 0x37c:0x10 DW_TAG_inlined_subroutine
+	.long	665                             @ DW_AT_abstract_origin
+	.long	.Ltmp46                         @ DW_AT_low_pc
+	.long	.Ltmp75-.Ltmp46                 @ DW_AT_high_pc
+	.byte	4                               @ DW_AT_call_file
+	.byte	145                             @ DW_AT_call_line
+	.byte	3                               @ DW_AT_call_column
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	33                              @ Abbrev [33] 0x38f:0x72 DW_TAG_subprogram
+	.long	.Lfunc_begin2                   @ DW_AT_low_pc
+	.long	.Lfunc_end2-.Lfunc_begin2       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string77                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	64                              @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+	.byte	26                              @ Abbrev [26] 0x3a0:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc8                    @ DW_AT_location
+	.long	.Linfo_string61                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	64                              @ DW_AT_decl_line
+	.long	1133                            @ DW_AT_type
+	.byte	26                              @ Abbrev [26] 0x3af:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc9                    @ DW_AT_location
+	.long	.Linfo_string72                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	64                              @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x3be:0xf DW_TAG_variable
+	.long	.Ldebug_loc10                   @ DW_AT_location
+	.long	.Linfo_string83                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	66                              @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x3cd:0xf DW_TAG_variable
+	.long	.Ldebug_loc11                   @ DW_AT_location
+	.long	.Linfo_string84                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	79                              @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x3dc:0xf DW_TAG_variable
+	.long	.Ldebug_loc12                   @ DW_AT_location
+	.long	.Linfo_string85                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	78                              @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	34                              @ Abbrev [34] 0x3eb:0x15 DW_TAG_lexical_block
+	.long	.Ltmp104                        @ DW_AT_low_pc
+	.long	.Ltmp107-.Ltmp104               @ DW_AT_high_pc
+	.byte	21                              @ Abbrev [21] 0x3f4:0xb DW_TAG_variable
+	.long	.Linfo_string74                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.byte	74                              @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	35                              @ Abbrev [35] 0x401:0x12 DW_TAG_subprogram
+	.long	.Lfunc_begin3                   @ DW_AT_low_pc
+	.long	.Lfunc_end3-.Lfunc_begin3       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string78                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	299                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	35                              @ Abbrev [35] 0x413:0x12 DW_TAG_subprogram
+	.long	.Lfunc_begin4                   @ DW_AT_low_pc
+	.long	.Lfunc_end4-.Lfunc_begin4       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string79                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	407                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	36                              @ Abbrev [36] 0x425:0x48 DW_TAG_subprogram
+	.long	.Linfo_string59                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	309                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+	.byte	1                               @ DW_AT_inline
+	.byte	37                              @ Abbrev [37] 0x42e:0xc DW_TAG_formal_parameter
+	.long	.Linfo_string60                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	309                             @ DW_AT_decl_line
+	.long	235                             @ DW_AT_type
+	.byte	37                              @ Abbrev [37] 0x43a:0xc DW_TAG_formal_parameter
+	.long	.Linfo_string61                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	309                             @ DW_AT_decl_line
+	.long	1133                            @ DW_AT_type
+	.byte	37                              @ Abbrev [37] 0x446:0xc DW_TAG_formal_parameter
+	.long	.Linfo_string72                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	309                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	38                              @ Abbrev [38] 0x452:0xc DW_TAG_variable
+	.long	.Linfo_string73                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	312                             @ DW_AT_decl_line
+	.long	217                             @ DW_AT_type
+	.byte	39                              @ Abbrev [39] 0x45e:0xe DW_TAG_lexical_block
+	.byte	38                              @ Abbrev [38] 0x45f:0xc DW_TAG_variable
+	.long	.Linfo_string74                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	328                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	22                              @ Abbrev [22] 0x46d:0x5 DW_TAG_pointer_type
+	.long	1138                            @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0x472:0xb DW_TAG_typedef
+	.long	1149                            @ DW_AT_type
+	.long	.Linfo_string71                 @ DW_AT_name
+	.byte	7                               @ DW_AT_decl_file
+	.byte	45                              @ DW_AT_decl_line
+	.byte	40                              @ Abbrev [40] 0x47d:0x69 DW_TAG_structure_type
+	.long	.Linfo_string70                 @ DW_AT_name
+	.byte	20                              @ DW_AT_byte_size
+	.byte	7                               @ DW_AT_decl_file
+	.byte	35                              @ DW_AT_decl_line
+	.byte	5                               @ Abbrev [5] 0x485:0xc DW_TAG_member
+	.long	.Linfo_string62                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	37                              @ DW_AT_decl_line
+	.byte	0                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x491:0xc DW_TAG_member
+	.long	.Linfo_string63                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	38                              @ DW_AT_decl_line
+	.byte	2                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x49d:0xc DW_TAG_member
+	.long	.Linfo_string64                 @ DW_AT_name
+	.long	583                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	39                              @ DW_AT_decl_line
+	.byte	4                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x4a9:0xc DW_TAG_member
+	.long	.Linfo_string65                 @ DW_AT_name
+	.long	199                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	40                              @ DW_AT_decl_line
+	.byte	6                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x4b5:0xc DW_TAG_member
+	.long	.Linfo_string66                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	41                              @ DW_AT_decl_line
+	.byte	8                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x4c1:0xc DW_TAG_member
+	.long	.Linfo_string67                 @ DW_AT_name
+	.long	217                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	42                              @ DW_AT_decl_line
+	.byte	12                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x4cd:0xc DW_TAG_member
+	.long	.Linfo_string68                 @ DW_AT_name
+	.long	181                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	43                              @ DW_AT_decl_line
+	.byte	16                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x4d9:0xc DW_TAG_member
+	.long	.Linfo_string69                 @ DW_AT_name
+	.long	264                             @ DW_AT_type
+	.byte	7                               @ DW_AT_decl_file
+	.byte	44                              @ DW_AT_decl_line
+	.byte	17                              @ DW_AT_data_member_location
+	.byte	0                               @ End Of Children Mark
+	.byte	41                              @ Abbrev [41] 0x4e6:0x98 DW_TAG_subprogram
+	.long	.Lfunc_begin5                   @ DW_AT_low_pc
+	.long	.Lfunc_end5-.Lfunc_begin5       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string80                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	418                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	42                              @ Abbrev [42] 0x4f8:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc13                   @ DW_AT_location
+	.long	.Linfo_string61                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	418                             @ DW_AT_decl_line
+	.long	1133                            @ DW_AT_type
+	.byte	43                              @ Abbrev [43] 0x508:0x10 DW_TAG_variable
+	.long	.Ldebug_loc14                   @ DW_AT_location
+	.long	.Linfo_string86                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	422                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	43                              @ Abbrev [43] 0x518:0x10 DW_TAG_variable
+	.long	.Ldebug_loc15                   @ DW_AT_location
+	.long	.Linfo_string87                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	421                             @ DW_AT_decl_line
+	.long	181                             @ DW_AT_type
+	.byte	38                              @ Abbrev [38] 0x528:0xc DW_TAG_variable
+	.long	.Linfo_string60                 @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	420                             @ DW_AT_decl_line
+	.long	235                             @ DW_AT_type
+	.byte	44                              @ Abbrev [44] 0x534:0x49 DW_TAG_inlined_subroutine
+	.long	1061                            @ DW_AT_abstract_origin
+	.long	.Ltmp164                        @ DW_AT_low_pc
+	.long	.Ltmp223-.Ltmp164               @ DW_AT_high_pc
+	.byte	4                               @ DW_AT_call_file
+	.short	472                             @ DW_AT_call_line
+	.byte	5                               @ DW_AT_call_column
+	.byte	31                              @ Abbrev [31] 0x545:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc18                   @ DW_AT_location
+	.long	1070                            @ DW_AT_abstract_origin
+	.byte	31                              @ Abbrev [31] 0x54e:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc17                   @ DW_AT_location
+	.long	1082                            @ DW_AT_abstract_origin
+	.byte	31                              @ Abbrev [31] 0x557:0x9 DW_TAG_formal_parameter
+	.long	.Ldebug_loc16                   @ DW_AT_location
+	.long	1094                            @ DW_AT_abstract_origin
+	.byte	29                              @ Abbrev [29] 0x560:0x9 DW_TAG_variable
+	.long	.Ldebug_loc20                   @ DW_AT_location
+	.long	1106                            @ DW_AT_abstract_origin
+	.byte	34                              @ Abbrev [34] 0x569:0x13 DW_TAG_lexical_block
+	.long	.Ltmp173                        @ DW_AT_low_pc
+	.long	.Ltmp178-.Ltmp173               @ DW_AT_high_pc
+	.byte	29                              @ Abbrev [29] 0x572:0x9 DW_TAG_variable
+	.long	.Ldebug_loc19                   @ DW_AT_location
+	.long	1119                            @ DW_AT_abstract_origin
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+.Ldebug_info_end0:
+	.section	.debug_ranges,"",%progbits
+.Ldebug_ranges0:
+	.long	.Ltmp35
+	.long	.Ltmp36
+	.long	.Ltmp41
+	.long	.Ltmp94
+	.long	0
+	.long	0
+.Ldebug_ranges1:
+	.long	.Ltmp46
+	.long	.Ltmp75
+	.long	.Ltmp78
+	.long	.Ltmp88
+	.long	0
+	.long	0
+.Ldebug_ranges2:
+	.long	.Lfunc_begin0
+	.long	.Lfunc_end0
+	.long	.Lfunc_begin1
+	.long	.Lfunc_end1
+	.long	.Lfunc_begin2
+	.long	.Lfunc_end2
+	.long	.Lfunc_begin3
+	.long	.Lfunc_end3
+	.long	.Lfunc_begin4
+	.long	.Lfunc_end4
+	.long	.Lfunc_begin5
+	.long	.Lfunc_end5
+	.long	0
+	.long	0
+	.section	.debug_str,"MS",%progbits,1
+.Linfo_string0:
+	.asciz	"Component: Arm Compiler for Embedded 6.21 Tool: armclang [5ec1fd00]" @ string offset=0
+.Linfo_string1:
+	.asciz	"../02_System\\SystemControl.c" @ string offset=68
+.Linfo_string2:
+	.asciz	"C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" @ string offset=97
+.Linfo_string3:
+	.asciz	"intensityDimStatus"            @ string offset=236
+.Linfo_string4:
+	.asciz	"dimStatus"                     @ string offset=255
+.Linfo_string5:
+	.asciz	"unsigned char"                 @ string offset=265
+.Linfo_string6:
+	.asciz	"uint8_t"                       @ string offset=279
+.Linfo_string7:
+	.asciz	"currentDimPriority"            @ string offset=287
+.Linfo_string8:
+	.asciz	"actualIntensity"               @ string offset=306
+.Linfo_string9:
+	.asciz	"unsigned short"                @ string offset=322
+.Linfo_string10:
+	.asciz	"uint16_t"                      @ string offset=337
+.Linfo_string11:
+	.asciz	"x_Diff_ms"                     @ string offset=346
+.Linfo_string12:
+	.asciz	"unsigned int"                  @ string offset=356
+.Linfo_string13:
+	.asciz	"uint32_t"                      @ string offset=369
+.Linfo_string14:
+	.asciz	"lastActualIntensity"           @ string offset=378
+.Linfo_string15:
+	.asciz	"currentX"                      @ string offset=398
+.Linfo_string16:
+	.asciz	"y_Diff"                        @ string offset=407
+.Linfo_string17:
+	.asciz	"lastLoopSysTick"               @ string offset=414
+.Linfo_string18:
+	.asciz	"tick_t"                        @ string offset=430
+.Linfo_string19:
+	.asciz	"dimmingStateMachineInit"       @ string offset=437
+.Linfo_string20:
+	.asciz	"IntensityDimStatus"            @ string offset=461
+.Linfo_string21:
+	.asciz	"colorDimmingFlag"              @ string offset=480
+.Linfo_string22:
+	.asciz	"bool_t"                        @ string offset=497
+.Linfo_string23:
+	.asciz	"CDimmingTimeSlicePeriod"       @ string offset=504
+.Linfo_string24:
+	.asciz	"dataPoint"                     @ string offset=528
+.Linfo_string25:
+	.asciz	"__ARRAY_SIZE_TYPE__"           @ string offset=538
+.Linfo_string26:
+	.asciz	"currentU"                      @ string offset=558
+.Linfo_string27:
+	.asciz	"currentV"                      @ string offset=567
+.Linfo_string28:
+	.asciz	"originU"                       @ string offset=576
+.Linfo_string29:
+	.asciz	"originV"                       @ string offset=584
+.Linfo_string30:
+	.asciz	"Lastintensity"                 @ string offset=592
+.Linfo_string31:
+	.asciz	"colorStartTick"                @ string offset=606
+.Linfo_string32:
+	.asciz	"colorTickCount"                @ string offset=621
+.Linfo_string33:
+	.asciz	"colorTotalTick"                @ string offset=636
+.Linfo_string34:
+	.asciz	"ESystemSleepAwake"             @ string offset=651
+.Linfo_string35:
+	.asciz	"ESystemSleepPrepare"           @ string offset=669
+.Linfo_string36:
+	.asciz	"ESystemSleepProcessing"        @ string offset=689
+.Linfo_string37:
+	.asciz	"ESystemSleepSleep"             @ string offset=712
+.Linfo_string38:
+	.asciz	"SystemSleep"                   @ string offset=730
+.Linfo_string39:
+	.asciz	"FritstDimingStop"              @ string offset=742
+.Linfo_string40:
+	.asciz	"FristDimingstart"              @ string offset=759
+.Linfo_string41:
+	.asciz	"FristDiminging"                @ string offset=776
+.Linfo_string42:
+	.asciz	"SystemFirstdiming"             @ string offset=791
+.Linfo_string43:
+	.asciz	"ESystemErrorNone"              @ string offset=809
+.Linfo_string44:
+	.asciz	"ESystemErrorBatError"          @ string offset=826
+.Linfo_string45:
+	.asciz	"ESystemErrorLedError"          @ string offset=847
+.Linfo_string46:
+	.asciz	"SystemError"                   @ string offset=868
+.Linfo_string47:
+	.asciz	"short"                         @ string offset=880
+.Linfo_string48:
+	.asciz	"int16_t"                       @ string offset=886
+.Linfo_string49:
+	.asciz	"IntensityDimmingPropositionToFLUX" @ string offset=894
+.Linfo_string50:
+	.asciz	"p_proposedCurrentIntensity"    @ string offset=928
+.Linfo_string51:
+	.asciz	"interpolateY"                  @ string offset=955
+.Linfo_string52:
+	.asciz	"currentState"                  @ string offset=968
+.Linfo_string53:
+	.asciz	"PonintcCalibration"            @ string offset=981
+.Linfo_string54:
+	.asciz	"unlinearize"                   @ string offset=1000
+.Linfo_string55:
+	.asciz	"linearBrightness"              @ string offset=1012
+.Linfo_string56:
+	.asciz	"section"                       @ string offset=1029
+.Linfo_string57:
+	.asciz	"signed char"                   @ string offset=1037
+.Linfo_string58:
+	.asciz	"int8_t"                        @ string offset=1049
+.Linfo_string59:
+	.asciz	"__systemColorDimming"          @ string offset=1056
+.Linfo_string60:
+	.asciz	"currentTick"                   @ string offset=1077
+.Linfo_string61:
+	.asciz	"inputColor"                    @ string offset=1089
+.Linfo_string62:
+	.asciz	"colorU"                        @ string offset=1100
+.Linfo_string63:
+	.asciz	"colorV"                        @ string offset=1107
+.Linfo_string64:
+	.asciz	"ledTemprature"                 @ string offset=1114
+.Linfo_string65:
+	.asciz	"factor"                        @ string offset=1128
+.Linfo_string66:
+	.asciz	"intensity"                     @ string offset=1135
+.Linfo_string67:
+	.asciz	"tempAdjust"                    @ string offset=1145
+.Linfo_string68:
+	.asciz	"brightnessPercent"             @ string offset=1156
+.Linfo_string69:
+	.asciz	"RGBFlag"                       @ string offset=1174
+.Linfo_string70:
+	.asciz	"ColorParams"                   @ string offset=1182
+.Linfo_string71:
+	.asciz	"SColorParams"                  @ string offset=1194
+.Linfo_string72:
+	.asciz	"dimRate"                       @ string offset=1207
+.Linfo_string73:
+	.asciz	"temp"                          @ string offset=1215
+.Linfo_string74:
+	.asciz	"diff"                          @ string offset=1220
+.Linfo_string75:
+	.asciz	"systemControl_reInitDimmingStateMachine" @ string offset=1225
+.Linfo_string76:
+	.asciz	"__systemIntensityDimming"      @ string offset=1265
+.Linfo_string77:
+	.asciz	"IntensityDimminggetDimmingSpeed" @ string offset=1290
+.Linfo_string78:
+	.asciz	"reinitColorDimming"            @ string offset=1322
+.Linfo_string79:
+	.asciz	"systemControlSleep"            @ string offset=1341
+.Linfo_string80:
+	.asciz	"systemControl"                 @ string offset=1360
+.Linfo_string81:
+	.asciz	"proposedCurrentIntensity"      @ string offset=1374
+.Linfo_string82:
+	.asciz	"intensityTickCount"            @ string offset=1399
+.Linfo_string83:
+	.asciz	"totalDimTime"                  @ string offset=1418
+.Linfo_string84:
+	.asciz	"actualY"                       @ string offset=1431
+.Linfo_string85:
+	.asciz	"targetY"                       @ string offset=1439
+.Linfo_string86:
+	.asciz	"realIntensity"                 @ string offset=1447
+.Linfo_string87:
+	.asciz	"realDimRate"                   @ string offset=1461
+	.globl	colorDimmingFlag
+	.hidden	colorDimmingFlag
+.set colorDimmingFlag, .L_MergedGlobals
+	.size	colorDimmingFlag, 1
+.set currentU, .L_MergedGlobals+2
+	.size	currentU, 2
+.set currentV, .L_MergedGlobals+4
+	.size	currentV, 2
+.set originU, .L_MergedGlobals+6
+	.size	originU, 2
+.set originV, .L_MergedGlobals+8
+	.size	originV, 2
+.set colorStartTick, .L_MergedGlobals+10
+	.size	colorStartTick, 2
+.set colorTotalTick, .L_MergedGlobals+12
+	.size	colorTotalTick, 2
+	.globl	intensityDimStatus
+	.hidden	intensityDimStatus
+.set intensityDimStatus, .L_MergedGlobals+16
+	.size	intensityDimStatus, 24
+	.ident	"Component: Arm Compiler for Embedded 6.21 Tool: armclang [5ec1fd00]"
+	.section	".note.GNU-stack","",%progbits
+	.eabi_attribute	30, 4	@ Tag_ABI_optimization_goals
+	.ARM_attribute	16, 1	@ Tag_AV_eba
+	.section	.debug_line,"",%progbits
+.Lline_table_start0:

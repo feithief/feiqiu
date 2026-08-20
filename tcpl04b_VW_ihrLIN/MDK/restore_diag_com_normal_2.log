@@ -1,0 +1,260 @@
+*** Using Compiler 'V6.21', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'swsc_normal'
+compiling Swc_Derating.c...
+compiling Swc_Lighting.c...
+compiling Swc_Communication.c...
+compiling Swc_Types.c...
+compiling Swc_Status.c...
+compiling Algorithm.c...
+compiling FixedPoint.c...
+02_RTE/Rte_Bsw.c(20): error: use of undeclared identifier 'g_lin_prod_id'
+   20 |     l_set_current_NAD(Nad);
+      |     ^
+./04_BSW_COM\genLinConfig.h(44): note: expanded from macro 'l_set_current_NAD'
+   44 | #define        l_set_current_NAD(x)       (g_lin_prod_id.NAD = (x))
+      |                                            ^
+02_RTE/Rte_Bsw.c(26): error: use of undeclared identifier 'g_lin_prod_id'
+   26 |     uint8_t currentNad = l_get_current_NAD();
+      |                          ^
+./04_BSW_COM\genLinConfig.h(43): note: expanded from macro 'l_get_current_NAD'
+   43 | #define        l_get_current_NAD()        (g_lin_prod_id.NAD)
+      |                                            ^
+02_RTE/Rte_Bsw.c(39): error: use of undeclared identifier 'g_lin_prod_id'
+   39 |     return l_get_current_NAD();
+      |            ^
+./04_BSW_COM\genLinConfig.h(43): note: expanded from macro 'l_get_current_NAD'
+   43 | #define        l_get_current_NAD()        (g_lin_prod_id.NAD)
+      |                                            ^
+02_RTE/Rte_Bsw.c(53): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   53 |     g_lin_frame_ctrl[FRAME_RGBs_Slave_08a].frame.msg_id.lo = Address;
+      |     ^~~~~~~~~~~~~~~~
+      |     t_Lin_Frame_Ctrl
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Bsw.c(53): error: expected identifier or '('
+   53 |     g_lin_frame_ctrl[FRAME_RGBs_Slave_08a].frame.msg_id.lo = Address;
+      |                                           ^
+02_RTE/Rte_Bsw.c(54): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   54 |     g_lin_frame_ctrl[FRAME_RGBs_Slave_08a].frame.pid =
+      |     ^~~~~~~~~~~~~~~~
+      |     t_Lin_Frame_Ctrl
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Bsw.c(54): error: expected identifier or '('
+   54 |     g_lin_frame_ctrl[FRAME_RGBs_Slave_08a].frame.pid =
+      |                                           ^
+7 errors generated.
+compiling Rte_Bsw.c...
+02_RTE/Rte_Com.c(7): error: use of undeclared identifier 'g_lin_frame_ctrl'
+    7 |     return (l_flg_tst_frm_RGBe_Slave_a() != 0U);
+      |             ^
+./04_BSW_COM\genLinConfig.h(126): note: expanded from macro 'l_flg_tst_frm_RGBe_Slave_a'
+  126 | #define        l_flg_tst_frm_RGBe_Slave_a()          (g_lin_frame_ctrl[0].frame.frame_type.update_flag == 1u)
+      |                                                       ^
+02_RTE/Rte_Com.c(33): error: use of undeclared identifier 'g_lin_frame_ctrl'
+   33 |     l_flg_clr_frm_RGBe_Slave_a();
+      |     ^
+./04_BSW_COM\genLinConfig.h(127): note: expanded from macro 'l_flg_clr_frm_RGBe_Slave_a'
+  127 | #define        l_flg_clr_frm_RGBe_Slave_a()          (g_lin_frame_ctrl[0].frame.frame_type.update_flag = 0u)
+      |                                                       ^
+02_RTE/Rte_Com.c(44): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   44 |     l_bool_wr_RGB_Slave_08a_ResponseError(StatusPtr->ResponseError);
+      |     ^
+./04_BSW_COM\genLinConfig.h(336): note: expanded from macro 'l_bool_wr_RGB_Slave_08a_ResponseError'
+  336 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(44): error: expected identifier or '('
+   44 |     l_bool_wr_RGB_Slave_08a_ResponseError(StatusPtr->ResponseError);
+      |     ^
+./04_BSW_COM\genLinConfig.h(336): note: expanded from macro 'l_bool_wr_RGB_Slave_08a_ResponseError'
+  336 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(45): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   45 |     l_u8_wr_RGB_Slave_08a_LedRotStg(StatusPtr->RedShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(342): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedRotStg'
+  342 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(45): error: expected identifier or '('
+   45 |     l_u8_wr_RGB_Slave_08a_LedRotStg(StatusPtr->RedShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(342): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedRotStg'
+  342 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(46): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   46 |     l_u8_wr_RGB_Slave_08a_LedGruenStg(StatusPtr->GreenShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(348): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedGruenStg'
+  348 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(46): error: expected identifier or '('
+   46 |     l_u8_wr_RGB_Slave_08a_LedGruenStg(StatusPtr->GreenShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(348): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedGruenStg'
+  348 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(47): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   47 |     l_u8_wr_RGB_Slave_08a_LedBlauStg(StatusPtr->BlueShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(354): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedBlauStg'
+  354 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(47): error: expected identifier or '('
+   47 |     l_u8_wr_RGB_Slave_08a_LedBlauStg(StatusPtr->BlueShort);
+      |     ^
+./04_BSW_COM\genLinConfig.h(354): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedBlauStg'
+  354 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(48): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   48 |     l_u8_wr_RGB_Slave_08a_LedRotOl(StatusPtr->RedOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(360): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedRotOl'
+  360 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(48): error: expected identifier or '('
+   48 |     l_u8_wr_RGB_Slave_08a_LedRotOl(StatusPtr->RedOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(360): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedRotOl'
+  360 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(49): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   49 |     l_u8_wr_RGB_Slave_08a_LedGruenOl(StatusPtr->GreenOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(366): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedGruenOl'
+  366 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(49): error: expected identifier or '('
+   49 |     l_u8_wr_RGB_Slave_08a_LedGruenOl(StatusPtr->GreenOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(366): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedGruenOl'
+  366 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(50): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   50 |     l_u8_wr_RGB_Slave_08a_LedBlauOl(StatusPtr->BlueOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(372): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedBlauOl'
+  372 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(50): error: expected identifier or '('
+   50 |     l_u8_wr_RGB_Slave_08a_LedBlauOl(StatusPtr->BlueOpen);
+      |     ^
+./04_BSW_COM\genLinConfig.h(372): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_LedBlauOl'
+  372 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(51): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   51 |     l_u8_wr_RGB_Slave_08a_TempState(StatusPtr->TemperatureState);
+      |     ^
+./04_BSW_COM\genLinConfig.h(378): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_TempState'
+  378 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+02_RTE/Rte_Com.c(51): error: expected identifier or '('
+   51 |     l_u8_wr_RGB_Slave_08a_TempState(StatusPtr->TemperatureState);
+      |     ^
+./04_BSW_COM\genLinConfig.h(378): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_TempState'
+  378 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                                    ^
+02_RTE/Rte_Com.c(52): error: unknown type name 'g_lin_frame_ctrl'; did you mean 't_Lin_Frame_Ctrl'?
+   52 |     l_u8_wr_RGB_Slave_08a_IntErrorRam(StatusPtr->RamError);
+      |     ^
+./04_BSW_COM\genLinConfig.h(384): note: expanded from macro 'l_u8_wr_RGB_Slave_08a_IntErrorRam'
+  384 |                                                 g_lin_frame_ctrl[1].frame.frame_type.update_flag = 1u; \
+      |                                                 ^
+./04_BSW_COM/lin_type.h(108): note: 't_Lin_Frame_Ctrl' declared here
+  108 | } t_Lin_Frame_Ctrl;
+      |   ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+compiling Rte_Com.c...
+compiling Rte_Dcm.c...
+compiling Swc_Diagnostic.c...
+compiling Swc_PersistentData.c...
+compiling Swc_LightControl.c...
+compiling EcuM_Callout.c...
+compiling Rte_NvM.c...
+compiling Rte_Dem.c...
+compiling Dcm.c...
+compiling Com.c...
+compiling Dcm_LinNodeConfig.c...
+compiling LinIf.c...
+03_BSW_UDS/LinTp.c(58): warning: In file included from..../13_Common\ModuleFlash.h(6): warning: 'btrue' macro redefined [-Wmacro-redefined]
+    6 | #define btrue                    (1U)
+      |         ^
+./01_ASW/02_Swc_Lighting\SystemType.h(82): note: previous definition is here
+   82 | #define btrue 1
+      |         ^
+03_BSW_UDS/LinTp.c(58): warning: In file included from..../13_Common\ModuleFlash.h(7): warning: 'bfalse' macro redefined [-Wmacro-redefined]
+    7 | #define bfalse                   (0U)
+      |         ^
+./01_ASW/02_Swc_Lighting\SystemType.h(83): note: previous definition is here
+   83 | #define bfalse 0
+      |         ^
+2 warnings generated.
+compiling LinTp.c...
+compiling LinIf_Init.c...
+compiling LinIf_Compat.c...
+compiling LinIf_Cfg.c...
+compiling NvM.c...
+compiling NvM_Cfg.c...
+compiling BswM.c...
+compiling Dem.c...
+compiling Dem_Cfg.c...
+compiling IoHwAb_Adc.c...
+compiling MemIf.c...
+compiling IoHwAb_Battery.c...
+compiling Fee.c...
+compiling IoHwAb_Time.c...
+compiling EcuM.c...
+compiling IoHwAb_Temperature.c...
+compiling IoHwAb_Led.c...
+compiling IoHwAb_Wdg.c...
+compiling Lin.c...
+assembling startup_tcpl04x.s...
+compiling Fls.c...
+compiling Lin_Hw.c...
+compiling Mcu.c...
+compiling Adc.c...
+compiling system_tcpl04x.c...
+compiling tcpl04x_ll_cortex.c...
+compiling tcpl04x_ll_flash_drv.c...
+compiling tcpl04x_ll_flash.c...
+compiling tcpl04x_ll_gpio.c...
+compiling tcpl04x_ll_led.c...
+compiling tcpl04x_ll_adc.c...
+compiling tcpl04x_ll_pwm.c...
+compiling tcpl04x_ll_sys.c...
+compiling tcpl04x_ll_sci.c...
+compiling tcpl04x_ll_wdg.c...
+compiling pal_led.c...
+compiling pal_store.c...
+compiling pal_lin_comm.c...
+compiling pal_wdg.c...
+compiling utilities.c...
+"..\Build\Objects\normal\tcpl04b_swsc_lean.axf" - 26 Error(s), 2 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:04

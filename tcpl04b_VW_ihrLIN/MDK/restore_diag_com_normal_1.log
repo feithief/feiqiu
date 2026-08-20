@@ -1,0 +1,335 @@
+*** Using Compiler 'V6.21', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'swsc_normal'
+compiling EcuM_Callout.c...
+compiling Swc_Diagnostic.c...
+compiling Algorithm.c...
+compiling Swc_Derating.c...
+compiling Swc_LightControl.c...
+compiling FixedPoint.c...
+compiling Swc_Status.c...
+compiling Rte_Dcm.c...
+compiling Swc_Lighting.c...
+compiling Swc_Types.c...
+02_RTE/Rte_Com.c(31): error: use of undeclared identifier 'COM_SIG_TX_NVM_ERROR'
+   31 |     (sizeof(Rte_LightStatusType) == RTE_LIGHT_STATUS_SIGNAL_COUNT) ? 1 : -1];
+      |                                     ^
+02_RTE/Rte_Com.c(8): note: expanded from macro 'RTE_LIGHT_STATUS_SIGNAL_COUNT'
+    8 |     ((uint8_t)((uint16_t)COM_SIG_TX_NVM_ERROR - \
+      |                          ^
+02_RTE/Rte_Com.c(31): error: use of undeclared identifier 'COM_SIG_TX_RESPONSE_ERROR'
+02_RTE/Rte_Com.c(9): note: expanded from macro 'RTE_LIGHT_STATUS_SIGNAL_COUNT'
+    9 |                (uint16_t)COM_SIG_TX_RESPONSE_ERROR + 1U))
+      |                          ^
+02_RTE/Rte_Com.c(35): error: call to undeclared function 'Com_IsSignalGroupUpdated'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   35 |     return Com_IsSignalGroupUpdated(COM_SIGNAL_GROUP_LIGHT_COMMAND);
+      |            ^
+02_RTE/Rte_Com.c(35): error: use of undeclared identifier 'COM_SIGNAL_GROUP_LIGHT_COMMAND'
+   35 |     return Com_IsSignalGroupUpdated(COM_SIGNAL_GROUP_LIGHT_COMMAND);
+      |                                     ^
+02_RTE/Rte_Com.c(42): error: call to undeclared function 'Com_ReceiveSignalGroup'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   42 |         (Com_ReceiveSignalGroup(COM_SIGNAL_GROUP_LIGHT_COMMAND) != E_OK))
+      |          ^
+02_RTE/Rte_Com.c(42): error: use of undeclared identifier 'COM_SIGNAL_GROUP_LIGHT_COMMAND'
+   42 |         (Com_ReceiveSignalGroup(COM_SIGNAL_GROUP_LIGHT_COMMAND) != E_OK))
+      |                                 ^
+02_RTE/Rte_Com.c(49): error: call to undeclared function 'Com_ReceiveSignal'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   49 |         (void)Com_ReceiveSignal(
+      |               ^
+02_RTE/Rte_Com.c(50): error: use of undeclared identifier 'Com_SignalIdType'
+   50 |             (Com_SignalIdType)((uint16_t)COM_SIG_RX_SLAVE_ADDRESS + index),
+      |              ^
+02_RTE/Rte_Com.c(50): error: use of undeclared identifier 'COM_SIG_RX_SLAVE_ADDRESS'
+   50 |             (Com_SignalIdType)((uint16_t)COM_SIG_RX_SLAVE_ADDRESS + index),
+      |                                          ^
+02_RTE/Rte_Com.c(64): error: use of undeclared identifier 'COM_SIG_TX_NVM_ERROR'
+   64 |     for (index = 0U; index < RTE_LIGHT_STATUS_SIGNAL_COUNT; index++)
+      |                              ^
+02_RTE/Rte_Com.c(8): note: expanded from macro 'RTE_LIGHT_STATUS_SIGNAL_COUNT'
+    8 |     ((uint8_t)((uint16_t)COM_SIG_TX_NVM_ERROR - \
+      |                          ^
+02_RTE/Rte_Com.c(64): error: use of undeclared identifier 'COM_SIG_TX_RESPONSE_ERROR'
+02_RTE/Rte_Com.c(9): note: expanded from macro 'RTE_LIGHT_STATUS_SIGNAL_COUNT'
+    9 |                (uint16_t)COM_SIG_TX_RESPONSE_ERROR + 1U))
+      |                          ^
+02_RTE/Rte_Com.c(66): error: call to undeclared function 'Com_SendSignal'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   66 |         if (Com_SendSignal(
+      |             ^
+02_RTE/Rte_Com.c(67): error: use of undeclared identifier 'Com_SignalIdType'
+   67 |                 (Com_SignalIdType)((uint16_t)COM_SIG_TX_RESPONSE_ERROR +
+      |                  ^
+02_RTE/Rte_Com.c(67): error: use of undeclared identifier 'COM_SIG_TX_RESPONSE_ERROR'
+   67 |                 (Com_SignalIdType)((uint16_t)COM_SIG_TX_RESPONSE_ERROR +
+      |                                              ^
+14 errors generated.
+compiling Rte_Com.c...
+compiling Swc_Communication.c...
+compiling Swc_PersistentData.c...
+02_RTE/Rte_Bsw.c(4): warning: In file included from..../04_BSW_COM\Com_Cfg.h(7): warning: 'LIN_NUMBER_OF_FRAMES' macro redefined [-Wmacro-redefined]
+    7 | #define LIN_NUMBER_OF_FRAMES          (2U)
+      |         ^
+./04_BSW_COM/genLinConfig.h(110): note: previous definition is here
+  110 | #define        LIN_NUMBER_OF_FRAMES    ((l_u8)2)
+      |                ^
+02_RTE/Rte_Bsw.c(4): warning: In file included from..../04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+02_RTE/Rte_Bsw.c(10): error: call to undeclared function 'Dcm_SetActiveDiagnosticAddress'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   10 |     Dcm_SetActiveDiagnosticAddress(Nad);
+      |     ^
+02_RTE/Rte_Bsw.c(15): error: call to undeclared function 'Dcm_TakeDiagnosticAddressChange'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   15 |     return Dcm_TakeDiagnosticAddressChange(NadPtr);
+      |            ^
+02_RTE/Rte_Bsw.c(20): error: call to undeclared function 'Dcm_GetActiveDiagnosticAddress'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   20 |     return Dcm_GetActiveDiagnosticAddress();
+      |            ^
+02_RTE/Rte_Bsw.c(34): error: call to undeclared function 'LinIf_SetFrameId'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   34 |     return LinIf_SetFrameId(LINIF_RESPONSE_ERROR_FRAME_INDEX, Address);
+      |            ^
+1 warning and 5 errors generated.
+compiling Rte_Bsw.c...
+compiling Rte_NvM.c...
+compiling Rte_Dem.c...
+03_BSW_UDS/Dcm.c(4): warning: In file included from...03_BSW_UDS/LinTp.h(5): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(46): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+03_BSW_UDS/Dcm.c(4): warning: In file included from...03_BSW_UDS/LinTp.h(5): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(46): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(73): error: unknown type name 'PduIdType'
+   73 |     PduIdType PduId;
+      |     ^
+./04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+03_BSW_UDS/Dcm.c(4): warning: In file included from...03_BSW_UDS/LinTp.h(5): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(46): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(23): warning: 'LIN_FRAME_TIMEOUT' macro redefined [-Wmacro-redefined]
+   23 | #define LIN_FRAME_TIMEOUT               (5u)
+      |         ^
+./09_MCAL\lin_hal.h(8): note: previous definition is here
+    8 | #define LIN_FRAME_TIMEOUT LIN_AUTOBAUD_TIMEOUT
+      |         ^
+03_BSW_UDS/Dcm.c(4): warning: In file included from...03_BSW_UDS/LinTp.h(5): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(65): warning: 'LIN_TP_TIMEOUT_MS' macro redefined [-Wmacro-redefined]
+   65 | #define LIN_TP_TIMEOUT_MS               1050u
+      |         ^
+./11_Vendor_SDK/IHR/Protocol\lin_config.h(63): note: previous definition is here
+   63 |    #define LIN_TP_TIMEOUT_MS               500u
+      |            ^
+03_BSW_UDS/Dcm.c(165): error: call to undeclared function 'ld_rx_status'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  165 |   uint8_t rxStatus = ld_rx_status();
+      |                      ^
+03_BSW_UDS/Dcm.c(166): error: call to undeclared function 'ld_tx_status'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  166 |   uint8_t txStatus = ld_tx_status();
+      |                      ^
+03_BSW_UDS/Dcm.c(168): error: use of undeclared identifier 'LD_COMPLETED'
+  168 |   if ((rxStatus > LD_COMPLETED) || (txStatus > LD_COMPLETED))
+      |                   ^
+03_BSW_UDS/Dcm.c(168): error: use of undeclared identifier 'LD_COMPLETED'
+  168 |   if ((rxStatus > LD_COMPLETED) || (txStatus > LD_COMPLETED))
+      |                                                ^
+03_BSW_UDS/Dcm.c(170): error: call to undeclared function 'ld_init'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  170 |     (void)ld_init();
+      |           ^
+03_BSW_UDS/Dcm.c(177): error: use of undeclared identifier 'LD_COMPLETED'
+  177 |     if (rxStatus == LD_COMPLETED)
+      |                     ^
+03_BSW_UDS/Dcm.c(180): warning: incompatible pointer types passing 'uint16_t *' (aka 'unsigned short *') to parameter of type 'l_u16 *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+  180 |       ld_receive_message(&Dcm_RequestLength, Dcm_Request);
+      |                          ^~~~~~~~~~~~~~~~~~
+03_BSW_UDS/lin_diag_tp.h(81): note: passing argument to parameter 'length' here
+   81 |  void ld_receive_message(l_u16* const length,l_u8* const data);
+      |                                       ^
+03_BSW_UDS/Dcm.c(186): error: use of undeclared identifier 'LD_COMPLETED'
+  186 |     if (rxStatus == LD_COMPLETED)
+      |                     ^
+03_BSW_UDS/Dcm.c(194): error: use of undeclared identifier 'LD_COMPLETED'
+  194 |     if (txStatus == LD_COMPLETED)
+      |                     ^
+3 warnings and 11 errors generated.
+compiling Dcm.c...
+03_BSW_UDS/Dcm_LinNodeConfig.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+03_BSW_UDS/Dcm_LinNodeConfig.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(73): error: unknown type name 'PduIdType'
+   73 |     PduIdType PduId;
+      |     ^
+./04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+03_BSW_UDS/Dcm_LinNodeConfig.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(23): warning: 'LIN_FRAME_TIMEOUT' macro redefined [-Wmacro-redefined]
+   23 | #define LIN_FRAME_TIMEOUT               (5u)
+      |         ^
+./09_MCAL\lin_hal.h(8): note: previous definition is here
+    8 | #define LIN_FRAME_TIMEOUT LIN_AUTOBAUD_TIMEOUT
+      |         ^
+03_BSW_UDS/Dcm_LinNodeConfig.c(53): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(65): warning: 'LIN_TP_TIMEOUT_MS' macro redefined [-Wmacro-redefined]
+   65 | #define LIN_TP_TIMEOUT_MS               1050u
+      |         ^
+./11_Vendor_SDK/IHR/Protocol\lin_config.h(63): note: previous definition is here
+   63 |    #define LIN_TP_TIMEOUT_MS               500u
+      |            ^
+2 warnings and 3 errors generated.
+compiling Dcm_LinNodeConfig.c...
+compiling Com.c...
+03_BSW_UDS/LinTp.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+03_BSW_UDS/LinTp.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(73): error: unknown type name 'PduIdType'
+   73 |     PduIdType PduId;
+      |     ^
+./04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+03_BSW_UDS/LinTp.c(47): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(23): warning: 'LIN_FRAME_TIMEOUT' macro redefined [-Wmacro-redefined]
+   23 | #define LIN_FRAME_TIMEOUT               (5u)
+      |         ^
+./09_MCAL\lin_hal.h(8): note: previous definition is here
+    8 | #define LIN_FRAME_TIMEOUT LIN_AUTOBAUD_TIMEOUT
+      |         ^
+03_BSW_UDS/LinTp.c(55): warning: In file included from...03_BSW_UDS/lin_diag_tp.h(65): warning: 'LIN_TP_TIMEOUT_MS' macro redefined [-Wmacro-redefined]
+   65 | #define LIN_TP_TIMEOUT_MS               1050u
+      |         ^
+./11_Vendor_SDK/IHR/Protocol\lin_config.h(63): note: previous definition is here
+   63 |    #define LIN_TP_TIMEOUT_MS               500u
+      |            ^
+03_BSW_UDS/LinTp.c(58): warning: In file included from..../13_Common\ModuleFlash.h(6): warning: 'btrue' macro redefined [-Wmacro-redefined]
+    6 | #define btrue                    (1U)
+      |         ^
+./01_ASW/02_Swc_Lighting\SystemType.h(82): note: previous definition is here
+   82 | #define btrue 1
+      |         ^
+03_BSW_UDS/LinTp.c(58): warning: In file included from..../13_Common\ModuleFlash.h(7): warning: 'bfalse' macro redefined [-Wmacro-redefined]
+    7 | #define bfalse                   (0U)
+      |         ^
+./01_ASW/02_Swc_Lighting\SystemType.h(83): note: previous definition is here
+   83 | #define bfalse 0
+      |         ^
+03_BSW_UDS/LinTp.c(97): error: use of undeclared identifier 'LD_COMPLETED'
+   97 |    g_lin_tp_stat.rx_stat            = LD_COMPLETED;
+      |                                       ^
+03_BSW_UDS/LinTp.c(98): error: use of undeclared identifier 'LD_COMPLETED'
+   98 |    g_lin_tp_stat.tx_stat            = LD_COMPLETED;
+      |                                       ^
+03_BSW_UDS/LinTp.c(147): error: use of undeclared identifier 'LD_IN_PROGRESS'
+  147 |    if(g_lin_tp_stat.rx_stat != LD_IN_PROGRESS)
+      |                                ^
+03_BSW_UDS/LinTp.c(149): error: use of undeclared identifier 'LD_IN_PROGRESS'
+  149 |       g_lin_tp_stat.rx_stat = LD_IN_PROGRESS;
+      |                               ^
+03_BSW_UDS/LinTp.c(231): error: use of undeclared identifier 'LD_COMPLETED'
+  231 |       if(g_lin_tp_stat.tx_stat < LD_COMPLETED)
+      |                                  ^
+03_BSW_UDS/LinTp.c(233): error: use of undeclared identifier 'LD_COMPLETED'
+  233 |          g_lin_tp_stat.tx_stat = LD_COMPLETED;
+      |                                  ^
+03_BSW_UDS/LinTp.c(283): error: use of undeclared identifier 'LD_COMPLETED'
+  283 |          if(g_lin_tp_stat.tx_stat <= LD_COMPLETED)
+      |                                      ^
+03_BSW_UDS/LinTp.c(285): error: use of undeclared identifier 'LD_FAILED'
+  285 |             g_lin_tp_stat.tx_stat = LD_FAILED;
+      |                                     ^
+03_BSW_UDS/LinTp.c(293): error: use of undeclared identifier 'LD_IN_PROGRESS'
+  293 |          g_lin_tp_stat.tx_stat = LD_IN_PROGRESS;
+      |                                  ^
+03_BSW_UDS/LinTp.c(400): error: use of undeclared identifier 'LD_COMPLETED'
+  400 |       g_lin_tp_stat.tx_stat = LD_COMPLETED;
+      |                               ^
+03_BSW_UDS/LinTp.c(429): error: call to undeclared function 'lin_handle_config'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  429 |       lin_handle_config();
+      |       ^
+03_BSW_UDS/LinTp.c(452): error: use of undeclared identifier 'LD_COMPLETED'
+  452 |                      if(g_lin_tp_stat.rx_stat < LD_COMPLETED)
+      |                                                 ^
+03_BSW_UDS/LinTp.c(454): error: use of undeclared identifier 'LD_COMPLETED'
+  454 |                         g_lin_tp_stat.rx_stat = LD_COMPLETED;
+      |                                                 ^
+03_BSW_UDS/LinTp.c(511): error: use of undeclared identifier 'LD_FAILED'
+  511 |                            g_lin_tp_stat.rx_stat = LD_FAILED;
+      |                                                    ^
+03_BSW_UDS/LinTp.c(546): error: use of undeclared identifier 'LD_COMPLETED'
+  546 |                         if(g_lin_tp_stat.rx_stat < LD_COMPLETED)
+      |                                                    ^
+03_BSW_UDS/LinTp.c(548): error: use of undeclared identifier 'LD_COMPLETED'
+  548 |                            g_lin_tp_stat.rx_stat = LD_COMPLETED;
+      |                                                    ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+4 warnings and 20 errors generated.
+compiling LinTp.c...
+compiling LinIf.c...
+compiling LinIf_Init.c...
+compiling LinIf_Compat.c...
+compiling LinIf_Cfg.c...
+compiling NvM_Cfg.c...
+compiling MemIf.c...
+compiling NvM.c...
+compiling Dem_Cfg.c...
+compiling Dem.c...
+compiling Fee.c...
+compiling IoHwAb_Adc.c...
+07_BSW_SYSTEM/EcuM.c(4): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+07_BSW_SYSTEM/EcuM.c(4): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+07_BSW_SYSTEM/EcuM.c(4): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(23): warning: 'LIN_FRAME_TIMEOUT' macro redefined [-Wmacro-redefined]
+   23 | #define LIN_FRAME_TIMEOUT               (5u)
+      |         ^
+./09_MCAL\lin_hal.h(8): note: previous definition is here
+    8 | #define LIN_FRAME_TIMEOUT LIN_AUTOBAUD_TIMEOUT
+      |         ^
+1 warning and 2 errors generated.
+compiling EcuM.c...
+compiling BswM.c...
+compiling IoHwAb_Battery.c...
+compiling IoHwAb_Time.c...
+compiling IoHwAb_Temperature.c...
+09_MCAL/Lin.c(3): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+09_MCAL/Lin.c(3): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'; did you mean 'Lin_ConfigType'?
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^~~~~~~~~~~~~~~~~~~~~
+      |        Lin_ConfigType
+09_MCAL/Lin.h(11): note: 'Lin_ConfigType' declared here
+   11 | } Lin_ConfigType;
+      |   ^
+09_MCAL/Lin.c(3): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(23): warning: 'LIN_FRAME_TIMEOUT' macro redefined [-Wmacro-redefined]
+   23 | #define LIN_FRAME_TIMEOUT               (5u)
+      |         ^
+./09_MCAL\lin_hal.h(8): note: previous definition is here
+    8 | #define LIN_FRAME_TIMEOUT LIN_AUTOBAUD_TIMEOUT
+      |         ^
+1 warning and 2 errors generated.
+compiling Lin.c...
+assembling startup_tcpl04x.s...
+compiling IoHwAb_Wdg.c...
+compiling Mcu.c...
+compiling IoHwAb_Led.c...
+compiling Fls.c...
+compiling system_tcpl04x.c...
+09_MCAL/Lin_Hw.c(1): warning: In file included from...09_MCAL/lin_hal.h(4): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(4): warning: In file included from..../04_BSW_COM/LinIf.h(5): warning: In file included from..../04_BSW_COM/lin_driver_api.h(48): warning: In file included from..../04_BSW_COM/lin_main.h(106): error: use of undeclared identifier 'LIN_NUMBER_OF_FRAMES'
+  106 | extern t_Lin_Frame_Ctrl   g_lin_frame_ctrl[LIN_NUMBER_OF_FRAMES];
+      |                                            ^
+09_MCAL/Lin_Hw.c(1): warning: In file included from...09_MCAL/lin_hal.h(4): warning: In file included from..../11_Vendor_SDK/IHR/Generated\genLinConfig.h(5): warning: In file included from..../04_BSW_COM\Com_Cfg.h(73): error: unknown type name 'PduIdType'
+   73 |     PduIdType PduId;
+      |     ^
+./04_BSW_COM\Com_Cfg.h(83): error: unknown type name 'LinIf_FrameConfigType'
+   83 | extern LinIf_FrameConfigType LinIf_FrameConfig[LINIF_FRAME_COUNT];
+      |        ^
+3 errors generated.
+compiling Lin_Hw.c...
+compiling Adc.c...
+compiling tcpl04x_ll_cortex.c...
+compiling tcpl04x_ll_flash_drv.c...
+compiling tcpl04x_ll_flash.c...
+compiling tcpl04x_ll_gpio.c...
+compiling tcpl04x_ll_adc.c...
+compiling tcpl04x_ll_led.c...
+compiling tcpl04x_ll_wdg.c...
+compiling pal_led.c...
+compiling pal_wdg.c...
+compiling tcpl04x_ll_sys.c...
+compiling pal_lin_comm.c...
+compiling tcpl04x_ll_pwm.c...
+compiling utilities.c...
+compiling pal_store.c...
+compiling tcpl04x_ll_sci.c...
+"..\Build\Objects\normal\tcpl04b_swsc_lean.axf" - 59 Error(s), 12 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:05

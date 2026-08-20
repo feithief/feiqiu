@@ -1,0 +1,11 @@
+; TCPL04B boot-compatible application. Keep the vendor boot contract at 0x2000-0xB7FF.
+LR_IROM1 0x00002000 0x00009800  {
+  ER_IROM1 0x00002000 0x00009800  {
+   *.o (RESET, +First)
+   .ANY (+RO)
+  }
+
+  RW_IRAM1 0x10000000 0x00001000  {
+   .ANY (+RW +ZI)
+  }
+}

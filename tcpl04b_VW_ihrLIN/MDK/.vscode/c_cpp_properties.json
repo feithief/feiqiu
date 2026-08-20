@@ -1,0 +1,102 @@
+{
+  "configurations": [
+    {
+      "name": "TCPL04B Normal",
+      "includePath": [
+        "${workspaceFolder}/01_ASW/01_Integration",
+        "${workspaceFolder}/01_ASW/02_Swc_Lighting",
+        "${workspaceFolder}/01_ASW/03_Swc_Diagnostic",
+        "${workspaceFolder}/01_ASW/04_Algorithm",
+        "${workspaceFolder}/02_RTE",
+        "${workspaceFolder}/03_BSW_UDS",
+        "${workspaceFolder}/04_BSW_COM",
+        "${workspaceFolder}/05_BSW_NVM",
+        "${workspaceFolder}/06_BSW_DEM",
+        "${workspaceFolder}/07_BSW_SYSTEM",
+        "${workspaceFolder}/08_BSW_ECUAL",
+        "${workspaceFolder}/09_MCAL",
+        "${workspaceFolder}/10_Device",
+        "${workspaceFolder}/11_Vendor_SDK",
+        "${workspaceFolder}/12_Config",
+        "${workspaceFolder}/13_Common"
+      ],
+      "defines": [
+        "__TCPL04X__",
+        "__TCPL04B__",
+        "__ARMCC_VERSION=6210000",
+        "__clang__=1"
+      ],
+      "cStandard": "c11",
+      "intelliSenseMode": "${default}",
+      "browse": {
+        "path": [
+          "${workspaceFolder}/01_ASW",
+          "${workspaceFolder}/02_RTE",
+          "${workspaceFolder}/03_BSW_UDS",
+          "${workspaceFolder}/04_BSW_COM",
+          "${workspaceFolder}/05_BSW_NVM",
+          "${workspaceFolder}/06_BSW_DEM",
+          "${workspaceFolder}/07_BSW_SYSTEM",
+          "${workspaceFolder}/08_BSW_ECUAL",
+          "${workspaceFolder}/09_MCAL",
+          "${workspaceFolder}/10_Device",
+          "${workspaceFolder}/11_Vendor_SDK",
+          "${workspaceFolder}/12_Config",
+          "${workspaceFolder}/13_Common"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": "${workspaceFolder}/.vscode/tcpl04b.vc.db"
+      }
+    },
+    {
+      "name": "TCPL04B Match Boot",
+      "includePath": [
+        "${workspaceFolder}/01_ASW/01_Integration",
+        "${workspaceFolder}/01_ASW/02_Swc_Lighting",
+        "${workspaceFolder}/01_ASW/03_Swc_Diagnostic",
+        "${workspaceFolder}/01_ASW/04_Algorithm",
+        "${workspaceFolder}/02_RTE",
+        "${workspaceFolder}/03_BSW_UDS",
+        "${workspaceFolder}/04_BSW_COM",
+        "${workspaceFolder}/05_BSW_NVM",
+        "${workspaceFolder}/06_BSW_DEM",
+        "${workspaceFolder}/07_BSW_SYSTEM",
+        "${workspaceFolder}/08_BSW_ECUAL",
+        "${workspaceFolder}/09_MCAL",
+        "${workspaceFolder}/10_Device",
+        "${workspaceFolder}/11_Vendor_SDK",
+        "${workspaceFolder}/12_Config",
+        "${workspaceFolder}/13_Common"
+      ],
+      "defines": [
+        "__TCPL04X__",
+        "__TCPL04B__",
+        "APP_MATCH_BOOT",
+        "__ARMCC_VERSION=6210000",
+        "__clang__=1"
+      ],
+      "cStandard": "c11",
+      "intelliSenseMode": "${default}",
+      "browse": {
+        "path": [
+          "${workspaceFolder}/01_ASW",
+          "${workspaceFolder}/02_RTE",
+          "${workspaceFolder}/03_BSW_UDS",
+          "${workspaceFolder}/04_BSW_COM",
+          "${workspaceFolder}/05_BSW_NVM",
+          "${workspaceFolder}/06_BSW_DEM",
+          "${workspaceFolder}/07_BSW_SYSTEM",
+          "${workspaceFolder}/08_BSW_ECUAL",
+          "${workspaceFolder}/09_MCAL",
+          "${workspaceFolder}/10_Device",
+          "${workspaceFolder}/11_Vendor_SDK",
+          "${workspaceFolder}/12_Config",
+          "${workspaceFolder}/13_Common"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": "${workspaceFolder}/.vscode/tcpl04b_boot.vc.db"
+      }
+    }
+  ],
+  "version": 4
+}

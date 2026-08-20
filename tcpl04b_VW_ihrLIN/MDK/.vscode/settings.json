@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "**/MDK/Objects": true,
+    "**/MDK/Listings": true,
+    "**/*.i": true,
+    "**/*.lst": true
+  },
+  "search.exclude": {
+    "**/MDK/Objects/**": true,
+    "**/MDK/Listings/**": true,
+    "**/*.i": true,
+    "**/*.lst": true,
+    "**/*.axf": true,
+    "**/*.bin": true,
+    "**/*.hex": true,
+    "**/*.map": true
+  },
+  "files.watcherExclude": {
+    "**/MDK/Objects/**": true,
+    "**/MDK/Listings/**": true
+  }
+}

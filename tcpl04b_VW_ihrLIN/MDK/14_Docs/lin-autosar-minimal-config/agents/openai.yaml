@@ -1,0 +1,4 @@
+interface:
+  display_name: "LIN AUTOSAR 最小配置"
+  short_description: "集中修改 LDF 与 DID，保持 IHR 协议功能代码不变"
+  default_prompt: "使用 $lin-autosar-minimal-config 为本工程导入新的 LDF 或增删 DID，并保持 IHR 功能代码不变。"

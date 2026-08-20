@@ -1,0 +1,439 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	cortex-m0
+	.eabi_attribute	6, 12	@ Tag_CPU_arch
+	.eabi_attribute	7, 77	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 0	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 1	@ Tag_THUMB_ISA_use
+	.eabi_attribute	34, 0	@ Tag_CPU_unaligned_access
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 2	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 1	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 2	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 1	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"BINARYSEARCH_U16.c"
+	.section	.text.BINARYSEARCH_U16,"ax",%progbits
+	.hidden	BINARYSEARCH_U16                @ -- Begin function BINARYSEARCH_U16
+	.globl	BINARYSEARCH_U16
+	.p2align	1
+	.type	BINARYSEARCH_U16,%function
+	.code	16                              @ @BINARYSEARCH_U16
+	.thumb_func
+BINARYSEARCH_U16:
+.Lfunc_begin0:
+	.file	1 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c"
+	.loc	1 17 0                          @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:17:0
+	.fnstart
+	.cfi_sections .debug_frame
+	.cfi_startproc
+@ %bb.0:
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
+	.cfi_offset lr, -4
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+.Ltmp0:
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	movs	r5, #0
+.Ltmp1:
+	.loc	1 19 13 prologue_end            @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:19:13
+	str	r5, [r0]
+	ldr	r4, [sp, #16]
+	.loc	1 20 13                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:20:13
+	str	r4, [r1]
+.Ltmp2:
+	.loc	1 21 14                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:21:14
+	ldrh	r6, [r3]
+.Ltmp3:
+	.loc	1 21 9 is_stmt 0                @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:21:9
+	cmp	r6, r2
+	bhs	.LBB0_8
+.Ltmp4:
+@ %bb.1:
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 24 21 is_stmt 1               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:24:21
+	lsls	r5, r4, #1
+	ldrh	r5, [r3, r5]
+.Ltmp5:
+	.loc	1 24 16 is_stmt 0               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:24:16
+	cmp	r5, r2
+	bhi	.LBB0_6
+.Ltmp6:
+@ %bb.2:
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 26 17 is_stmt 1               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:26:17
+	str	r4, [r0]
+.Ltmp7:
+	.loc	1 44 1 epilogue_begin           @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:44:1
+	pop	{r4, r5, r6, pc}
+.Ltmp8:
+.LBB0_3:                                @   in Loop: Header=BB0_6 Depth=1
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 33 26                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:33:26
+	adds	r5, r5, r4
+	movs	r6, #1
+	.loc	1 33 37 is_stmt 0               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:33:37
+	lsrs	r4, r5, #1
+.Ltmp9:
+	.loc	1 37 21 is_stmt 1               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:37:21
+	bics	r5, r6
+	ldrh	r5, [r3, r5]
+.Ltmp10:
+	@DEBUG_VALUE: i <- $r4
+	.loc	1 37 17 is_stmt 0               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:37:17
+	cmp	r5, r2
+	bls	.LBB0_5
+.Ltmp11:
+@ %bb.4:                                @   in Loop: Header=BB0_6 Depth=1
+	@DEBUG_VALUE: i <- $r4
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 38 25 is_stmt 1               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:38:25
+	str	r4, [r1]
+	b	.LBB0_6
+.Ltmp12:
+.LBB0_5:                                @   in Loop: Header=BB0_6 Depth=1
+	@DEBUG_VALUE: i <- $r4
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 40 25                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:40:25
+	str	r4, [r0]
+.Ltmp13:
+	.loc	1 31 18                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:31:18
+	ldr	r4, [r1]
+.Ltmp14:
+.LBB0_6:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 31 28 is_stmt 0               @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:31:28
+	ldr	r5, [r0]
+	.loc	1 31 26                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:31:26
+	subs	r6, r4, r5
+	.loc	1 31 9                          @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:31:9
+	cmp	r6, #2
+	bhs	.LBB0_3
+.Ltmp15:
+@ %bb.7:
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 44 1 epilogue_begin is_stmt 1 @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:44:1
+	pop	{r4, r5, r6, pc}
+.Ltmp16:
+.LBB0_8:
+	@DEBUG_VALUE: BINARYSEARCH_U16:iHi <- [DW_OP_plus_uconst 16] [$sp+0]
+	@DEBUG_VALUE: BINARYSEARCH_U16:pData <- $r3
+	@DEBUG_VALUE: BINARYSEARCH_U16:u <- $r2
+	@DEBUG_VALUE: BINARYSEARCH_U16:piRght <- $r1
+	@DEBUG_VALUE: BINARYSEARCH_U16:piLeft <- $r0
+	.loc	1 23 17                         @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:23:17
+	str	r5, [r1]
+.Ltmp17:
+	.loc	1 44 1 epilogue_begin           @ ../03_Algorithm_FixedPoint/BINARYSEARCH_U16.c:44:1
+	pop	{r4, r5, r6, pc}
+.Ltmp18:
+.Lfunc_end0:
+	.size	BINARYSEARCH_U16, .Lfunc_end0-BINARYSEARCH_U16
+	.cfi_endproc
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.file	2 "C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" "../03_Algorithm_FixedPoint/rtwtypes.h"
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	.Ltmp10-.Lfunc_begin0
+	.long	.Ltmp14-.Lfunc_begin0
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+	.section	.debug_abbrev,"",%progbits
+	.byte	1                               @ Abbreviation Code
+	.byte	17                              @ DW_TAG_compile_unit
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	37                              @ DW_AT_producer
+	.byte	14                              @ DW_FORM_strp
+	.byte	19                              @ DW_AT_language
+	.byte	5                               @ DW_FORM_data2
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	16                              @ DW_AT_stmt_list
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	27                              @ DW_AT_comp_dir
+	.byte	14                              @ DW_FORM_strp
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	2                               @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	3                               @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	4                               @ Abbreviation Code
+	.byte	11                              @ DW_TAG_lexical_block
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	5                               @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	6                               @ Abbreviation Code
+	.byte	15                              @ DW_TAG_pointer_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	7                               @ Abbreviation Code
+	.byte	22                              @ DW_TAG_typedef
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	8                               @ Abbreviation Code
+	.byte	36                              @ DW_TAG_base_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	62                              @ DW_AT_encoding
+	.byte	11                              @ DW_FORM_data1
+	.byte	11                              @ DW_AT_byte_size
+	.byte	11                              @ DW_FORM_data1
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	9                               @ Abbreviation Code
+	.byte	38                              @ DW_TAG_const_type
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	0                               @ EOM(3)
+	.section	.debug_info,"",%progbits
+.Lcu_begin0:
+	.long	.Ldebug_info_end0-.Ldebug_info_start0 @ Length of Unit
+.Ldebug_info_start0:
+	.short	4                               @ DWARF version number
+	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
+	.byte	4                               @ Address Size (in bytes)
+	.byte	1                               @ Abbrev [1] 0xb:0xbc DW_TAG_compile_unit
+	.long	.Linfo_string0                  @ DW_AT_producer
+	.short	12                              @ DW_AT_language
+	.long	.Linfo_string1                  @ DW_AT_name
+	.long	.Lline_table_start0             @ DW_AT_stmt_list
+	.long	.Linfo_string2                  @ DW_AT_comp_dir
+	.long	.Lfunc_begin0                   @ DW_AT_low_pc
+	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
+	.byte	2                               @ Abbrev [2] 0x26:0x6d DW_TAG_subprogram
+	.long	.Lfunc_begin0                   @ DW_AT_low_pc
+	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
+	.byte	1                               @ DW_AT_frame_base
+	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string3                  @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	15                              @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_external
+	.byte	3                               @ Abbrev [3] 0x37:0xd DW_TAG_formal_parameter
+	.byte	1                               @ DW_AT_location
+	.byte	80
+	.long	.Linfo_string4                  @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	15                              @ DW_AT_decl_line
+	.long	147                             @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0x44:0xd DW_TAG_formal_parameter
+	.byte	1                               @ DW_AT_location
+	.byte	81
+	.long	.Linfo_string7                  @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	15                              @ DW_AT_decl_line
+	.long	147                             @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0x51:0xd DW_TAG_formal_parameter
+	.byte	1                               @ DW_AT_location
+	.byte	82
+	.long	.Linfo_string8                  @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	15                              @ DW_AT_decl_line
+	.long	170                             @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0x5e:0xd DW_TAG_formal_parameter
+	.byte	1                               @ DW_AT_location
+	.byte	83
+	.long	.Linfo_string11                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	16                              @ DW_AT_decl_line
+	.long	188                             @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0x6b:0xe DW_TAG_formal_parameter
+	.byte	2                               @ DW_AT_location
+	.byte	145
+	.byte	16
+	.long	.Linfo_string12                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	16                              @ DW_AT_decl_line
+	.long	152                             @ DW_AT_type
+	.byte	4                               @ Abbrev [4] 0x79:0x19 DW_TAG_lexical_block
+	.long	.Ltmp8                          @ DW_AT_low_pc
+	.long	.Ltmp15-.Ltmp8                  @ DW_AT_high_pc
+	.byte	5                               @ Abbrev [5] 0x82:0xf DW_TAG_variable
+	.long	.Ldebug_loc0                    @ DW_AT_location
+	.long	.Linfo_string13                 @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	28                              @ DW_AT_decl_line
+	.long	152                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	6                               @ Abbrev [6] 0x93:0x5 DW_TAG_pointer_type
+	.long	152                             @ DW_AT_type
+	.byte	7                               @ Abbrev [7] 0x98:0xb DW_TAG_typedef
+	.long	163                             @ DW_AT_type
+	.long	.Linfo_string6                  @ DW_AT_name
+	.byte	2                               @ DW_AT_decl_file
+	.byte	81                              @ DW_AT_decl_line
+	.byte	8                               @ Abbrev [8] 0xa3:0x7 DW_TAG_base_type
+	.long	.Linfo_string5                  @ DW_AT_name
+	.byte	7                               @ DW_AT_encoding
+	.byte	4                               @ DW_AT_byte_size
+	.byte	7                               @ Abbrev [7] 0xaa:0xb DW_TAG_typedef
+	.long	181                             @ DW_AT_type
+	.long	.Linfo_string10                 @ DW_AT_name
+	.byte	2                               @ DW_AT_decl_file
+	.byte	79                              @ DW_AT_decl_line
+	.byte	8                               @ Abbrev [8] 0xb5:0x7 DW_TAG_base_type
+	.long	.Linfo_string9                  @ DW_AT_name
+	.byte	7                               @ DW_AT_encoding
+	.byte	2                               @ DW_AT_byte_size
+	.byte	6                               @ Abbrev [6] 0xbc:0x5 DW_TAG_pointer_type
+	.long	193                             @ DW_AT_type
+	.byte	9                               @ Abbrev [9] 0xc1:0x5 DW_TAG_const_type
+	.long	170                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+.Ldebug_info_end0:
+	.section	.debug_str,"MS",%progbits,1
+.Linfo_string0:
+	.asciz	"Component: Arm Compiler for Embedded 6.21 Tool: armclang [5ec1fd00]" @ string offset=0
+.Linfo_string1:
+	.asciz	"../03_Algorithm_FixedPoint\\BINARYSEARCH_U16.c" @ string offset=68
+.Linfo_string2:
+	.asciz	"C:\\baidunetdiskdownload\\\346\263\260\347\237\275\345\276\256\\\346\260\233\345\233\264\347\201\257\\TCPL0X_AUTO_SDK_V2.0.0\\TCPL0X_AUTO_SDK_V2.0.0\\examples\\tcpl04x\\demo_apps\\tcpl04b_swsc_lean\\MDK" @ string offset=114
+.Linfo_string3:
+	.asciz	"BINARYSEARCH_U16"              @ string offset=253
+.Linfo_string4:
+	.asciz	"piLeft"                        @ string offset=270
+.Linfo_string5:
+	.asciz	"unsigned int"                  @ string offset=277
+.Linfo_string6:
+	.asciz	"uint32_T"                      @ string offset=290
+.Linfo_string7:
+	.asciz	"piRght"                        @ string offset=299
+.Linfo_string8:
+	.asciz	"u"                             @ string offset=306
+.Linfo_string9:
+	.asciz	"unsigned short"                @ string offset=308
+.Linfo_string10:
+	.asciz	"uint16_T"                      @ string offset=323
+.Linfo_string11:
+	.asciz	"pData"                         @ string offset=332
+.Linfo_string12:
+	.asciz	"iHi"                           @ string offset=338
+.Linfo_string13:
+	.asciz	"i"                             @ string offset=342
+	.ident	"Component: Arm Compiler for Embedded 6.21 Tool: armclang [5ec1fd00]"
+	.section	".note.GNU-stack","",%progbits
+	.eabi_attribute	30, 4	@ Tag_ABI_optimization_goals
+	.ARM_attribute	16, 1	@ Tag_AV_eba
+	.section	.debug_line,"",%progbits
+.Lline_table_start0:

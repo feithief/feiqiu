@@ -1,0 +1,11 @@
+; TCPL04B: 48KB Flash total. The final 1KB (0xBC00-0xBFFF) is UserData.
+LR_IROM1 0x00000000 0x0000BC00  {
+  ER_IROM1 0x00000000 0x0000BC00  {
+   *.o (RESET, +First)
+   .ANY (+RO)
+  }
+
+  RW_IRAM1 0x10000000 0x00001000  {
+   .ANY (+RW +ZI)
+  }
+}
